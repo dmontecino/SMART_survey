@@ -198,7 +198,7 @@ dat_modified$protected_area[[17]][4]<-"Management of Peripheral Ecosystems in No
 
 dat_modified$protected_area[[17]][5]<-"Management of Peripheral Ecosystems in Odzala-Kokoua National Park"
 
-dat_modified$protected_area[[17]][6]<-"Lake Tele Community Reserve"
+dat_modified$protected_area[[17]][6]<-"Lake Téle Community Reserve"
 
 dat_modified$protected_area[[17]]<-paste(dat_modified$protected_area[[17]], "- Republic of Congo")
 
@@ -317,7 +317,8 @@ dat_modified$protected_area[[35]]<-"Jigme Singye Wangchuck National Park - Bhuta
 
 
 #"Budongo\nItwara"
-dat_modified$protected_area[[36]]<-c("Budongo Conservation Field Station - Uganda, Itwara Forest Reserve - Uganda")
+dat_modified$protected_area[[36]]<-c("Budongo Conservation Field Station - Uganda", "
+                                     Itwara Forest Reserve - Uganda")
 
 
 
