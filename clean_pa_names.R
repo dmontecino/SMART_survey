@@ -185,7 +185,8 @@ dat_modified$protected_area[[15]]<-"North Luangwa Conservation Programme - Zambi
 
 
 #"Khunjerab National Park\nChitral Gol National Park"
-dat_modified$protected_area[[16]]<-c("Khunjerab National Park - Pakistan, Chitral Gol National Park - Pakistan")
+dat_modified$protected_area[[16]]<-c("Khunjerab National Park - Pakistan", 
+                                     "Chitral Gol National Park - Pakistan")
 
 
 
@@ -317,8 +318,8 @@ dat_modified$protected_area[[35]]<-"Jigme Singye Wangchuck National Park - Bhuta
 
 
 #"Budongo\nItwara"
-dat_modified$protected_area[[36]]<-c("Budongo Conservation Field Station - Uganda", "
-                                     Itwara Forest Reserve - Uganda")
+dat_modified$protected_area[[36]]<-c("Budongo Conservation Field Station - Uganda", 
+                                    "Itwara Forest Reserve - Uganda")
 
 
 
@@ -382,6 +383,8 @@ dat_modified$protected_area[[46]]<-c("Endau-Rompin National Park - Malaysia")
 
 #"Batang Ai National Park\nLanjak - Entimau Wildlife Sanctuary \nSedilu-Ulu Sebuyau-Lesong Landscape"
 dat_modified$protected_area[[47]]<-unlist(strsplit(dat_modified$protected_area[[47]], "\n"))
+
+dat_modified$protected_area[[47]][2]<-"Lanjak - Entimau Wildlife Sanctuary"
 
 dat_modified$protected_area[[47]]<-paste(dat_modified$protected_area[[47]], "- Malaysia")
 
