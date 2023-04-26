@@ -210,8 +210,8 @@ dat_modified=dat_modified %>% select(-score)
 
 
 ```{r clean protected area names}
-#| echo: false
-#| eval: false
+#| echo: true
+#| eval: true
 #| message: false
 #| warning: false
 
