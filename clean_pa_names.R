@@ -1,4 +1,5 @@
 
+dat_modified$protected_area<-as.list(dat_modified$protected_area)
 
 
 #Mann Wildlife Sanctuary
@@ -29,36 +30,37 @@ temp[1:5]<-paste(temp[1:5], "- Kenya")  # adding the country to the correspondin
 
 temp<-temp[-6] # remonving "Tanzania"
 
-dat_modified$protected_area[[4]]<-as_tibble(temp)
+dat_modified$protected_area[[4]]<-temp
 
 
 
 #"WCNP, JDNP, JWS, PWS, Royal Manas National Park, Jigme Khesar Strict Nature Reserve, Jigme Singye Wangchuck, PNP, SWS & BWS and 14 Divisional forest"
-dat_modified$protected_area[[5]]<-c("Wangchuck Centennial National Park,
-                                    Jigme Dorji National Park, 
-                                    Jomotshangkha Wildlife Sanctuary, 
-                                    Phibsoo Wildlife Sanctuary, 
-                                    Royal Manas National Park, 
-                                    Jigme Khesar Strict Nature Reserve, 
-                                    Jigme Singye Wangchuck National Park, 
-                                    Phrumsengla National Park, Sakteng Wildlife Sanctuary,
-                                    Bumdeling Wildlife Sanctuary,
-                                    Bumthang Forest Division,
-                                    Gedu Forest Division,
-                                    Paro Forest Division,
-                                    Samtse Forest Division,
-                                    Samdrup Jongkhar Forest Division,
-                                    Tashigang Forest Division,
-                                    Sarpang Forest Division,
-                                    Zhemgang Forest Division,
-                                    Mongar Forest Division,
-                                    Wangdue Forest Division,
-                                    Thimphu Forest,
-                                    Tsirang Forest Division,
-                                    Dagana Forest Division,
-                                    Pema Gatshel Forest Division")
+dat_modified$protected_area[[5]]<-c("Wangchuck Centennial National Park",
+                                    "Jigme Dorji National Park", 
+                                    "Jomotshangkha Wildlife Sanctuary", 
+                                    "Phibsoo Wildlife Sanctuary", 
+                                    "Royal Manas National Park", 
+                                    "Jigme Khesar Strict Nature Reserve", 
+                                    "Jigme Singye Wangchuck National Park", 
+                                    "Phrumsengla National Park", 
+                                    "Sakteng Wildlife Sanctuary",
+                                    "Bumdeling Wildlife Sanctuary",
+                                    "Bumthang Forest Division",
+                                    "Gedu Forest Division",
+                                    "Paro Forest Division",
+                                    "Samtse Forest Division",
+                                    "Samdrup Jongkhar Forest Division",
+                                    "Tashigang Forest Division",
+                                    "Sarpang Forest Division",
+                                    "Zhemgang Forest Division",
+                                    "Mongar Forest Division",
+                                    "Wangdue Forest Division",
+                                    "Thimphu Forest",
+                                    "Tsirang Forest Division",
+                                    "Dagana Forest Division",
+                                    "Pema Gatshel Forest Division")
 
-dat_modified$protected_area[[5]]<-unlist(strsplit(dat_modified$protected_area[[5]], split = ",\n|, \n|, "))
+# dat_modified$protected_area[[5]]<-unlist(strsplit(dat_modified$protected_area[[5]], split = ",\n|, \n|, "))
 
 dat_modified$protected_area[[5]]<-paste(dat_modified$protected_area[[5]], "- Bhutan")
 
@@ -72,66 +74,66 @@ dat_modified$protected_area[[6]]<-paste(dat_modified$protected_area[[6]], "- Gha
 
 
 #"Belize National Protected Areas System"
-dat_modified$protected_area[[7]]<-c( "Aguas Turbias National Park,
-                                      Bacalar Chico National Park,
-                                      Billy Barquedier National Park,
-                                      Chiquibul National Park,
-                                      Five Blues Lakes National Park,
-                                      Gra Gra Lagoon National Park,
-                                      Guanacaste National Park,
-                                      Honey Camp National Park,
-                                      Laughing Bird Caye National Park,
-                                      Mayflower Bocawina National Park,
-                                      Monkey Bay National Park,
-                                      Nojkaaxmeen Elijio Panti National Park,
-                                      Payne's Creek National Park,
-                                      Peccary Hills National Park,
-                                      Río Blanco National Park,
-                                      Sarstoon-Temash National Park,
-                                      St. Herman's Blue Hole National Park, 
-                                      Actun Tunichil Muknal Natural Monument,
-                                      Blue Hole	Natural Monument,
-                                      Half Moon Caye Natural Monument,
-                                      Thousand Foot Falls Natural Monument,
-                                      Victoria Peak Natural Monument,
-                                      Bladen Nature Reserve,
-                                      Burdon Canal Nature Reserve,
-                                      Tapir Mountain Nature Reserve
-                                      Aguacaliente Wildlife Sanctuary,	
-                                      Cockscomb Basin Wildlife Sanctuary,	
-                                      Corozal Bay Wildlife Sanctuary,	
-                                      Crooked Tree Wildlife Sanctuary,	
-                                      Gales Point Wildlife Sanctuary,	
-                                      Spanish Creek Wildlife Sanctuary,	
-                                      Swallow Caye Wildlife Sanctuary,
-                                      Caye Caulker Forest Reserve,
-                                      Chiquibul Forest Reserve,
-                                      Columbia River Forest Reserve,
-                                      Deep River Forest Reserve,
-                                      Fresh Water Creek Forest Reserve,
-                                      Grants Work Forest Reserve,
-                                      Machaca Forest Reserve,
-                                      Manatee Forest Reserve,
-                                      Mango Creek Forest Reserve,
-                                      Monkey Caye Forest Reserve,
-                                      Mountain Pine Ridge Forest Reserve,
-                                      Maya Mountain Forest Reserve,
-                                      Sibun Forest Reserve,
-                                      Sittee River Forest Reserve,
-                                      Swasey Bladen Forest Reserve,
-                                      Vaca Forest Reserve
-                                      Bacalar Chico Marine Reserve,
-                                      Caye Caulker Marine Reserve,
-                                      Gladden Spit and Silk Cayes Marine Reserve,
-                                      Glover's Reef Marine Reserve,
-                                      Hol Chan Marine Reserve,
-                                      Port Honduras Marine Reserve,
-                                      Sapodilla Cayes Marine Reserve,
-                                      South Water Caye Marine Reserve")
+dat_modified$protected_area[[7]]<-c( "Aguas Turbias National Park",
+                                      "Bacalar Chico National Park",
+                                     "Billy Barquedier National Park",
+                                      "Chiquibul National Park",
+                                     "Five Blues Lakes National Park",
+                                      "Gra Gra Lagoon National Park",
+                                     "Guanacaste National Park",
+                                      "Honey Camp National Park",
+                                     "Laughing Bird Caye National Park",
+                                      "Mayflower Bocawina National Park",
+                                     "Monkey Bay National Park",
+                                     "Nojkaaxmeen Elijio Panti National Park",
+                                     "Payne's Creek National Park",
+                                      "Peccary Hills National Park",
+                                      "Río Blanco National Park",
+                                      "Sarstoon-Temash National Park",
+                                      "St. Herman's Blue Hole National Park", 
+                                      "Actun Tunichil Muknal Natural Monument",
+                                      "Blue Hole	Natural Monument",
+                                      "Half Moon Caye Natural Monument",
+                                      "Thousand Foot Falls Natural Monument",
+                                      "Victoria Peak Natural Monument",
+                                      "Bladen Nature Reserve",
+                                      "Burdon Canal Nature Reserve",
+                                      "Tapir Mountain Nature Reserve",
+                                      "Aguacaliente Wildlife Sanctuary",	
+                                      "Cockscomb Basin Wildlife Sanctuary",	
+                                      "Corozal Bay Wildlife Sanctuary",	
+                                      "Crooked Tree Wildlife Sanctuary",	
+                                      "Gales Point Wildlife Sanctuary",	
+                                      "Spanish Creek Wildlife Sanctuary",	
+                                      "Swallow Caye Wildlife Sanctuary",
+                                      "Caye Caulker Forest Reserve",
+                                      "Chiquibul Forest Reserve",
+                                      "Columbia River Forest Reserve",
+                                      "Deep River Forest Reserve",
+                                      "Fresh Water Creek Forest Reserve",
+                                      "Grants Work Forest Reserve",
+                                      "Machaca Forest Reserve",
+                                      "Manatee Forest Reserve",
+                                      "Mango Creek Forest Reserve",
+                                      "Monkey Caye Forest Reserve",
+                                      "Mountain Pine Ridge Forest Reserve",
+                                      "Maya Mountain Forest Reserve",
+                                      "Sibun Forest Reserve",
+                                      "Sittee River Forest Reserve",
+                                      "Swasey Bladen Forest Reserve",
+                                      "Vaca Forest Reserve",
+                                      "Bacalar Chico Marine Reserve",
+                                      "Caye Caulker Marine Reserve",
+                                      "Gladden Spit and Silk Cayes Marine Reserve",
+                                      "Glover's Reef Marine Reserve",
+                                      "Hol Chan Marine Reserve",
+                                      "Port Honduras Marine Reserve",
+                                      "Sapodilla Cayes Marine Reserve",
+                                      "South Water Caye Marine Reserve")
 
-dat_modified$protected_area[[7]]<-unlist(strsplit(dat_modified$protected_area[[7]], ",\n|\n"))
-
-dat_modified$protected_area[[7]]<-gsub(x = dat_modified$protected_area[[7]], pattern = ",\t|, ", replacement = "")
+# dat_modified$protected_area[[7]]<-unlist(strsplit(dat_modified$protected_area[[7]], ",\n|\n"))
+# 
+# dat_modified$protected_area[[7]]<-gsub(x = dat_modified$protected_area[[7]], pattern = ",\t|, ", replacement = "")
 
 dat_modified$protected_area[[7]]<-paste(dat_modified$protected_area[[7]], "- Belize")
 
@@ -352,7 +354,8 @@ dat_modified$protected_area[[41]]<-"Reserva de Biosfera Maya - Guatemala"
 
 
 #"Parque Nacional Volcan Isluga, R. N. Pampa del Tamarugal"
-dat_modified$protected_area[[42]]<-c("Parque Nacional Volcan Isluga - Chile, Reserva Nacional Pampa del Tamarugal - Chile")
+dat_modified$protected_area[[42]]<-c("Parque Nacional Volcan Isluga - Chile", 
+                                     "Reserva Nacional Pampa del Tamarugal - Chile")
 
 
 
@@ -534,7 +537,11 @@ dat_modified$protected_area[[77]]<-"Parque Nacional del Río Abiseo - Peru"
 
 
 #"Parque Nacional Río Abiseo, Santuario Nacional de Calipuy, Reserva Nacional de Calipuy. Parque Nacional Huascarán, Parque Nacional Manu, etc."
-dat_modified$protected_area[[78]]<-c("Parque Nacional Río Abiseo - Peru, Santuario Nacional de Calipuy - Peru, Reserva Nacional de Calipuy - Peru, Parque Nacional Huascaran - Peru, Parque Nacional Manu - Peru")
+dat_modified$protected_area[[78]]<-c("Parque Nacional Río Abiseo - Peru", 
+                                     "Santuario Nacional de Calipuy - Peru",
+                                     "Reserva Nacional de Calipuy - Peru",
+                                     "Parque Nacional Huascaran - Peru",
+                                     "Parque Nacional Manu - Peru")
 
 
 
@@ -563,16 +570,23 @@ dat_modified$protected_area[[83]]<-"Parque Nacional Bahuaja Sonene - Peru"
 
 
 
+
 #Srepok Wildlife Sanctuary, Phnom Prich Wildlife Sanctuary"
-dat_modified$protected_area[[84]]<-c("Sre Pok Wildlife Sanctuary - Cambodia", "Phnom Prich Wildlife Sanctuary - Cambodia")
+dat_modified$protected_area[[84]]<-c("Sre Pok Wildlife Sanctuary - Cambodia", 
+                                     "Phnom Prich Wildlife Sanctuary - Cambodia")
+
 
 
 
 #"Parque Nacional Zona Marina Archipiélago de Espíritu Santo,"
 dat_modified$protected_area[[85]]<-c("Parque Nacional Archipiélago de Espíritu Santo - Mexico")
 
+
+
+
 #PARQUE NACIONAL CAÑÓN DEL SUMIDERO
 dat_modified$protected_area[[86]]<-c("Parque Nacional Canon del Sumidero - Mexico")
+
 
 
 
@@ -581,8 +595,10 @@ dat_modified$protected_area[[87]]<-c("Area de Protección de Flora y Fauna Bavis
 
 
 
+
 #"San Felipe de León\nSan Antonio Analco"
-dat_modified$protected_area[[88]]<-c("Unknown protected area")
+dat_modified$protected_area[[88]]<-c("San Felipe de León - Mexico", 
+                                     "San Antonio Analco - Mexico")
 
 
 
@@ -606,8 +622,10 @@ dat_modified$protected_area[[92]]<-c("Santuario Playon de Mismaloya - Mexico")
 
 
 
+
 #Parque Nacional Tulum CONANP
 dat_modified$protected_area[[93]]<-c("Parque Nacional Tulum - Mexico")
+
 
 
 
@@ -616,8 +634,10 @@ dat_modified$protected_area[[94]]<-c("Parque Nacional Sistema Arrecifal Veracruz
 
 
 
+
 #RB Los Tuxtlas"
 dat_modified$protected_area[[95]]<-c("Reserva de la Biosfera Los Tuxtlas - Mexico")
+
 
 
 
@@ -626,8 +646,10 @@ dat_modified$protected_area[[96]]<-c("Reserva de la Biósfera Pantanos de Centla
 
 
 
+
 #"AREA DE PROTECCION DE FLORA Y FAUNA CABO SAN LUCAS"
 dat_modified$protected_area[[97]]<-c("Area de Proteccion de Flora y Fauna Cabo San Lucas - Mexico")
+
 
 
 
@@ -644,13 +666,21 @@ dat_modified$protected_area[[100]]<-c("Endau-Rompin National Park - Malaysia")
 
 
 
+
 #Batang Ai National Park\nLanjak-Entimau Wildlife Sanctuary\nSedilu-Sebuyau-Lesong- landscape
-dat_modified$protected_area[[101]]<-c("Batang Ai National Park - Malaysia, Lanjak - Entimau Wildlife Sanctuary - Malaysia, Sedilu National Park - Malaysia, Ulu Sebuyau National Park - Malaysia, Gunung Lesung National Park - Malaysia")
+dat_modified$protected_area[[101]]<-c("Batang Ai National Park - Malaysia",
+                                      "Lanjak - Entimau Wildlife Sanctuary - Malaysia",
+                                      "Sedilu National Park - Malaysia", 
+                                      "Ulu Sebuyau National Park - Malaysia", 
+                                      "Gunung Lesung National Park - Malaysia")
 
 
 
 #"Huai Kha Khaeng Wildlife Sanctuary\nThung Yai Naresuan Wildlife Sanctuary\nKaeng Krachan National Park\nThap Lan National Park"
-dat_modified$protected_area[[102]]<-c("Huai Kha Khaeng Wildlife Sanctuary - Thailand, Thung Yai Naresuan Wildlife Sanctuary - Thailand, Kaeng Krachan National Park - Thailand, Thap Lan National Park - Thailand")
+dat_modified$protected_area[[102]]<-c("Huai Kha Khaeng Wildlife Sanctuary - Thailand",
+                                      "Thung Yai Naresuan Wildlife Sanctuary - Thailand", 
+                                      "Kaeng Krachan National Park - Thailand",
+                                      "Thap Lan National Park - Thailand")
 
 
 
@@ -660,18 +690,24 @@ dat_modified$protected_area[[103]]<-c("Taman Negara Terengganu National Park - M
 
 
 #"Nouabale-Ndoki National Park (NNNP)\nPeripheral Ecosystem Management Project in Nouabale-Ndoki National Park (PROGEPP-Kabo)\nLake Tele Community Reserve (LCR)"
-dat_modified$protected_area[[104]]<-c("Nouabale-Ndoki National Park - Republic of Congo, Nouabalé-Ndoki National Park Peripheral Ecosystems Management Project - Republic of Congo, Lake Téle Community Reserve - Republic of Congo")
+dat_modified$protected_area[[104]]<-c("Nouabale-Ndoki National Park - Republic of Congo", 
+                                      "Nouabalé-Ndoki National Park Peripheral Ecosystems Management Project - Republic of Congo",
+                                      "Lake Téle Community Reserve - Republic of Congo")
 
 
 
 
 #""Parque Nacional y Área Natural de Manejo Integrado Madidi\nÁrea Natural de Manejo Integrado Nacional Apolobamba\nReseva de la Biosfera y Terriorio Comunitario de Origen Pilón Lajas\nReserva de la Biosfera Estación Biológica del Beni""
-dat_modified$protected_area[[105]]<-c("Parque Nacional y Área Natural de Manejo Integrado Madidi - Bolivia, Parque Nacional y Área Natural de Manejo Integrado Apolobamba - Bolivia, Reserva de la biosfera y tierra comunitaria de origen Pilón Lajas - Bolivia, Reserva de la Biosfera Estación Biológica del Beni - Bolivia")
+dat_modified$protected_area[[105]]<-c("Parque Nacional y Área Natural de Manejo Integrado Madidi - Bolivia", 
+                                      "Parque Nacional y Área Natural de Manejo Integrado Apolobamba - Bolivia", 
+                                      "Reserva de la biosfera y tierra comunitaria de origen Pilón Lajas - Bolivia", 
+                                      "Reserva de la Biosfera Estación Biológica del Beni - Bolivia")
 
 
 
 #Reserva de la Biosfera Montes Azules\nMonumento Natural Bonampak
-dat_modified$protected_area[[106]]<-c("Reserva de la Biosfera Montes Azules - Mexico, Monumento Natural Bonampak - Mexico")
+dat_modified$protected_area[[106]]<-c("Reserva de la Biosfera Montes Azules - Mexico", 
+                                      "Monumento Natural Bonampak - Mexico")
 
 
 
@@ -711,7 +747,9 @@ dat_modified$protected_area[[113]]<-c("Parque nacional Cotacachi-Cayapas - Ecuad
 
 
 #"Reserva del Hombre y la Biosfera de Río Plátano\nReserva de Biosfera Tawahka-Asangni\nParque Nacional Warunta"
-dat_modified$protected_area[[114]]<-c("Reserva del Hombre y la Biosfera del Río Plátano - Honduras, Reserva de la Biosfera Tawahka Asangni - Honduras, Parque Nacional Río Warunta - Honduras")
+dat_modified$protected_area[[114]]<-c("Reserva del Hombre y la Biosfera del Río Plátano - Honduras", 
+                                      "Reserva de la Biosfera Tawahka Asangni - Honduras",
+                                      "Parque Nacional Río Warunta - Honduras")
 
 
 
@@ -731,7 +769,7 @@ dat_modified$protected_area[[117]]<-c("Parque Nacional Cajas - Ecuador")
 
 
 # "PNNN PNOK PNCD RCLT PNNP RNGLL PROGEPP-KABO PROGEPP NGOMBE ETIC TALA TALA"
-dat_modified$protected_area[[118]] <-dat_modified$protected_area[[17]]
+dat_modified$protected_area[[118]] <-dat_modified$protected_area[[17]] # same as 17
 
 
 
@@ -777,7 +815,12 @@ dat_modified$protected_area[[126]]<-c("Endau-Rompin National Park - Malaysia")
 
 
 #""RUKWA GAME RESERVE\nRUNGWA KIZIGO MUHESI GAME RESERVE\nRUKWATI PITI GAMERESERVE." Smae as 32
-dat_modified$protected_area[[127]]<-c("Uwanda Rukwa Game Reserve - Tanzania, Rungwa Game Reserve - Tanzania, Kizigo Game Reserve - Tanzania, Muhesi Game Reserve - Tanzania, Lukwati Game Reserve - Tanzania, Piti Game Reserve - Tanzania")
+dat_modified$protected_area[[127]]<-c("Uwanda Rukwa Game Reserve - Tanzania", 
+                                      "Rungwa Game Reserve - Tanzania",
+                                      "Kizigo Game Reserve - Tanzania", 
+                                      "Muhesi Game Reserve - Tanzania",
+                                      "Lukwati Game Reserve - Tanzania", 
+                                      "Piti Game Reserve - Tanzania")
 
 
 
@@ -786,5 +829,7 @@ dat_modified$protected_area[[128]]<-c("Tanintharyi Nature Reserve - Myanmar")
 
 
 #"Rungwa\nKizigo\nMuhesi Game Reserves"
-dat_modified$protected_area[[129]]<-c("Rungwa Game Reserve - Tanzania, Kizigo Game Reserve - Tanzania, Muhesi Game Reserve - Tanzania")
+dat_modified$protected_area[[129]]<-c("Rungwa Game Reserve - Tanzania",
+                                      "Kizigo Game Reserve - Tanzania", 
+                                      "Muhesi Game Reserve - Tanzania")
 
