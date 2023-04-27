@@ -27,12 +27,12 @@ box <- st_read(dsn = temp_dir, layer = "ne_50m_wgs84_bounding_box")
 
 #countries included in the dataset
 
-countries_in_dat<-sort(unique(dat_modified$country))
+countries_in_dat<-sort(unique(terrestrial_data$country))
 
 countries.for.plot<-world %>% 
   filter(name %in% c(countries_in_dat, grep("Congo", world$name, value = T))) 
 
-# nrow(countries.for.plot) == length(countries_in_dat)
+ # nrow(countries.for.plot) == length(countries_in_dat) #T
 
 
 # ---- #
