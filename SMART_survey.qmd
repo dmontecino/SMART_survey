@@ -222,7 +222,7 @@ source("clean_pa_names.R")
 
 # Subset the responses to be used
 
-```{r clean protected area names}
+```{r subset responses}
 #| echo: true
 #| eval: true
 #| message: false
