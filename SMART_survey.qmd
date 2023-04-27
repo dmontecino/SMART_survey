@@ -24,6 +24,8 @@ library(skimr) #for summary statistics
 library(kableExtra) #for table formatting
 library(countrycode) #for country codes
 library(janitor) #for cleaning data
+library(rnaturalearth)
+library(rnaturalearthdata)
 
 ```
 
@@ -242,6 +244,7 @@ source("classify_pa.R")
 
 ```
 
+# Descriptive Analysis
 
 ## Summary Terrestrial data
 
@@ -275,6 +278,18 @@ terrestrial_data %>% distinct(continent) %>% count()
 terrestrial_data %>% distinct(country) %>% count()
 
 ```
+
+## Map of countries included
+
+```{r countries included}
+
+source("maps/countries_included.R")
+
+
+
+```
+
+
 ##  Number of protected areas included
 
 ```{r}
