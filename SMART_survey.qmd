@@ -234,135 +234,14 @@ source("subset_pas.R")
 
 
 <!-- Classify terrestrial and marine and landscape cover (surface extension possibly) -->
-```{r}
+```{r remove marine protected areas}
 #| echo: false
 #| eval: false
 
-pa_per_row=lapply(sapply(data_from_r_modified$protected_area, strsplit, ", ", USE.NAMES = F), 
-              function(x) data.frame(protected_area=x))
-
-pa_per_row=lapply(pa_per_row, function(x) { x$type <- NA;return(x)})
-
-
-pa_per_row[[1]]$type<-"terrestrial"
-pa_per_row[[2]]$type<-rep("terrestrial", nrow(pa_per_row[[2]]))
-pa_per_row[[3]]$type<-"terrestrial"
-pa_per_row[[4]]$type<-"terrestrial"
-pa_per_row[[5]]$type<-rep("terrestrial", nrow(pa_per_row[[5]]))
-pa_per_row[[6]]$type<-"terrestrial"
-pa_per_row[[7]]$type<-"terrestrial"
-pa_per_row[[8]]$type<-"terrestrial"
-pa_per_row[[9]]$type<-rep("terrestrial", nrow(pa_per_row[[9]]))
-pa_per_row[[10]]$type<-rep("terrestrial", nrow(pa_per_row[[10]]))#   Unite de Surveillance et de Lutte Anti-Braconnage - Republic of Congo
-pa_per_row[[11]]$type<-"terrestrial"
-pa_per_row[[12]]$type<-c(rep("terrestrial", 2), "marine", "terrestrial", "aquatic", rep("terrestrial",2))
-pa_per_row[[13]]$type<-rep("terrestrial", 2)
-pa_per_row[[14]]$type<-"terrestrial"
-pa_per_row[[15]]$type<-"terrestrial"
-pa_per_row[[16]]$type<-rep("terrestrial", 2)
-pa_per_row[[17]]$type<-"terrestrial"
-pa_per_row[[18]]$type<-rep("terrestrial", 2)
-pa_per_row[[19]]$type<-c(rep("terrestrial", 2), "marine", "terrestrial")
-pa_per_row[[20]]$type<-"terrestrial"
-pa_per_row[[21]]$type<-rep("terrestrial", nrow(pa_per_row[[21]]))
-pa_per_row[[22]]$type<-rep("terrestrial", 3)
-pa_per_row[[23]]$type<-rep("terrestrial", 2)
-pa_per_row[[24]]$type<-"terrestrial"
-pa_per_row[[25]]$type<-"terrestrial"
-pa_per_row[[26]]$type<-"terrestrial"
-pa_per_row[[27]]$type<-rep("marine", nrow(pa_per_row[[27]]))
-pa_per_row[[28]]$type<-"terrestrial"
-pa_per_row[[29]]$type<-rep("terrestrial", 2)
-pa_per_row[[30]]$type<-"terrestrial"
-pa_per_row[[31]]$type<-"terrestrial"
-pa_per_row[[32]]$type<-"terrestrial"
-pa_per_row[[33]]$type<-"terrestrial"
-pa_per_row[[34]]$type<-"terrestrial"
-pa_per_row[[35]]$type<-"terrestrial"
-pa_per_row[[36]]$type<-"terrestrial"
-pa_per_row[[37]]$type<-"terrestrial"
-pa_per_row[[38]]$type<-"terrestrial"
-pa_per_row[[39]]$type<-"terrestrial"
-pa_per_row[[40]]$type<-"terrestrial"
-pa_per_row[[41]]$type<-"terrestrial"
-pa_per_row[[42]]$type<-"terrestrial"
-pa_per_row[[43]]$type<-"terrestrial"
-pa_per_row[[44]]$type<-"terrestrial"
-pa_per_row[[45]]$type<-"terrestrial"
-pa_per_row[[46]]$type<-"terrestrial"
-pa_per_row[[47]]$type<-"marine"
-pa_per_row[[48]]$type<-"terrestrial"
-pa_per_row[[49]]$type<-"terrestrial"
-pa_per_row[[50]]$type<-"terrestrial"
-pa_per_row[[51]]$type<-"aquatic"
-pa_per_row[[52]]$type<-"terrestrial"
-pa_per_row[[53]]$type<-"terrestrial"
-pa_per_row[[54]]$type<-"terrestrial"
-pa_per_row[[55]]$type<-"terrestrial"
-pa_per_row[[56]]$type<-"terrestrial"
-pa_per_row[[57]]$type<-"aquatic"
-pa_per_row[[58]]$type<-"terrestrial"
-pa_per_row[[59]]$type<-"terrestrial"
-pa_per_row[[60]]$type<-"terrestrial"
-pa_per_row[[61]]$type<-"terrestrial"
-pa_per_row[[62]]$type<-"terrestrial"
-pa_per_row[[63]]$type<-"terrestrial"
-pa_per_row[[64]]$type<-rep("terrestrial", 2)
-pa_per_row[[65]]$type<-"marine"
-pa_per_row[[66]]$type<-"terrestrial"
-pa_per_row[[67]]$type<-"terrestrial"
-pa_per_row[[68]]$type<-"marine"
-pa_per_row[[69]]$type<-"marine"
-pa_per_row[[70]]$type<-"marine"
-pa_per_row[[71]]$type<-"marine"
-pa_per_row[[72]]$type<-"marine"
-pa_per_row[[73]]$type<-"marine"
-pa_per_row[[74]]$type<-"aquatic"
-pa_per_row[[75]]$type<-"aquatic"
-pa_per_row[[76]]$type<-"marine"
-pa_per_row[[77]]$type<-"marine"
-pa_per_row[[78]]$type<-rep("terrestrial", nrow(pa_per_row[[78]]))
-pa_per_row[[79]]$type<-rep("terrestrial", nrow(pa_per_row[[79]]))
-pa_per_row[[80]]$type<-"terrestrial"
-pa_per_row[[81]]$type<-rep("terrestrial", nrow(pa_per_row[[81]]))
-pa_per_row[[82]]$type<-rep("terrestrial", 2)
-pa_per_row[[83]]$type<-"terrestrial"
-pa_per_row[[84]]$type<-"terrestrial"
-pa_per_row[[85]]$type<-"terrestrial"
-pa_per_row[[86]]$type<-"terrestrial"
-pa_per_row[[87]]$type<-"terrestrial"
-pa_per_row[[88]]$type<-"terrestrial"
-pa_per_row[[89]]$type<-"terrestrial"
-pa_per_row[[90]]$type<-rep("terrestrial", nrow(pa_per_row[[90]]))
-pa_per_row[[91]]$type<-"terrestrial"
-pa_per_row[[92]]$type<-"terrestrial"
-pa_per_row[[93]]$type<-"terrestrial"
-pa_per_row[[94]]$type<-"terrestrial"
-pa_per_row[[95]]$type<-"terrestrial"
-pa_per_row[[96]]$type<-"terrestrial"
-pa_per_row[[97]]$type<-"terrestrial"
-pa_per_row[[98]]$type<-"terrestrial"
-pa_per_row[[99]]$type<-"terrestrial"
-pa_per_row[[100]]$type<-rep("terrestrial", nrow(pa_per_row[[100]]))
-
-#add the number of PAs associated with the survey
-data_from_r_modified$number_of_pas<-sapply(pa_per_row, nrow)
-
-#find the answers associated just with terrestrial PAs
-index.of.terrestrial.only=sapply(pa_per_row, function(x) all(unique(x$type)=="terrestrial"), simplify = T)
-
-#subset to the terrestrial PAs
-terrestrial_data=data_from_r_modified[index.of.terrestrial.only,]
+source("classify_pa.R")
 
 ```
 
-# R
-
-## Terrestrial data cleaned
-```{r}
-terrestrial_data=data_from_r_modified
-# terrestrial_data
-```
 
 ## Summary Terrestrial data
 
