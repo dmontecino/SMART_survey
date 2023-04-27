@@ -1,179 +1,367 @@
-# Editing the protected area names column
+# Filtering the answers based on the protected area names
 
 
-# <!-- Making all elements to have length 1 -->
- 
-data_modified$protected_area<-lapply(data_from_r_modified$protected_area, function(x) if(length(x)>1) paste(x,collapse = ", ") else(x))
+# --------------------------------------------------- #
+# Assign "Unknown protected area" to specific answers #
+# --------------------------------------------------- #
 
 
-# <!-- Edit content of the protected areas with problems in the "name of the protected area(s)" -->
+#"Community Forests - Unknown"
+dat_modified$protected_area[[14]]<-"Unknown protected area" 
 
-data_from_r_modified$protected_area[[14]]<-"Unknown protected area" #it could be included in other responses. we dont know is it is terrestrial or marine. etc. Originally #"Community Forests\nPrivate Conservancy"
-data_from_r_modified$protected_area[c(12, 13, 20, 23, 59, 64, 81)]<-"Unknown protected area" # the asnwer was a person's name
-
-# <!-- Modify the protected area to a vector and add it as a column to the dataset -->
-
-data_from_r_modified$protected_area <- unlist(data_from_r_modified$protected_area)
+# The respondent provided a person's name instead of the protected area name
+dat_modified$protected_area[c(12, 13, 20, 23, 59, 64, 81)]<-
+                                   "Unknown protected area" 
 
 
-# <!-- Remove the rows where the PAs are unknown and also remove the example -->
-#| echo: false
+# --------------------------------------------------------------- #
+#  Fiix responses with protected areas from more than one country #
+# --------------------------------------------------------------- #
 
-data_from_r_modified <- data_from_r_modified %>%  filter(protected_area!="Unknown protected area")
-data_from_r_modified <- data_from_r_modified %>%  filter(protected_area!="ejemplo")
+# only one that has protected areas from kenya nad tanzania
+
+#[[4]]
+# [1] "LUMO community Conservancy - Kenya"   "Mgeno Conservancy - Kenya"           
+# [3] "Taita Hills Sanctuary - Kenya"        "Taita Wildlife conservancy - Kenya"  
+# [5] "Kasigau wildlife conservancy - Kenya" "Rombo District - Tanzania"           
+# [7] "Mwanga district - Tanzania"           "Same District - Tanzania"            
+# [9] "Lushoto District - Tanzania"          "Korogwe District - Tanzania"  
 
 
-# <!-- Identify responses that involve protected areas in more than one country and add rows to represent each country with the correponding PAs -->
-  
-temp=sapply(strsplit(data_from_r_modified$protected_area, ", ") , strsplit, " - ")
-temp=lapply(temp, function(x) unique(sapply(x, function(y) y[length(y)])))
-temp.index=which(sapply(temp, length)>1) # row that involves PAs in more ethan one country
-
+# split in two rows. One for the PAs in Kenya and another one for the PAs in Tanzania
 
 #take the row and repeat it in the dataset
-data_from_r_modified<-data_from_r_modified %>% bind_rows(data_from_r_modified[4,])
+dat_modified<-dat_modified %>% bind_rows(dat_modified[4,])
 
-#remove the PAs in the original row associated with the second country in the original row
-data_from_r_modified$protected_area[4]<-"LUMO community Conservancy - Kenya, Mgeno Conservancy - Kenya, Taita Hills Sanctuary - Kenya, Taita Wildlife conservancy - Kenya, Kasigau wildlife conservancy - Kenya"
+#add the PAs to the last row associated with Tanzania
+dat_modified$protected_area[[nrow(dat_modified)]]<-
+                                  dat_modified$protected_area[[4]][
+                                        grepl(pattern = "Tanzania", 
+                                              ignore.case = T, 
+                                              dat_modified$protected_area[[4]])]
 
-#remove the PAs in the copied row associated with the first country in the nadded row
-data_from_r_modified$protected_area[nrow(data_from_r_modified)]<-"Rombo District - Tanzania, Mwanga district - Tanzania, Same District - Tanzania, Lushoto District - Tanzania, Korogwe District - Tanzania"
+
+#remove the PAs in the original row associated with the second country 
+# in the original row
+
+dat_modified$protected_area[[4]]<-dat_modified$protected_area[[4]][
+                                        grepl(pattern = "Kenya", 
+                                              ignore.case = T, 
+                                              dat_modified$protected_area[[4]])]
+
+# ---------------------------------------------------------------- #
+# add the original number of pas per response as a column          #
+# ---------------------------------------------------------------- #
+
+dat_modified$or_number_pas <-map_int(dat_modified$protected_area,  
+                                     \(x) length(x))               
 
 
 
-# <!-- Identify the responses that involve the same PAs in a country and remove rows so that each PA is represented once in the dataset -->
-countries.represented=sort(unique(unlist(lapply(lapply(strsplit(data_from_r_modified$protected_area, ","), strsplit, " - "), function(x) sapply(x, function(y) y[length(y)])))))
+# ---------------------------------------------------------------------- #
+#  Remove the rows where the PAs are unknown and also remove the example #
+# ---------------------------------------------------------------------- #
+
+dat_modified <- dat_modified %>% 
+  filter(protected_area!="Unknown protected area")
+
+dat_modified <- dat_modified %>% 
+  filter(protected_area!="ejemplo")
+
+
+# ------------------------------------------------------------------ #
+# Identify the responses that involve the same PAs in a country      #
+# and remove rows if necessary so that each PA is represented once   #
+# in the dataset                                                     #
+# ------------------------------------------------------------------ #
+
+
+countries.represented=
+  map(dat_modified$protected_area, \(x) tail(x, n = 1)) %>% 
+  map(\(x) strsplit(x=x, split = " - ")[[1]]) %>% 
+  map_chr(\(x) tail(x, n = 1)) %>% 
+  unique() %>%  sort()
+  
+
 
 #add the country as a column
-data_from_r_modified$country=sapply(strsplit(data_from_r_modified$protected_area, " - "), function(x) x[length(x)])
+dat_modified$country <-map(dat_modified$protected_area, \(x) tail(x, n = 1)) %>% 
+                       map(\(x) strsplit(x=x, split = " - ")[[1]]) %>% 
+                       map_chr(\(x) tail(x, n = 1))
+
+
+#add the survey number as a column
+dat_modified$survey <- 1:nrow(dat_modified)
 
 #group the protected areas associated to the same country
+PAs.per.country<-split(x = dat_modified, f = dat_modified$country)
 
-PAs.per.country=lapply(countries.represented, function(x) data_from_r_modified$protected_area[data_from_r_modified$country==x])
-
-PAs.per.country=sapply(PAs.per.country, strsplit, ", ")
-PAs.per.country=sapply(PAs.per.country, unlist, USE.NAMES = F)
-
-PAs.per.country.table=sapply(PAs.per.country, table)
+#summarize them 
+PAs.per.country.table<-map(PAs.per.country, 
+                          function(x) table(unlist(x$protected_area)))
 
 #identify repeated PAs
-repeated.PAs=names(unlist(PAs.per.country.table)[unlist(PAs.per.country.table)>1])
+repeated.PAs<- map(PAs.per.country.table, \(x) x[x>1]) %>% 
+               map(names) %>% unlist(use.names = F)
 
 # find the rows where each protected area is repated
-temp.indexes=sapply(repeated.PAs , function(x) which(grepl(pattern = x, data_from_r_modified$protected_area)))
+temp.indexes=sapply(repeated.PAs , 
+                    function(x) which(grepl(pattern = x, 
+                                            dat_modified$protected_area)))
 
-#data with repeated PAs
-temp=lapply(temp.indexes, function(x) data_from_r_modified$protected_area[x])
 
-#Tapir Mountain Nature Reserve - Belize. the second survey includes this PA and all other PAs from Belize. The first row with the PA is removed
-#temp[[1]]
 
-data_from_r_modified$protected_area[7]<-"Aguas Turbias National Park - Belize, Bacalar Chico National Park - Belize, Billy Barquedier National Park - Belize, Chiquibul National Park - Belize, Five Blues Lakes National Park - Belize, Gra Gra Lagoon National Park - Belize, Guanacaste National Park - Belize, Honey Camp National Park - Belize, Laughing Bird Caye National Park - Belize, Mayflower Bocawina National Park - Belize, Monkey Bay National Park - Belize, Nojkaaxmeen Elijio Panti National Park - Belize, Payne's Creek National Park - Belize, Peccary Hills National Park - Belize, Río Blanco National Park - Belize, Sarstoon-Temash National Park - Belize, St. Herman's Blue Hole National Park - Belize, Actun Tunichil Muknal Natural Monument - Belize, Blue Hole\tNatural Monument - Belize, Half Moon Caye Natural Monument - Belize, Thousand Foot Falls Natural Monument - Belize, Victoria Peak Natural Monument - Belize, Bladen Nature Reserve - Belize, Burdon Canal Nature Reserve - Belize, Aguacaliente Wildlife Sanctuary - Belize, Cockscomb Basin Wildlife Sanctuary - Belize, Corozal Bay Wildlife Sanctuary - Belize, Crooked Tree Wildlife Sanctuary - Belize, Gales Point Wildlife Sanctuary - Belize, Spanish Creek Wildlife Sanctuary - Belize, Swallow Caye Wildlife Sanctuary - Belize, Caye Caulker Forest Reserve - Belize, Chiquibul Forest Reserve - Belize, Columbia River Forest Reserve - Belize, Deep River Forest Reserve - Belize, Fresh Water Creek Forest Reserve - Belize, Grants Work Forest Reserve - Belize, Machaca Forest Reserve - Belize, Manatee Forest Reserve - Belize, Mango Creek Forest Reserve - Belize, Monkey Caye Forest Reserve - Belize, Mountain Pine Ridge Forest Reserve - Belize, Maya Mountain Forest Reserve - Belize, Sibun Forest Reserve - Belize, Sittee River Forest Reserve - Belize, Swasey Bladen Forest Reserve - Belize, Vaca Forest Reserve - Belize, Bacalar Chico Marine Reserve - Belize, Caye Caulker Marine Reserve - Belize, Gladden Spit and Silk Cayes Marine Reserve - Belize, Glover's Reef Marine Reserve - Belize, Hol Chan Marine Reserve - Belize, Port Honduras Marine Reserve - Belize, Sapodilla Cayes Marine Reserve - Belize, South Water Caye Marine Reserve - Belize"
+# Tapir Mountain Nature Reserve - Belize. 
+# The second survey includes this PA and all other PAs from Belize. 
+# The first row with the PA is removed
+# dat_modified$protected_area[temp.indexes[[1]]]
+
+dat_modified$protected_area[[7]]<-dat_modified$protected_area[[7]][
+                                !grepl("Tapir Mountain Nature Reserve - Belize", 
+                                      dat_modified$protected_area[[7]])]
+
+
+
 
 #"Jigme Singye Wangchuck National Park - Bhutan" 
-#remove the PA from the first survey that includes several PAs from Bhutan and exam the single responses for tthis protected area
+#remove the PA from the first survey that includes several PAs from Bhutan 
+# and exam the single responses for this protected area
 
-#removing from the collection
-data_from_r_modified$protected_area[5]<-"Wangchuck Centennial National Park - Bhutan, Jigme Dorji National Park - Bhutan, Jomotshangkha Wildlife Sanctuary - Bhutan, Phibsoo Wildlife Sanctuary - Bhutan, Royal Manas National Park - Bhutan, Jigme Khesar Strict Nature Reserve - Bhutan, Phrumsengla National Park - Bhutan, Sakteng Wildlife Sanctuary - Bhutan, Bumdeling Wildlife Sanctuary - Bhutan, Bumthang Forest Division - Bhutan, Gedu Forest Division - Bhutan, Paro Forest Division - Bhutan, Samtse Forest Division - Bhutan, Samdrup Jongkhar Forest Division - Bhutan, Tashigang Forest Division - Bhutan, Sarpang Forest Division - Bhutan, Zhemgang Forest Division - Bhutan, Mongar Forest Division - Bhutan, Wangdue Forest Division - Bhutan, Thimphu Forest - Bhutan, Tsirang Forest Division - Bhutan, Dagana Forest Division - Bhutan, Pema Gatshel Forest Division - Bhutan"
+dat_modified$protected_area[[5]]<-dat_modified$protected_area[[5]][
+                                  !grepl("Wangchuck National Park", 
+                                        dat_modified$protected_area[[5]])]
 
-#examining the single responses for "Jigme Singye Wangchuck National Park - Bhutan" reveals that responses are the same
+#examining the single responses for "Jigme Singye Wangchuck National Park - 
+#Bhutan" reveals that responses are the same and both represent only this 
+# protected area
+#data.frame(dat_modified[c(29, 30),]) #leaving the response that is only 
+#for this PA (row 29)
 
-#data.frame(data_from_r_modified[c(29, 30),])
-#leaving the response that is only for this PA
+# this is vector holding the positions of the rows to be removed because 
+# they represent the same protected area
+
 index.to.remove=c(30)
 
-#Phibsoo Wildlife Sanctuary - Bhutan. 
-#temp[[3]]
 
+
+
+#Phibsoo Wildlife Sanctuary - Bhutan. 
 #removing from the collection and leaving the response that is only for this PA
-data_from_r_modified$protected_area[5]<-"Wangchuck Centennial National Park - Bhutan, Jigme Dorji National Park - Bhutan, Jomotshangkha Wildlife Sanctuary - Bhutan, Royal Manas National Park - Bhutan, Jigme Khesar Strict Nature Reserve - Bhutan, Phrumsengla National Park - Bhutan, Sakteng Wildlife Sanctuary - Bhutan, Bumdeling Wildlife Sanctuary - Bhutan, Bumthang Forest Division - Bhutan, Gedu Forest Division - Bhutan, Paro Forest Division - Bhutan, Samtse Forest Division - Bhutan, Samdrup Jongkhar Forest Division - Bhutan, Tashigang Forest Division - Bhutan, Sarpang Forest Division - Bhutan, Zhemgang Forest Division - Bhutan, Mongar Forest Division - Bhutan, Wangdue Forest Division - Bhutan, Thimphu Forest - Bhutan, Tsirang Forest Division - Bhutan, Dagana Forest Division - Bhutan, Pema Gatshel Forest Division - Bhutan"
+
+dat_modified$protected_area[[5]]<-dat_modified$protected_area[[5]][
+                                  !grepl("Phibsoo Wildlife Sanctuary", 
+                                         dat_modified$protected_area[[5]])]
+
+
 
 
 #"Wangchuck Centennial National Park - Bhutan"  Same as above 
-#temp[[4]]
+#removing from the collection and leaving the response that is only for this PA
 
-data_from_r_modified$protected_area[5]<-"Jigme Dorji National Park - Bhutan, Jomotshangkha Wildlife Sanctuary - Bhutan, Royal Manas National Park - Bhutan, Jigme Khesar Strict Nature Reserve - Bhutan, Phrumsengla National Park - Bhutan, Sakteng Wildlife Sanctuary - Bhutan, Bumdeling Wildlife Sanctuary - Bhutan, Bumthang Forest Division - Bhutan, Gedu Forest Division - Bhutan, Paro Forest Division - Bhutan, Samtse Forest Division - Bhutan, Samdrup Jongkhar Forest Division - Bhutan, Tashigang Forest Division - Bhutan, Sarpang Forest Division - Bhutan, Zhemgang Forest Division - Bhutan, Mongar Forest Division - Bhutan, Wangdue Forest Division - Bhutan, Thimphu Forest - Bhutan, Tsirang Forest Division - Bhutan, Dagana Forest Division - Bhutan, Pema Gatshel Forest Division - Bhutan"
+dat_modified$protected_area[[5]]<-dat_modified$protected_area[[5]][
+                                  !grepl("Wangchuck Centennial", 
+                                         dat_modified$protected_area[[5]])]
+
+
 
 
 #"Parque Nacional Yasuní. 
-#temp[[5]]
-#examining the single responses for "Parque Nacional Yasun" . leaveing he first response because the second one has an likely implausible response (patrols per month = 104)
+# examining the single responses for "Parque Nacional Yasuni" . Both responses
+# represent only this protected area
+#leaving the first response because the second one has an likely implausible
+#response (patrols per month = 104, row 116)
 
-#data.frame(data_from_r_modified[c(111, 115),])
+#data.frame(dat_modified[c(112, 116),])
 
-index.to.remove=c(index.to.remove, 115)
+index.to.remove=c(index.to.remove, 116)
+
+
+
+
+
+#Batang Ai National Park - Malaysia
+#leaving he first response because the second one seems yto have answered 
+# "yes" to everything. Furthermore, it is not extremeley relevant becuase 
+# both answers include more than one protected area and will be filtered
+
+#data.frame(dat_modified[c(42, 92),])
+
+dat_modified$protected_area[[92]]<-dat_modified$protected_area[[92]][
+  !grepl("Batang Ai National", 
+         dat_modified$protected_area[[92]])]
+
+
+
+
 
 #Endau-Rompin National Park
-#temp[[6]] both answers represent the same set of protected areas. exam the responses to decide which one stays
+# the four answers represent only Endau=Rompin. the second answer is more 
+# associated with the audience to respond the survey
+# data.frame(dat_modified[c(19, 41,91,117),]) # More consistent data from first 
+# response.
 
-#data.frame(data_from_r_modified[c(42,91),]) # More consistent data from first response.
+index.to.remove=c(index.to.remove, 19, 91, 117)
 
-index.to.remove=c(index.to.remove, 91)
 
-#temp[[7]]  four answers for the same PA. The one staying is based on individual check on responses
 
-# data.frame(data_from_r_modified[temp.indexes[[7]],]) #the third response seems more consistet and it was answreed by someone "directly responsible for managing SMART data in one or more protected areas"
 
-index.to.remove=c(index.to.remove, c(19, 41, 116))
+
+
+#Lanjak - Entimau Wildlife Sanctuary - Malaysia
+# already solved when dealing with Batang Ai National Park - Malaysia
+
+
+
 
 #Parque Nacional Huascaran - Peru
-#temp[[8]] Leave the single response and remove Huascaran from the response representing several PAs
+#removing the park from the answer that represents more than one protected
+#area and leaving the row representing this park only
 
-data_from_r_modified$protected_area[temp.indexes[[8]][2]]<-"Parque Nacional Río Abiseo - Peru, Santuario Nacional de Calipuy - Peru, Reserva Nacional de Calipuy - Peru, Parque Nacional Manu - Peru"
+dat_modified$protected_area[[71]]<-dat_modified$protected_area[[71]][
+                                  !grepl("Nacional Huascaran", 
+                                         dat_modified$protected_area[[71]])]
 
-#temp[9:16] represent a set of protected areas from congo. Two repsonses involving the same protected areas. the index for the first repeasted protected area applies for repeated protected areas 9 to 17 in the temp object except for 14.
 
-# data.frame(data_from_r_modified[temp.indexes[[9]],]) # responder of 108 is from another audience
-#temp.indexes[9:17]
-index.to.remove=c(index.to.remove, 108)
+
+
+
+# Espace TRIDOM Inter-Zone - Republic of Congo
+# Lesio-Luna Gorilla Nature Reserve - Republic of Congo
+# Management of Peripheral Ecosystems in Nouabale-Ndoki National Park - Republic of Congo
+# Management of Peripheral Ecosystems in Odzala-Kokoua National Park - Republic of Congo
+# Ntokou Pikounda National Park - Republic of Congo
+# Odzala Kokoua National Park - Republic of Congo
+# Unite de Surveillance et de Lutte Anti-Braconnage - Republic of Congo
+
+# These protected areas are represented in rows 14 and 109, but row 109 belongs
+# to other audience
+
+dat_modified$protected_area[[109]]<-dat_modified$protected_area[[109]][
+  !grepl("TRIDOM|Lesio-Luna|Nouabale-Ndoki|Odzala-Kokoua|Ntokou Pikounda|Odzala Kokoua|Anti-Braconnage", 
+         dat_modified$protected_area[[109]])]
+
+
+
+
+#Lake Téle Community Reserve - Republic of Congo
+# keeping the first representative because it is more conservative
+#data.frame(dat_modified[c(14, 95, 109),])
+
+dat_modified$protected_area[[95]]<-dat_modified$protected_area[[95]][
+  !grepl("Téle", 
+         dat_modified$protected_area[[95]])]
+
+
+
+
+
 
 #`Nouabale-Ndoki National Park - Republic of Congo`
-# temp[[14]]
-# temp.indexes[[14]]
-#here we leave 110 as represneting #`Nouabale-Ndoki National Park - Republic of Congo` by itslef and edit 14 ad 94 so they do not include #`Nouabale-Ndoki National Park - Republic of Congo`
+# the last response is only for this protected area
+# so remove the pa
+# from 14, 95, and 109
+# data.frame(dat_modified[c(14, 95, 109, 111),])
 
-#data_from_r_modified[temp.indexes[[14]],]
+dat_modified$protected_area[[14]]<-dat_modified$protected_area[[14]][
+  !grepl("Nouabale-Ndoki National Park", 
+         dat_modified$protected_area[[14]])]
 
-#edition to remove Nouabale-Ndoki National Park - Republic of Congo from the other two responses
-data_from_r_modified$protected_area[temp.indexes[[14]][1]]<-"Odzala Kokoua National Park - Republic of Congo, Ntokou Pikounda National Park - Republic of Congo, Management of Peripheral Ecosystems in Nouabale-Ndoki National Park - Republic of Congo, Management of Peripheral Ecosystems in Odzala-Kokoua National Park - Republic of Congo, Lake Tele Community Reserve - Republic of Congo, Espace TRIDOM Inter-Zone - Republic of Congo, Unite de Surveillance et de Lutte Anti-Braconnage - Republic of Congo, Lesio-Luna Gorilla Nature Reserve - Republic of Congo"
+dat_modified$protected_area[[95]]<-dat_modified$protected_area[[95]][
+  !grepl("Nouabale-Ndoki National Park", 
+         dat_modified$protected_area[[95]])]
 
-data_from_r_modified$protected_area[temp.indexes[[14]][2]]<-"Nouabalé-Ndoki National Park Peripheral Ecosystems Management Project - Republic of Congo, Lake Téle Community Reserve - Republic of Congo"
-
-
-#temp[18:20] involves the same 3 responses:27 117 119. Let's check the answers. Leaving just the last response because it is more consistent.
-
-# as.data.frame(data_from_r_modified[temp.indexes[[18]],])
-
-index.to.remove=c(index.to.remove, c(27, 117))
-
+dat_modified$protected_area[[109]]<-dat_modified$protected_area[[109]][
+  !grepl("Nouabale-Ndoki National Park", 
+         dat_modified$protected_area[[109]])]
 
 
-data_from_r_modified<-data_from_r_modified[-index.to.remove, ]
 
 
-# <!-- Identify those rows that include protected areas at a national level and remove the protected areas already included in these national-level responses.  -->
-  
-  # <!-- I am removing the "Peru"-level row and leaving the bunch of PAs from Peru that answered individually. Rule: prioritize single protected area responses -->
-  # <!-- Later on we can check differences between the national-level response and the local-level responses. This could be done for Peru and Belize. Colombia and Madagascar also answered per country. -->
-  
+# Kizigo Game Reserve - Tanzania`
+# Muhesi Game Reserve - Tanzania
+# Rungwa Game Reserve - Tanzania
+# These three protected area are represented in rows 27, 118, and 120
+# 27 represents other audience and 118 has a wrong answer for the SMART version
+# remove these three protected areas from answers 27 and 118
+# data.frame(dat_modified[c(27, 118, 120),])
 
-#| echo: false
-#56 "SINANPE - Peru" 
+
+dat_modified$protected_area[[27]]<-dat_modified$protected_area[[27]][
+  !grepl("Kizigo|Muhesi|Rungwa", 
+         dat_modified$protected_area[[27]])]
+
+dat_modified$protected_area[[118]]<-dat_modified$protected_area[[118]][
+  !grepl("Kizigo|Muhesi|Rungwa", 
+         dat_modified$protected_area[[118]])]
+
+
+
+
+
+
+# removing the rows representing a single protected area that are repeated in
+# other response
+
+dat_modified<-dat_modified[-index.to.remove, ]
+
+
+
+
+# ------------------------------------------------------------------------ #
+# Identify those rows that include protected areas at a national level     #
+# and remove the protected areas already included in these national-level  #
+# responses.
+# ------------------------------------------------------------------------ #
+
+#58 "SINANPE - Peru" 
 #25 "45 Protected Areas - Madagascar"  
-#101 59 Colombia
+#104 59 Colombia
 #7  Belize
 #5 Bhutan
 
-country_level_data=data_from_r_modified[c(5,7, 25, 56, 101),]
+country_level_data=dat_modified[c(5,7, 25, 58, 104),]
 
-data_from_r_modified=data_from_r_modified[-c(5,7, 25, 56, 101),]
-
-# <!-- Add the country as a column and add a counter of the number of PAs represented per row -->
-#add the country as a column
-data_from_r_modified$country=sapply(strsplit(data_from_r_modified$protected_area, " - "), function(x) x[length(x)])
-
-data_from_r_modified$num_protected_areas=map_int(strsplit(data_from_r_modified$protected_area,split = ", "), length)
+dat_modified=dat_modified[-c(5,7, 25, 56, 101),]
 
 
 
 
+
+# ------------------------------------------------------------------------- #
+# current number of protected areas per response versus original number of  #
+# protected areas per response                                              #
+# ------------------------------------------------------------------------- #
+
+#after the deletion of certain protected areas from specific answers, some 
+# responses might seeem to represent a single protected area when originally
+# they did not. Check which ones these are to avoid wrong inclusion
+
+# current number of protected areas after subsetting
+dat_modified$new_number_pas <-map_int(dat_modified$protected_area,  
+                                     \(x) length(x))  
+
+#surveys that originally represented several protected areas and now they
+#seem to represent a single one
+surveys.from.many.pas.to.one.response=
+data.frame(dat_modified %>%  
+     select(or_number_pas, new_number_pas, survey) %>% 
+     rowwise %>% 
+     # mutate(equal=identical(or_number_pas,new_number_pas)))
+     mutate(red_to_one=if_else(or_number_pas>1 & new_number_pas==1, T, F))) %>%
+     filter(red_to_one==T)  
+
+
+data.frame(dat_modified %>% filter(survey%in%c(95, 109)))
+
+# 109 only Lake Tele left which is by itself in survey 14
+# 95 originally represented 3 protected areas and now it has one. Remove as well
+
+
+
+# -------------------------------------------------------------------------- #
+# leaving protected areas that represent a single protected area  originally #              
+# -------------------------------------------------------------------------- #
+
+dat_modified <- dat_modified %>% filter(or_number_pas==1)
+
+nrow(dat_modified ) #83
