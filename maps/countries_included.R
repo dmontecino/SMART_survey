@@ -67,5 +67,5 @@ ggplot() +
   
 
 # ggsave("maps/countries_included_map.png", width=110, height=50.8, units = "cm", dpi=300)
-
+#
 
