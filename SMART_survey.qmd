@@ -1,5 +1,7 @@
 ---
 title: "Cleaning SMART survey data"
+execute: 
+  cache: true
 format:
   html:
     embed-resources: true
@@ -13,6 +15,7 @@ output-file: "survey_test"
 
 ```{r load libraries}
 #| echo: false
+#| eval: true
 #| message: false
 #| warning: false
 
@@ -31,8 +34,8 @@ library(rnaturalearthdata)
 
 # Open data and clean names of the dataset
 
-```{r open data and change column names}
-#|echo: true
+```{r open data}
+#|echo: false
 #|eval: true
 #|warning: false
 #|message: false
@@ -44,8 +47,15 @@ link = paste0("https://docs.google.com/spreadsheets/",
 #read the excel file
 dat = read_sheet(link)
 
+```
 
-# Change column names
+
+```{r clean names}
+#|echo: true
+#|eval: true
+#|warning: false
+#|message: false
+
 new.names<-c(
   
   "time",                           #1. Timestamp
@@ -151,7 +161,9 @@ new.names<-c(
   "dom_animals_in_pa",              #34. Domestic animals found in the PA
                                     #(free-ranging, captive, on a farm)?"
   
-  "dom_animals_recorded",           #35. Presence of domestic animals recorded"                                                                                               
+  "dom_animals_recorded",           #35. Presence of domestic animals recorded" 
+  
+  
   "dom_animal_in_smart",            #36. Is the presence of domestic animals 
                                     #data entered in SMART Desktop?"  
   
@@ -172,7 +184,10 @@ new.names<-c(
                                     #currently used in the protected area?"          
   
   "smart_connect",                  #42. Is SMART Connect available to manage 
-                                    #and transfer information between SMART Desktop and SMART Mobile?"                                                                               
+                                    #and transfer information between SMART 
+                                    #Desktop and SMART Mobile?"                                                         
+  
+  
   "set_up_connect",                 #43. Are there plans to set up SMART Connect
                                     #instance and when?"
   
@@ -200,10 +215,6 @@ for(i in 1:ncol(dat_modified)){
   if(any(class(dat_modified[,i][[1]])=="list")){
     dat_modified[,i][[1]][dat_modified[,i][[1]]=='NULL']<-NA
     dat_modified[,i]<-unlist(dat_modified[,i][[1]])}}
-  
-# data_from_r$healthy_wl_data_other[sapply(data_from_r$healthy_wl_data_other, is.null)]<-NA
-# identical(unlist(data_from_r$healthy_wl_data_other),  data_from_r_modified$healthy_wl_data_other)
-
 
 # Removing the score column
 dat_modified=dat_modified %>% select(-score)
@@ -234,11 +245,11 @@ source("subset_pas.R")
 
 ```
 
+# Classify terrestrial and marine protected areas
 
-<!-- Classify terrestrial and marine and landscape cover (surface extension possibly) -->
 ```{r remove marine protected areas}
-#| echo: false
-#| eval: false
+#| echo: true
+#| eval: true
 
 source("classify_pa.R")
 
@@ -248,7 +259,8 @@ source("classify_pa.R")
 
 ## Summary Terrestrial data
 
-```{r}
+```{r summary terrestrial data}
+#| eval: true
 #| echo: false
 #| message: false
 
@@ -256,87 +268,62 @@ skim(terrestrial_data)
 
 ```
 
-##  Number of continents included
-
-```{r}
-#| echo: false
-#| message: false
-
-terrestrial_data$continent <- countrycode(sourcevar = as.data.frame(terrestrial_data)[, "country"],
-                                  origin = "country.name",
-                                  destination = "continent")
-
-terrestrial_data %>% distinct(continent) %>% count()
-
-```
-
-##  Number of countries included
-
-```{r}
-#| echo: false
-#| message: false
-terrestrial_data %>% distinct(country) %>% count()
-
-```
-
 ## Map of countries included
 
-```{r countries included}
+```{r countries included map}
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
 
 source("maps/countries_included.R")
 
+knitr::include_graphics("maps/countries_included_map.png")
+
+
 
 
 ```
 
+##  Number of responses finally included
 
-##  Number of protected areas included
-
-```{r}
+```{r number of responses}
 #| echo: false
+#| eval: true
 #| message: false
-sum(terrestrial_data$num_protected_areas)
+
+nrow(terrestrial_data)
 
 ```
 
-##  Number of protected areas represented per continent
+##  Number of responses per continent per country
 
-```{r}
+```{r responses per continent per country}
 #| echo: false
 #| message: false
+#| eval: true
 
-terrestrial_data %>% select(continent, num_protected_areas) %>% 
-  group_by(continent) %>% 
-  summarise(num_protected_areas = sum(num_protected_areas)) %>% arrange (-num_protected_areas)
+# add the continent
+terrestrial_data$continent <- 
+          countrycode(sourcevar = as.data.frame(terrestrial_data)[, "country"],
+                      origin = "country.name",
+                      destination = "continent")
 
-```
 
-
-##  Number of protected areas represented per country
-
-```{r}
-#| echo: false
-#| message: false
-terrestrial_data %>%  select(country, num_protected_areas) %>% 
-  group_by(country) %>% 
-  summarise(num_protected_areas = sum(num_protected_areas)) %>% arrange (-num_protected_areas)
-
-```
-##  Number of protected areas represented per continent per country
-
-```{r}
-#| echo: false
-#| message: false
+# responses per continent per country
 num_protected_areas_per_continent_country=
-terrestrial_data %>%  select(continent, country, num_protected_areas) %>% 
-  group_by(continent, country) %>% 
-  summarise(num_protected_areas = sum(num_protected_areas)) %>% arrange (continent, country, -num_protected_areas)
+terrestrial_data %>%  
+  select(continent, country) %>% 
+  count(continent, country, name = "number") %>% 
+  arrange (continent, country, -number)
 
+
+#table
 kableExtra::kbl(num_protected_areas_per_continent_country, 
-                    caption = "Number of protected areas represented per continent and country",
-                    col.names = c("Continent", "Country", "Number")) %>%
-      kableExtra::kable_paper(full_width = F) %>% 
-      kableExtra::collapse_rows(columns = 1)
+    caption = "Number of protected areas represented per continent and country",
+    col.names = c("Continent", "Country", "Number")) %>%
+    kableExtra::kable_paper(full_width = F) %>% 
+    kableExtra::collapse_rows(columns = 1)
 
 ```
 
@@ -345,6 +332,7 @@ kableExtra::kbl(num_protected_areas_per_continent_country,
 ```{r}
 #| echo: false
 #| message: false
+#| eval: false
 num_responses_per_continent_country=
 terrestrial_data %>%  select(continent, country) %>% 
   count(continent, country)  %>% arrange (continent, country)
@@ -362,6 +350,7 @@ kableExtra::kbl(num_responses_per_continent_country,
 ```{r}
 #| echo: false
 #| message: false
+#| eval: false
 
 #subset the dead and sick or injured data
 
@@ -440,6 +429,7 @@ I dont think we should try to explain these findings by latitude, altitude, and 
 ```{r}
 #| echo: false
 #| message: false
+#| eval: false
 
 #subset the dead and sick or injured data
 
@@ -475,6 +465,7 @@ Injured and sick wildlife tend not to be recorded. Dead and healthy wildlife fou
 ```{r}
 #| echo: false
 #| message: false
+#| eval: false
 
 #dead wildlife
 
@@ -550,6 +541,8 @@ Dead wildlife tends to be recorded when it is found during patrols. What goes fi
 ```{r}
 #| echo: false
 #| message: false
+#| eval: false
+
 #sick or injured wildlife
 
 terrestrial_data_sick_injured_wildlife_found_versus_sick_injured_wildlife_recorded = terrestrial_data[, c("sick_injured_found", "sick_wl_recorded")] 
@@ -620,6 +613,8 @@ Sick wildlife tend not to be recorded even when it is found during patrols.
 ```{r}
 #| echo: false
 #| message: false
+#| eval: false
+
 #sick or injured wildlife
 
 terrestrial_data_sick_injured_wildlife_found_versus_injured_wildlife_recorded = terrestrial_data[, c("sick_injured_found", "injured_wl_recorded")] 
@@ -699,6 +694,8 @@ injured wildlife tends not to be recorded when it is not found during patrols. B
 ```{r}
 #| echo: false
 #| eval: false
+
+
 hist(terrestrial_data$patrols_per_month)
 
 terrestrial_data$patrol_length<-factor(terrestrial_data$patrol_length, levels =c("Between four days and a week", "Between two and five days", "Between one to two days", "Less than a day"))
@@ -730,7 +727,9 @@ In the case of the average length of the patrols, there is not clear tendency.
 
 ```{r}
 #| echo: false
-#| eval: true
+#| eval: false
+
+
 
 #terrestrial_data %>% count(how_healthy_wl_recorded) 
 
@@ -745,7 +744,7 @@ Variability on how healthy wildlife is recorded
 
 ```{r}
 #| echo: false
-#| eval: true
+#| eval: false
 
 #terrestrial_data %>% count(how_dead_wl_recorded) 
 
@@ -760,7 +759,7 @@ Variability on how dead wildlife is recorded
 
 ```{r}
 #| echo: false
-#| eval: true
+#| eval: false
 
 #terrestrial_data %>% count(how_dead_wl_recorded) 
 
@@ -776,7 +775,7 @@ Variability on how sick wildlife is recorded
 
 ```{r}
 #| echo: false
-#| eval: true
+#| eval: false
 
 #terrestrial_data %>% count(how_dead_wl_recorded) 
 
@@ -794,7 +793,7 @@ Usually, each individual is recorded individually for dead, sick, and injured wi
 
 ```{r}
 #| echo: false
-#| eval: true
+#| eval: false
 
 healthy= terrestrial_data %>% count(how_healthy_wl_recorded) %>% filter(!is.na(how_healthy_wl_recorded)) %>% arrange(-n)
 
@@ -837,7 +836,7 @@ data.frame("How_recorded"= how,
 
 ```{r}
 #| echo: false
-#| eval: true
+#| eval: false
 
 injured.data=terrestrial_data %>% filter(injured_wl_recorded=="Yes") %>% select(injured_wl_data_recorded) %>% pull()
 injured.data=strsplit(injured.data, ",")
@@ -860,7 +859,7 @@ ggplot(as_tibble(unlist(injured.data)) %>% rename("Data"=value)) +
 
 ```{r}
 #| echo: false
-#| eval: true
+#| eval: false
 
 sick.data=terrestrial_data %>% filter(sick_wl_recorded=="Yes") %>% select(sick_wl_data_recorded) %>% pull()
 sick.data=strsplit(sick.data, ",")
@@ -883,7 +882,7 @@ ggplot(as_tibble(unlist(sick.data)) %>% rename("Data"=value)) +
 
 ```{r}
 #| echo: false
-#| eval: true
+#| eval: false
 
 dead.data=terrestrial_data %>% filter(dead_wl_recorded=="Yes") %>% select(dead_wl_data_recorded) %>% pull()
 dead.data=strsplit(dead.data, ",")
@@ -906,6 +905,7 @@ ggplot(as_tibble(unlist(dead.data)) %>% rename("Data"=value)) +
 
 ```{r}
 #| echo: false
+#| eval: false
 
 dead.data=terrestrial_data %>% filter(dead_wl_recorded=="Yes") %>% select(dead_wl_data_in_smart)
 injured.data=terrestrial_data %>% filter(injured_wl_recorded=="Yes") %>% select(injured_wl_data_in_smart) 
@@ -941,6 +941,7 @@ terrestrial_data$why_not_wl_health_data
 
 ```{r}
 #| echo: false
+#| eval: false
 
 livestock=
 terrestrial_data %>% select(hum_liv_path_affect_wildlife, 
@@ -985,6 +986,7 @@ Consensus that livestock pathogens can affect wildlife and livestock is found in
 
 ```{r}
 #| echo: false
+#| eval: false
 
 domestic=
 terrestrial_data %>% select(dom_animals_concern,
@@ -1008,6 +1010,8 @@ The presence of domestic animals in protected areas is reported in two thirds of
 
 ```{r}
 #| echo: false
+#| eval: false
+
 # are domestic animals a concern for the conservation goals
 
 
@@ -1033,6 +1037,8 @@ Most of the respondents agree that domestic animals are a concern for the conser
 
 ```{r}
 #| echo: false
+#| eval: false
+
 # are domestic animals a concern for the conservation goals
 temp=domestic %>% filter(dom_animals_in_pa=="Yes")
   
@@ -1046,7 +1052,8 @@ The presence of domestic animals in protected areas is reported in 70% thirds of
 
 ```{r}
 #| echo: false
-#| 
+#| eval: false
+
 
 temp=domestic %>% filter(dom_animals_in_pa=="Yes" & dom_animals_recorded=="Yes")
 
@@ -1060,6 +1067,7 @@ Despite there is an understanding that domestic animals are a concern for conser
 
 ```{r}
 #| echo: false
+#| eval: false
 
 temp=domestic %>% filter(dom_animals_recorded=="Yes")
 
@@ -1074,6 +1082,7 @@ For the subset of respondents answering that domestic animals found during patro
 
 ```{r}
 #| echo: false
+#| eval: false
 
 temp=domestic %>% filter(dom_animal_health_status_recorded=="Yes")
 
