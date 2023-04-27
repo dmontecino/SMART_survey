@@ -67,6 +67,6 @@ ggplot() +
   theme_opts
   
 
-ggsave("maps/countries_included_map.png", width=12.5 + 5, height=8.25 + 5, units = "cm", dpi=300)
+#ggsave("maps/countries_included_map.png", width=12.5 + 5, height=8.25 + 5, units = "cm", dpi=300)
 
 
