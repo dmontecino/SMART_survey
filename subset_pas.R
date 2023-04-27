@@ -321,7 +321,7 @@ dat_modified<-dat_modified[-index.to.remove, ]
 
 country_level_data=dat_modified[c(5,7, 25, 58, 104),]
 
-dat_modified=dat_modified[-c(5,7, 25, 56, 101),]
+dat_modified=dat_modified[-c(5,7, 25, 58, 104),]
 
 
 
