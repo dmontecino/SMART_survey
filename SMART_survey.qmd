@@ -935,9 +935,12 @@ ggplot(temp_long, aes(x = variable, y = How_recorded, size = value, fill = varia
   geom_text(aes(label = value), size = 6, fontface = "bold", vjust = 0.4) +
   scale_size(range = c(2, 35), name = "Response count") +
   scale_y_discrete(name = "", 
-            labels = c("Wildlife with the corresponding health\nstatus are recorded as present/absent",
+            labels = c("Wildlife with the corresponding health\nstatus are recorded in another way",
+                       "Each animal with the corresponding health\nstatus is recorded as an individual\nobservation",
+                       
                        "Wildlife with the corresponding health\nstatus are counted and reported as part of\nthe full count of individuals belonging to an\nobserved species",
-                       "Each animal with the corresponding health\nstatus is recorded as an individual\n observation", "Wildlife with the corresponding health\nstatus are recorded in another way")) +
+                       "Wildlife with the corresponding health\nstatus are recorded as present/absent"
+                       )) +
   
   scale_x_discrete(limits = c("Responses_healthy",
                               "Responses_injured",
