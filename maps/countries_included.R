@@ -59,13 +59,18 @@ box_robin <- st_transform(box, "+proj=robin")  # reproject bounding box
 countries.for.plot_robin <- st_transform(countries.for.plot, "+proj=robin")  # reproject bounding box
 
 
+
 ggplot() +
   geom_sf(data = box_robin, fill = "white", color = "grey", linewidth=0.3) +  
   geom_sf(data = world_robin, fill = "black", color = NA) + 
   geom_sf(data = countries.for.plot_robin, fill = "#33DB4F", color = NA) + 
   theme_opts
   
+if(!file.exists("maps/countries_included_map.png")) { 
+  ggsave("maps/countries_included_map.png", 
+         width=110, 
+         height=50.8, 
+         units = "cm",
+         dpi=300)}
 
-# ggsave("maps/countries_included_map.png", width=110, height=50.8, units = "cm", dpi=300)
-#
 
