@@ -19,93 +19,181 @@ countries.in.pa<-sort(unique(dat_modified$country))
 pas_data<- parallel::mclapply(countries.in.pa, 
                               function(x) wdpa_fetch(x), mc.cores = 6)
 
+for (i in seq_along(pas_data)){
+  pas_data[[i]]$COUNTRY <- countries.in.pa[i]}
+
+names(pas_data) <- countries.in.pa
+
+
 #length(countries.in.pa)==length(pas_data)
 #all(map_int(pas_data, nrow)>0) TRUE
 
 
-# Find marine areas. 
-# of the wdpa database legend is here: 
+
+#find the key words for protected areas in the data.
+#first find all the words in the protected area column 
+# and then remove the ones like "Park", "Reserve" etc
+unique.terms.of.pas=
+map(unlist(dat_modified$protected_area), 
+        function(x) strsplit(x, " - ")[[1]]) %>% 
+  map_vec(.f = function(y) head(y, n=1)) %>% 
+  map_vec(.f = function(y) str_split(y, "\\s+")) %>% 
+  unlist()
+
+unique.terms.of.pas=table(unique.terms.of.pas)
+
+terms.to.remove=names(unique.terms.of.pas[unique.terms.of.pas>1])
+
+#adding some repeated terms that are key to find protected area names
+terms.to.remove=terms.to.remove[
+  !(terms.to.remove%in%c("Luangwa", "Pantanos", "Wangchuck"))]
+
+#deleting the "useless" terms
+keyword.to.search.for.pas.in.data=
+  names(unique.terms.of.pas)[
+    !(names(unique.terms.of.pas)%in%terms.to.remove)]
+
+# removing more "useless" terms mannually
+keyword.to.search.for.pas.in.data=
+  keyword.to.search.for.pas.in.data[
+    !(keyword.to.search.for.pas.in.data%in%
+        c("Alto", 'Alta', "Archipiélago", "Autonoma", "Biósfera", "Barbara",
+          "Cabo", "Cerro", "Canon",
+          "Community",
+          "Conservancy", "Descentralizada",
+          "Divisor", "Ecológica", "Falls", "Landscape","Hills","Islas",
+          "mountain", "Mountain", "nacional", "Nor", "North",
+          "Pacífico", "Paisajística", "Pantanos",
+          "Proteccion", "Protección", "protegida",
+          "Refugio", "Reserva", "Río", "San", "Sierra", "Sistema",
+          "South", "Special", "Chetu", "Cóndor", "Playa", "Playon", "Pampa",
+          "Resource", "Santo", "Muja-Cordillera", "range", "Triangle"))
+  ]
+
+# replaace Endau-Rompin  with Rompin
+keyword.to.search.for.pas.in.data[
+  keyword.to.search.for.pas.in.data=="Endau-Rompin"]<-"Endau Rompin"
+
+# wdpa dataset with te NAME MARINE and COUNTRY columns
+
+pas_data_data_frame=
+pas_data %>%
+  map(function(x) x %>% 
+  select(NAME, MARINE, COUNTRY) %>%
+  st_drop_geometry()) 
+
+pas_data_data_frame<- data.frame(do.call(rbind, pas_data_data_frame))
+
+colnames(pas_data_data_frame) <- c("NAME", "MARINE", "COUNTRY")
+
+
+
+#search for protected areas in the wdpa based on keywords from the
+#protected area names in the surveys
+
+pas_in_wdpa_dataset_matching_keywords_pas_survey=
+map(keyword.to.search.for.pas.in.data, 
+    function(x) 
+      pas_data_data_frame %>% 
+      filter(str_detect(string = pas_data_data_frame$NAME, 
+                    pattern = x)))
+
+
+# keywords not mtching a pa in the wdpa data
+keywords.not.matching.a.pa=
+  keyword.to.search.for.pas.in.data[
+  map_vec(pas_in_wdpa_dataset_matching_keywords_pas_survey, nrow)==0]
+
+
+# now search the protected areas in the survey based on the keywords
+#length(unlist(dat_modified$protected_area)) # 83
+
+pas_in_survey_dataset_matching_keywords_pas_survey=
+  map(keyword.to.search.for.pas.in.data, 
+      function(x) 
+        dat_modified %>% 
+        filter(str_detect(string = unlist(dat_modified$protected_area), 
+                          pattern = x)) %>% 
+        select(protected_area, country) %>% 
+        st_drop_geometry() %>% 
+        unnest(protected_area)
+      )
+
+result<-vector(mode = "list", 
+               length = length(keyword.to.search.for.pas.in.data))
+
+for(i in seq_along(keyword.to.search.for.pas.in.data)){
+# Check if both datasets have at least one row
+if (nrow(pas_in_wdpa_dataset_matching_keywords_pas_survey[[i]])>0) {
+  # Perform full join
+  result[[i]] <- full_join(pas_in_survey_dataset_matching_keywords_pas_survey[[i]], 
+                      pas_in_wdpa_dataset_matching_keywords_pas_survey[[i]], 
+                      by = c("country" = "COUNTRY"), multiple = "all")
+} else {
+  # Handle empty datasets
+  if (nrow(pas_in_wdpa_dataset_matching_keywords_pas_survey[[i]])  == 0) {
+    result[[i]] <- pas_in_survey_dataset_matching_keywords_pas_survey[[i]]
+  } 
+}}
+
+
+names(result)<-keyword.to.search.for.pas.in.data
+
+#remove rows that have NA in protected areas because that means that the 
+# matched protected area does not beloong to the same country
+
+result<-map(result, \(x) x %>% filter(!is.na(protected_area)))
+
+
+
+#split the results by protected area
+result_2<-do.call(rbind, result[sapply(result, ncol, USE.NAMES = F)==4])
+
+result_2<-split(result_2, result_2$protected_area)
+  
+result_2<-map(result_2, unique)
+
+#find those PAs with at least one MARINE ==2
+# legend of the wdpa database legend is here: 
 # https://developers.google.com/earth-engine/datasets/catalog/WCMC_WDPA_current_polygons
 
-pas_data_marine=map(pas_data, function(x) x %>% 
-              filter(MARINE==2) %>% 
-              select(NAME, MARINE) %>% 
-              st_drop_geometry())
 
-for (i in seq_along(pas_data_marine)){
-  pas_data_marine[[i]]$COUNTRY <- countries.in.pa[i]}
+result_2<-result_2[map_lgl(result_2, \(x) any(x$MARINE==2))]
 
+#based on the results above, the marine areas are:
 
-
-# Find marine areas based on text distance. the differences in names of protected 
-# areas beetween survey and dataase makes it inefficient to match by name
+marine<-c("Parque Nacional Archipiélago de Espíritu Santo - Mexico",
+          "Parque Nacional Isla Contoy - Mexico",
+          "Parque Nacional Isla Isabel - Mexico",
+          "Parque Nacional Sistema Arrecifal Veracruzano - Mexico")
 
 
+# manually checking those keywords that generated a non-satisfacetory matching 
+# between the protected area name in the survey and protected area names in 
+# the wdpa
+
+# Reserva Comunal Ashaninka - Peru
+# Area de Proteccion de Flora y Fauna Cabo San Lucas - Mexico
+# Parque Nacional Archipiélago de Espíritu Santo - Mexico Mexico
+# Mara Triangle - Kenya
 
 
-# Split the dataset by country
-dataset1 <- dat_modified %>% select(protected_area, country)
-                            
-dataset1 <- unlist(dataset1$protected_area, use.names = F)
+marine<-c(marine, "Area de Proteccion de Flora y Fauna Cabo San Lucas - Mexico")
 
-dataset1<- data.frame(do.call(rbind,strsplit(dataset1, " - ")))
+# keywords wo matching
+result3<-result[sapply(result, ncol, USE.NAMES = F)==2]
 
-colnames(dataset1) <- c("protected_area", "country")
+#no other marine area based on the protected areas in result 3
 
-#split both datasets by country
-dataset1_by_country <- split(dataset1, dataset1$country)
-dataset2_by_country <- split(do.call(rbind, pas_data_marine), do.call(rbind, pas_data_marine)[, "COUNTRY"])
 
-# Initialize an empty data frame to store the matched protected areas
-matched_data <- vector(mode = "list", 
-                       length = length(intersect(names(dataset1_by_country), names(dataset2_by_country))))
-
-names(matched_data)<-intersect(names(dataset1_by_country), names(dataset2_by_country))
-
-# Loop over each country subset
-for (country in intersect(names(dataset1_by_country), names(dataset2_by_country))) {
-  # Get the protected areas for the current country from each dataset
-  dataset1_country <- dataset1_by_country[[country]]
-  dataset2_country <- dataset2_by_country[[country]]
-  
-  # Compute pairwise distances between all pairs of protected area names for the current country
-  distances <- stringdistmatrix(dataset1_country$protected_area, dataset2_country$NAME, method = "lv")
-  
-  # Find the protected areas with the minimum distances for the current country
-  matches <- apply(distances, 1, which.min)
-  min_distances <- apply(distances, 1, min)
-  
-  # Create a new data frame with the matched protected areas for the current country
-  matched_data_country <- data.frame(
-    protected_area_dat = dataset1_country$protected_area,
-    country1 = country,
-    protected_area_wdpa = dataset2_country$NAME[matches],
-    country2 = country,
-    distance = min_distances
-  )
-  
-  # Append the matched protected areas for the current country to the overall matched data
-  matched_data[[country]] <- matched_data_country
-}
-
-# Checking the results the columns 
-#  protected_area_dat and protected_area_wdpa match for the Mexico list in 
-# three protected areas
-
-#  Parque Nacional Isla Isabel
-#  Parque Nacional Sistema Arrecifal Veracruzano
-#  Parque Nacional Isla Contoy
 
 
 # These are removed from the data
 indexes.marine.protected.areas=
-which(map_lgl(dat_modified$protected_area, \(x) 
-    grepl(pattern = "Isabel|Veracruzano|Contoy", x)))
+map_lgl(dat_modified$protected_area, \(x) x%in%marine)
+    
 
-# The responses including these protected areas only included
-# each one of them singly. Therefore, just remove the  rows
-#dat_modified$protected_area[indexes.marine.protected.areas]
-
+# they all represent a single response so remove the rows form the dataset.
 terrestrial_data=dat_modified[-indexes.marine.protected.areas,]
 
 
