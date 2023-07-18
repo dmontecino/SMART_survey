@@ -1,5 +1,9 @@
+#> script para limp
+#> 
+#> 
+dat_modified<-dat_modified %>%  as_tibble()
 
-dat_modified$protected_area<-as.list(dat_modified$protected_area)
+dat_modified$protected_area<-map(dat_modified$protected_area, \(x) strsplit(x, "\n|, ")[[1]])
 
 
 #Mann Wildlife Sanctuary
@@ -18,20 +22,12 @@ dat_modified$protected_area[[3]]<-"Tapir Mountain Nature Reserve - Belize"
 
 
 #LUMO community Conservancy\nMgeno Conservancy\nTaita Hills Sanctuary\nTaita Wildlife conservancy\nKasigau wildlife conservancy\nTanzania\nRombo District\nMwanga district\nSame District\nLushoto District\nKorogwe District
-dat_modified$protected_area[[4]]<-gsub(pattern = "\n", replacement = ", ", dat_modified$protected_area[[4]])
 
-dat_modified$protected_area[[4]]<-trimws(dat_modified$protected_area[[4]], whitespace = "^[^,]+,\\s*")
+dat_modified$protected_area[[4]][2:6]<-paste(dat_modified$protected_area[[4]][2:6], "- Kenya") # adding the country to the corresponding set of PAs
 
-temp<-unlist(strsplit(dat_modified$protected_area[[4]], split = ", ", ))
+dat_modified$protected_area[[4]][8:12]<-paste(dat_modified$protected_area[[4]][8:12], "- Tanzania")  # adding the country to the corresponding set of PAs
 
-temp[7:11]<-paste(temp[7:11], "- Tanzania") # adding the country to the corresponding set of PAs
-
-temp[1:5]<-paste(temp[1:5], "- Kenya")  # adding the country to the corresponding set of PAs
-
-temp<-temp[-6] # remonving "Tanzania"
-
-dat_modified$protected_area[[4]]<-temp
-
+dat_modified$protected_area[[4]]<-dat_modified$protected_area[[4]][-c(1,7)]
 
 
 #"WCNP, JDNP, JWS, PWS, Royal Manas National Park, Jigme Khesar Strict Nature Reserve, Jigme Singye Wangchuck, PNP, SWS & BWS and 14 Divisional forest"
@@ -60,11 +56,7 @@ dat_modified$protected_area[[5]]<-c("Wangchuck Centennial National Park",
                                     "Dagana Forest Division",
                                     "Pema Gatshel Forest Division")
 
-# dat_modified$protected_area[[5]]<-unlist(strsplit(dat_modified$protected_area[[5]], split = ",\n|, \n|, "))
-
 dat_modified$protected_area[[5]]<-paste(dat_modified$protected_area[[5]], "- Bhutan")
-
-
 
 
 #Gbele Resource Reserve
@@ -131,28 +123,18 @@ dat_modified$protected_area[[7]]<-c( "Aguas Turbias National Park",
                                       "Sapodilla Cayes Marine Reserve",
                                       "South Water Caye Marine Reserve")
 
-# dat_modified$protected_area[[7]]<-unlist(strsplit(dat_modified$protected_area[[7]], ",\n|\n"))
-# 
-# dat_modified$protected_area[[7]]<-gsub(x = dat_modified$protected_area[[7]], pattern = ",\t|, ", replacement = "")
-
 dat_modified$protected_area[[7]]<-paste(dat_modified$protected_area[[7]], "- Belize")
 
 
-# so survey 5 contains survey 2
-# so survey 7 contains survey 3
-# dat_modified=dat_modified[-c(2,3),]
-
-
+# survey 5 contains survey 2
+# survey 7 contains survey 3
+# surveys 2 and 3 to be removed below
 
 #The mountainous part of Croatia where wolves live (about 20000 sq km)
 dat_modified$protected_area[[8]]<-"Dinarides mountain range - Croatia"
 
 
-
-
-
 #"1. SM Tanjung Peropa\n2. SM Tanjung Anolengo\n3. SM Buton Utara\n4. SM Tanjung Batikolo\n5. SM Lambusango"
-dat_modified$protected_area[[9]]<-unlist(strsplit(dat_modified$protected_area[[9]], "\n"))
 dat_modified$protected_area[[9]]<-gsub("SM ", replacement = "", dat_modified$protected_area[[9]])
 dat_modified$protected_area[[9]]<-paste(dat_modified$protected_area[[9]], "Wildlife Reserve - Indonesia")
 dat_modified$protected_area[[9]]<-sub(".*? ", "", dat_modified$protected_area[[9]])
@@ -178,21 +160,14 @@ dat_modified$protected_area[[11]]<-"Siem Pang Wildlife Sanctuary - Cambodia"
 dat_modified$protected_area[[14]]<-"Community Forests - Unknown"
 
 
-
 #"North Luangwa Conservation Programme
 dat_modified$protected_area[[15]]<-"North Luangwa Conservation Programme - Zambia"
 
-
-
 #"Khunjerab National Park\nChitral Gol National Park"
-dat_modified$protected_area[[16]]<-c("Khunjerab National Park - Pakistan", 
-                                     "Chitral Gol National Park - Pakistan")
-
+dat_modified$protected_area[[16]]<-paste0(dat_modified$protected_area[[16]], " - Pakistan") 
 
 
 #"Nouabale-Ndoki National Park (NNNP)\nOdzala Kokoua National Park (PNOK)\nNtokou Pikounda National Park (PNNP)\nProject for the Management of Preipheral Ecosystems in Nouabale-Ndoki National Park (PROGEPP-Kabo)\nPreipherical Ecosystem Management Project in Odzala-Kokoua National Park (PROGEPP-Ngombe)\nLac Tele Community Reserve (RCLT)\nEspace TRIDOM Inter-Zone (ETIC)\nUnite de Surveillance et de Lutte Anti-Braconnage (USLAB) Tala-Tala\nLesio-Luna Gorilla Nature Reserve (RNGLL)"
-dat_modified$protected_area[[17]]<-unlist(strsplit(dat_modified$protected_area[[17]], "\n"))
-
 dat_modified$protected_area[[17]]<-gsub(" [(].*","",dat_modified$protected_area[[17]])
 
 dat_modified$protected_area[[17]][4]<-"Management of Peripheral Ecosystems in Nouabale-Ndoki National Park"
@@ -204,11 +179,8 @@ dat_modified$protected_area[[17]][6]<-"Lake Téle Community Reserve"
 dat_modified$protected_area[[17]]<-paste(dat_modified$protected_area[[17]], "- Republic of Congo")
 
 
-
-
 #COMATSA
 dat_modified$protected_area[[18]]<-"COMATSA Protected Area - Madagascar"
-
 
 
 
@@ -220,12 +192,11 @@ dat_modified$protected_area[[19]]<-paste(dat_modified$protected_area[[19]], "- C
 
 
 #"KAPUKU MBOMBO JOHN"
-#dat_modified$protected_area[[20]] Also provided his name. Check. he is from DRC
+#dat_modified$protected_area[[20]] Also provided his name
 
 
 
 #"Tsavo west Intensive Protection Zone\nNgulia Rhino Sanctuary"
-dat_modified$protected_area[[21]]<-unlist(strsplit(dat_modified$protected_area[[21]], "\n"))
 
 dat_modified$protected_area[[21]]<-paste(dat_modified$protected_area[[21]], "- Kenya")
 
@@ -235,7 +206,7 @@ dat_modified$protected_area[[22]]<-"Queen Elizabeth Protected Area - Uganda"
 
 
 #"Daudi Mollel"
-#dat_modified$protected_area[[23]] # Provided his names. He is from Tanzania?
+#dat_modified$protected_area[[23]] # Provided his name.
 
 
 
@@ -245,8 +216,6 @@ dat_modified$protected_area[[24]]<-c("Endau-Rompin National Park - Malaysia")
 
 
 #"Sambor wildlife sanctuary, Prek Prasab Wildlife Sanctuary"
-dat_modified$protected_area[[25]]<-unlist(strsplit(dat_modified$protected_area[[25]], ", "))
-
 dat_modified$protected_area[[25]]<-paste(dat_modified$protected_area[[25]], "- Cambodia")
 
 
@@ -257,23 +226,19 @@ dat_modified$protected_area[[26]]<-c("Chipanje Chetu Community Conservation - Mo
 
 
 #"Khoid Mogoin Gol - Teel LPA\nGreat Gobi Strictly Protected Area Part \"A\"\nMongolian Ecological Police Department"
-dat_modified$protected_area[[27]]<-unlist(strsplit(dat_modified$protected_area[[27]], "\n"))
-
 dat_modified$protected_area[[27]]<-gsub('\"', replacement = "", dat_modified$protected_area[[27]])
 
 dat_modified$protected_area[[27]]<-gsub('LPA', replacement = "Local Protected Area", dat_modified$protected_area[[27]])
 
 dat_modified$protected_area[[27]]<-paste(dat_modified$protected_area[[27]], "- Mongolia")
 
-dat_modified$protected_area[[27]]<-dat_modified$protected_area[[27]][-3] # removing the police department because it is new, it encompasses several departments but cannot track which protected areas
+dat_modified$protected_area[[27]]<-dat_modified$protected_area[[27]][-3] # removing the police department because it is new, 
+#it encompasses several departments and cannot track specific protected areas
 
 
 
 #"Gunung Nyiut Nature Reserve\nGunung Naning Protected Forest\nKarimata Marine Reserve\nSeruat Pulau Tiga Protected Forest"
-dat_modified$protected_area[[28]]<-unlist(strsplit(dat_modified$protected_area[[28]], "\n"))
-
 dat_modified$protected_area[[28]]<-paste(dat_modified$protected_area[[28]], "- Indonesia")
-
 
 
 
@@ -291,19 +256,14 @@ dat_modified$protected_area[[31]]<-"45 Protected Areas - Madagascar"
 
 
 #"Rungwa Game Reserve\nKizigo Game Reserve\nMuhesi Game Reserve\nUgalla Game Reserve\nLukwati-Piti Game Reserve\nRukwa Game Reserve\nLwafi Game Reserve"
-dat_modified$protected_area[[32]]<-unlist(strsplit(dat_modified$protected_area[[32]], "\n"))
 
 dat_modified$protected_area[[32]]<-paste(dat_modified$protected_area[[32]], "- Tanzania")
 
 
 
 #"Mt. Goplom Conservation Area, Kwiop village, Jimi District, Jiwaka Province, Papua New Guinea\nMt. Waugerema Conservation Area, Daulo District, Eastern Highlands Province\nYasina Nature Park, Ungai-Bena District, Eastern Highlands Province"
-dat_modified$protected_area[[33]]<-unlist(strsplit(dat_modified$protected_area[[33]], "\n"))
-
-dat_modified$protected_area[[33]]<-gsub(",.*", "", dat_modified$protected_area[[33]])
 
 dat_modified$protected_area[[33]]<-paste(dat_modified$protected_area[[33]], "- Papua New Guinea")
-
 
 
 
@@ -339,9 +299,6 @@ dat_modified$protected_area[[39]]<-"Cardamom Landscape - Cambodia"
 
 
 #[1] "1.) Maite Marine Protected Area (MPA)\n2.) Lower Cabangcalan MPA\n3.) Olang MPA\n4.) Tulapos MPA\n5.) Cangbagsa MPA\n6.) Caticugan MPA"
-dat_modified$protected_area[[40]]<-unlist(strsplit(dat_modified$protected_area[[40]], "\n"))
-
-dat_modified$protected_area[[40]]<-gsub(".*) ", "", dat_modified$protected_area[[40]])
 
 dat_modified$protected_area[[40]]<-gsub(" [(]MPA[)]| MPA", " Marine Protected Area", dat_modified$protected_area[[40]])
 
@@ -382,9 +339,8 @@ dat_modified$protected_area[[46]]<-c("Endau-Rompin National Park - Malaysia")
 
 
 #"Batang Ai National Park\nLanjak - Entimau Wildlife Sanctuary \nSedilu-Ulu Sebuyau-Lesong Landscape"
-dat_modified$protected_area[[47]]<-unlist(strsplit(dat_modified$protected_area[[47]], "\n"))
 
-dat_modified$protected_area[[47]][2]<-"Lanjak - Entimau Wildlife Sanctuary"
+dat_modified$protected_area[[47]][2]<-trimws(x = dat_modified$protected_area[[47]][2], which = "right")
 
 dat_modified$protected_area[[47]]<-paste(dat_modified$protected_area[[47]], "- Malaysia")
 
@@ -446,7 +402,7 @@ dat_modified$protected_area[[58]]<-"Parque Nacional Otishi - Peru"
 
 
 #"Naldo Auber  Peña Manosalva"
-#dat_modified$protected_area[[59]]<-"Naldo Auber  Peña Manosalva" este es el nombre
+#dat_modified$protected_area[[59]]<-"Naldo Auber  Peña Manosalva". Name provided
 
 
 
@@ -471,7 +427,7 @@ dat_modified$protected_area[[63]]<-"Zona Reservada Ancón - Peru"
 
 
 #"William Zeña sencio" 
-#dat_modified$protected_area[[64]]<-"William Zeña Sencio" provided the name
+#dat_modified$protected_area[[64]]<-"William Zeña Sencio" ths is the name
 
 
 
