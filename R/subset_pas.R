@@ -1,3 +1,5 @@
+
+
 # Filtering the answers based on the protected area names
 
 
@@ -371,3 +373,43 @@ dat_modified <-  dat_modified %>% filter(or_number_pas%in%c(1,2))
 # dat_modified$survey
 
 nrow(dat_modified ) #92
+
+#unique terms. If there is a term obviously associated withe the name of a park, then
+# it means the Pa is repeated
+
+unlist(dat_modified$protected_area) %>% 
+  strsplit(split = " - ") %>% 
+  map(\(x) x[1]) %>% 
+  stri_trans_general("Latin-ASCII") %>% 
+  map_vec(.f = function(y) str_split(y, "\\s+")) %>% 
+  unlist() %>%  tolower() %>% table() %>% sort()
+
+#yasuni
+#wangchuck
+
+indexes.repeated.PA.left.overs=
+map(dat_modified$protected_area, \(x) strsplit(x, split = " - ")) %>% 
+map(\(x) map_vec(x, \(y) y[1])) %>% 
+map(\(x) stri_trans_general(x, "Latin-ASCII")) %>% 
+map(\(x) str_split(x, "\\s+")) %>% 
+map(\(x) map(x, \(y) tolower(y))) %>% 
+map(\(x) map(x, \(y) any(grepl(pattern="yasuni|wangchuck", x=y)))) %>% 
+map_vec(\(x) any(unlist(x))) %>% 
+  which()
+  
+
+# 2 18 21 88 have repeated protected areas
+
+dat_modified$protected_area[indexes.repeated.PA.left.overs]
+
+# [1] "Wangchuck Centennial National Park - Bhutan"
+# 
+# [1] "Jigme Singye Wangchuck National Park - Bhutan"
+# are actually different protected areas
+
+as.data.frame(dat_modified[c(21, 88),])
+
+# survey 33 removed, Both represenet Yasuni and the audience is closer to survey number 112
+dat_modified<-dat_modified %>% filter(survey!=33)
+
+nrow(dat_modified)
