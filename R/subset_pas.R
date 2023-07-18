@@ -357,11 +357,17 @@ data.frame(dat_modified %>% filter(survey%in%c(95, 109)))
 # 95 originally represented 3 protected areas and now it has one. Remove as well
 
 
+hist(map_vec(dat_modified$protected_area, length))
+table(map_vec(dat_modified$protected_area, length))
 
-# -------------------------------------------------------------------------- #
-# leaving protected areas that represent a single protected area  originally #              
-# -------------------------------------------------------------------------- #
 
-dat_modified <- dat_modified %>% filter(or_number_pas==1)
+# ---------------------------------------------------------------------------------- #
+# leaving protected areas that represent a single or two protected areas  originally #              
+# ---------------------------------------------------------------------------------- #
+data.frame(dat_modified %>% filter(or_number_pas%in%c(1,2)) %>% select(or_number_pas, new_number_pas))
+data.frame(dat_modified %>% filter(new_number_pas%in%c(1,2)) %>% select(or_number_pas, new_number_pas))
 
-nrow(dat_modified ) #83
+dat_modified <-  dat_modified %>% filter(or_number_pas%in%c(1,2))
+# dat_modified$survey
+
+nrow(dat_modified ) #92
