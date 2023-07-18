@@ -20,6 +20,7 @@ output-file: "survey_test"
 #| warning: false
 
 #library(googlesheets4)# load the googlesheets4 library
+library(readxl)
 library(tidyverse) # load the tidyverse library
 library(purrr) #for map functions
 library(lubridate) #for date functions
@@ -41,7 +42,7 @@ library(rnaturalearthdata)
 #|message: false
 
 #read the excel file
-dat = read.csv("/")
+dat = readxl::read_xlsx("../data/survey_responses.xlsx")
 
 ```
 
@@ -204,16 +205,16 @@ colnames(dat)<-c(new.names)
 
 
 
-# Converting NULLs to NA and moving the initial list with Null values to a vector
-dat_modified=dat
-
-for(i in 1:ncol(dat_modified)){
-  if(any(class(dat_modified[,i][[1]])=="list")){
-    dat_modified[,i][[1]][dat_modified[,i][[1]]=='NULL']<-NA
-    dat_modified[,i]<-unlist(dat_modified[,i][[1]])}}
+# # Converting NULLs to NA and moving the initial list with Null values to a vector
+# dat_modified=dat
+# 
+# for(i in 1:ncol(dat_modified)){
+#   if(any(class(dat_modified[,i][[1]])=="list")){
+#     dat_modified[,i][[1]][dat_modified[,i][[1]]=='NULL']<-NA
+#     dat_modified[,i]<-unlist(dat_modified[,i][[1]])}}
 
 # Removing the score column
-dat_modified=dat_modified %>% select(-score)
+dat_modified=dat %>% select(-score)
 
 ```
 
