@@ -4,6 +4,9 @@
 
 dat_modified_filtered<-dat_modified
   
+#add the survey number as a column
+dat_modified_filtered$survey <- 1:nrow(dat_modified_filtered)
+
 # --------------------------------------------------- #
 # Assign "Unknown protected area" to specific answers #
 # --------------------------------------------------- #
@@ -92,9 +95,6 @@ dat_modified_filtered$country <-map(dat_modified_filtered$protected_area, \(x) t
                        map(\(x) strsplit(x=x, split = " - ")[[1]]) %>% 
                        map_chr(\(x) tail(x, n = 1))
 
-
-#add the survey number as a column
-dat_modified_filtered$survey <- 1:nrow(dat_modified_filtered)
 
 #group the protected areas associated to the same country
 PAs.per.country<-split(x = dat_modified_filtered, f = dat_modified_filtered$country)
@@ -353,10 +353,12 @@ data.frame(dat_modified_filtered %>%
      filter(red_to_one==T)  
 
 
-# data.frame(dat_modified_filtered %>% filter(survey%in%c(95, 109)))
+# data.frame(dat_modified_filtered %>% filter(survey%in%c(104, 118)))
 
-# 109 only Lake Tele left which is by itself in survey 14
-# 95 originally represented 3 protected areas and now it has one. Remove as well
+# 118 only Lake Tele left which is by itself in survey 14
+#>  104 Nouabalé-Ndoki National Park Peripheral Ecosystems 
+#>  originally represented 3 protected areas and now it has one. Remove as well
+#>  Removal occurs in line 371
 
 
 hist(map_vec(dat_modified_filtered$protected_area, length))
@@ -416,6 +418,6 @@ dat_modified_filtered$protected_area[indexes.repeated.PA.left.overs]
 # as.data.frame(dat_modified_filtered[c(21, 88),])
 
 # survey 33 removed. the audience is closer to survey number 112
-dat_modified_filtered<-dat_modified_filtered %>% filter(survey!=33)
+dat_modified_filtered<-dat_modified_filtered %>% filter(survey!=38)
 
 nrow(dat_modified_filtered)  #91
