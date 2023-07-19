@@ -38,14 +38,22 @@ pas_data_data_frame$NAME<-map_vec(pas_data_data_frame$NAME, \(x)
                                   tolower()
 
 
-#expand the dataset based on the real number of protected areas included
-dat_modified_filtered<-dat_modified_filtered %>% 
+
+
+
+
+#> expand the dataset based on the real number of protected areas included so 
+#> each row represent a sing protected area
+
+
+dat_modified_filtered_expanded<-dat_modified_filtered %>% 
   unnest(protected_area) %>% 
   mutate(protected_area=tolower(protected_area)) %>% 
   mutate(protected_area=stri_trans_general(protected_area, "Latin-ASCII")) 
 
-dat_modified_filtered$protected_area<-
-  map(dat_modified_filtered$protected_area, \(x) unlist(strsplit(x =x, split =  " - ")[[1]])) %>% 
+dat_modified_filtered_expanded$protected_area<-
+  map(dat_modified_filtered_expanded$protected_area, \(x) 
+      unlist(strsplit(x =x, split =  " - ")[[1]])) %>% 
   map_vec(\(x) x[1])
 
 
@@ -63,7 +71,7 @@ dat_modified_filtered$protected_area<-
 #>  in the wdpa database because they are not specific enough
 
 unique.terms.of.pas=
-map(unlist(dat_modified_filtered$protected_area), 
+map(unlist(dat_modified_filtered_expanded$protected_area), 
         function(x) strsplit(x, " - ")[[1]] %>% 
       stri_trans_general("Latin-ASCII")) %>% 
   map_vec(.f = function(y) head(y, n=1)) %>% 
@@ -89,18 +97,19 @@ terms.to.remove<-c(terms.to.remove, "monumento", "natural", "sistema", "playon",
 
 
 # creating object to store the data from wdpa matching PAs in the survey data
-PAs_detected_per_pa_survey_name<-vector(mode = "list", length = nrow(dat_modified_filtered))
+PAs_detected_per_pa_survey_name<-vector(mode = "list", 
+                                        length = nrow(dat_modified_filtered_expanded))
   
 #getting the wdpa data for each protected area in the survey dataset  
-for(i in seq_along(dat_modified_filtered$protected_area)){
+for(i in seq_along(dat_modified_filtered_expanded$protected_area)){
     
   #first suset wdpa PAs in the same country
     sub.data.temp<-pas_data_data_frame %>% 
-      filter(COUNTRY==dat_modified_filtered$country[i])
+      filter(COUNTRY==dat_modified_filtered_expanded$country[i])
     
     #then split the name of the ith PA in the survey dataset and search for eaach word 
     # in the names of the pas in the wdpa dataset
-    temp.searching.terms<-strsplit(dat_modified_filtered$protected_area[i], " ")[[1]]
+    temp.searching.terms<-strsplit(dat_modified_filtered_expanded$protected_area[i], " ")[[1]]
     
     PAs_detected_per_pa_survey_name[[i]]<-
     map(
@@ -111,7 +120,8 @@ for(i in seq_along(dat_modified_filtered$protected_area)){
       distinct()} 
 
 #check if the pa found in wdpa makes sense with the reported protected area in the dataset manually
-names(PAs_detected_per_pa_survey_name)<-paste(dat_modified_filtered$protected_area, dat_modified_filtered$country,sep =  "-")
+names(PAs_detected_per_pa_survey_name)<-paste(dat_modified_filtered_expanded$protected_area, 
+                                              dat_modified_filtered_expanded$country,sep =  "-")
 
 PAs_detected_per_pa_survey_name
 
@@ -132,10 +142,10 @@ index_pas_terrestrial<-
 
 
 # adding the terrestrial column to the survey dataset
-dat_modified_filtered$terrestrial<-NA
+dat_modified_filtered_expanded$terrestrial<-NA
 
-dat_modified_filtered$terrestrial[index_pas_terrestrial]<-"yes"
-dat_modified_filtered$terrestrial[index_pas_wo_wdpa]<-"yes" 
+dat_modified_filtered_expanded$terrestrial[index_pas_terrestrial]<-"yes"
+dat_modified_filtered_expanded$terrestrial[index_pas_wo_wdpa]<-"yes" 
 
 
 
@@ -158,14 +168,13 @@ map_lgl(PAs_detected_per_pa_survey_name, \(x) any(x$MARINE==2))])
 # [7] "reserva ecologica arenillas-Ecuador"
 
 #classifying the remainini terrestiral protected areas in the survey dataset
-dat_modified_filtered[
+dat_modified_filtered_expanded[
   grepl(pattern = "lucas|arenillas", 
-        x = dat_modified_filtered$protected_area, 
+        x = dat_modified_filtered_expanded$protected_area, 
         ignore.case = T),]$terrestrial<-"yes"
 
 
 # finally the terrestrial data
-terrestrial_data=dat_modified_filtered %>% filter(terrestrial=="yes")
-
+terrestrial_data=dat_modified_filtered_expanded %>% filter(terrestrial=="yes")
 
 
