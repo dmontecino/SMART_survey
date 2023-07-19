@@ -2,11 +2,15 @@
 
 
 # Define a vector of countries
-countries.in.pa<-sort(unique(dat_modified$country))
+countries.in.pa<-sort(unique(dat_modified_filtered$country))
 
 
-# Set up parallel processing with 6 cores using mclapply to download  
-# the protected areas from the word data protected area database
+# -------------------------------------------------------------------- #
+# donwloading data from the wdpa database and create a dataset pf wdpa #              
+# -------------------------------------------------------------------- #
+
+#> Set up parallel processing with 6 cores using mclapply to download  
+#> the protected areas from the world data protected area database
 
 pas_data<- parallel::mclapply(countries.in.pa, 
                               function(x) wdpa_fetch(x, wait = T), mc.cores = 6)
@@ -34,45 +38,32 @@ pas_data_data_frame$NAME<-map_vec(pas_data_data_frame$NAME, \(x)
                                   tolower()
 
 
-
-dat_modified<-dat_modified %>% 
+#expand the dataset based on the real number of protected areas included
+dat_modified_filtered<-dat_modified_filtered %>% 
   unnest(protected_area) %>% 
   mutate(protected_area=tolower(protected_area)) %>% 
   mutate(protected_area=stri_trans_general(protected_area, "Latin-ASCII")) 
 
-dat_modified$protected_area<-
-  map(dat_modified$protected_area, \(x) unlist(strsplit(x =x, split =  " - ")[[1]])) %>% 
+dat_modified_filtered$protected_area<-
+  map(dat_modified_filtered$protected_area, \(x) unlist(strsplit(x =x, split =  " - ")[[1]])) %>% 
   map_vec(\(x) x[1])
 
 
 
-    
-
   
+# -------------------------------------------------------- #
+# identifying the PAs in the survey data in wdpa database  #              
+# -------------------------------------------------------- #
 
+#> find the key words for protected areas in the survey dataset to id them in
+#> the wdpa dataset. 
+#> first find all the words in the protected area column 
+#> and then remove the ones like "Park", "Reserve" etc that will not guide the 
+#> finding of a specific protected areas
+#>  in the wdpa database because they are not specific enough
 
-
-
-
-
-
-
-
-
-#length(countries.in.pa)==length(pas_data)
-#all(map_int(pas_data, nrow)>0) TRUE
-
-
-
-
-
-
-
-#find the key words for protected areas in the data.
-#first find all the words in the protected area column 
-# and then remove the ones like "Park", "Reserve" etc
 unique.terms.of.pas=
-map(unlist(dat_modified$protected_area), 
+map(unlist(dat_modified_filtered$protected_area), 
         function(x) strsplit(x, " - ")[[1]] %>% 
       stri_trans_general("Latin-ASCII")) %>% 
   map_vec(.f = function(y) head(y, n=1)) %>% 
@@ -83,10 +74,11 @@ unique.terms.of.pas=table(unique.terms.of.pas)
 
 terms.to.remove=names(unique.terms.of.pas[unique.terms.of.pas>1])
 
-#adding some repeated terms that are key to find protected area names
+# removing terms that are actually key for the names of protected areas
 terms.to.remove=terms.to.remove[
   !(terms.to.remove%in%c("luangwa", "pantanos", "wangchuck"))]
 
+#adding some repeated terms that are key to find protected area names
 terms.to.remove<-c(terms.to.remove, "monumento", "natural", "sistema", "playon",
                    "leon", "cuenca", "canon", "archipielago", "pok", "rio", 
                    "refugio", "manglares", "alto", "reserva", "paisajistica",
@@ -96,14 +88,19 @@ terms.to.remove<-c(terms.to.remove, "monumento", "natural", "sistema", "playon",
 
 
 
-PAs_detected_per_pa_survey_name<-vector(mode = "list", length = nrow(dat_modified))
+# creating object to store the data from wdpa matching PAs in the survey data
+PAs_detected_per_pa_survey_name<-vector(mode = "list", length = nrow(dat_modified_filtered))
   
-  for(i in seq_along(dat_modified$protected_area)){
+#getting the wdpa data for each protected area in the survey dataset  
+for(i in seq_along(dat_modified_filtered$protected_area)){
     
+  #first suset wdpa PAs in the same country
     sub.data.temp<-pas_data_data_frame %>% 
-      filter(COUNTRY==dat_modified$country[i])
+      filter(COUNTRY==dat_modified_filtered$country[i])
     
-    temp.searching.terms<-strsplit(dat_modified$protected_area[i], " ")[[1]]
+    #then split the name of the ith PA in the survey dataset and search for eaach word 
+    # in the names of the pas in the wdpa dataset
+    temp.searching.terms<-strsplit(dat_modified_filtered$protected_area[i], " ")[[1]]
     
     PAs_detected_per_pa_survey_name[[i]]<-
     map(
@@ -113,42 +110,41 @@ PAs_detected_per_pa_survey_name<-vector(mode = "list", length = nrow(dat_modifie
       bind_rows() %>% 
       distinct()} 
 
-#check if the pa found in wdpa makes sense with the reported protecte area in the dataset
-names(PAs_detected_per_pa_survey_name)<-paste(dat_modified$protected_area, dat_modified$country,sep =  "-")
+#check if the pa found in wdpa makes sense with the reported protected area in the dataset manually
+names(PAs_detected_per_pa_survey_name)<-paste(dat_modified_filtered$protected_area, dat_modified_filtered$country,sep =  "-")
 
-# PAs_detected_per_pa_survey_name
+PAs_detected_per_pa_survey_name
 
-#> The two protected areas it doesnot make sense are these
-#> checking them manuall shows they are terrestrial
-# c("Sambor wildlife sanctuary-Cambodia", "ngulia rhino sanctuary-Kenya")
+#> The two protected areas it does not make sense are these
+#> c("Sambor wildlife sanctuary-Cambodia", "ngulia rhino sanctuary-Kenya")
+#> manual chacking if they are terrestrial or not says they are terrestrial
 
-
+# index of PAs in the survey dataset wo any matching oa in the wdpa dataset
 index_pas_wo_wdpa<-which(map_vec(PAs_detected_per_pa_survey_name, \(x) nrow(x)==0))
-# checking thes eprotected areas manually, the are all terrestrial
+# checking these protected areas manually. they are all terrestrial
+
+#> all PAs in the survey datastset matchin only terrestrial PAs in the wdpa dataset 
+#> are terestrial (MARINE !=2)
 
 index_pas_terrestrial<-
   which(map_vec(PAs_detected_per_pa_survey_name, \(x) all(x$MARINE!=2)))
 
 
 
-# adding the dat aif te PAs are terrestrial
-dat_modified$terrestrial<-NA
+# adding the terrestrial column to the survey dataset
+dat_modified_filtered$terrestrial<-NA
 
-dat_modified$terrestrial[index_pas_terrestrial]<-"yes"
-dat_modified$terrestrial[index_pas_wo_wdpa]<-"yes" # checking thes eprotected areas manually, the are all terrestrial
+dat_modified_filtered$terrestrial[index_pas_terrestrial]<-"yes"
+dat_modified_filtered$terrestrial[index_pas_wo_wdpa]<-"yes" 
 
 
 
-# dat_modified %>% filter(terrestrial!="yes" | is.na(terrestrial)) %>% 
-#   select(protected_area, country, terrestrial)
 
 # checking the pa with matches in the wdpa that include marine areas
 names(PAs_detected_per_pa_survey_name[
 map_lgl(PAs_detected_per_pa_survey_name, \(x) any(x$MARINE==2))])
-
-
-
-#based on the results above, the marine areas are:
+#> manually checking if these PAs are marine or terrestrial
+#> based on the results above, the marine areas are:
 
 # [1] "parque nacional archipielago de espiritu santo-Mexico"    
 # [2] "parque nacional isla contoy-Mexico"                       
@@ -161,16 +157,15 @@ map_lgl(PAs_detected_per_pa_survey_name, \(x) any(x$MARINE==2))])
 # [4] "area de proteccion de flora y fauna cabo san lucas-Mexico"
 # [7] "reserva ecologica arenillas-Ecuador"
 
-dat_modified[
+#classifying the remainini terrestiral protected areas in the survey dataset
+dat_modified_filtered[
   grepl(pattern = "lucas|arenillas", 
-        x = dat_modified$protected_area, 
+        x = dat_modified_filtered$protected_area, 
         ignore.case = T),]$terrestrial<-"yes"
 
 
-# dat_modified[is.na(dat_modified$terrestrial),]$protected_area
-
-# they all represent a single response so remove the rows form the dataset.
-terrestrial_data=dat_modified %>% filter(terrestrial=="yes")
+# finally the terrestrial data
+terrestrial_data=dat_modified_filtered %>% filter(terrestrial=="yes")
 
 
 
