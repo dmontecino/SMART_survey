@@ -168,6 +168,9 @@ dat_modified$protected_area[[16]]<-paste0(dat_modified$protected_area[[16]], " -
 
 
 #"Nouabale-Ndoki National Park (NNNP)\nOdzala Kokoua National Park (PNOK)\nNtokou Pikounda National Park (PNNP)\nProject for the Management of Preipheral Ecosystems in Nouabale-Ndoki National Park (PROGEPP-Kabo)\nPreipherical Ecosystem Management Project in Odzala-Kokoua National Park (PROGEPP-Ngombe)\nLac Tele Community Reserve (RCLT)\nEspace TRIDOM Inter-Zone (ETIC)\nUnite de Surveillance et de Lutte Anti-Braconnage (USLAB) Tala-Tala\nLesio-Luna Gorilla Nature Reserve (RNGLL)"
+
+dat_modified$protected_area[[17]]<-dat_modified$protected_area[[17]][1:9]
+
 dat_modified$protected_area[[17]]<-gsub(" [(].*","",dat_modified$protected_area[[17]])
 
 dat_modified$protected_area[[17]][4]<-"Management of Peripheral Ecosystems in Nouabale-Ndoki National Park"
