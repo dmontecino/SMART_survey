@@ -374,7 +374,8 @@ dat_modified <-  dat_modified %>% filter(or_number_pas%in%c(1,2))
 
 nrow(dat_modified ) #92
 
-#unique terms. If there is a term obviously associated withe the name of a park, then
+#>unique terms. If there is a term with a value higher than 1 
+#> that is obviously associated withe the name of a park, then
 # it means the Pa is repeated
 
 unlist(dat_modified$protected_area) %>% 
@@ -412,4 +413,4 @@ as.data.frame(dat_modified[c(21, 88),])
 # survey 33 removed, Both represenet Yasuni and the audience is closer to survey number 112
 dat_modified<-dat_modified %>% filter(survey!=33)
 
-nrow(dat_modified)
+nrow(dat_modified)  #91
