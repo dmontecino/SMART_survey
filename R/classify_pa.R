@@ -133,7 +133,9 @@ PAs_detected_per_pa_survey_name
 index_pas_wo_wdpa<-which(map_vec(PAs_detected_per_pa_survey_name, \(x) nrow(x)==0))
 # checking these protected areas manually. they are all terrestrial
 
-#> all PAs in the survey datastset matchin only terrestrial PAs in the wdpa dataset 
+
+
+#> all PAs in the survey datastset matching only terrestrial PAs in the wdpa dataset 
 #> are terestrial (MARINE !=2)
 
 index_pas_terrestrial<-
