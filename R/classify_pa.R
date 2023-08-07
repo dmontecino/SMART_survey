@@ -179,6 +179,6 @@ dat_modified_filtered_expanded[
 # finally the terrestrial data
 terrestrial_data=dat_modified_filtered_expanded %>% filter(terrestrial=="yes")
 
-saveRDS(terrestrial_data, "data/terrestrial_data.RDS")
+saveRDS(terrestrial_data, "../data/terrestrial_data.RDS")
 
 
