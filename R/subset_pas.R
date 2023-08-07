@@ -428,4 +428,4 @@ dat_modified_filtered<-dat_modified_filtered %>% filter(survey!=38)
 dat_modified_filtered<-dat_modified_filtered %>% filter(!(survey%in%c(90, 55)))
 
 
-nrow(dat_modified_filtered)  #96
+# nrow(dat_modified_filtered)  #89
