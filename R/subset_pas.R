@@ -425,7 +425,7 @@ dat_modified_filtered<-dat_modified_filtered %>% filter(survey!=38)
 # survey 90 and 55 are removed becuase they have inconsistency between 
 # dead , sick or injured willdife found (never) and recorded (Yes)
 
-dat_modified_filtered<-dat_modified_filtered %>% filter(survey%in%c(90, 55))
+dat_modified_filtered<-dat_modified_filtered %>% filter(!(survey%in%c(90, 55)))
 
 
-nrow(dat_modified_filtered)  #91
+nrow(dat_modified_filtered)  #96
