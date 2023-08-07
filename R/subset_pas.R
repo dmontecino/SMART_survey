@@ -420,4 +420,12 @@ dat_modified_filtered$protected_area[indexes.repeated.PA.left.overs]
 # survey 33 removed. the audience is closer to survey number 112
 dat_modified_filtered<-dat_modified_filtered %>% filter(survey!=38)
 
+
+
+# survey 90 and 55 are removed becuase they have inconsistency between 
+# dead , sick or injured willdife found (never) and recorded (Yes)
+
+dat_modified_filtered<-dat_modified_filtered %>% filter(survey%in%c(90, 55))
+
+
 nrow(dat_modified_filtered)  #91
