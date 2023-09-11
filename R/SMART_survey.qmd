@@ -1,15 +1,20 @@
 ---
-title: "Cleaning SMART survey data"
+title: "SMART survey data"
 execute: 
   cache: true
 format:
-  html:
-    embed-resources: true
+  pdf:
+    documentclass: scrartcl
+    papersize: letter
 output-file: "survey_test"
 ---
 
-<!-- Change the prtected area column to reflect the actual name od the protected areas -->
-<!-- Identify wrong answer in the protected area field name and editing test --> 
+# Methods
+
+We developed a web-based questionnaire aimed at protected area managers. The survey had three sections. Under section 1, we explored the overall frequency of encounters with dead, sick, or injured wildlife in the protected areas. Under section 2, we asked about: i) the documentation of healthy, injured, sick, and dead wildlife found during patrols; ii) how these animals are registered, and; iii) what type of data collected (photographs; species; age; sex; anomalies/signs; etc.). Under section 3, we asked about data storage practices (i.e. on SD or other) and the current state of SMART components. 
+
+An introductory webpage explained that the survey was voluntary, anonymous, and targeted to protected area managers administering SMART data and that clicking the “Start the survey” button constituted consent. The survey was built on Google Forms, which has a translation tool. We provided a tutorial on translating it into the preferred language (https://sites.google.com/wcs.org/smarttorecordwildlifehealth/home). The survey was exempt from IRB review (ref #22-53 Wildlife Conservation Society Internal Review Board).
+The survey was distributed globally to the SMART Community (SMART Community Forum users https://forum.smartconservationtools.org/) by the SMART Partnership via email in October 2022, and it remained open for three months. As the closing date approached, a reminder was sent to the SMART Community three weeks in advance. Respondents could provide information about single or multiple protected areas they manage, including terrestrial and marine.  However, our analysis focused on responses representing one or two individual protected areas to gain insights into specific local realities. If a protected area was represented in more than one response, we selected a unique representation based on single representation, completion and consistency of answers, or respondent's alignment with the intended target audience of the survey. Protected areas were classified as marine or terrestrial based on the World Database on Protected Areas (https://www.protectedplanet.net/en/thematic-areas/wdpa?tab=WDPA) and removed marine protected areas. The questionnaire, survey data, data cleaning and filtering, and descriptive analysis scripts can be found at https://github.com/dmontecino/SMART_survey.
 
 # Load libraries
 
@@ -21,6 +26,8 @@ output-file: "survey_test"
 
 #library(googlesheets4)# load the googlesheets4 library
 library(readxl)
+library(plyr)
+library(tibble)
 library(tidyverse) # load the tidyverse library
 library(purrr) #for map functions
 library(lubridate) #for date functions
@@ -30,13 +37,20 @@ library(countrycode) #for country codes
 library(janitor) #for cleaning data
 library(rnaturalearth)
 library(rnaturalearthdata)
+library(stringr)
+library(wdpar) 
+library(parallel)
+library(sf)
+library(stringdist)
+library(stringi)
+library(cowplot)
 
 ```
 
 # Open data and clean names of the dataset
 
 ```{r open data}
-#|echo: false
+#|echo: true
 #|eval: true
 #|warning: false
 #|message: false
@@ -44,11 +58,12 @@ library(rnaturalearthdata)
 #read the excel file
 dat = readxl::read_xlsx("../data/survey_responses.xlsx")
 
+
 ```
 
 
 ```{r clean names}
-#|echo: true
+#|echo: false
 #|eval: true
 #|warning: false
 #|message: false
@@ -254,6 +269,32 @@ source("classify_pa.R")
 
 # Descriptive Analysis
 
+## Summary all data
+
+```{r summary original data}
+#| eval: true
+#| echo: false
+#| message: false
+
+
+#number of full responses
+dat %>% filter(protected_area!="ejemplo") %>%  nrow()# all answers
+
+terrestrial_data<-readRDS("../data/terrestrial_data.RDS")
+
+
+#number of protected areas represented in the final dataset
+nrow(terrestrial_data)
+
+# number of responses represened in the final dataset
+terrestrial_data %>% distinct(survey) %>% nrow()
+
+#number of repsonses representing 1 and 2 protected areas
+terrestrial_data %>% group_by(survey) %>% count() %>% 
+  group_by(n) %>% count()
+
+```
+
 ## Summary Terrestrial data
 
 ```{r summary terrestrial data}
@@ -265,7 +306,7 @@ skim(terrestrial_data)
 
 ```
 
-## Map of countries included
+## Countries included
 
 ```{r countries included map}
 #| eval: true
@@ -273,60 +314,325 @@ skim(terrestrial_data)
 #| message: false
 #| warning: false
 
-source("maps/countries_included.R")
+length(unique(terrestrial_data$country))
+table(terrestrial_data$country)
+
+source("../maps/countries_included.R")
 
 knitr::include_graphics("maps/countries_included_map.png")
 
+#responses per continent
+table(countries.for.plot %>% select(continent) %>% st_drop_geometry())
 
+# countries.for.plot %>% select(admin, continent) %>% st_drop_geometry()
+
+countries.for.plot %>%
+  select(admin, continent) %>%  st_drop_geometry() %>%
+  right_join(terrestrial_data  %>% distinct(survey, country), 
+             by = join_by(admin==country)) %>% 
+  mutate(continent = ifelse(is.na(continent), "Africa", continent)) %>% 
+  distinct(admin, continent) %>% 
+  count(continent)
 
 
 ```
 
-##  Number of responses finally included
+<!-- ##  Number of responses per continent per country -->
 
-```{r number of responses}
+<!-- ```{r responses per continent per country} -->
+<!-- #| echo: false -->
+<!-- #| message: false -->
+<!-- #| eval: true -->
+
+<!-- # add the continent -->
+<!-- terrestrial_data$continent <-  -->
+<!--           countrycode(sourcevar = as.data.frame(terrestrial_data)[, "country"], -->
+<!--                       origin = "country.name", -->
+<!--                       destination = "continent") -->
+
+
+<!-- # responses per continent per country -->
+<!-- num_protected_areas_per_continent_country <- -->
+<!--           terrestrial_data %>%   -->
+<!--             select(continent, country) %>%  -->
+<!--             count(continent, country, name = "number") %>%  -->
+<!--             arrange (continent, country, -number) -->
+
+
+<!-- #table -->
+<!-- kableExtra::kbl(num_protected_areas_per_continent_country,  -->
+<!--     caption = "Number of protected areas represented per continent and country", -->
+<!--     col.names = c("Continent", "Country", "Number")) %>% -->
+<!--     kableExtra::kable_paper(full_width = F) %>%  -->
+<!--     kableExtra::collapse_rows(columns = 1) -->
+
+<!-- ``` -->
+
+# SECTION 1
+
+## Relevance of wildlife health for the protected areas’ conservation goals
+
+```{r health for protected area conservation goals}
+
+#table(terrestrial_data$wildlife_health_important, useNA = "always") No NAs
+
+#converting to factor
+terrestrial_data$wildlife_health_important<-
+  factor(terrestrial_data$wildlife_health_important, 
+       levels = c("Strongly agree", "Agree", "Neutral", "Somewhat Disagree", 
+                  "Disagree", "Strongly disagree"))
+
+# table(terrestrial_data$wildlife_health_important)
+
+#proportion Strongly agree or agree
+round(
+  with(terrestrial_data %>% distinct(survey, wildlife_health_important),
+       mean(
+         ifelse(wildlife_health_important%in%c("Strongly agree", "Agree"), 1, 0)
+         ))*100,2)
+
+
+terrestrial_data %>% distinct(survey, wildlife_health_important) %>% 
+  count(wildlife_health_important) %>% 
+  mutate(Percentage = n / sum(n) * 100)
+
+
+#continent of those respondents "Disagree/Strongly dsagree"
+countries.for.plot %>%
+  select(admin, continent) %>%  st_drop_geometry() %>%
+  right_join(terrestrial_data %>% 
+               distinct(survey, wildlife_health_important, country), 
+             by = join_by(admin==country)) %>% 
+  mutate(continent = ifelse(is.na(continent), "Africa", continent)) %>% 
+  filter( wildlife_health_important %in% c("Disagree", "Strongly disagree")) 
+  
+  
+
+#same proportion by continent
+
+countries.for.plot %>%
+  select(admin, continent) %>%  st_drop_geometry() %>%
+  right_join(terrestrial_data %>% 
+               distinct(survey, wildlife_health_important, country), 
+             by = join_by(admin==country)) %>% 
+  mutate(continent = ifelse(is.na(continent), "Africa", continent)) %>% 
+  mutate(disagree=ifelse(wildlife_health_important%in%
+                c("Somewhat Disagree","Disagree", "Strongly disagree"),1,0)) %>% 
+  group_by(continent) %>% 
+  summarize(perc_dis = mean(disagree, na.rm = T) * 100) 
+```
+## Human or livestock pathogens can affect wildlife populations
+
+```{r human livestcok pathogens can affect wildlife}
+
+#table(terrestrial_data$hum_liv_path_affect_wildlife, useNA = "always") #No NAs
+
+#converting to factor
+terrestrial_data$hum_liv_path_affect_wildlife<-
+  factor(terrestrial_data$hum_liv_path_affect_wildlife, 
+       levels = c("Strongly agree", "Agree", "Neutral", "Somewhat Disagree", 
+                  "Disagree", "Strongly disagree"))
+
+round(
+  with(terrestrial_data %>% distinct(survey, hum_liv_path_affect_wildlife),
+       mean(
+         ifelse(hum_liv_path_affect_wildlife%in%
+                  c("Strongly agree", "Agree"), 1, 0)
+         ))*100,2)
+
+terrestrial_data %>% distinct(survey, hum_liv_path_affect_wildlife) %>% 
+  count(hum_liv_path_affect_wildlife) %>% 
+  mutate(Percentage = n / sum(n) * 100)
+
+# number respondents from agree to strongly agree
+terrestrial_data %>% distinct(survey, hum_liv_path_affect_wildlife) %>% 
+  count(hum_liv_path_affect_wildlife) %>% 
+  # mutate(Percentage = n / sum(n) * 100)
+  filter(hum_liv_path_affect_wildlife %in% c("Strongly agree",
+                                               "Agree")) %>% 
+  summarise(Total = sum(n))
+
+
+# continent with highest somewhat to strongly disagree values
+countries.for.plot %>%
+  select(admin, continent) %>%  st_drop_geometry() %>%
+  right_join(terrestrial_data %>% 
+               distinct(survey, hum_liv_path_affect_wildlife, country), 
+             by = join_by(admin==country)) %>% 
+  mutate(continent = ifelse(is.na(continent), "Africa", continent)) %>% 
+  mutate(disagree=ifelse(hum_liv_path_affect_wildlife%in%
+              c("Somewhat Disagree","Disagree", "Strongly disagree"),1,0)) %>% 
+  group_by(continent) %>% 
+  summarize(perc_dis = mean(disagree, na.rm = T) * 100) 
+
+
+countries.for.plot %>%
+  select(admin, continent) %>%  st_drop_geometry() %>%
+  right_join(terrestrial_data %>% 
+               distinct(survey, hum_liv_path_affect_wildlife, country), 
+             by = join_by(admin==country)) %>% 
+  mutate(continent = ifelse(is.na(continent), "Africa", continent)) %>% 
+  mutate(disagree=ifelse(hum_liv_path_affect_wildlife%in%
+                           c("Strongly agree", "Agree"),1,0)) %>% 
+  group_by(continent) %>% 
+  summarize(perc_dis = mean(disagree, na.rm = T) * 100) 
+
+```
+
+## Relevance of wildlife pathogens for livestock
+
+```{r relevance wildlife pathogens for livestock}
+
+# table(terrestrial_data$wildlife_path_affect_livestock, useNA = "always") #No NAs
+
+#converting to factor
+terrestrial_data$wildlife_path_affect_livestock<-
+  factor(terrestrial_data$wildlife_path_affect_livestock,
+       levels = c("Strongly agree", "Agree", "Neutral", "Somewhat Disagree",
+                  "Disagree", "Strongly disagree"))
+
+round(
+  with(terrestrial_data %>% distinct(survey, wildlife_path_affect_livestock),
+       mean(
+         ifelse(wildlife_path_affect_livestock%in%
+                  c("Strongly agree", "Agree"), 1, 0)
+         ))*100,2)
+
+terrestrial_data %>% distinct(survey, wildlife_path_affect_livestock) %>%
+  count(wildlife_path_affect_livestock) %>%
+  mutate(Percentage = n / sum(n) * 100)
+
+# number respondents from neutral to strongly agree
+terrestrial_data %>% distinct(survey, wildlife_path_affect_livestock) %>%
+  filter(wildlife_path_affect_livestock %in% c("Strongly agree",
+                                               "Agree")) %>%
+  count(wildlife_path_affect_livestock) %>%
+  #mutate(Percentage = n / nrow() * 100)
+  summarise(Total = sum(n))
+
+
+# continent with highest somewhat to strongly disagree values
+countries.for.plot %>%
+  select(admin, continent) %>%  st_drop_geometry() %>%
+  right_join(terrestrial_data %>% distinct(survey, wildlife_path_affect_livestock, country),
+             by = join_by(admin==country)) %>%
+  mutate(continent = ifelse(is.na(continent), "Africa", continent)) %>%
+  mutate(disagree=ifelse(wildlife_path_affect_livestock%in%c("Somewhat Disagree","Disagree", "Strongly disagree"),1,0)) %>%
+  group_by(continent) %>%
+  summarize(perc_dis = mean(disagree, na.rm = T) * 100)
+
+```
+
+
+## Relevance of wildlife pathogens for public health
+
+```{r relevance wildlife pathogens for public health}
+
+# table(terrestrial_data$wildlife_path_affect_livestock, useNA = "always") #No NAs
+
+#converting to factor
+terrestrial_data$wildlife_path_affect_phealth<-
+  factor(terrestrial_data$wildlife_path_affect_phealth,
+       levels = c("Strongly agree", "Agree", "Neutral", "Somewhat Disagree",
+                  "Disagree", "Strongly disagree"))
+
+round(
+  with(terrestrial_data %>% distinct(survey, wildlife_path_affect_phealth),
+       mean(
+         ifelse(wildlife_path_affect_phealth%in%
+                  c("Strongly agree", "Agree"), 1, 0)
+         ))*100,2)
+
+
+
+terrestrial_data %>% distinct(survey, wildlife_path_affect_phealth) %>%
+  count(wildlife_path_affect_phealth) %>%
+  mutate(Percentage = n / sum(n) * 100)
+
+
+# number respondents from agree to strongly agree
+terrestrial_data %>% distinct(survey, wildlife_path_affect_phealth) %>%
+  count(wildlife_path_affect_phealth) %>%
+  # mutate(Percentage = n / sum(n) * 100)
+  filter(wildlife_path_affect_phealth %in% c("Strongly agree",
+                                               "Agree")) %>%
+  summarise(Total = sum(n))
+
+
+
+# continent with highest somewhat to strongly disagree values
+countries.for.plot %>%
+  select(admin, continent) %>%  st_drop_geometry() %>%
+  right_join(terrestrial_data %>%
+               distinct(survey, wildlife_path_affect_phealth, country),
+             by = join_by(admin==country)) %>%
+  mutate(continent = ifelse(is.na(continent), "Africa", continent)) %>%
+  mutate(disagree=ifelse(wildlife_path_affect_phealth%in%
+              c("Somewhat Disagree","Disagree", "Strongly disagree"),1,0)) %>%
+  group_by(continent) %>%
+  summarize(perc_dis = mean(disagree, na.rm = T) * 100)
+
+```
+
+
+## Wildlife health importance for conservation versus human and livestock pathogens can affect wildlife
+
+```{r Wildlife health important versus human and livestock pathogens affect wildlife}
+#| eval: false
 #| echo: false
-#| eval: true
-#| message: false
 
-nrow(terrestrial_data)
+terrestrial_data %>% 
+distinct(survey, 
+         hum_liv_path_affect_wildlife, 
+         wildlife_health_important, 
+         country) %>% 
+count(hum_liv_path_affect_wildlife, 
+      wildlife_health_important) %>% 
+pivot_wider(names_from = wildlife_health_important, 
+            values_from = n, 
+            values_fill = 0)
+
+inconsistent_surveys<-
+terrestrial_data %>% 
+  filter(wildlife_health_important %in% 
+           c("Strongly agree", "Agree")) %>% 
+  filter(hum_liv_path_affect_wildlife %in%
+           c("Somewhat Disagree", "Disagree", "Strongly disagree")) %>% 
+  distinct(survey, 
+           hum_liv_path_affect_wildlife,
+           wildlife_health_important, 
+           country)
+
 
 ```
 
-##  Number of responses per continent per country
 
-```{r responses per continent per country}
-#| echo: false
-#| message: false
-#| eval: true
+<!-- ## Introduced domestic animals are a concern for the conservation goals of the protected areas -->
 
-# add the continent
-terrestrial_data$continent <- 
-          countrycode(sourcevar = as.data.frame(terrestrial_data)[, "country"],
-                      origin = "country.name",
-                      destination = "continent")
+<!-- ```{r introduced domestic animals} -->
+<!-- #| eval: false -->
+<!-- #| echo: false -->
+
+<!-- #table(terrestrial_data$dom_animals_concern, useNA = "always") #No NAs -->
+
+<!-- #converting to factor -->
+<!-- terrestrial_data$dom_animals_concern<- -->
+<!--   factor(terrestrial_data$dom_animals_concern,  -->
+<!--        levels = c("Strongly agree", "Agree", "Neutral", "Somewhat Disagree",  -->
+<!--                   "Disagree", "Strongly disagree")) -->
+
+<!-- ### Introduced domestic animals versus livestock human pathogens in wildlife -->
+<!-- terrestrial_data %>%  -->
+<!-- distinct(survey, hum_liv_path_affect_wildlife, dom_animals_concern, country) %>%  -->
+<!-- count(hum_liv_path_affect_wildlife, dom_animals_concern) %>%  -->
+<!-- pivot_wider(names_from = dom_animals_concern, values_from = n, values_fill = 0) -->
+
+<!-- ``` -->
 
 
-# responses per continent per country
-num_protected_areas_per_continent_country <-
-          terrestrial_data %>%  
-            select(continent, country) %>% 
-            count(continent, country, name = "number") %>% 
-            arrange (continent, country, -number)
+## Dead and sick or injured wildlife is encountered in the protected area
 
-
-#table
-kableExtra::kbl(num_protected_areas_per_continent_country, 
-    caption = "Number of protected areas represented per continent and country",
-    col.names = c("Continent", "Country", "Number")) %>%
-    kableExtra::kable_paper(full_width = F) %>% 
-    kableExtra::collapse_rows(columns = 1)
-
-```
-
-## Dead and sick or injured wildlife is observed during patrols
-
-```{r injured dead sick wildlife observed during patrols}
+```{r injured dead sick wildlife encountered}
 #| echo: false
 #| message: false
 #| eval: true
@@ -334,6 +640,7 @@ kableExtra::kbl(num_protected_areas_per_continent_country,
 #subset the dead and sick or injured data
 
 terrestrial_data_sick_dead <- terrestrial_data %>% 
+  distinct(survey, sick_injured_found, dead_found) %>% 
   select(sick_injured_found, dead_found)
 
 terrestrial_data_sick_dead <- terrestrial_data_sick_dead %>% 
@@ -366,22 +673,24 @@ terrestrial_data_sick_dead$response<-
 
 # create x labels for question s
 q_lab <- c("dead_found" = 
-             "Dead wildlife are\nfound in the protected\narea",
+             "Dead wildlife are\nfound in the represented\nprotected area(s)",
            "sick_injured_found" = 
-             "Sick or injured wildlife\nare found in the protected\narea")
+             "Sick or injured wildlife\nare found in the represented\nprotected area(s)")
 
 
 # create a theme for plotting likert data
 likert_theme <- 
   theme_gray() +
-  theme(text = element_text(size = 45),
-        plot.title = element_text(size = 43, face = "bold",
+  theme(text = element_text(size = 60),
+        plot.title = element_text(size = 60, face = "bold",
                                   margin = margin(10, 0, 10, 0)), 
         plot.margin = unit(c(2.4,0,2.4,.4), "cm"),
+        # panel.border = element_rect(color = "black", linewidth = 1, fill = NA),
         # plot.subtitle = element_text(face = "italic"),
         # legend.title = element_blank(),
         # legend.key.size = unit(.7, "line"),
         # legend.background = element_rect(fill = "grey90"),
+        plot.background = element_rect(linewidth = 5, color = "black"),
         panel.grid = element_blank(),
         axis.text.x = element_blank(),
         axis.ticks = element_blank(),
@@ -402,14 +711,14 @@ ggplot(data = terrestrial_data_sick_dead) +
   scale_fill_brewer(type = "div") + # use a diverging fill
   scale_x_discrete(labels = q_lab) +
   facet_wrap(.~response, nrow = 1) +
-  coord_flip() +
-  ggtitle("Dead and sick or injured wildlife are found in the protected area")
+  coord_flip() #+
+  #ggtitle("Dead and sick or injured wildlife are encountered in the protected area(s)")
 
 
   # create plot if the file does not exist
-if(!file.exists("plots/dead_sicks_injured_observed.png")) { 
+if(!file.exists("../plots/dead_sicks_injured_observed.png")) { 
   
-ggsave("plots/dead_sicks_injured_observed.png",
+ggsave("../plots/dead_sicks_injured_observed.png",
        plot = plot_sick_dead_observed,
        width=110,
        height=30,
@@ -417,17 +726,116 @@ ggsave("plots/dead_sicks_injured_observed.png",
        dpi=300)
 }else{
   #else open it
-knitr::include_graphics("plots/dead_sicks_injured_observed.png")}
+knitr::include_graphics("../plots/dead_sicks_injured_observed.png")}
 
 
+
+#> check "consistency" between encounter frequency of deqd wildlife
+#> qnd sick or injured wildlife
+
+
+terrestrial_data$dead_found<-
+  factor(x = terrestrial_data$dead_found, 
+        levels = c("Never", 
+                   "Very rarely", 
+                   "Rarely", 
+                   "Sometimes",
+                   "Occasionally",
+                   "Very frequently",
+                   "Always")) 
+
+
+terrestrial_data$sick_injured_found<-
+  factor(x = terrestrial_data$sick_injured_found, 
+        levels = c("Never", 
+                   "Very rarely", 
+                   "Rarely", 
+                   "Sometimes",
+                   "Occasionally",
+                   "Very frequently",
+                   "Always")) 
+
+
+  terrestrial_data %>% 
+  distinct(survey, sick_injured_found, dead_found) %>% 
+  # filter(sick_injured_found=="Never" | dead_found=="Never") %>% 
+  count(sick_injured_found, dead_found) %>% 
+  pivot_wider(names_from = dead_found, values_from = n, values_fill = 0) %>% 
+  select(sick_injured_found, Never, 
+         `Very rarely`, Rarely, Sometimes,
+         Occasionally, `Very frequently`, Always)
+
+
+
+#> chacking reponses for surverys reporting never fin sick or injured wildlife 
+#> and never find dead wildlife
+
+
+terrestrial_data %>% 
+  distinct(survey, sick_injured_found, dead_found) %>% 
+  filter(sick_injured_found=="Never" | dead_found=="Never") %>% 
+  count(sick_injured_found, dead_found) %>% 
+  pivot_wider(names_from = dead_found, values_from = n, values_fill = 0)
+
+#> tracking the surveys with never never 
+terrestrial_data %>% 
+  distinct(survey, sick_injured_found, dead_found) %>% 
+  filter(sick_injured_found=="Never" | dead_found=="Never")
 
 ```
-Rangers can detect morbidity and mortality but it is variable across landscapes: expected
-
-There is not huge difference on how often sick or injured versus dead wildlife is found: potential problem with the default data model in SMART which only considers carcasses. There could be a trend towards reporting dead wildlife more often.
 
 
-## Healthy, sick, injured, and dead wildlife recorded as a specific category of animals
+<!-- ## Livestock are encountered in the protected area -->
+
+<!-- ```{r livestock encountered} -->
+<!-- #| echo: false -->
+<!-- #| message: false -->
+<!-- #| eval: false -->
+
+<!-- #table(terrestrial_data$livestock_found, useNA = "always") #No NAs -->
+
+<!-- #converting to factor -->
+<!-- terrestrial_data$livestock_found<- -->
+<!--   factor(terrestrial_data$livestock_found,  -->
+<!--        levels = c("Never",  -->
+<!--                    "Very rarely",  -->
+<!--                    "Rarely",  -->
+<!--                    "Sometimes", -->
+<!--                    "Occasionally", -->
+<!--                    "Very frequently", -->
+<!--                    "Always")) -->
+
+
+<!-- terrestrial_data %>%  -->
+<!--   distinct(survey, livestock_found) %>%  -->
+<!--   count(livestock_found) %>%  -->
+<!--   mutate(Percentage = n / sum(n) * 100) -->
+
+
+<!-- # crossing livestock encountering with livestock pathogens are a problem for wildlife  -->
+
+<!-- terrestrial_data %>%  -->
+<!--   distinct(survey, livestock_found, hum_liv_path_affect_wildlife) %>%  -->
+<!--   count(livestock_found, hum_liv_path_affect_wildlife) %>%  -->
+<!--   pivot_wider(names_from = hum_liv_path_affect_wildlife, values_from = n, values_fill = 0) %>%  -->
+<!--   select(livestock_found, `Strongly agree`, Agree, Neutral, `Somewhat Disagree`, Disagree, `Strongly disagree`) -->
+
+
+<!-- # crossing livestock encountering with livestock is a problem for the conservation goals -->
+
+<!-- terrestrial_data %>%  -->
+<!--   distinct(survey, livestock_found, dom_animals_concern) %>%  -->
+<!--   count(livestock_found, dom_animals_concern) %>%  -->
+<!--   pivot_wider(names_from = dom_animals_concern, values_from = n, values_fill = 0) %>%  -->
+<!--   select(livestock_found, `Strongly agree`, Agree, Neutral, `Somewhat Disagree`, Disagree, `Strongly disagree`) -->
+
+
+<!-- ``` -->
+
+
+#SECTION 2
+
+## Healthy, sick, injured, and dead wildlife recording
 
 ```{r}
 #| echo: false
@@ -438,18 +846,30 @@ There is not huge difference on how often sick or injured versus dead wildlife i
 
 terrestrial_data_types_wildlife_recorded= 
   terrestrial_data %>% 
+  distinct(survey, healthy_wl_recorded, 
+           dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) %>% 
   select(healthy_wl_recorded, 
           dead_wl_recorded,
           injured_wl_recorded,
           sick_wl_recorded) 
 
-terrestrial_data_types_wildlife_recorded=
+
+# number responses where neither injured, sick or dead wildlife are recorded
+terrestrial_data %>% 
+  distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) %>% 
+  filter(dead_wl_recorded=="No"& sick_wl_recorded=="No" & injured_wl_recorded=="No") %>% 
+  nrow()
+
+
+
+#percentges per health status
+terrestrial_data_types_wildlife_recorded<-
 terrestrial_data_types_wildlife_recorded %>% 
   pivot_longer(everything(),
                values_to = "answer") %>% 
   group_by(name, answer) %>% 
-  summarize(n = n()) %>% 
-  mutate(total = sum(n)) %>% 
+  dplyr::summarize(n = n()) %>% 
+  mutate(total = nrow(terrestrial_data %>% distinct(survey))) %>% 
   mutate(perc_num = paste(n, paste0("(",round(n / total*100, 2), ")"))) %>%  
   pivot_wider(id_cols = answer,
               names_from = name,
@@ -464,6 +884,28 @@ terrestrial_data_types_wildlife_recorded %>%
       # kableExtra::column_spec(2, width = "30em")%>%
       #scroll_box(width = "100%", height = "600px")
       #add_header_above(header = c(" ", "Dead wildlife recorded" = 2))
+ 
+ 
+ # Per continent
+ 
+ countries.for.plot %>%
+  select(admin, continent) %>%  st_drop_geometry() %>%
+  right_join( terrestrial_data %>% 
+                distinct(survey, healthy_wl_recorded, 
+                         dead_wl_recorded, sick_wl_recorded, 
+                         injured_wl_recorded, country),   
+              by = join_by(admin==country)) %>% 
+  mutate(continent = ifelse(is.na(continent), "Africa", continent)) %>% 
+  select(healthy_wl_recorded, 
+          dead_wl_recorded,
+          injured_wl_recorded,
+          sick_wl_recorded,
+         continent) %>%  
+  group_by(continent) %>% 
+  summarize(perc_rec_healthy = mean(ifelse(healthy_wl_recorded=="Yes", 1, 0), na.rm = T) * 100, 
+            perc_rec_sick = mean(ifelse(sick_wl_recorded=="Yes", 1, 0), na.rm = T) * 100,
+            perc_rec_injured = mean(ifelse(injured_wl_recorded=="Yes", 1, 0), na.rm = T) * 100, 
+            perc_rec_dead = mean(ifelse(dead_wl_recorded=="Yes", 1, 0), na.rm = T) * 100) 
 
 ```
 Injured and sick wildlife tend not to be recorded. Dead and healthy wildlife found during patrols are also not recorded in about a third of the protected areas
@@ -480,6 +922,8 @@ Injured and sick wildlife tend not to be recorded. Dead and healthy wildlife fou
 
 terrestrial_data_dead_wildlife_found_versus_dead_wildlife_recorded = 
   terrestrial_data %>% 
+  distinct(survey, dead_found, 
+           dead_wl_recorded) %>% 
   select(dead_found,dead_wl_recorded) 
 
 #make the columns factors so the count of zero appears in the table
@@ -504,7 +948,7 @@ terrestrial_data_dead_wildlife_found_versus_dead_wildlife_recorded$dead_wl_recor
   factor(terrestrial_data_dead_wildlife_found_versus_dead_wildlife_recorded$dead_wl_recorded, 
          levels = c("Yes", "No"))
 
-terrestrial_data_dead_wildlife_found_versus_dead_wildlife_recorded=
+terrestrial_data_dead_wildlife_found_versus_dead_wildlife_recorded<-
 terrestrial_data_dead_wildlife_found_versus_dead_wildlife_recorded %>% 
   group_by(dead_found,dead_wl_recorded, .drop=FALSE) %>% 
   count(dead_found, dead_wl_recorded) %>% 
@@ -528,8 +972,8 @@ terrestrial_data_dead_wildlife_found_versus_dead_wildlife_recorded %>%
 # plot 
   # create x labels for questions
 
-q_lab <- c("Yes" = "Dead wildlife is\n recorded",
-           "No" = "Dead wildlife is\n not recorded")
+q_lab1 <- c("Yes" = "Dead wildlife\nfound during\npatrols are\ndocumented",
+           "No" = "Dead wildlife\nfound during\npatrols are not\ndocumented")
 
 
 #plot the results
@@ -538,22 +982,26 @@ dead_wildlife_found_versus_dead_wildlife_recorded=
 ggplot(data = terrestrial_data_dead_wildlife_found_versus_dead_wildlife_recorded %>% 
          pivot_longer(cols=c("Yes", "No"))) +
   likert_theme +
+  theme(text = element_text(size = 60),
+        plot.title = element_text(size = 60, hjust = 0.5, vjust = 3.5, face = "plain",
+                                  margin = margin(0, 0, 0, 0)),
+        plot.background = element_rect(linewidth = 5, color = "black")) +
   geom_col(aes(name, value, fill = dead_found)) +
   geom_text(aes(name, value, label = value), # add percentage
             position = position_stack(vjust = .5),
             fontface = "bold",
             size=20) + # ) + # center the label
   scale_fill_brewer(type = "div") + # use a diverging fill
-  scale_x_discrete(labels = q_lab) +
+  scale_x_discrete(labels = q_lab1) +
   facet_wrap(.~dead_found, nrow = 1) +
   coord_flip() +
-  ggtitle("Dead wildlife recorded during patrols by frequency dead wildlife is found" #,
+  ggtitle("Overall dead wildlife encountering reported by protected area(s) managers"#,
           # subtitle = '% (Attitude) on "The government should __", with "Refused" removed'
           )
     
-if(!file.exists("plots/dead_wildlife_found_versus_dead_wildlife_recorded_patrols.png")) { 
-  
-ggsave("plots/dead_wildlife_found_versus_dead_wildlife_recorded_patrols.png",
+if(!file.exists("../plots/dead_wildlife_found_versus_dead_wildlife_recorded_patrols.png")) {
+
+ggsave("../plots/dead_wildlife_found_versus_dead_wildlife_recorded_patrols.png",
        plot = dead_wildlife_found_versus_dead_wildlife_recorded,
        width=110,
        height=30,
@@ -561,18 +1009,18 @@ ggsave("plots/dead_wildlife_found_versus_dead_wildlife_recorded_patrols.png",
        dpi=300)
 }else{
   #else open it
-knitr::include_graphics("plots/dead_wildlife_found_versus_dead_wildlife_recorded_patrols.png")}
+knitr::include_graphics("../plots/dead_wildlife_found_versus_dead_wildlife_recorded_patrols.png")}
 
 
 
 ```
-Dead wildlife tends to be recorded when it is found during patrols. What goes first? recording and finding or finding and recording?
+Dead wildlife tends to be recorded when it is found during patrols. 
 
 
 ## Sick wildlife recorded or not across categories of sick or injured wildlife found during patrols.
 
 
-```{r sick wildlife observed versus recorded}
+```{r sick wildlife record versus sick or injured wildlife encounter}
 #| echo: false
 #| message: false
 #| eval: true
@@ -580,7 +1028,9 @@ Dead wildlife tends to be recorded when it is found during patrols. What goes fi
 #sick or injured wildlife
 
 terrestrial_data_sick_injured_wildlife_found_versus_sick_injured_wildlife_recorded <-
-  terrestrial_data %>% select(sick_injured_found, sick_wl_recorded) 
+  terrestrial_data %>% 
+  distinct(survey, sick_injured_found, sick_wl_recorded) %>% 
+  select(sick_injured_found, sick_wl_recorded) 
 
 #make the columns factors so the count of zero appears in the table
 terrestrial_data_sick_injured_wildlife_found_versus_sick_injured_wildlife_recorded$sick_injured_found<-
@@ -603,7 +1053,7 @@ terrestrial_data_sick_injured_wildlife_found_versus_sick_injured_wildlife_record
 terrestrial_data_sick_injured_wildlife_found_versus_sick_injured_wildlife_recorded$sick_wl_recorded<-
   factor(terrestrial_data_sick_injured_wildlife_found_versus_sick_injured_wildlife_recorded$sick_wl_recorded, levels = c("Yes", "No"))
 
- terrestrial_data_sick_injured_wildlife_found_versus_sick_injured_wildlife_recorded=
+terrestrial_data_sick_injured_wildlife_found_versus_sick_injured_wildlife_recorded=
 terrestrial_data_sick_injured_wildlife_found_versus_sick_injured_wildlife_recorded %>% 
   group_by(sick_injured_found,sick_wl_recorded, .drop=FALSE) %>% 
   count(sick_injured_found, sick_wl_recorded) %>% 
@@ -626,37 +1076,39 @@ terrestrial_data_sick_injured_wildlife_found_versus_sick_injured_wildlife_record
 # plot 
   # create x labels for questions
 
-q_lab <- c("Yes" = "Sick wildlife is\nrecorded",
-           "No" = "Sick wildlife is\nnot recorded")
+q_lab2 <- c("Yes" = "Sick wildlife\nfound during\npatrols are\ndocumented",
+           "No" = "Sick wildlife\nfound during\npatrols are not\ndocumented")
 
 #plot the results
 sick_injured_wildlife_found_versus_sick_wildlife_recorded=
 ggplot(data = terrestrial_data_sick_injured_wildlife_found_versus_sick_injured_wildlife_recorded %>% pivot_longer(cols=c("Yes", "No"))) +
   likert_theme +
+  theme(text = element_text(size = 60),
+        plot.title = element_text(size = 60, hjust = 0.5, vjust = 3.5, face = "plain",
+                                  margin = margin(0, 0, 0, 0)),
+        plot.background = element_rect(linewidth = 5, color = "black")) +
   geom_col(aes(name, value, fill = sick_injured_found)) +
   geom_text(aes(name, value, label = value), # add percentage
             position = position_stack(vjust = .5),
             fontface = "bold",
             size=20) + # ) +) + # center the label
   scale_fill_brewer(type = "div") + # use a diverging fill
-  scale_x_discrete(labels = q_lab) +
+  scale_x_discrete(labels = q_lab2) +
   facet_wrap(.~sick_injured_found, nrow = 1) +
   coord_flip() +
-  ggtitle("Sick wildlife recorded during patrols by frequency sick or injured wildlife is found" #,
-          # subtitle = '% (Attitude) on "The government should __", with "Refused" removed'
-          )
+  ggtitle("Overall sick or injured wildlife encountering reported by protected area(s) managers")#,
     
-if(!file.exists("plots/sick_injured_wildlife_found_versus_sick_wildlife_recorded.png")) { 
-  
-ggsave("plots/sick_injured_wildlife_found_versus_sick_wildlife_recorded.png",
+# if(!file.exists("plots/sick_injured_wildlife_found_versus_sick_wildlife_recorded.png")) { 
+#   
+ggsave("../plots/sick_injured_wildlife_found_versus_sick_wildlife_recorded.png",
        plot = sick_injured_wildlife_found_versus_sick_wildlife_recorded,
        width=110,
        height=30,
        units = "cm",
        dpi=300)
-}else{
-  #else open it
-knitr::include_graphics("plots/sick_injured_wildlife_found_versus_sick_wildlife_recorded.png")}
+# }else{
+#   #else open it
+# knitr::include_graphics("plots/sick_injured_wildlife_found_versus_sick_wildlife_recorded.png")}
     
 ```
 Sick wildlife tend not to be recorded even when it is found during patrols.
@@ -664,14 +1116,18 @@ Sick wildlife tend not to be recorded even when it is found during patrols.
 
 ## Injured wildlife recorded or not across categories of sick or injured wildlife found during patrols.
 
-```{r}
+```{r injured wildlife record versus sick or injured wildlife encounter}
 #| echo: false
 #| message: false
 #| eval: true
 
-#sick or injured wildlife
+#injured wildlife
 
-terrestrial_data_sick_injured_wildlife_found_versus_injured_wildlife_recorded = terrestrial_data[, c("sick_injured_found", "injured_wl_recorded")] 
+terrestrial_data_sick_injured_wildlife_found_versus_injured_wildlife_recorded <-
+  terrestrial_data %>% 
+  distinct(survey, sick_injured_found, injured_wl_recorded) %>% 
+  select(sick_injured_found, injured_wl_recorded) 
+ 
 
 #make the columns factors so the count of zero appears in the table
 terrestrial_data_sick_injured_wildlife_found_versus_injured_wildlife_recorded$sick_injured_found<-factor(terrestrial_data_sick_injured_wildlife_found_versus_injured_wildlife_recorded$sick_injured_found, levels = c("Never", 
@@ -716,196 +1172,344 @@ terrestrial_data_sick_injured_wildlife_found_versus_injured_wildlife_recorded %>
 # plot 
   # create x labels for questions
 
-q_lab <- c("Yes" = "Injured wildlife is\n recorded",
-           "No" = "Injured wildlife is\n not recorded")
+q_lab3 <- c("Yes" = "Injured wildlife\nfound during\npatrols are\ndocumented",
+           "No" = "Injured wildlife\nfound during\npatrols are not\ndocumented")
 
 #plot the results
-#terrestrial_data_sick_dead
+sick_injured_wildlife_found_versus_injured_wildlife_recorded<-
 ggplot(data = terrestrial_data_sick_injured_wildlife_found_versus_injured_wildlife_recorded %>% pivot_longer(cols=c("Yes", "No"))) +
   likert_theme +
-  theme(strip.background  = element_blank(),
-        axis.title = element_blank(),
-        panel.background = element_blank(),
-        legend.position = "none") +
+    theme(text = element_text(size = 60),
+        plot.title = element_text(size = 60, hjust = 0.5, vjust = 3.5, face = "plain",
+                                  margin = margin(0, 0, 0, 0)),
+        plot.background = element_rect(linewidth = 5, color = "black")) +
   geom_col(aes(name, value, fill = sick_injured_found)) +
   geom_text(aes(name, value, label = value), # add percentage
             position = position_stack(vjust = .5),
-            fontface = "bold") + # center the label
+            fontface = "bold",
+            size=20) + # center the label
   scale_fill_brewer(type = "div") + # use a diverging fill
-  scale_x_discrete(labels = q_lab) +
+  scale_x_discrete(labels = q_lab3) +
   facet_wrap(.~sick_injured_found, nrow = 1) +
   coord_flip() +
-  ggtitle("Injured wildlife recorded by frequency sick or injured wildlife is found during patrols" #,
-          # subtitle = '% (Attitude) on "The government should __", with "Refused" removed'
-          )
+  ggtitle("Overall sick or injured wildlife encountering reported by protected area(s) managers")#,
+    
+# if(!file.exists("plots/sick_injured_wildlife_found_versus_sick_wildlife_recorded.png")) { 
+#   
+ggsave("../plots/sick_injured_wildlife_found_versus_injured_wildlife_recorded.png",
+       plot = sick_injured_wildlife_found_versus_sick_wildlife_recorded,
+       width=110,
+       height=30,
+       units = "cm",
+       dpi=300)
+# }else{
+#   #else open it
+# knitr::include_graphics("plots/sick_injured_wildlife_found_versus_sick_wildlife_recorded.png")}
     
     
 ```
 injured wildlife tends not to be recorded when it is not found during patrols. But when sick or injured wildlife is reported to be found "Sometimes" or "Occasionally", then here is a relevant number of protected areas where the injured wildlife is not recorded.
 
-<!-- ## Patrol effort and detection of dead wildlife -->
 
-```{r}
-#| echo: false
-#| eval: false
+Single Figure with dead, sick, injured encountering versus recording 
+
+```{r mixing plots aobove in the same figure}
+# test<-grid.arrange(dead_wildlife_found_versus_dead_wildlife_recorded, 
+#                    sick_injured_wildlife_found_versus_sick_wildlife_recorded,
+#                    sick_injured_wildlife_found_versus_injured_wildlife_recorded, ncol = 1)
+
+full_figure<-
+
+plot_grid(
+
+  # row 1
+  sick_injured_wildlife_found_versus_sick_wildlife_recorded +
+  theme(plot.background = element_rect(linewidth = 5, color = "black")),
+  #row 2
+  sick_injured_wildlife_found_versus_injured_wildlife_recorded +
+  theme(plot.background = element_rect(linewidth = 5, color = "black")),
+  # row 3
+  dead_wildlife_found_versus_dead_wildlife_recorded +
+  theme(plot.background = element_rect(linewidth = 5, color = "black")),
+  
+  labels = c('A', 'B', "C"), label_size = 60,
+
+  nrow = 3)
 
 
-hist(terrestrial_data$patrols_per_month)
 
-terrestrial_data$patrol_length<-factor(terrestrial_data$patrol_length, levels =c("Between four days and a week", "Between two and five days", "Between one to two days", "Less than a day"))
+if(!file.exists("../plots/dead_sick_injured_wildlife_found_versus_dead_sick_injured_wildlife_recorded.png")) {
 
-terrestrial_data$sick_injured_found<-factor(terrestrial_data$sick_injured_found, levels = c("Never", 
- "Very rarely", 
- "Rarely", 
- "Sometimes",
- "Occasionally",
- "Very frequently",
- "Always"))
-
-terrestrial_data$dead_found<-factor(terrestrial_data$dead_found, levels = c("Never", 
- "Very rarely", 
- "Rarely", 
- "Sometimes",
- "Occasionally",
- "Very frequently",
- "Always"))
-
-table(terrestrial_data$patrol_length, terrestrial_data$sick_injured_found)
+ggsave("../plots/dead_sick_injured_wildlife_found_versus_dead_sick_injured_wildlife_recorded.png",
+       plot = full_figure,
+       width=110,
+       height=30 *3,
+       units = "cm",
+       dpi=300)
+}
 
 ```
-Cannot be assessed because the answers make no sense. Probably some of them answered across all protected areas.
 
-In the case of the average length of the patrols, there is not clear tendency.
-
-## How is healthy wildlife recorded when it is recorded?
+Checkpoint for answers
 
 ```{r}
-#| echo: false
-#| eval: false
+
+# Found versus recorded, if never found, it cannot be recorded.
+
+terrestrial_data %>% 
+  distinct(survey, sick_injured_found, sick_wl_recorded, injured_wl_recorded) %>% 
+  filter(sick_injured_found =="Never" | injured_wl_recorded=="Never")
+
+#survey 55 and 90 have issues
+
+terrestrial_data %>% 
+  distinct(survey, dead_found, dead_wl_recorded) %>% 
+  filter(dead_found =="Never")
+
+terrestrial_data %>% filter(survey%in%c(55, 90))
+
+
+# if the answers is not recorded, it cannot have data for that category. All good
+
+data.frame(
+terrestrial_data %>%  
+  filter(dead_wl_recorded!="Yes") %>% 
+  distinct(survey, dead_wl_data_recorded,dead_wl_data_in_smart, dead_wl_data_other, how_dead_wl_recorded) %>% 
+  select(survey, dead_wl_data_recorded,dead_wl_data_in_smart, dead_wl_data_other, how_dead_wl_recorded))
+
+
+data.frame(
+terrestrial_data %>%  
+  filter(sick_wl_recorded!="Yes") %>% 
+  distinct(survey, sick_wl_recorded, sick_wl_data_in_smart, sick_wl_data_other, how_sick_wl_recorded) %>% 
+  select(survey, sick_wl_recorded, sick_wl_data_in_smart, sick_wl_data_other, how_sick_wl_recorded))
+
+
+data.frame(
+terrestrial_data %>%  
+  filter(injured_wl_recorded!="Yes") %>% 
+  distinct(survey, injured_wl_recorded, injured_wl_data_in_smart, injured_wl_data_other, how_injured_wl_recorded) %>% 
+  select(survey, injured_wl_recorded, injured_wl_data_in_smart, injured_wl_data_other, how_injured_wl_recorded))
+
+
+# i the answer is recorded , there should be data 
+
+# if the answers is not recorded, it cannot have data for that category. All good
+
+data.frame(
+terrestrial_data %>%  
+  filter(dead_wl_recorded=="Yes") %>% 
+  distinct(survey, dead_wl_data_recorded,dead_wl_data_in_smart, dead_wl_data_other, how_dead_wl_recorded) %>% 
+  select(survey, dead_wl_data_recorded,dead_wl_data_in_smart, dead_wl_data_other, how_dead_wl_recorded))
+
+
+data.frame(
+terrestrial_data %>%  
+  filter(sick_wl_recorded=="Yes") %>% 
+  distinct(survey, sick_wl_recorded, sick_wl_data_in_smart, sick_wl_data_other, how_sick_wl_recorded) %>% 
+  select(survey, sick_wl_recorded, sick_wl_data_in_smart, sick_wl_data_other, how_sick_wl_recorded))
+
+
+data.frame(
+terrestrial_data %>%  
+  filter(injured_wl_recorded=="Yes") %>% 
+  distinct(survey, injured_wl_recorded, injured_wl_data_in_smart, injured_wl_data_other, how_injured_wl_recorded) %>% 
+  select(survey, injured_wl_recorded, injured_wl_data_in_smart, injured_wl_data_other, how_injured_wl_recorded))
 
 
 
-#terrestrial_data %>% count(how_healthy_wl_recorded) 
-
-   kableExtra::kbl(terrestrial_data %>% count(how_healthy_wl_recorded) %>% filter(!is.na(how_healthy_wl_recorded)),  
-                    caption = "How is healthy wildlife recorded",
-                    col.names = c("How", "Number of responses")) %>%
-      kableExtra::kable_paper(full_width = F) #%>%
 ```
-Variability on how healthy wildlife is recorded
-
-## How is dead wildlife recorded when it is recorded?
-
-```{r}
-#| echo: false
-#| eval: false
-
-#terrestrial_data %>% count(how_dead_wl_recorded) 
-
-   kableExtra::kbl(terrestrial_data %>% count(how_dead_wl_recorded) %>% filter(!is.na(how_dead_wl_recorded)) %>%  arrange(-n),
-                    caption = "How is dead wildlife recorded",
-                    col.names = c("How", "Number of responses")) %>%
-      kableExtra::kable_paper(full_width = F) #%>%
-```
-Variability on how dead wildlife is recorded
-
-## How is sick wildlife recorded when it is recorded?
-
-```{r}
-#| echo: false
-#| eval: false
-
-#terrestrial_data %>% count(how_dead_wl_recorded) 
-
-   kableExtra::kbl(terrestrial_data %>% count(how_sick_wl_recorded) %>% filter(!is.na(how_sick_wl_recorded)) %>%  arrange(-n),
-                    caption = "How is sick wildlife recorded",
-                    col.names = c("How", "Number of responses")) %>%
-      kableExtra::kable_paper(full_width = F) #%>%
-```
-Variability on how sick wildlife is recorded
-
-
-## How is injured wildlife recorded when it is recorded?
-
-```{r}
-#| echo: false
-#| eval: false
-
-#terrestrial_data %>% count(how_dead_wl_recorded) 
-
-   kableExtra::kbl(terrestrial_data %>% count(how_injured_wl_recorded) %>%   filter(!is.na(how_injured_wl_recorded)) %>%  arrange(-n),
-                    caption = "How is injured wildlife recorded",
-                    col.names = c("How", "Number of responses")) %>%
-      kableExtra::kable_paper(full_width = F) #%>%
-```
-Variability on how injured wildlife is recorded
-
-Usually, each individual is recorded individually for dead, sick, and injured wildlife.
-
-## Answers on how the wildlife in different health status are recorded
-
-
-```{r}
-#| echo: false
-#| eval: false
-
-healthy= terrestrial_data %>% count(how_healthy_wl_recorded) %>% filter(!is.na(how_healthy_wl_recorded)) %>% arrange(-n)
-
-injured= terrestrial_data %>% count(how_injured_wl_recorded) %>% filter(!is.na(how_injured_wl_recorded)) %>% arrange(-n) 
-
-sick= terrestrial_data %>% count(how_sick_wl_recorded) %>% filter(!is.na(how_sick_wl_recorded)) %>% arrange(-n) 
-
-dead= terrestrial_data %>% count(how_dead_wl_recorded) %>% filter(!is.na(how_dead_wl_recorded)) %>% arrange(-n) 
 
 
 
-how=c("Each animal with the corresponding health status is recorded as an individual observation",
-      "Wildlife with the corresponding health status are counted and reported as part of the full count of individuals belonging to an observed species", 
-      "Wildlife with the corresponding health status are recorded as present/absent (the number of individuals is not specified)",
-      "Wildlife with the corresponding health status are recorded in another way")
+
+<!-- <!-- ## Patrol effort and detection of dead wildlife --> -->
+
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| eval: false -->
 
 
-temp=
-data.frame("How_recorded"= how, 
-          "Responses_healthy" = healthy$n,
-          "Responses_injured" = injured$n,
-          "Responses_sick" = sick$n,
-          "Responses_dead" = dead$n)
+<!-- hist(terrestrial_data$patrols_per_month) -->
 
-#terrestrial_data %>% count(how_dead_wl_recorded) 
+<!-- terrestrial_data$patrol_length<-factor(terrestrial_data$patrol_length, levels =c("Between four days and a week", "Between two and five days", "Between one to two days", "Less than a day")) -->
 
-   kableExtra::kbl(temp,
-                   caption = "How is healthy, injured, sick, and dead wildlife recorded",
-                   col.names = c("How", 
-                                 "Number of responses how healthy wildlife is recorded",
-                                 "Number of responses how injured wildlife is recorded",
-                                 "Number of responses how sick wildlife is recorded",
-                                 "Number of responses how dead wildlife is recorded")) %>%
-      kableExtra::kable_paper(full_width = F) #%>%
-```
+<!-- terrestrial_data$sick_injured_found<-factor(terrestrial_data$sick_injured_found, levels = c("Never",  -->
+<!--  "Very rarely",  -->
+<!--  "Rarely",  -->
+<!--  "Sometimes", -->
+<!--  "Occasionally", -->
+<!--  "Very frequently", -->
+<!--  "Always")) -->
+
+<!-- terrestrial_data$dead_found<-factor(terrestrial_data$dead_found, levels = c("Never",  -->
+<!--  "Very rarely",  -->
+<!--  "Rarely",  -->
+<!--  "Sometimes", -->
+<!--  "Occasionally", -->
+<!--  "Very frequently", -->
+<!--  "Always")) -->
+
+<!-- table(terrestrial_data$patrol_length, terrestrial_data$sick_injured_found) -->
+
+<!-- ``` -->
+<!-- Cannot be assessed because the answers make no sense. Probably some of them answered across all protected areas. -->
+
+<!-- In the case of the average length of the patrols, there is not clear tendency. -->
+
+<!-- ## How is healthy wildlife recorded when it is recorded? -->
+
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| eval: false -->
+
+
+
+<!-- #terrestrial_data %>% count(how_healthy_wl_recorded)  -->
+
+<!--    kableExtra::kbl(terrestrial_data %>% count(how_healthy_wl_recorded) %>% filter(!is.na(how_healthy_wl_recorded)),   -->
+<!--                     caption = "How is healthy wildlife recorded", -->
+<!--                     col.names = c("How", "Number of responses")) %>% -->
+<!--       kableExtra::kable_paper(full_width = F) #%>% -->
+<!-- ``` -->
+
+
+<!-- ## How is dead wildlife recorded when it is recorded? -->
+
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| eval: false -->
+
+<!-- #terrestrial_data %>% count(how_dead_wl_recorded)  -->
+
+<!--    kableExtra::kbl(terrestrial_data %>%  -->
+<!--                      distinct(survey, how_dead_wl_recorded, dead_wl_recorded) %>%  -->
+<!--                      filter(dead_wl_recorded=="Yes") %>%  -->
+<!--                      count(how_dead_wl_recorded) %>%  -->
+<!--                      filter(!is.na(how_dead_wl_recorded)) %>% -->
+<!--                      arrange(-n), -->
+<!--                     caption = "How is dead wildlife recorded", -->
+<!--                     col.names = c("How", "Number of responses")) %>% -->
+<!--       kableExtra::kable_paper(full_width = F) #%>% -->
+<!-- ``` -->
+<!-- Variability on how dead wildlife is recorded -->
+
+<!-- ## How is sick wildlife recorded when it is recorded? -->
+
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| eval: false -->
+
+<!-- #terrestrial_data %>% count(how_dead_wl_recorded)  -->
+
+<!--    kableExtra::kbl(terrestrial_data %>% count(how_sick_wl_recorded) %>% filter(!is.na(how_sick_wl_recorded)) %>%  arrange(-n), -->
+<!--                     caption = "How is sick wildlife recorded", -->
+<!--                     col.names = c("How", "Number of responses")) %>% -->
+<!--       kableExtra::kable_paper(full_width = F) #%>% -->
+<!-- ``` -->
+<!-- Variability on how sick wildlife is recorded -->
+
+
+<!-- ## How is injured wildlife recorded when it is recorded? -->
+
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| eval: false -->
+
+<!-- #terrestrial_data %>% count(how_dead_wl_recorded)  -->
+
+<!--    kableExtra::kbl(terrestrial_data %>% count(how_injured_wl_recorded) %>%   filter(!is.na(how_injured_wl_recorded)) %>%  arrange(-n), -->
+<!--                     caption = "How is injured wildlife recorded", -->
+<!--                     col.names = c("How", "Number of responses")) %>% -->
+<!--       kableExtra::kable_paper(full_width = F) #%>% -->
+<!-- ``` -->
+<!-- Variability on how injured wildlife is recorded -->
+
+<!-- Usually, each individual is recorded individually for dead, sick, and injured wildlife. -->
+
+<!-- ## How are wildlife in different health status recorded -->
+
+<!-- ```{r how are wildlife different status recorded}  -->
+<!-- #| echo: false -->
+<!-- #| eval: false -->
+
+<!-- healthy= terrestrial_data %>%  -->
+<!--   distinct(survey, how_healthy_wl_recorded, healthy_wl_recorded) %>%   -->
+<!--   filter(healthy_wl_recorded=="Yes") %>%  -->
+<!--   count(how_healthy_wl_recorded) %>%  -->
+<!--   arrange(-n) -->
+
+<!-- injured= terrestrial_data %>%  -->
+<!--   distinct(survey, how_injured_wl_recorded, injured_wl_recorded) %>%   -->
+<!--   filter(injured_wl_recorded=="Yes") %>%  -->
+<!--   count(how_injured_wl_recorded) %>% -->
+<!--   arrange(-n)  -->
+
+<!-- sick= terrestrial_data %>%  -->
+<!--   distinct(survey, how_sick_wl_recorded, sick_wl_recorded) %>%   -->
+<!--   filter(sick_wl_recorded=="Yes") %>%  -->
+<!--   count(how_sick_wl_recorded) %>%  -->
+<!--   arrange(-n)  -->
+
+<!-- dead= terrestrial_data %>%  -->
+<!--   distinct(survey, how_dead_wl_recorded, dead_wl_recorded) %>%   -->
+<!--   filter(dead_wl_recorded=="Yes") %>%  -->
+<!--   count(how_dead_wl_recorded) %>%  -->
+<!--   arrange(-n)  -->
+
+
+
+<!-- how=c("Each animal with the corresponding health status is recorded as an individual observation", -->
+<!--       "Wildlife with the corresponding health status are counted and reported as part of the full count of individuals belonging to an observed species",  -->
+<!--       "Wildlife with the corresponding health status are recorded as present/absent (the number of individuals is not specified)", -->
+<!--       "Wildlife with the corresponding health status are recorded in another way") -->
+
+
+<!-- temp= -->
+<!-- data.frame("How_recorded"= how,  -->
+<!--           "Responses_healthy" = healthy$n, -->
+<!--           "Responses_injured" = injured$n, -->
+<!--           "Responses_sick" = sick$n, -->
+<!--           "Responses_dead" = dead$n) -->
+
+<!-- #terrestrial_data %>% count(how_dead_wl_recorded)  -->
+
+<!--    kableExtra::kbl(temp, -->
+<!--                    caption = "How is healthy, injured, sick, and dead wildlife recorded", -->
+<!--                    col.names = c("How",  -->
+<!--                                  "Number of responses how healthy wildlife is recorded", -->
+<!--                                  "Number of responses how injured wildlife is recorded", -->
+<!--                                  "Number of responses how sick wildlife is recorded", -->
+<!--                                  "Number of responses how dead wildlife is recorded")) %>% -->
+<!--       kableExtra::kable_paper(full_width = F) #%>% -->
+<!-- ``` -->
 
 ```{r how wildlife by health status is recorded}
 #| echo: false
 #| eval: true
 
 healthy= terrestrial_data %>% 
+  distinct(survey, how_healthy_wl_recorded, healthy_wl_recorded) %>%  
+  filter(healthy_wl_recorded=="Yes") %>% 
   count(how_healthy_wl_recorded) %>% 
-  filter(!is.na(how_healthy_wl_recorded)) %>%
   arrange(-n)
 
 injured= terrestrial_data %>% 
-  count(how_injured_wl_recorded) %>% 
-  filter(!is.na(how_injured_wl_recorded)) %>% 
+  distinct(survey, how_injured_wl_recorded, injured_wl_recorded) %>%  
+  filter(injured_wl_recorded=="Yes") %>% 
+  count(how_injured_wl_recorded) %>%
   arrange(-n) 
 
 sick= terrestrial_data %>% 
+  distinct(survey, how_sick_wl_recorded, sick_wl_recorded) %>%  
+  filter(sick_wl_recorded=="Yes") %>% 
   count(how_sick_wl_recorded) %>% 
-  filter(!is.na(how_sick_wl_recorded)) %>% 
   arrange(-n) 
 
 dead= terrestrial_data %>% 
+  distinct(survey, how_dead_wl_recorded, dead_wl_recorded) %>%  
+  filter(dead_wl_recorded=="Yes") %>% 
   count(how_dead_wl_recorded) %>% 
-  filter(!is.na(how_dead_wl_recorded)) %>% 
   arrange(-n) 
 
 how = c("Individual observation",
@@ -916,8 +1520,8 @@ how = c("Individual observation",
 # create data frame
 temp <- data.frame("How_recorded" = how, 
                    "Responses_healthy" = healthy$n,
-                   "Responses_injured" = injured$n,
                    "Responses_sick" = sick$n,
+                   "Responses_injured" = injured$n,
                    "Responses_dead" = dead$n)
 
 # convert to long format
@@ -932,23 +1536,23 @@ ggplot(temp_long, aes(x = variable, y = How_recorded, size = value, fill = varia
   geom_text(aes(label = value), size = 6, fontface = "bold", vjust = 0.4) +
   scale_size(range = c(2, 35), name = "Response count") +
   scale_y_discrete(name = "", 
-            labels = c("Wildlife with the corresponding health\nstatus are recorded in another way",
-                       "Each animal with the corresponding health\nstatus is recorded as an individual\nobservation",
+            labels = c("Recorded in\nanother way",
+                       "Each animal is an\nindividual\nobservation",
                        
-                       "Wildlife with the corresponding health\nstatus are counted and reported as part of\nthe full count of individuals belonging to an\nobserved species",
-                       "Wildlife with the corresponding health\nstatus are recorded as present/absent"
+                       "Part of\nthe full count\nof the corresponding\nspecies",
+                       "Present/absent"
                        )) +
   
   scale_x_discrete(limits = c("Responses_healthy",
-                              "Responses_injured",
                               "Responses_sick",
+                              "Responses_injured",
                               "Responses_dead"),  
                    position = "top", 
                    name = "",
-                   labels = c("Number of\nresponses how\nhealthy wildlife is\nrecorded", 
-                              "Number of\nresponses how\ninjured wildlife is\nrecorded",
-                              "Number of\nresponses how\nsick wildlife is\nrecorded",
-                              "Number of\nresponses how\ndead wildlife is\nrecorded")) +
+                   labels = c("Healthy\nwildlife", 
+                              "Sick\nwildlife",
+                              "Injured\nwildlife",
+                              "Dead\nwildlife")) +
 
   theme(
     panel.grid.minor = element_blank(),
@@ -959,282 +1563,1176 @@ ggplot(temp_long, aes(x = variable, y = How_recorded, size = value, fill = varia
     axis.text.x = element_text(size=15, face = "bold"),
     axis.text.y = element_text(size = 15, hjust = 0, face = "bold"),
     axis.ticks.x = element_blank(),
-    axis.ticks.y = element_blank()
+    axis.ticks.y = element_blank(),
+    plot.background = element_rect(linewidth = 2, color = "black")
   ) +
   guides(size = "none", fill = "none")
 
-#if(!file.exists("plots/how_wildlife_health_recorded.png")) { 
-  ggsave("plots/how_wildlife_health_recorded.png", 
+if(!file.exists("../plots/how_wildlife_health_recorded.png")) { 
+  ggsave("../plots/how_wildlife_health_recorded.png", 
          plot = how_wildlife_health_recorded,
-         width=30, 
-         height=24, 
+         width=25, 
+         height=20, 
          units = "cm",
          dpi=300)
-  #}else{
+  }else{
   #else open it
-# knitr::include_graphics("plots/how_wildlife_health_recorded.png")}
+knitr::include_graphics("../plots/how_wildlife_health_recorded.png")}
     
 
 ```
 
-## What information regarding injured wildlife is recorded?
+## What information regarding healthy wildlife is collected per "how" recorded group?
 
-```{r}
-#| echo: false
-#| eval: false
+```{r wildlife information}
 
-injured.data=terrestrial_data %>% filter(injured_wl_recorded=="Yes") %>% select(injured_wl_data_recorded) %>% pull()
-injured.data=strsplit(injured.data, ",")
-injured.data=lapply(injured.data, unique)
-injured.data=lapply(injured.data, trimws)
-# items.dead=sort(unique(unlist(dead.data)))
-#table(unlist(dead.data))
-
-ggplot(as_tibble(unlist(injured.data)) %>% rename("Data"=value)) + 
-  geom_bar(aes(y = Data)) + 
-  xlim(0, 60) +
-  labs(
-    title = "Data recorded from injured animals", 
-    y = "Data type", 
-    x = "Responses")
+## Healthy
+healthy_data<-
   
-```
-
-## What information regarding sick wildlife is recorded?
-
-```{r}
-#| echo: false
-#| eval: false
-
-sick.data=terrestrial_data %>% filter(sick_wl_recorded=="Yes") %>% select(sick_wl_data_recorded) %>% pull()
-sick.data=strsplit(sick.data, ",")
-sick.data=lapply(sick.data, unique)
-sick.data=lapply(sick.data, trimws)
-# items.dead=sort(unique(unlist(dead.data)))
-#table(unlist(dead.data))
-
-ggplot(as_tibble(unlist(sick.data)) %>% rename("Data"=value)) + 
-  geom_bar(aes(y = Data)) + 
-  xlim(0, 40) +
-  labs(
-    title = "Data recorded from sick animals", 
-    y = "Data type", 
-    x = "Responses")
+left_join(  #join 
   
-```
-
-## What information regarding dead wildlife is recorded?
-
-```{r}
-#| echo: false
-#| eval: false
-
-dead.data=terrestrial_data %>% filter(dead_wl_recorded=="Yes") %>% select(dead_wl_data_recorded) %>% pull()
-dead.data=strsplit(dead.data, ",")
-dead.data=lapply(dead.data, unique)
-dead.data=lapply(dead.data, trimws)
-# items.dead=sort(unique(unlist(dead.data)))
-#table(unlist(dead.data))
-
-ggplot(as_tibble(unlist(dead.data)) %>% rename("Data"=value)) + 
-  geom_bar(aes(y = Data)) + 
-  xlim(0, 80) +
-  labs(
-    title = "Data recorded from dead animals", 
-    y = "Data type", 
-    x = "Responses")
+#number of items across responses per group  
+terrestrial_data %>% 
+  distinct(survey, 
+           healthy_wl_recorded, 
+           healthy_wl_data_recorded,
+           how_healthy_wl_recorded) %>% 
+  filter(healthy_wl_recorded=="Yes") %>% 
+  mutate(healthy_wl_data_recorded=strsplit(healthy_wl_data_recorded, ", ")) %>% 
+  unnest(healthy_wl_data_recorded) %>% 
+  # group_by(how_healthy_wl_recorded, healthy_wl_data_recorded, .drop = FALSE) %>% 
+  count(how_healthy_wl_recorded, healthy_wl_data_recorded) %>% 
+  complete(how_healthy_wl_recorded,
+           healthy_wl_data_recorded, fill = list(n = 0)),
   
+#total responses per group
+  terrestrial_data %>% 
+  distinct(survey, 
+           healthy_wl_recorded, 
+           how_healthy_wl_recorded) %>% 
+  filter(healthy_wl_recorded=="Yes") %>% 
+  count(how_healthy_wl_recorded) %>% 
+  rename("total"="n")) %>% 
+  
+  #get the proportion
+  mutate(prop=n/total) %>% 
+  mutate(category="healthy")
+
+
+
+healthy_data<-
+
+healthy_data %>% 
+   mutate(how=
+           case_when(
+    grepl("Each individual healthy animal", how_healthy_wl_recorded) ~ 
+      "Each animal is\nan individual\nobservation",
+    grepl("Healthy wildlife are counted", how_healthy_wl_recorded) ~ 
+      "Part of the\nfull count\nof the\ncorresponding\nspecies",
+    grepl("present/absent", how_healthy_wl_recorded) ~ "Present/absent",
+    grepl("another way", how_healthy_wl_recorded) ~ "Recorded in\nanother way")) %>% 
+  select(-how_healthy_wl_recorded)
+
+
+## Sick
+
+sick_data<-
+left_join(  #join 
+  
+#number of items across responses per group  
+terrestrial_data %>% 
+  distinct(survey, 
+           sick_wl_recorded, 
+           sick_wl_data_recorded,
+           how_sick_wl_recorded) %>% 
+  filter(sick_wl_recorded=="Yes") %>% 
+  mutate(sick_wl_data_recorded=strsplit(sick_wl_data_recorded, ", ")) %>% 
+  unnest(sick_wl_data_recorded) %>% 
+  count(how_sick_wl_recorded, sick_wl_data_recorded) %>% 
+  complete(how_sick_wl_recorded,
+           sick_wl_data_recorded, fill = list(n = 0)),
+  
+#total responses per group
+  terrestrial_data %>% 
+  distinct(survey, 
+           sick_wl_recorded, 
+           how_sick_wl_recorded) %>% 
+  filter(sick_wl_recorded=="Yes") %>% 
+  count(how_sick_wl_recorded) %>% 
+  rename("total"="n")) %>% 
+  
+  #get the proportion
+  mutate(prop=n/total) %>% 
+  mutate(category="sick")
+
+
+
+sick_data<-
+
+sick_data %>% 
+   mutate(how=
+           case_when(
+    grepl("Each individual sick animal", how_sick_wl_recorded) ~ 
+      "Each animal is\nan individual\nobservation",
+    grepl("Sick wildlife are counted", how_sick_wl_recorded) ~ 
+      "Part of the\nfull count\nof the\ncorresponding\nspecies",
+    grepl("present/absent", how_sick_wl_recorded) ~ "Present/absent",
+    grepl("another way", how_sick_wl_recorded) ~ "Recorded in\nanother way")) %>% 
+  select(-how_sick_wl_recorded)
+  
+
+
+## Injured
+
+injured_data<-
+left_join(  #join 
+  
+#number of items across responses per group  
+terrestrial_data %>% 
+  distinct(survey, 
+           injured_wl_recorded, 
+           injured_wl_data_recorded,
+           how_injured_wl_recorded) %>% 
+  filter(injured_wl_recorded=="Yes") %>% 
+  mutate(injured_wl_data_recorded=strsplit(injured_wl_data_recorded, ", ")) %>% 
+  unnest(injured_wl_data_recorded) %>% 
+  count(how_injured_wl_recorded, injured_wl_data_recorded, .drop = FALSE) %>% 
+    complete(how_injured_wl_recorded,
+           injured_wl_data_recorded, fill = list(n = 0)),
+  
+#total responses per group
+  terrestrial_data %>% 
+  distinct(survey, 
+           injured_wl_recorded, 
+           how_injured_wl_recorded) %>% 
+  filter(injured_wl_recorded=="Yes") %>% 
+  count(how_injured_wl_recorded) %>% 
+  rename("total"="n")) %>% 
+  
+  #get the proportion
+  mutate(prop=n/total) %>% 
+  mutate(category="injured")
+
+
+
+injured_data<-
+
+injured_data %>% 
+   mutate(how=
+           case_when(
+    grepl("Each individual injured animal", how_injured_wl_recorded) ~ 
+      "Each animal is\nan individual\nobservation",
+    grepl("Injured wildlife are counted", how_injured_wl_recorded) ~ 
+      "Part of the\nfull count\nof the\ncorresponding\nspecies",
+    grepl("present/absent", how_injured_wl_recorded) ~ "Present/absent",
+    grepl("another way", how_injured_wl_recorded) ~ "Recorded in\nanother way")) %>% 
+  select(-how_injured_wl_recorded)
+  
+
+  
+
+## Dead
+
+dead_data<-  
+left_join(  #join 
+  
+#number of items across responses per group  
+terrestrial_data %>% 
+  distinct(survey, 
+           dead_wl_recorded, 
+           dead_wl_data_recorded,
+           how_dead_wl_recorded) %>% 
+  filter(dead_wl_recorded=="Yes") %>% 
+  mutate(dead_wl_data_recorded=strsplit(dead_wl_data_recorded, ", ")) %>% 
+  unnest(dead_wl_data_recorded) %>% 
+  count(how_dead_wl_recorded, dead_wl_data_recorded) %>% 
+  complete(how_dead_wl_recorded,
+           dead_wl_data_recorded, fill = list(n = 0)),
+  
+#total responses per group
+  terrestrial_data %>% 
+  distinct(survey, 
+           dead_wl_recorded, 
+           how_dead_wl_recorded) %>% 
+  filter(dead_wl_recorded=="Yes") %>% 
+  count(how_dead_wl_recorded) %>% 
+  rename("total"="n")) %>% 
+  
+  #get the proportion
+  mutate(prop=n/total)%>% 
+  mutate(category="dead")
+
+
+
+dead_data<-
+
+dead_data %>% 
+   mutate(how=
+           case_when(
+    grepl("Each individual dead animal", how_dead_wl_recorded) ~ 
+      "Each animal is\nan individual\nobservation",
+    grepl("Dead wildlife are counted", how_dead_wl_recorded) ~ 
+      "Part of the\nfull count\nof the\ncorresponding\nspecies",
+    grepl("present/absent", how_dead_wl_recorded) ~ "Present/absent",
+    grepl("another way", how_dead_wl_recorded) ~ "Recorded in\nanother way")) %>% 
+  select(-how_dead_wl_recorded)
+
+
+# combine the datasets
+
+colnames(healthy_data)<-c("data_recorded",  "n",  "total", "prop", "category", "how")
+
+
+dat.temp<-rbind(healthy_data, setNames(sick_data, names(healthy_data)))   
+dat.temp<-rbind(dat.temp, setNames(injured_data, names(dat.temp)))   
+dat.temp<-rbind(dat.temp, setNames(dead_data, names(dat.temp)))   
+
+dat.temp<-dat.temp %>% arrange(data_recorded, category, how)
+
+dat.temp$data_recorded[dat.temp$data_recorded%in%c("Suspect cause of death", 
+                                                   "Suspect cause of disease",
+                                                   "Suspect cause of injury")]<-"Suspect cause"
+
+
+dat.temp$data_recorded[dat.temp$data_recorded%in%c("Body condition", 
+                                                   "Carcass condition")]<-"Condition"
+
+
+dat.temp$data_recorded[dat.temp$data_recorded%in%c("Anomalies in carcass (if any)", 
+                                                   "Anomalies/signs if any")]<-"Anomalies"
+
+
+dat.temp$category<-factor(dat.temp$category, levels = c("healthy", "sick", "injured", "dead"))
+
+
+data_plot<-split(dat.temp, list(dat.temp$category, dat.temp$data_recorded))
+      
+      
+      
+      
+      
+      
+# crating the plots by filling a list with the ggplot objects
+#types<-c("healthy", "sick", "injured", "dead")
+new_theme <- 
+  theme_gray() +
+  theme(text = element_text(size = 8),
+        # panel.border = element_rect(color = "black", linewidth = 1, fill = NA),
+        # plot.subtitle = element_text(face = "italic"),
+        # legend.title = element_blank(),
+        # legend.key.size = unit(.7, "line"),
+        # legend.background = element_rect(fill = "grey90"),
+        plot.background = element_rect(linewidth = 1, color = "black"),
+        panel.grid = element_blank(),
+        #axis.text.x = element_blank(),
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        panel.background = element_blank(),
+        strip.background  = element_blank())
+
+
+#fixing implausible datasets 
+
+data_plot$healthy.Anomalies<-tribble(
+    ~data_recorded, ~n, ~total, ~prop, ~category, ~how,
+    "Anomalies", 0, 0, 0, "healthy", "Each animal is\nan individual\nobservation",
+    "Anomalies", 0, 0, 0, "healthy", "Part of the\nfull count\nof the\ncorresponding\nspecies",
+    "Anomalies", 0, 0, 0, "healthy", "Present/absent",
+    "Anomalies", 0, 0, 0, "healthy", "Recorded in\nanother way"
+  )                  
+
+
+data_plot$`healthy.Suspect cause`<-tribble(
+  ~data_recorded, ~n, ~total, ~prop, ~category, ~how,
+  "Suspect cause", 0, 0, 0, "healthy", "Each animal is\nan individual\nobservation",
+  "Suspect cause", 0, 0, 0, "healthy", "Part of the\nfull count\nof the\ncorresponding\nspecies",
+  "Suspect cause", 0, 0, 0, "healthy", "Present/absent",
+  "Suspect causes", 0, 0, 0, "healthy", "Recorded in\nanother way"
+)      
+
+
+# Plot 
+
+plot_list<-map(seq_along(data_plot), \(x)
+#test<-x
+ggplot(data_plot[[x]], aes(x = how, y=prop, fill = how)) +
+#ggplot(data_plot[[1]], aes(x = how, y=prop, fill = data_recorded)) +
+  geom_bar(position = "dodge", stat = "identity") +
+  geom_text(aes(label=n), vjust=-0.5, size=4) +
+
+new_theme +
+  theme(legend.position = "none",
+        plot.title = element_text(size = 13, 
+                                  face = "bold",
+                                  margin = margin(0, 0, 0, 0), 
+                                  vjust = 5),
+        axis.text.x = element_text(size=8),
+        axis.text.y = element_text(size=10),
+        axis.title.y.left = element_text(size = 15, 
+                                         face = "bold", 
+                                         margin = margin(r = 10))) +
+  
+  ylim(0, 1) +
+  
+  labs(y = if(x %in% seq(1, length(data_plot), by = 4)){
+    toupper(unique(data_plot[[x]]$data_recorded))}) +
+  
+  scale_fill_viridis_d() +
+  
+  #push the plots wo title on the leeft to the right
+  theme(plot.margin = 
+          if(!(x %in% seq(1, length(data_plot), by = 4))){
+          unit(c(1.1,0.2,0.8,1.2), "cm")}else{unit(c(1.1,0.2,0.8,0.2), "cm")}) +
+
+  
+  # title for the top plots only by disease cat
+  if(x %in% seq(length(unique(dat.temp$category)))){
+  ggtitle(toupper(unique(data_plot[[x]]$category)))}
+  
+)
+
+
+# library(cowplot)
+
+supp_fig_2A<-plot_grid(plotlist = plot_list[1:16], nrow = 4, ncol=4)
+
+
+ggplot2::ggsave(supp_fig_2A,
+                filename = "figures/supp_file2A.png",
+                device = "png", 
+                width = 42, 
+                height = 50, 
+                units = "cm", 
+                dpi = 400,
+                limitsize = FALSE)
+
+
+
+supp_fig_2B<-plot_grid(plotlist = plot_list[17:32], nrow = 4, ncol=4)
+
+ggplot2::ggsave(supp_fig_2B,
+                filename = "figures/supp_file2B.png",
+                device = "png", 
+                width = 42, 
+                height = 50, 
+                units = "cm", 
+                dpi = 400,
+                limitsize = FALSE)
+
+
 ```
+<!-- ## What information regarding healthy wildlife is collected per "how" recorded group? -->
+
+<!-- ```{r healthy wildlife information} -->
+
+<!-- # Healthy wildlife -->
+
+<!-- healthy_data<- -->
+<!-- terrestrial_data %>%  -->
+<!--   distinct(survey,  -->
+<!--            healthy_wl_recorded,  -->
+<!--            healthy_wl_data_recorded, -->
+<!--            how_healthy_wl_recorded) %>%  -->
+<!--   filter(healthy_wl_recorded=="Yes") %>%  -->
+<!--   mutate(healthy_wl_data_recorded=strsplit(healthy_wl_data_recorded, ", "))  %>%  -->
+<!--   unnest(healthy_wl_data_recorded) %>%  -->
+<!--   count(how_healthy_wl_recorded, healthy_wl_data_recorded) -->
+
+<!-- sick_data<- -->
+
+
+<!-- injured_data<- -->
+
+
+<!-- dead_data<-   -->
+
+<!-- healthy_data$healthy_wl_data_recorded -->
+
+
+
+
+
+
+<!-- temp<- -->
+<!-- healthy_data %>%  -->
+<!--   unnest(healthy_wl_data_recorded) %>%  -->
+<!--   count(how_healthy_wl_recorded, healthy_wl_data_recorded) %>%  -->
+<!--   pivot_wider(values_from = n, names_from = healthy_wl_data_recorded) %>%  -->
+<!--   mutate(total_group=healthy_data %>%  -->
+<!--                       unnest(healthy_wl_data_recorded) %>%  -->
+<!--                       distinct(survey, how_healthy_wl_recorded) %>%  -->
+<!--                       count( how_healthy_wl_recorded) %>% pull(n)) %>% -->
+<!--   mutate(across(Age:Species, ~ . / total_group, .names = "prop_{.col}")) %>% -->
+<!--   select(how_healthy_wl_recorded, starts_with("prop_")) %>%  -->
+<!--   clean_names() -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- # Reshape the data into long format -->
+<!-- data_long <- temp %>% -->
+<!--   pivot_longer(cols = c(prop_species, prop_photographs, prop_sex, prop_age, prop_body_condition, prop_other), -->
+<!--                names_to = "variable", -->
+<!--                values_to = "value") -->
+
+<!-- # Create the proportional stacked bar chart -->
+
+<!-- new_theme <-  -->
+<!--   theme_gray() + -->
+<!--   theme(text = element_text(size = 45), -->
+<!--         plot.title = element_text(size = 43, face = "bold", -->
+<!--                                   margin = margin(10, 0, 10, 0)),  -->
+<!--         plot.margin = unit(c(2.4,0,2.4,.4), "cm"), -->
+<!--         # panel.border = element_rect(color = "black", linewidth = 1, fill = NA), -->
+<!--         # plot.subtitle = element_text(face = "italic"), -->
+<!--         # legend.title = element_blank(), -->
+<!--         # legend.key.size = unit(.7, "line"), -->
+<!--         # legend.background = element_rect(fill = "grey90"), -->
+<!--         plot.background = element_rect(linewidth = 5, color = "black"), -->
+<!--         panel.grid = element_blank(), -->
+<!--         #axis.text.x = element_blank(), -->
+<!--         axis.ticks = element_blank(), -->
+<!--         axis.title = element_blank(), -->
+<!--         panel.background = element_blank(), -->
+<!--         strip.background  = element_blank()) -->
+
+
+<!-- ggplot(data_long %>% filter(variable=="prop_species"), -->
+<!--        aes(x = how_healthy_wl_recorded, y = value, fill = value)) + -->
+<!--   geom_bar(position = "dodge", stat = "identity") + -->
+<!--   labs(title = "Species documented", -->
+<!--        x = "", -->
+<!--        y = "Proportion", -->
+<!--        fill = "Variable") + -->
+<!--     scale_x_discrete(labels = c("Each animal is\nan individual\nobservation", -->
+<!--                                 "Part of full count of\nthe corresponding\nspecies", -->
+<!--                                 "Present/Absent",  -->
+<!--                                 "Documented in\nanother way"))+ -->
+<!--   scale_fill_viridis_c() -->
+
+
+
+<!-- ``` -->
+
+
+<!-- ## What information regarding injured wildlife is colleted per "how" recorded group? -->
+
+<!-- ```{r injureed wildlife information} -->
+
+<!-- # Healthy wildlife -->
+
+<!-- injured_data<- -->
+<!-- terrestrial_data %>%  -->
+<!--   distinct(survey,  -->
+<!--            injured_wl_recorded,  -->
+<!--            injured_wl_data_recorded, -->
+<!--            how_injured_wl_recorded) %>%  -->
+<!--   filter(injured_wl_recorded=="Yes") %>%  -->
+<!--   mutate(injured_wl_data_recorded=strsplit(injured_wl_data_recorded, ", "))  -->
+
+
+
+<!-- recorded_items_injured <- lapply(injured_data$injured_wl_data_recorded,  -->
+<!--                        list_to_tibble) -->
+
+
+<!-- recorded_items_injured_2<- -->
+<!--   rbind.fill(recorded_items_injured) %>%  -->
+<!--   bind_cols(injured_data) %>%  -->
+<!--   clean_names() %>%  -->
+<!--   select(-injured_wl_recorded, -injured_wl_data_recorded) %>%  -->
+<!--   replace(is.na(.), 0) %>% -->
+<!--   group_by(how_injured_wl_recorded) %>%  -->
+<!--   mutate(survey=as.character(survey)) %>%  -->
+<!--   dplyr::summarise(dplyr::across(where(is.numeric), sum)) %>%  -->
+<!--   mutate(how=how_injured_wl_recorded, -->
+<!--          class="injured") %>%  -->
+<!--   select(class, how, species, body_condition, age,  -->
+<!--          sex, anomalies_signs_if_any, suspect_cause_of_injury, photographs, other, -how_injured_wl_recorded) %>%  -->
+<!--   dplyr::rename("anomalies" = "anomalies_signs_if_any") %>%  -->
+<!--   dplyr::rename("suspect_cause" = "suspect_cause_of_injury")  -->
+
+<!-- # recorded_items_injured_2 -->
+
+<!-- ``` -->
+
+
+<!-- ## What information regarding sick wildlife is colleted per "how" recorded group? -->
+
+<!-- ```{r sick wildlife information} -->
+
+<!-- # Healthy wildlife -->
+
+<!-- sick_data<- -->
+<!-- terrestrial_data %>%  -->
+<!--   distinct(survey,  -->
+<!--            sick_wl_recorded,  -->
+<!--            sick_wl_data_recorded, -->
+<!--            how_sick_wl_recorded) %>%  -->
+<!--   filter(sick_wl_recorded=="Yes") %>%  -->
+<!--   mutate(sick_wl_data_recorded=strsplit(sick_wl_data_recorded, ", "))  -->
+
+
+
+<!-- recorded_items_sick <- lapply(sick_data$sick_wl_data_recorded,  -->
+<!--                        list_to_tibble) -->
+
+
+<!-- recorded_items_sick_2<- -->
+<!--   rbind.fill(recorded_items_sick) %>%  -->
+<!--   bind_cols(sick_data) %>%  -->
+<!--   clean_names() %>%  -->
+<!--   select(-sick_wl_recorded, -sick_wl_data_recorded) %>%  -->
+<!--   replace(is.na(.), 0) %>% -->
+<!--   group_by(how_sick_wl_recorded) %>%  -->
+<!--   mutate(survey=as.character(survey)) %>%  -->
+<!--   dplyr::summarise(dplyr::across(where(is.numeric), sum)) %>%  -->
+<!--   mutate(how=how_sick_wl_recorded, -->
+<!--          class="sick") %>%  -->
+<!--   select(class, how, species, body_condition, age,  -->
+<!--          sex, anomalies_signs_if_any, suspect_cause_of_disease, photographs, other, -how_sick_wl_recorded) %>%  -->
+<!--   dplyr::rename("anomalies" = "anomalies_signs_if_any") %>%  -->
+<!--   dplyr::rename("suspect_cause" = "suspect_cause_of_disease")  -->
+
+<!-- # recorded_items_sick_2 -->
+
+<!-- ``` -->
+
+<!-- ## What information regarding dead wildlife is colleted per "how" recorded group? -->
+
+<!-- ```{r dead wildlife information} -->
+
+<!-- # Healthy wildlife -->
+
+<!-- dead_data<- -->
+<!-- terrestrial_data %>%  -->
+<!--   distinct(survey,  -->
+<!--            dead_wl_recorded,  -->
+<!--            dead_wl_data_recorded, -->
+<!--            how_dead_wl_recorded) %>%  -->
+<!--   filter(dead_wl_recorded=="Yes") %>%  -->
+<!--   mutate(dead_wl_data_recorded=strsplit(dead_wl_data_recorded, ", "))  -->
+
+
+
+<!-- recorded_items_dead <- lapply(dead_data$dead_wl_data_recorded,  -->
+<!--                        list_to_tibble) -->
+
+
+<!-- recorded_items_dead_2<- -->
+<!--   rbind.fill(recorded_items_dead) %>%  -->
+<!--   bind_cols(dead_data) %>%  -->
+<!--   clean_names() %>%  -->
+<!--   select(-dead_wl_recorded, -dead_wl_data_recorded) %>%  -->
+<!--   replace(is.na(.), 0) %>% -->
+<!--   group_by(how_dead_wl_recorded) %>%  -->
+<!--   mutate(survey=as.character(survey)) %>%  -->
+<!--   dplyr::summarise(dplyr::across(where(is.numeric), sum)) %>%  -->
+<!--   mutate(how=how_dead_wl_recorded, -->
+<!--          class="dead") %>%  -->
+<!--   select(class, how, species, age,  -->
+<!--          sex, anomalies_in_carcass_if_any, carcass_condition, suspect_cause_of_death, photographs, other, -how_dead_wl_recorded) %>%  -->
+<!--   dplyr::rename("anomalies" = "anomalies_in_carcass_if_any") %>%  -->
+<!--   dplyr::rename("suspect_cause" = "suspect_cause_of_death")  -->
+
+
+<!-- # recorded_items_dead_2 -->
+
+<!-- ``` -->
+
+
+<!-- ## Plot information per wildlife type per "how" group -->
+
+<!-- ```{r information per wildlife type per "how" group} -->
+
+<!-- terrestrial_data<-readRDS("data/terrestrial_data.RDS") -->
+
+
+<!-- data_recorded<-vector(mode = "list") -->
+
+<!-- terrestrial_data<-terrestrial_data %>% distinct_at(vars(-time, -protected_area)) -->
+
+
+
+<!-- data_recorded<- -->
+
+<!-- bind_rows( -->
+
+<!-- terrestrial_data %>%  -->
+<!--   filter(healthy_wl_recorded=="Yes") %>%  -->
+<!--   select(survey, healthy_wl_data_recorded, how_healthy_wl_recorded) %>%  -->
+<!--   separate_rows(healthy_wl_data_recorded, sep = ", ") %>%  -->
+<!--   mutate(type="healthy") %>%  -->
+<!--   dplyr::rename("what"="healthy_wl_data_recorded") %>%  -->
+<!--   dplyr::rename("how"="how_healthy_wl_recorded"), -->
+
+<!-- terrestrial_data %>%  -->
+<!--   filter(injured_wl_recorded=="Yes") %>%  -->
+<!--   select(survey, injured_wl_data_recorded, how_injured_wl_recorded) %>%  -->
+<!--   separate_rows(injured_wl_data_recorded, sep = ", ") %>%  -->
+<!--   mutate(type="injured") %>%  -->
+<!--   dplyr::rename("what"="injured_wl_data_recorded")%>%  -->
+<!--   dplyr::rename("how"="how_injured_wl_recorded"), -->
+
+<!-- terrestrial_data %>%  -->
+<!--   filter(sick_wl_recorded=="Yes") %>%  -->
+<!--   select(survey, sick_wl_data_recorded, how_sick_wl_recorded) %>%  -->
+<!--   separate_rows(sick_wl_data_recorded, sep = ", ") %>%  -->
+<!--   mutate(type="sick") %>%  -->
+<!--   dplyr::rename("what"="sick_wl_data_recorded")%>%  -->
+<!--   dplyr::rename("how"="how_sick_wl_recorded"), -->
+
+<!-- terrestrial_data %>%  -->
+<!--   filter(dead_wl_recorded=="Yes") %>%  -->
+<!--   select(survey, dead_wl_data_recorded, how_dead_wl_recorded) %>%  -->
+<!--   separate_rows(dead_wl_data_recorded, sep = ", ") %>%  -->
+<!--   mutate(type="dead") %>%  -->
+<!--   dplyr::rename("what"="dead_wl_data_recorded") %>%  -->
+<!--   dplyr::rename("how"="how_dead_wl_recorded")  -->
+
+<!-- ) -->
+
+
+<!-- # Supp file 2 -->
+<!-- summary_how_recorded_per_type<- -->
+<!-- data_recorded %>%  -->
+<!--   dplyr::group_by(type) %>% -->
+<!--   dplyr::count(what) %>%  -->
+<!--   mutate(denom= -->
+<!--            case_when( -->
+<!--              type=="healthy" ~ nrow(terrestrial_data %>%  -->
+<!--                                       filter(healthy_wl_recorded=="Yes")), -->
+
+<!--              type=="sick" ~ nrow(terrestrial_data %>%  -->
+<!--                                   filter(sick_wl_recorded=="Yes")), -->
+
+<!--              type=="injured" ~ nrow(terrestrial_data %>%  -->
+<!--                                    filter(injured_wl_recorded=="Yes")), -->
+
+<!--              type=="dead" ~ nrow(terrestrial_data %>%  -->
+<!--                                    filter(dead_wl_recorded=="Yes")))) %>%  -->
+<!--   mutate(perc=n/denom*100) %>% -->
+<!--   dplyr::arrange(what, type) -->
+
+
+<!-- data.frame(sum_elements_recorded) -->
+
+
+<!-- # PLOT -->
+
+
+<!-- new_theme <-  -->
+<!--   theme_gray() + -->
+<!--   theme(text = element_text(size = 45), -->
+<!--         plot.title = element_text(size = 43, face = "bold", -->
+<!--                                   margin = margin(10, 0, 10, 0)),  -->
+<!--         plot.margin = unit(c(2.4,0,2.4,.4), "cm"), -->
+<!--         # panel.border = element_rect(color = "black", linewidth = 1, fill = NA), -->
+<!--         # plot.subtitle = element_text(face = "italic"), -->
+<!--         # legend.title = element_blank(), -->
+<!--         # legend.key.size = unit(.7, "line"), -->
+<!--         # legend.background = element_rect(fill = "grey90"), -->
+<!--         plot.background = element_rect(linewidth = 5, color = "black"), -->
+<!--         panel.grid = element_blank(), -->
+<!--         #axis.text.x = element_blank(), -->
+<!--         axis.ticks = element_blank(), -->
+<!--         axis.title = element_blank(), -->
+<!--         panel.background = element_blank(), -->
+<!--         strip.background  = element_blank()) -->
+
+
+
+<!-- data_recorded$what[grep("Anomalies", data_recorded$what)]<-"Anomalies" -->
+<!-- data_recorded$what[data_recorded$what=="Carcass condition"]<-"Body condition" -->
+<!-- data_recorded$what[grep("Suspect", data_recorded$what)]<-"Suspect cause" -->
+
+
+<!-- data_recorded2<- -->
+<!-- data_recorded %>%  -->
+<!--   mutate(how=factor( -->
+<!--            case_when( -->
+<!--              grepl("another way", how) ~ "Recorded in\nanother way", -->
+<!--              grepl("individual observation", how) ~ "Each animal is\nan individual\nobservation", -->
+<!--              grepl("belonging to an observed species", how) ~ "Part of full count of\nthe corresponding\nspecies", -->
+<!--              grepl("present/absent", how) ~ "Present/Absent"),  -->
+<!--          levels=c("Present/Absent", -->
+<!--                   "Part of full count of\nthe corresponding\nspecies", -->
+<!--                   "Each animal is\nan individual\nobservation", -->
+<!--                   "Recorded in\nanother way"))) %>%  -->
+<!--   # dplyr::group_by(type) %>% -->
+<!--   dplyr::count(type, how, what) %>%  -->
+<!--   mutate(denom= -->
+<!--            case_when( -->
+<!--              type=="healthy" ~ nrow(terrestrial_data %>%  -->
+<!--                                       filter(healthy_wl_recorded=="Yes")), -->
+
+<!--              type=="sick" ~ nrow(terrestrial_data %>%  -->
+<!--                                    filter(sick_wl_recorded=="Yes")), -->
+
+<!--              type=="injured" ~ nrow(terrestrial_data %>%  -->
+<!--                                       filter(injured_wl_recorded=="Yes")), -->
+
+<!--              type=="dead" ~ nrow(terrestrial_data %>%  -->
+<!--                                    filter(dead_wl_recorded=="Yes")), -->
+
+
+<!--            )) %>%  -->
+<!--   mutate(perc=n/denom*100)  -->
+
+<!-- # unique(data_recorded$what) -->
+
+<!-- #> adding the corrsponding zeroes to the healthy cateogry (no suspect cause ans ) -->
+<!-- #> no anomalies -->
+
+<!--   for(i in levels(data_recorded2$how)){ -->
+<!--     for(y in c("Suspect cause", "Anomalies")){ -->
+<!--       data_recorded2<- -->
+<!--       rbind(data_recorded2, c(type = "healthy", how=i, what=y, n=as.numeric(0), denom=59, perc=as.numeric(0)))}} -->
+
+<!-- #> For some reason he numeric for perc and n are changed to character.  -->
+<!-- #> Put it back as numeric -->
+<!-- data_recorded2$perc<-as.numeric(data_recorded2$perc) -->
+<!-- data_recorded2$n<-as.numeric(data_recorded2$n) -->
+
+
+<!-- # crating the plots by filling a list with the ggplot objects -->
+<!-- types<-c("healthy", "sick", "injured", "dead") -->
+
+<!-- plots<-map(types,  function(i) -->
+<!-- ggplot(data_recorded2 %>%  filter(type==i), aes(x = how, y = n/sum(n), fill = what)) + -->
+<!--   geom_bar(position = "fill", stat = "identity") + -->
+<!--   scale_y_continuous(labels = scales::percent_format(scale = 1)) + -->
+<!--   labs(title = str_to_sentence(paste(i, "wildlife")), -->
+<!--        x = "", -->
+<!--        y = "", -->
+<!--        fill = "Variable") + -->
+<!--   new_theme + -->
+<!--   scale_fill_viridis_d() +  # Modify the legend labels -->
+<!--   ylim(0, 1)) -->
+
+
+<!-- names(plots)<-paste0(types, "_how_plot") -->
+
+<!-- # get the legend -->
+<!-- shared_leg<-get_legend(plots$sick_how_plot) -->
+
+<!-- # finish the plots after getting the legend (remoing the legend here) -->
+<!-- plots<-map(plots, function(x) x + theme(legend.position = "none", -->
+<!--                                         plot.margin = margin(3, 1, 2, 1, "cm"))) -->
+
+
+<!-- #Figure with the four plots. -->
+<!-- full_figure<- -->
+
+<!--   plot_grid( -->
+<!--     plots$healthy_how_plot, -->
+<!--     plots$sick_how_plot,  -->
+<!--     shared_leg, -->
+<!--     plots$injured_how_plot, -->
+<!--     plots$dead_how_plot, -->
+
+<!--     labels = c('A', 'B', "", "C", "D"),  -->
+<!--     label_size = 60, -->
+<!--     nrow = 2,  -->
+<!--     rel_widths = c(4,4,1, 4,4)) -->
+
+<!-- # Save it -->
+<!-- if(!file.exists("plots/whats_recorded_versus_how_recorded.png")) { -->
+
+<!--   ggsave("plots/whats_recorded_versus_how_recorded.png", -->
+<!--          plot = full_figure, -->
+<!--          width=110, -->
+<!--          height=100 , -->
+<!--          units = "cm", -->
+<!--          dpi=300) -->
+<!-- } -->
+
+<!-- ``` -->
+
+
+#SECTION 3
 
 ## Is this information stored in SMART (for the subset that records injured, sick, or dead wildlife)
 
-```{r}
+```{r information stored in SMART}
 #| echo: false
-#| eval: false
+#| eval: true
 
-dead.data=terrestrial_data %>% filter(dead_wl_recorded=="Yes") %>% select(dead_wl_data_in_smart)
-injured.data=terrestrial_data %>% filter(injured_wl_recorded=="Yes") %>% select(injured_wl_data_in_smart) 
-sick.data=terrestrial_data %>% filter(sick_wl_recorded=="Yes") %>% select(sick_wl_data_in_smart) 
+dead.data=terrestrial_data %>% 
+  distinct(survey, dead_wl_data_in_smart, dead_wl_data_other, dead_wl_recorded) %>% 
+  filter(dead_wl_recorded=="Yes") %>% 
+  select(survey,dead_wl_data_in_smart, dead_wl_data_other)
 
-dead.data=dead.data %>% count(dead_wl_data_in_smart, name = "Responses_dead") %>% rename("In_SMART"= dead_wl_data_in_smart)
+injured.data=terrestrial_data %>% 
+  distinct(survey, injured_wl_data_in_smart, injured_wl_data_other, injured_wl_recorded) %>% 
+  filter(injured_wl_recorded=="Yes") %>%
+  select(survey,injured_wl_data_in_smart, injured_wl_data_other) 
 
-injured.data=injured.data %>% count(injured_wl_data_in_smart, name = "Responses_injured") %>% rename("In_SMART"= injured_wl_data_in_smart)
+sick.data=terrestrial_data %>% 
+  distinct(survey, sick_wl_data_in_smart, sick_wl_data_other, sick_wl_recorded) %>% 
+  filter(sick_wl_recorded=="Yes") %>% 
+  select(survey,sick_wl_data_in_smart, sick_wl_data_other) 
 
-sick.data=sick.data %>% count(sick_wl_data_in_smart, name = "Responses_sick") %>% rename("In_SMART"= sick_wl_data_in_smart)
+#editing a response based one 
+# terrestrial_data %>% 
+#   filter(grepl("Recorded in smart as a follow", injured_wl_data_other)) %>% 
+#   select(survey) 
+#> the output is "Recorded in smart as a follow up with the vet doctor who 
+#> records on a spread sheet in excel" so I am changing from  
+#> "None of these items are recorded in the corresponding SMART Conservation Area" to
+#> "Some of these items are entered and stored in the corresponding SMART Conservation Area"
 
-in_smart=left_join(injured.data , sick.data, by = "In_SMART") %>% left_join(dead.data, by = "In_SMART")
+injured.data[injured.data$survey==10,]$injured_wl_data_in_smart<-
+"Some of these items are entered and stored in the corresponding SMART Conservation Area"
 
-   kableExtra::kbl(in_smart,  
-                    caption = "What is stored in SMART",
-                    col.names = c("How", "Injured\nWildlife\nData", "Sick\nWildlife\nData", "Dead\nWildlife\nData")) %>%
+
+
+
+dead.data2<-dead.data %>% 
+  dplyr::rename("in_smart"="dead_wl_data_in_smart") %>% 
+  dplyr::count(in_smart) %>% 
+  mutate(perc=n/sum(n)*100) %>% 
+  mutate(type="dead")
+
+injured.data2=injured.data %>% 
+  dplyr::rename("in_smart"="injured_wl_data_in_smart") %>% 
+  dplyr::count(in_smart) %>% 
+  mutate(perc=n/sum(n)*100) %>% 
+  mutate(type="injured")
+
+sick.data2=sick.data %>% 
+  dplyr::rename("in_smart"="sick_wl_data_in_smart") %>% 
+  dplyr::count(in_smart) %>% 
+  mutate(perc=n/sum(n)*100) %>% 
+  mutate(type="sick")
+
+
+in_smart_data<-bind_rows(dead.data2, injured.data2, sick.data2)
+
+in_smart_data %>% 
+  dplyr::select(-n) %>% 
+  pivot_wider(names_from = type, values_from = perc) %>%
+   kableExtra::kbl(caption = "What is stored in SMART") %>%
       kableExtra::kable_paper(full_width = F) #%>%
 
 ```
 
-## Why wildlife health is not recorded. 
+## If none of this information is stored in SMART where is it stored?
 
-Everyone responded this question regardless if they actually recorded data in dead, sick, injured wildife
+```{r where information stored if not in SMART}
 
-```{r}
-#| echo: false
-#| eval: false
+dead.data %>% 
+  filter(grepl("None", dead_wl_data_in_smart)) %>% 
+  distinct(dead_wl_data_other)
 
-terrestrial_data$why_not_wl_health_data
+sick.data %>% 
+  filter(grepl("None", sick_wl_data_in_smart)) %>% 
+  distinct(sick_wl_data_other)
+
+injured.data %>% 
+  filter(grepl("None", injured_wl_data_in_smart)) %>% 
+  distinct(injured_wl_data_other)
+
+
 ```
 
-## Livestock
 
-```{r}
-#| echo: false
-#| eval: false
+## SMART version used at the time of survey response
 
-livestock=
-terrestrial_data %>% select(hum_liv_path_affect_wildlife, 
-                            livestock_found)
+```{r smart version}
 
-#human Livestock pathogens affecting wildlife
-livestock$hum_liv_path_affect_wildlife=factor(x = livestock$hum_liv_path_affect_wildlife,
-                                             levels = c("Strongly agree", 
-                                                       "Agree", 
-                                                       "Neutral", 
-                                                       "Somewhat Disagree",
-                                                       "Disagree",
-                                                       "Strongly disagree"))
-#
-ggplot(livestock) +
-  geom_bar(aes(hum_liv_path_affect_wildlife)) + 
-  labs(
-    title = "Human or livestock pathogens can affect wildlife", 
-    y = "Count", 
-    x = "Option")
+smart_version_data<- 
 
-# Livestock found in Protecte areas during patrols
-livestock$livestock_found=factor(x = livestock$livestock_found,  levels = c("Never", 
-                                                                       "Very rarely", 
-                                                                       "Rarely", 
-                                                                       "Sometimes",
-                                                                       "Occasionally",
-                                                                       "Very frequently",
-                                                                       "Always"))
+terrestrial_data %>% 
+   distinct(survey, smart_version)
 
-ggplot(livestock) +
-  geom_bar(aes(livestock_found)) +
-  labs(
-    title = "Livestock found during patrols", 
-    y = "Count", 
-    x = "Option")
+data.frame(smart_version_data)
+
+
+terrestrial_data %>% filter(smart_version %in% c("none",
+                              "unsure", 
+                              "SMART mobile 7",
+                              "IDK",
+                              "Yes")) %>% distinct(survey, smart_version) 
+
+
+temp<-terrestrial_data %>% filter(survey%in%c(1,26,48,108,124))
+
+write.csv(temp, "/Users/DMontecino/Downloads/check.csv")
+
+
+
+#> mobile can be replaced becasue there is not SMARt Mobile 7. SMART Mobile versions 
+#> have 3 numbers as 350, 465, etc. and they dont reach to 7 hundred.
+
+smart_version_data$smart_version<-gsub("SMART|Version", 
+                                     replacement = "", 
+                                     ignore.case = T, 
+                                     x = smart_version_data$smart_version)
+
+smart_version_data$smart_version<-trimws(smart_version_data$smart_version, which = "left")
+
+unique(smart_version_data$smart_version)
+
+#> mexico has a national data model and Ana cervantes from CONANP told me this 
+#> s the correct version they are using
+smart_version_data[grepl("4.1", smart_version_data$smart_version),]$smart_version<-"4.1.0"
+
+#terrestrial_data %>% filter(smart_version=="Yes") %>% data.frame()
+smart_version_data$smart_version[smart_version_data$smart_version=="Yes"]<-"Invalid"
+
+unique(smart_version_data$smart_version)
+
+terrestrial_data %>% filter(smart_version %in% c("none",
+                              "unsure", 
+                              "Invalid", 
+                              "IDK", 
+                              ".6.2.3.RC19.win32",
+                              "mobile 7")) %>% distinct(survey) %>% select(survey)
+
+
 
 ```
-Consensus that livestock pathogens can affect wildlife and livestock is found in the PAs during patrols in different degree.
 
-## Domestic Animals present in the conservation area
+## SMART fully rolled-out
 
-```{r}
-#| echo: false
-#| eval: false
+```{r smart fully rolled out}
 
-domestic=
-terrestrial_data %>% select(dom_animals_concern,
-                            dom_animals_in_pa,
-                            dom_animals_recorded,
-                            dom_animal_in_smart,
-                            dom_animal_health_status_recorded,
-                            dom_animal_health_status_smart)
+smart_rolled_out_data<- 
 
-
-
-# Domestic animals present in the conservation area
-
-round(prop.table(table(domestic$dom_animals_in_pa, useNA = "always")),2)
-```
-The presence of domestic animals in protected areas is reported in two thirds of the responses
-
-
-
-## Are domestic animals a concern for the conservation goals of the protected areas
-
-```{r}
-#| echo: false
-#| eval: false
-
-# are domestic animals a concern for the conservation goals
-
-
-domestic$dom_animals_concern=factor(x = domestic$dom_animals_concern,
-                                             levels = c("Strongly agree", 
-                                                       "Agree", 
-                                                       "Neutral", 
-                                                       "Somewhat Disagree",
-                                                       "Disagree",
-                                                       "Strongly disagree"))
-
-ggplot(domestic) +
-  geom_bar(aes(dom_animals_concern)) + 
-  labs(
-    title = "Domestic animals are a concern for conservation", 
-    y = "Count", 
-    x = "Option")
+terrestrial_data %>% 
+  distinct(survey, smart_fully_rolled_out) %>% 
+  dplyr::count(smart_fully_rolled_out)
 
 ```
-Most of the respondents agree that domestic animals are a concern for the conservation goals of the protected areas
 
-## Are domestic animals found during patrols recorded (for the subset where they are observed)
 
-```{r}
-#| echo: false
-#| eval: false
 
-# are domestic animals a concern for the conservation goals
-temp=domestic %>% filter(dom_animals_in_pa=="Yes")
+## SMART Connect available
+
+```{r smart connect available}
+
+smart_connect<-
   
-round(prop.table(table(temp$dom_animals_recorded, useNA = "always")),2)
-
-```
-The presence of domestic animals in protected areas is reported in 70% thirds of the responses where these animals are observed
-
-
-## Is the health of domestic animals found during patrols recorded? (for the subset where domestic animals are observed in the PA and are recorded)
-
-```{r}
-#| echo: false
-#| eval: false
-
-
-temp=domestic %>% filter(dom_animals_in_pa=="Yes" & dom_animals_recorded=="Yes")
-
-round(prop.table(table(temp$dom_animal_health_status_recorded, useNA = "always")),2)
-
-```
-Despite there is an understanding that domestic animals are a concern for conservaetion and that pathogens of livestock can impact wildlife, the health of domestic animals is not recorded in those PAs where these animals are observed and recorded.
-
-
-## Records of domestic animals found in protected areas during patrols is recorded in SMART (for the subset where domestic animals are recorded)
-
-```{r}
-#| echo: false
-#| eval: false
-
-temp=domestic %>% filter(dom_animals_recorded=="Yes")
-
-round(prop.table(table(temp$dom_animal_in_smart, useNA = "always")),2)
-
+  terrestrial_data %>% 
+  distinct(survey, dead_wl_data_in_smart, 
+           sick_wl_data_in_smart, injured_wl_data_in_smart, 
+           smart_connect) %>% 
+  filter(grepl("Some|All", dead_wl_data_in_smart) | 
+                 grepl("Some|All", sick_wl_data_in_smart) |
+                 grepl("Some|All", injured_wl_data_in_smart)) %>% 
+  distinct(survey, smart_connect) %>% 
+  dplyr::count(smart_connect)
 
 
 ```
-For the subset of respondents answering that domestic animals found during patrols are recorded, 90% said that these data is stored in SMART.
 
-## Health of domestic animals is recorded in SMART (for the subset where health status of domestic animals is recorded)
+## Interest to add attributes and categories
 
-```{r}
-#| echo: false
-#| eval: false
+```{r interest to add health attributes and categories }
 
-temp=domestic %>% filter(dom_animal_health_status_recorded=="Yes")
+terrestrial_data %>% 
+  distinct(survey,add_health_atributes) %>% 
+  dplyr::count(add_health_atributes)
 
-round(prop.table(table(temp$dom_animal_health_status_smart, useNA = "always")),2)
+terrestrial_data %>% 
+  distinct(survey, wildlife_health_important, add_health_atributes) %>% 
+  dplyr::count(add_health_atributes, wildlife_health_important) %>% 
+  pivot_wider(values_from = n, names_from = wildlife_health_important)
 
 ```
-For the subset of respondents answering that the health status of domestic animals found during patrols is recorded, almost 90% said that these data is stored in SMART.
+
+
+We received 128 responses, which underwent filtering based on several criteria (e.g., unidentifiable protected area and non-adherence to methodological rules). For the subsequent descriptive analysis, we focused on a subset of 84 responses, representing 93 unique terrestrial protected areas distributed across 21 countries (Africa = 8, Asia = 6, Europe = 1, North America = 1, Central America = 2, South America = 3). Seventy-seven responses represented a single protected area, while nine responses represented two of them.
+Most answers regarding encountering sick or injured and dead wildlife concentrated between "Very rarely" and "Occasionally" and "Very rarely" and "Very frequently", respectively, without remarkable differences between groups (Fig 4).
+
+Figure 4. Distribution of responses by protected area managers regarding the overall encountering frequency with sick or injured and dead wildlife in the protected area(s) they represented.
+
+Figure 5. Distribution of responses by protected area managers regarding the documentation of sick (A), injured (B), and dead wildlife (C) found during patrols across the overall encountering frequency with sick or injured and dead wildlife in the protected area(s) they represented.
+Sick and injured wildlife encountered during patrols is often undocumented (30.9% and 42.9 % responded “Yes”, respectively), while healthy and dead wildlife is usually registered (69.1% and 70.24% of “Yes” responses, respectively). These trends were consistent across encounter frequency categories of sick or injured and dead wildlife except when sick and injured wildlife are found “Very frequently” (Fig 5). Twenty responses claimed that neither sick, injured, or dead animals found during patrols are registered.
+Documented healthy, sick, injured, and dead wildlife found during patrols were primarily reported as individual animals. Still, it was also common to record them as part of the total count of the corresponding species stratified by health status (Fig 6). 
+
+
+Figure 6. Overall frequency of documentation methods of healthy, sick, injured, and dead wildlife found during ranger patrols as reported by protected area(s) managers.
+The information collected was also variable. The species was commonly recorded and photographs were usually taken, but the anomalies observed in sick, injured, or dead animals tend not to be registered. Other data gathered included the age; sex; body or carcass condition; and suspect cause of death, disease, or injury (Supplementary File 2).
+
+
+Supplementary Information 2. The proportion of protected area managers reporting that rangers document specific types of data (rows) from healthy, sick, injured, and dead wildlife (columns) stratified by different methods to register these animals. The numbers over the bars show the total number of responses.
+
+Wildlife health data was not commonly fully kept in a SMART Conservation Area, and only 46.2%, 61.1%, and 62.7% of the responses reported storing “all” data associated with sick, injured, and dead animals (when documented), respectively. Otherwise, Microsoft Excel spreadsheets, reports, minutes, patrol and other paper forms, verbal mentions only, and, in a single case, another database were mentioned as alternatives. Finally, 35, 17, and seven responses answered that SMART was “Fully rolled-out”, “Partially rolled-out”, and “Under Pilot”, respectively, in the protected area(s) represented. The SMART versions used ranged between three and seven. SMART Connect was available for X respondents. 
+<!-- ## Why wildlife health is not recorded.  -->
+
+<!-- Everyone responded this question regardless if they actually recorded data in dead, sick, injured wildife -->
+
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| eval: false -->
+
+<!-- terrestrial_data$why_not_wl_health_data -->
+<!-- ``` -->
+
+<!-- ## Livestock -->
+
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| eval: false -->
+
+<!-- livestock= -->
+<!-- terrestrial_data %>% select(hum_liv_path_affect_wildlife,  -->
+<!--                             livestock_found) -->
+
+<!-- #human Livestock pathogens affecting wildlife -->
+<!-- livestock$hum_liv_path_affect_wildlife=factor(x = livestock$hum_liv_path_affect_wildlife, -->
+<!--                                              levels = c("Strongly agree",  -->
+<!--                                                        "Agree",  -->
+<!--                                                        "Neutral",  -->
+<!--                                                        "Somewhat Disagree", -->
+<!--                                                        "Disagree", -->
+<!--                                                        "Strongly disagree")) -->
+<!-- # -->
+<!-- ggplot(livestock) + -->
+<!--   geom_bar(aes(hum_liv_path_affect_wildlife)) +  -->
+<!--   labs( -->
+<!--     title = "Human or livestock pathogens can affect wildlife",  -->
+<!--     y = "Count",  -->
+<!--     x = "Option") -->
+
+<!-- # Livestock found in Protecte areas during patrols -->
+<!-- livestock$livestock_found=factor(x = livestock$livestock_found,  levels = c("Never",  -->
+<!--                                                                        "Very rarely",  -->
+<!--                                                                        "Rarely",  -->
+<!--                                                                        "Sometimes", -->
+<!--                                                                        "Occasionally", -->
+<!--                                                                        "Very frequently", -->
+<!--                                                                        "Always")) -->
+
+<!-- ggplot(livestock) + -->
+<!--   geom_bar(aes(livestock_found)) + -->
+<!--   labs( -->
+<!--     title = "Livestock found during patrols",  -->
+<!--     y = "Count",  -->
+<!--     x = "Option") -->
+
+<!-- ``` -->
+<!-- Consensus that livestock pathogens can affect wildlife and livestock is found in the PAs during patrols in different degree. -->
+
+<!-- ## Domestic Animals present in the conservation area -->
+
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| eval: false -->
+
+<!-- domestic= -->
+<!-- terrestrial_data %>% select(dom_animals_concern, -->
+<!--                             dom_animals_in_pa, -->
+<!--                             dom_animals_recorded, -->
+<!--                             dom_animal_in_smart, -->
+<!--                             dom_animal_health_status_recorded, -->
+<!--                             dom_animal_health_status_smart) -->
+
+
+
+<!-- # Domestic animals present in the conservation area -->
+
+<!-- round(prop.table(table(domestic$dom_animals_in_pa, useNA = "always")),2) -->
+<!-- ``` -->
+<!-- The presence of domestic animals in protected areas is reported in two thirds of the responses -->
+
+
+
+<!-- ## Are domestic animals a concern for the conservation goals of the protected areas -->
+
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| eval: false -->
+
+<!-- # are domestic animals a concern for the conservation goals -->
+
+
+<!-- domestic$dom_animals_concern=factor(x = domestic$dom_animals_concern, -->
+<!--                                              levels = c("Strongly agree",  -->
+<!--                                                        "Agree",  -->
+<!--                                                        "Neutral",  -->
+<!--                                                        "Somewhat Disagree", -->
+<!--                                                        "Disagree", -->
+<!--                                                        "Strongly disagree")) -->
+
+<!-- ggplot(domestic) + -->
+<!--   geom_bar(aes(dom_animals_concern)) +  -->
+<!--   labs( -->
+<!--     title = "Domestic animals are a concern for conservation",  -->
+<!--     y = "Count",  -->
+<!--     x = "Option") -->
+
+<!-- ``` -->
+<!-- Most of the respondents agree that domestic animals are a concern for the conservation goals of the protected areas -->
+
+<!-- ## Are domestic animals found during patrols recorded (for the subset where they are observed) -->
+
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| eval: false -->
+
+<!-- # are domestic animals a concern for the conservation goals -->
+<!-- temp=domestic %>% filter(dom_animals_in_pa=="Yes") -->
+
+<!-- round(prop.table(table(temp$dom_animals_recorded, useNA = "always")),2) -->
+
+<!-- ``` -->
+<!-- The presence of domestic animals in protected areas is reported in 70% thirds of the responses where these animals are observed -->
+
+
+<!-- ## Is the health of domestic animals found during patrols recorded? (for the subset where domestic animals are observed in the PA and are recorded) -->
+
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| eval: false -->
+
+
+<!-- temp=domestic %>% filter(dom_animals_in_pa=="Yes" & dom_animals_recorded=="Yes") -->
+
+<!-- round(prop.table(table(temp$dom_animal_health_status_recorded, useNA = "always")),2) -->
+
+<!-- ``` -->
+<!-- Despite there is an understanding that domestic animals are a concern for conservaetion and that pathogens of livestock can impact wildlife, the health of domestic animals is not recorded in those PAs where these animals are observed and recorded. -->
+
+
+<!-- ## Records of domestic animals found in protected areas during patrols is recorded in SMART (for the subset where domestic animals are recorded) -->
+
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| eval: false -->
+
+<!-- temp=domestic %>% filter(dom_animals_recorded=="Yes") -->
+
+<!-- round(prop.table(table(temp$dom_animal_in_smart, useNA = "always")),2) -->
+
+
+
+<!-- ``` -->
+<!-- For the subset of respondents answering that domestic animals found during patrols are recorded, 90% said that these data is stored in SMART. -->
+
+<!-- ## Health of domestic animals is recorded in SMART (for the subset where health status of domestic animals is recorded) -->
+
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- #| eval: false -->
+
+<!-- temp=domestic %>% filter(dom_animal_health_status_recorded=="Yes") -->
+
+<!-- round(prop.table(table(temp$dom_animal_health_status_smart, useNA = "always")),2) -->
+
+<!-- ``` -->
+<!-- For the subset of respondents answering that the health status of domestic animals found during patrols is recorded, almost 90% said that these data is stored in SMART. -->
 
 
 <!-- # Python equivalent -->
