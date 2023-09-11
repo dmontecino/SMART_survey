@@ -183,8 +183,8 @@ index.to.remove=c(index.to.remove, 116)
 
 
 #Batang Ai National Park - Malaysia
-#leaving he first response because the second one seems yto have answered 
-# "yes" to everything. Furthermore, it is not extremeley relevant becuase 
+#leaving the first response because the second one seems to have answered 
+# "yes" to everything. Furthermore, it is not extremely relevant because 
 # both answers include more than one protected area and will be filtered
 
 #data.frame(dat_modified_filtered[c(42, 92),])
@@ -198,7 +198,7 @@ dat_modified_filtered$protected_area[[92]]<-dat_modified_filtered$protected_area
 
 
 #Endau-Rompin National Park
-# the four answers represent only Endau=Rompin. the second answer is more 
+# Four answers represent only Endau=Rompin. the second answer is more 
 # associated with the audience to respond the survey
 # data.frame(dat_modified_filtered[c(19, 41,91,117),]) 
 
@@ -355,14 +355,14 @@ data.frame(dat_modified_filtered %>%
 
 # data.frame(dat_modified_filtered %>% filter(survey%in%c(104, 118)))
 
-# 118 only Lake Tele left which is by itself in survey 14
-#>  104 Nouabalé-Ndoki National Park Peripheral Ecosystems 
+#   only Lake Tele left which is by itself in survey 14
+#>  Nouabalé-Ndoki National Park Peripheral Ecosystems 
 #>  originally represented 3 protected areas and now it has one. Remove as well
 #>  Removal occurs in line 371
 
 
-hist(map_vec(dat_modified_filtered$protected_area, length))
-table(map_vec(dat_modified_filtered$protected_area, length))
+# hist(map_vec(dat_modified_filtered$protected_area, length))
+# table(map_vec(dat_modified_filtered$protected_area, length))
 
 
 # ---------------------------------------------------------------------------------- #
@@ -374,13 +374,13 @@ data.frame(dat_modified_filtered %>% filter(new_number_pas%in%c(1,2)) %>% select
 dat_modified_filtered <-  dat_modified_filtered %>% filter(or_number_pas%in%c(1,2))
 # dat_modified_filtered$survey
 
-nrow(dat_modified_filtered) #92
+# nrow(dat_modified_filtered) #92
 
 
 
 
 
-#>unique terms. If there is a term with a value higher than 1 
+#> unique terms. If there is a term with a value higher than 1 
 #> that is obviously associated withe the name of a park, then
 # it means the Pa is repeated
 
@@ -423,9 +423,32 @@ dat_modified_filtered<-dat_modified_filtered %>% filter(survey!=38)
 
 
 # survey 90 and 55 are removed becuase they have inconsistency between 
-# dead , sick or injured willdife found (never) and recorded (Yes)
+# dead , sick or injured wildlife found (never) and recorded (Yes)
 
 dat_modified_filtered<-dat_modified_filtered %>% filter(!(survey%in%c(90, 55)))
 
 
+#> Check the position of the respondents. This refers to who are the respondents
+#> "managers" or "other".
+
+dat_modified_filtered %>% distinct(survey, position) %>% count(position)
+
+
+# check the answers from "others" in position
+
+# temp<-dat_modified_filtered %>% filter(position=="Other")
+
+#write.csv(temp %>% unnest(protected_area), "data/check_data_position_is_other.csv")
+
+
 # nrow(dat_modified_filtered)  #89
+# nrow(temp)  #14
+
+
+#> having checked the answers manually, I think removing these answers from "others"
+#> is consistent with out methodology and our intended audience
+
+dat_modified_filtered<-dat_modified_filtered %>% filter(position!="Other")
+
+# nrow(dat_modified_filtered)  #75
+
