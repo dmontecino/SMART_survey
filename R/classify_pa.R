@@ -1,24 +1,38 @@
 
 
 
-# Define a vector of countries
-countries.in.pa<-sort(unique(dat_modified_filtered$country))
-
-
 # -------------------------------------------------------------------- #
-# donwloading data from the wdpa database and create a dataset pf wdpa #              
+# downloading data from the wdpa database and create a dataset pf wdpa #              
 # -------------------------------------------------------------------- #
 
 #> Set up parallel processing with 6 cores using mclapply to download  
 #> the protected areas from the world data protected area database
+#> For some weird reason, before running the parallel process, just run wdpa_fetch
+#> with a single country. Then the parallel process will work
 
-pas_data<- parallel::mclapply(countries.in.pa, 
-                              function(x) wdpa_fetch(x, wait = T), mc.cores = 6)
+#> wdpa_fetch("Belize", wait = T)
 
-for (i in seq_along(pas_data)){
-  pas_data[[i]]$COUNTRY <- countries.in.pa[i]}
+countries<-sort(unique(dat_modified_filtered$country))
 
-names(pas_data) <- countries.in.pa
+
+## Parallel code to get the data of the protected areas
+
+# registerDoParallel(cl <- makeCluster(6))
+# 
+# pas_data <- foreach(i = seq_along(countries), .packages='wdpar') %dopar% 
+#   {wdpa_fetch(countries[i], wait = T)}
+#   
+# stopCluster(cl)
+
+
+future::plan(multisession, workers = 8)
+
+pas_data <- foreach(i = seq_along(countries)) %dofuture% wdpa_fetch(countries[i], wait = T)
+
+
+for (i in seq_along(pas_data)){pas_data[[i]]$COUNTRY <- countries[i]}
+
+names(pas_data) <- countries
 
 
 # wdpa dataset with the NAME MARINE and COUNTRY columns
@@ -179,6 +193,6 @@ dat_modified_filtered_expanded[
 # finally the terrestrial data
 terrestrial_data=dat_modified_filtered_expanded %>% filter(terrestrial=="yes")
 
-saveRDS(terrestrial_data, "../data/terrestrial_data.RDS")
+# saveRDS(terrestrial_data, "../data/terrestrial_data.RDS")
 
 
