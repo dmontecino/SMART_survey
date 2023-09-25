@@ -1,6 +1,4 @@
-#> script para limp
-#> 
-#> 
+
 dat_modified<-dat_modified %>%  as_tibble()
 
 dat_modified$protected_area<-map(dat_modified$protected_area, \(x) strsplit(x, "\n|, ")[[1]])
@@ -795,4 +793,71 @@ dat_modified$protected_area[[128]]<-c("Tanintharyi Nature Reserve - Myanmar")
 dat_modified$protected_area[[129]]<-c("Rungwa Game Reserve - Tanzania",
                                       "Kizigo Game Reserve - Tanzania", 
                                       "Muhesi Game Reserve - Tanzania")
+
+
+dat_modified_filtered<-dat_modified
+  
+#add the survey number as a column
+dat_modified_filtered$survey <- 1:nrow(dat_modified_filtered)
+
+# --------------------------------------------------- #
+# Assign "Unknown protected area" to specific answers #
+# --------------------------------------------------- #
+
+
+#"Community Forests - Unknown"
+dat_modified_filtered$protected_area[[14]]<-"Unknown protected area" 
+
+# The respondent provided a person's name instead of the protected area name
+dat_modified_filtered$protected_area[c(12, 13, 20, 23, 59, 64, 81)]<-
+                                   "Unknown protected area" 
+
+
+# --------------------------------------------------------------- #
+#  Fix responses with protected areas from more than one country #
+# --------------------------------------------------------------- #
+
+# only one that has protected areas from kenya nad tanzania
+
+#[[4]]
+# [1] "LUMO community Conservancy - Kenya"   "Mgeno Conservancy - Kenya"           
+# [3] "Taita Hills Sanctuary - Kenya"        "Taita Wildlife conservancy - Kenya"  
+# [5] "Kasigau wildlife conservancy - Kenya" "Rombo District - Tanzania"           
+# [7] "Mwanga district - Tanzania"           "Same District - Tanzania"            
+# [9] "Lushoto District - Tanzania"          "Korogwe District - Tanzania"  
+
+
+# split in two rows. One for the PAs in Kenya and another one for the PAs in Tanzania
+
+#take the row and repeat it in the dataset
+dat_modified_filtered<-dat_modified_filtered %>% bind_rows(dat_modified_filtered[4,])
+
+#add the PAs to the last row associated with Tanzania
+dat_modified_filtered$protected_area[[nrow(dat_modified_filtered)]]<-
+                                  dat_modified_filtered$protected_area[[4]][
+                                        grepl(pattern = "Tanzania", 
+                                              ignore.case = T, 
+                                              dat_modified_filtered$protected_area[[4]])]
+
+
+#remove the PAs in the original row associated with the second country 
+# in the original row
+
+dat_modified_filtered$protected_area[[4]]<-dat_modified_filtered$protected_area[[4]][
+                                        grepl(pattern = "Kenya", 
+                                              ignore.case = T, 
+                                              dat_modified_filtered$protected_area[[4]])]
+
+# ---------------------------------------------------------------- #
+# add the original number of pas per response as a column          #
+# ---------------------------------------------------------------- #
+
+dat_modified_filtered$or_number_pas <-map_int(dat_modified_filtered$protected_area,  
+                                     \(x) length(x))               
+
+
+
+
+
+
 
