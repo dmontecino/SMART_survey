@@ -362,6 +362,26 @@ knitr::include_graphics("plots/plot_section_2C.png")
 
 ```
 
+The distribution of the rank given by protected area managers for "Wildlife health, including infectious and non-infectious diseases, is important to achieve the conservation goals of the protected areas where I work" for those responses reporting that sick, injured, or dead wildlife was observed in the protected area(s); however, these animals were not recorded if found during patrols.
+
+```{r section 2F }
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+#| fig-align: center
+#| fig-cap:
+#|   Distribution of the ranking regarding the importance of wildlife health
+#|   to achieve the conservation goals of protected area(s) provided by
+#|   protected area managers for the subsets that responded that sick,
+#|   injured, or dead wildlife was observed in the corresponding protected
+#|   area(s) with at least a minimal frequency but they were not recorded if
+#|   found during patrols. 
+
+knitr::include_graphics("plots/plot_section_2F.png")
+```
+
+
 ```{r methods used to record wildlife}
 #| echo: false
 #| message: false
@@ -883,7 +903,14 @@ reports, and spreadsheets.
 
 ## Discussion
 
-We developed a web-based questionnaire aimed at protected area managers around the globe to learn about protected areas managers wildlife health perceptions; the monitoring of dead, sick, and injured wildlife and domestic animals in protected areas; health monitoring data storage practices; and the current status of SMART in protected areas. Protected area managers responses included 76 protected areas distributed in 19 countries and they suggest that: i) wildlife health tends to be considered relevant for the conservation goals of protected areas and there is a general understanding that pathogens can be transmitted among wildlife and humans and livestock and affect any of these groups; ii) dead, sick or injured wildlife might not be recorded if found during ranger patrols regardless of these animals being observed with certain frequency in protected areas. This is specially evident for sick and injured wildlife; iii) the recording of dead, sick, and injured wildlife found in patrols conducted in protected areas where these animals are registered follows different methodology, within and among sites, and the information collected is also variable; iv) domestic animals tend to be considered a concern for the conservation goals of protected areas, they tend found in them and recorded but their health status is usually not recorded; v) health data when collected might not be properly handled as many managers reported that this information is either not entered or is partially entered in a SMART database and the alternative choices are not adequate.
+We developed a web-based questionnaire aimed at protected area managers around the globe to learn about their perceptions regarding wildlife health; the monitoring of dead, sick, and injured wildlife and domestic animals in protected areas; health monitoring data storage practices at these sites; and local status of SMART. We obtained 71 responses from protected area managers that involved 76 protected areas managed under a version of the SMART system distributed in 19 countries. Their answers suggest that: i) wildlife health tends to be considered relevant for the conservation goals of protected areas and there is a general understanding that pathogens can be transmitted among wildlife, humans, and livestock and affect any of these groups; ii) dead, sick, or injured wildlife might not be recorded if found during ranger patrols regardless of these animals being observed with certain frequency in protected areas; iii) registered dead, sick, and injured wildlife found in patrols are recorded following different methodologies within and among sites whilst the specific information collected is also variable; iv) domestic animals tend to be considered a concern for the conservation goals of protected areas, they are usually found at these sites and recorded but their health status is mostly not registered; v) health data collected in protected areas might not be properly managed as this information is either not stored or it is partially stored in a SMART database and the alternative choices employed are not adequate.
+
+wildlife health tends to be considered relevant for the conservation goals of protected areas and there is a general understanding that pathogens can be transmitted among wildlife, humans, and livestock and affect any of these groups
+
+
+It seems contradictory that protected area managers tend to consider wildlife health as a relevant component for the conservation goals of protected areas; however, dead, sick, and injured wildlife might not be recorded if found during ranger patrols regardless of these animals being observed at least "occasionally" in protected areas. This is specially true for sick and injured wildlife. This situation reveals the lost of key information for One Health surveillance but also an optimistic scenario that could facilitate the leveraging of rangers as health sentinels in those protected areas where these data is not been opportunistically collected during patrols.
+
+registered dead, sick, and injured wildlife found in patrols are recorded following different methodologies within and among sites whilst the specific information collected is also variable
 
 
 ## Appendices
