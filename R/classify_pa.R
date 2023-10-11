@@ -10,9 +10,9 @@
 #> For some weird reason, before running the parallel process, just run wdpa_fetch
 #> with a single country. Then the parallel process will work
 
-#> wdpa_fetch("Belize", wait = T)
+# wdpa_fetch("Belize", wait = T, page_wait = 5)
 
-countries<-sort(unique(dat_modified_filtered$country))
+countries<-sort(unique(dat_modified_filtered_4$country))
 
 
 ## Parallel code to get the data of the protected areas
@@ -57,10 +57,10 @@ pas_data_data_frame$NAME<-map_vec(pas_data_data_frame$NAME, \(x)
 
 
 #> expand the dataset based on the real number of protected areas included so 
-#> each row represent a sing protected area
+#> each row represent a single protected area
 
 
-dat_modified_filtered_expanded<-dat_modified_filtered %>% 
+dat_modified_filtered_expanded<-dat_modified_filtered_4 %>% 
   unnest(protected_area) %>% 
   mutate(protected_area=tolower(protected_area)) %>% 
   mutate(protected_area=stri_trans_general(protected_area, "Latin-ASCII")) 
@@ -84,7 +84,7 @@ dat_modified_filtered_expanded$protected_area<-
 #> finding of a specific protected areas
 #>  in the wdpa database because they are not specific enough
 
-unique.terms.of.pas=
+unique.terms.of.pas<-
 map(unlist(dat_modified_filtered_expanded$protected_area), 
         function(x) strsplit(x, " - ")[[1]] %>% 
       stri_trans_general("Latin-ASCII")) %>% 
@@ -92,9 +92,9 @@ map(unlist(dat_modified_filtered_expanded$protected_area),
   map_vec(.f = function(y) str_split(y, "\\s+")) %>% 
   unlist() %>% tolower()
 
-unique.terms.of.pas=table(unique.terms.of.pas)
+unique.terms.of.pas<-table(unique.terms.of.pas)
 
-terms.to.remove=names(unique.terms.of.pas[unique.terms.of.pas>1])
+terms.to.remove<-names(unique.terms.of.pas[unique.terms.of.pas>1])
 
 # removing terms that are actually key for the names of protected areas
 terms.to.remove=terms.to.remove[
@@ -149,7 +149,7 @@ index_pas_wo_wdpa<-which(map_vec(PAs_detected_per_pa_survey_name, \(x) nrow(x)==
 
 
 
-#> all PAs in the survey datastset matching only terrestrial PAs in the wdpa dataset 
+#> all PAs in the survey datasset matching only terrestrial PAs in the wdpa dataset 
 #> are terestrial (MARINE !=2)
 
 index_pas_terrestrial<-
@@ -175,8 +175,9 @@ map_lgl(PAs_detected_per_pa_survey_name, \(x) any(x$MARINE==2))])
 # [1] "parque nacional archipielago de espiritu santo-Mexico"    
 # [2] "parque nacional isla contoy-Mexico"                       
 # [3] "parque nacional sistema arrecifal veracruzano-Mexico"     
-# [5] "parque nacional isla isabel-Mexico"                       
-# [6] "reserva de la biosfera islas del pacifico-Mexico"         
+# [4] "area de proteccion de flora y fauna cabo san lucas-Mexico"
+# [5] "reserva de la biosfera islas del pacifico-Mexico"         
+# [6] "reserva ecologica arenillas-Ecuador"        
 
 #based on the results above, the remainingg terrestrial areas are:
 
@@ -189,10 +190,19 @@ dat_modified_filtered_expanded[
         x = dat_modified_filtered_expanded$protected_area, 
         ignore.case = T),]$terrestrial<-"yes"
 
+dat_modified_filtered_expanded$terrestrial<-
+  ifelse(is.na(dat_modified_filtered_expanded$terrestrial),
+         "no",
+         dat_modified_filtered_expanded$terrestrial)
+
+
+saveRDS(dat_modified_filtered_expanded, "data/dat_modified_filtered_expanded.RDS")
+
+# dat_modified_filtered_expanded %>% filter(terrestrial=="no") 
 
 # finally the terrestrial data
 terrestrial_data=dat_modified_filtered_expanded %>% filter(terrestrial=="yes")
 
-# saveRDS(terrestrial_data, "../data/terrestrial_data.RDS")
+saveRDS(terrestrial_data, "data/terrestrial_data.RDS")
 
 

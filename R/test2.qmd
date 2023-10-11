@@ -1,0 +1,193 @@
+---
+title: "Wildlife health in protected areas. Common findings, monitoring, and practices by rangers according to protected area managers"
+author:
+  - name: Diego Montecino-Latorre
+    affiliations:
+      - name: Wildlife Conservation Society - Health Progr
+        city: Bronx
+        state: New York
+  - name: Mathieu Pruvot
+    affiliations:
+      - name: Wildlife Conservation Society - Health Progr
+        city: Bronx
+        state: New York
+  - name: Sarah H Olson
+    affiliations:
+      - name: Wildlife Conservation Society - Health Progr
+        city: Bronx
+        state: New York
+execute: 
+  cache: false
+format:
+  pdf:
+    documentclass: scrartcl
+    papersize: letter
+    fig-pos: "h"  
+output-file: "survey_test"
+---
+
+## Methods
+
+We developed a web-based questionnaire aimed at protected area managers. The survey had four sections. Under section 1, we asked managers to rank their perceptions regarding wildlife health
+and potential consequences of pathogen transmission among wildlife, domestic
+animals and people.
+
+
+<!-- Wildlife health, including infectious and non-infectious diseases, is important to achieve the conservation goals of the protected areas where I work -->
+
+
+<!-- Pathogens carried by wildlife inhabiting the protected area I work in can affect livestock health    -->
+
+
+<!-- Pathogens carried by wildlife inhabiting the protected area I work in can affect public health -->
+
+
+<!-- Human or livestock pathogens can affect wildlife populations inhabiting the protected area I work  -->
+
+
+Under section 2, we explored the overall frequency of encounters with dead, sick, or injured wildlife in the protected areas and their documentation when found during patrols
+
+Under section 2, we explored the overall frequency of encounters with dead, sick, or injured wildlife in the protected areas and their documentation when found during patrols.
+
+
+
+<!-- Are dead animals encountered in the protected area?  -->
+
+<!-- Are sick or injured animals encountered in the protected area?  -->
+
+
+<!-- Are healthy wildlife found during patrols (rangers or others) recorded as a specific category of individuals? -->
+
+<!-- 12.a Please select one of the choices below to help us understand how healthy wildlife are recorded during a patrol: -->
+
+<!-- 12.b Please indicate what type of data are recorded (check all that apply) -->
+
+
+<!-- 13. Are dead wildlife found during patrols recorded as a specific category of individuals?  -->
+
+<!-- 13.a Please select one of the choices below to help us understand how dead wildlife are recorded during a patrol: -->
+
+<!-- 13.b Please indicate what type of data are recorded (check all that apply) -->
+
+
+<!-- 14. Are injured wildlife found during patrols recorded as a specific category of individuals?  -->
+
+<!-- 14.a Please select one of the choices below to help us understand how injured wildlife are recorded during a patrol: -->
+
+<!-- 14.b Please indicate what type of data are recorded (check all that apply) -->
+
+
+<!-- 15. Are sick wildlife found during patrols recorded as a specific category of individuals?  -->
+
+<!-- 15.a Please select one of the choices below to help us understand how sick wildlife are recorded during a patrol: -->
+
+
+
+Under section 3, we asked managers to rank the importance of introduced domestic animals 
+for the conservation goals of the corresponding protected areas. Likert scales were used in sections 1 - 3.
+
+
+<!-- Introduced domestic animals (e.g., dogs, cats, cattle, pigs, cats) are a concern for the conservation goals of the protected areas where I work -->
+
+<!-- 16. Are domestic animals found in the protected area (free-ranging, captive, on a farm)? -->
+
+<!-- 17. If observed on a patrol, is the presence of domestic animals recorded? -->
+
+<!-- 18. Is the health status of the observed domestic animals (healthy, sick or injured, dead) recorded? -->
+
+
+
+Under section 4, we asked about data storage practices and the current state of SMART components. 
+
+
+<!-- Are these data entered and stored in SMART Desktop? -->
+
+<!-- If none of the items are recorded in the corresponding SMART Conservation Area where are they recorded?  -->
+
+
+<!-- 21. What version of SMART Desktop is currently used in the protected area? -->
+<!-- 22. Is SMART Connect available to manage and transfer information between SMART Desktop and SMART Mobile?  -->
+
+<!-- 22.a Are there plans to set up SMART Connect instance and when? -->
+
+<!-- 23. Is SMART fully rolled-out in the protected area(s) you work in or is it being piloted? -->
+
+
+
+An introductory webpage explained that the survey was voluntary, anonymous, aimed at protected area managers administering SMART data. The webpage also clarified that clicking the "Start the survey" button constituted consent. The survey was built on Google Forms, which has a translation tool. We provided a tutorial on translating it into the preferred language (https://sites.google.com/wcs.org/smarttorecordwildlifehealth/home). The survey was exempt from IRB review (ref #22-53 Wildlife Conservation Society Internal Review Board).
+
+The survey was distributed globally to the SMART Community (SMART Community Forum users https://forum.smartconservationtools.org/) by the SMART Partnership via email in October 2022, and it remained open for three months. As the closing date approached, a reminder was sent to the SMART Community three weeks in advance.
+
+```{r methods}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+
+source("R/load_packages.R")
+
+dat = read.csv("data/survey_responses.csv")
+
+#clean dataset names
+source("R/clean_names.R")
+
+#clean PA names
+source("R/clean_pa_names.R")
+
+#remove unknwon. PA and the example
+source("R/remove_unknown_example.R")
+```
+
+Responses could represent a single or multiple protected areas. However, our analysis focused on responses representing one or two individual terrestrial protected areas to gain insights into specific local realities. Therefore, responses representing more than two protected areas were filtered out. The resulting dataset could have a specific protected area represented by single responses, by responses that included two protected areas, or a combination of both. We duplicated the responses that were representing two protected areas but left a single protected area for each one, so each row in the dataset implied a unique protected area. One of the responses representing the same protected area after this step were filtered out to leave a unique representation completion and consistency of answers, and respondent's alignment with the intended target audience of the survey.
+
+```{r remove reponses representing more than two protected areas}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| 
+source("R/remove_responses_more_two_protected_areas.R")
+
+```
+
+```{r remove other audience answering the survey}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+source("R/remove_other_audience.R")
+```
+
+The protected areas included in the responses were classified as marine or terrestrial based on the World Database on Protected Areas (https://www.protectedplanet.net/en/thematic-areas/wdpa?tab=WDPA). Marine protected areas were removed.
+
+```{r remove marine protected areas}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+
+#> the classification involves a slow process downloading pa data from wdpa. Go to the script if you want to reproduce. The output is "terrestrial_data.RDS"
+#source("classify_pa.R")
+
+dat_modified_filtered_expanded<-readRDS("data/dat_modified_filtered_expanded.RDS")
+
+terrestrial_data<-readRDS("data/terrestrial_data.RDS")
+
+number_pas_per_response<-
+terrestrial_data %>%
+  dplyr::count(survey, name = "number_pas") %>%
+  dplyr::count(number_pas, name = "responses")
+
+```
+
+The questionnaire, survey data, data cleaning and filtering, and descriptive analysis scripts can be found at https://github.com/dmontecino/SMART_survey.
+
+## Results
+
+### General results
+
+The total number of responses was `r nrow(dat_modified_filtered)`
+\`r as.character(english::as.english(length(given_names))) \|\> stringr::str_to_title()\` responses were removed because they included a given name instead of the protected area name and \`r as.character(english::as.english(length(unknown_protected_areas)))\` response was removed because it did not have a protected area name. \`r as.character(english::as.english(nrow(dat_modified_filtered_1) - nrow(dat_modified_filtered_2))) \|\> stringr::str_to_sentence()\` responses representing more than two protected areas were filtered out and other \`r as.character(english::as.english(nrow(dat_modified_filtered_2) - nrow(dat_modified_filtered_3)))\` were removed because they represented protected areas that were represented once already. \`r as.character(english::as.english(nrow(dat_modified_filtered_3) - nrow(dat_modified_filtered_4))) \|\> stringr::str_to_sentence()\` responses were removed because the respondent did not match the target audience.
+
+
+The final dataset described below excluded \`r as.character(english::as.english(nrow(dat_modified_filtered_expanded \|\> filter(terrestrial=="no"))))\` marine protected areas leading to the removal of another \`r as.character(english::as.english(length(unique(dat_modified_filtered_4\$survey)) - length(unique(terrestrial_data\$survey))))\` responses, for a total of \`r nrow(terrestrial_data)\` protected areas represented by \`r length(unique(terrestrial_data\$survey))\` answered surveys (\`r number_pas_per_response \|\> filter(number_pas==1) \|\> pull(responses)\` responses representing a single protected area and \`r number_pas_per_response \|\> filter(number_pas==2) \|\> pull(responses)\` representing two protected areas) from \`r length(unique(terrestrial_data\$country))\` countries.

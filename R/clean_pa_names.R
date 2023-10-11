@@ -806,10 +806,12 @@ dat_modified_filtered$survey <- 1:nrow(dat_modified_filtered)
 
 
 #"Community Forests - Unknown"
-dat_modified_filtered$protected_area[[14]]<-"Unknown protected area" 
+unknown_protected_areas<-14
+dat_modified_filtered$protected_area[[unknown_protected_areas]]<-"Unknown protected area" 
 
 # The respondent provided a person's name instead of the protected area name
-dat_modified_filtered$protected_area[c(12, 13, 20, 23, 59, 64, 81)]<-
+given_names<-c(12, 13, 20, 23, 59, 64, 81)
+dat_modified_filtered$protected_area[given_names]<-
                                    "Unknown protected area" 
 
 

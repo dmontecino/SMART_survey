@@ -1,0 +1,8 @@
+
+1. Influenza A virus (A/Black-necked swan/Uruguay/014-M3/2023(H5N1)) segment 8 nuclear export protein (NEP) and nonstructural protein 1 (NS1) genes, complete cds
+838 bp linear cRNA 
+OR381584.1 GI:2557261197
+
+2. Influenza A virus (A/Black-necked swan/Uruguay/014-M3/2023(H5N1)) segment 7 matrix protein 2 (M2) and matrix protein 1 (M1) genes, complete cds
+982 bp linear cRNA 
+OR381585.1 GI:2557261200
