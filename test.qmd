@@ -1,0 +1,919 @@
+---
+title: "Wildlife health perceptions and monitoring in protected areas"
+author:
+  - name: Diego Montecino-Latorre
+    affiliations:
+      - name: Wildlife Conservation Society - Health Program
+        city: Bronx
+        state: New York
+  - name: Mathieu Pruvot
+    affiliations:
+      - name: Wildlife Conservation Society - Health Program
+        city: Bronx
+        state: New York
+  - name: Sarah H Olson
+    affiliations:
+      - name: Wildlife Conservation Society - Health Program
+        city: Bronx
+        state: New York
+execute: 
+  cache: false
+format:
+  pdf:
+    documentclass: scrartcl
+    papersize: letter
+    fig-pos: "h"
+
+# output:
+#   rmarkdown::pdf_document:
+#     fig_caption: yes        
+#     includes:  
+#       in_header: my_header.tex
+---
+
+## Introduction 
+
+Surveillance systems monitoring wildlife and livestock health in protected areas and fostering the early detection and timely communication of morbidity and mortality events are essential to track, prioritize threats, and activate contingency plans under high-risk scenarios for wildlife, human, and livestock health. However, effective surveillance systems involving wildlife are uncommon, especially in high-risk areas of pathogen emergence. Logistical challenges associated with surveillance in protected areas exacerbate the task's difficulty.
+
+Leveraging stakeholders already present at key interfaces is a potentially efficient strategy to establish minimal scanning wildlife health surveillance in these areas at a minimal cost (IUCN and EcoHealth Alliance 2022). Rangers and natural resource authorities (hereafter “rangers”) are responsible for conservation and law enforcement in protected areas. They regularly conduct biodiversity surveys to monitor animal and plant populations and patrols to police illegal activities. On a global scale, these activities encompass thousands of square kilometers on critical wildlife-livestock-human interfaces where they can detect injured, sick, and dead animals; trigger investigations; and provide data for trend assessments (Montecino-Latorre et al. 2020; Kuisma et al. 2019).
+
+Rangers working in and around protected areas across the world can help generate eyes-on-the-field health intelligence at critical wildlife-human-livestock interfaces. However, to date there is little to no information about: i) the importance given to wildlife health in protected area conservation programs globally, ii) the extent rangers are mandated to record wildlife health during their patrols in protected areas, and iii) how wildlife health data are collected and the potential for comparability of measures across spatial units (if collected at all). 
+
+The “Spatial Monitoring and Reporting Tool” (SMART) is a suite of technological tools designed to manage protected areas. This suite is composed by SMART Desktop, a desktop computer software, SMART Mobile, a mobile device application, and SMART Connect, a server-based cloud. SMART was founded in 2011, and to-date it is currently use in more than one thousand protected areas in more than 70 countries distributed across the World. 
+
+SMART supports the record, management, and assessment of specific types of data. The pieces of information recorded are defined by its users, and therefore, each protected area could be using the SMART system to register, track, store, and analyze different information, such as illegal logging, illegal hunting, presence of invasive species, presence of hunting camps, biological monitoring of the species present at a site, poacher traces, etc. The information collected, together with the spatial location recorded by default, helps to direct preventive or reactive actions to zones of the protected areas that are most affected by variety of conservation threats and to assess the performance of rangers. 
+
+In this study, we aim to answer these three questions, specifically by reaching out to the globally distributed users of SMART Desktop through the SMART Partnership. Specifically, we want to learn if this audience: i) considers wildlife health relevant from a One Health perspective, ii) observes/detects wildlife health events, iii) collects wildlife health data,  iv) uses SMART to record wildlife health data. Moreover, we want to learn about the technical capabilities in the use of SMART. 
+
+## Methods
+
+We developed a web-based questionnaire aimed at protected area managers. The survey had four sections. Under section 1, we asked managers to rank their perceptions regarding wildlife health
+and potential consequences of pathogen transmission among wildlife, domestic animals and people.
+
+<!-- Wildlife health, including infectious and non-infectious diseases, is important to achieve the conservation goals of the protected areas where I work -->
+
+
+<!-- Pathogens carried by wildlife inhabiting the protected area I work in can affect livestock health    -->
+
+
+<!-- Pathogens carried by wildlife inhabiting the protected area I work in can affect public health -->
+
+
+<!-- Human or livestock pathogens can affect wildlife populations inhabiting the protected area I work  -->
+
+Under section 2, we explored the overall frequency of encounters with dead, sick, or injured wildlife in the protected areas and their documentation when found during patrols.
+
+
+<!-- Are dead animals encountered in the protected area?  -->
+
+<!-- Are sick or injured animals encountered in the protected area?  -->
+
+
+<!-- Are healthy wildlife found during patrols (rangers or others) recorded as a specific category of individuals? -->
+
+<!-- 12.a Please select one of the choices below to help us understand how healthy wildlife are recorded during a patrol: -->
+
+<!-- 12.b Please indicate what type of data are recorded (check all that apply) -->
+
+
+<!-- 13. Are dead wildlife found during patrols recorded as a specific category of individuals?  -->
+
+<!-- 13.a Please select one of the choices below to help us understand how dead wildlife are recorded during a patrol: -->
+
+<!-- 13.b Please indicate what type of data are recorded (check all that apply) -->
+
+
+<!-- 14. Are injured wildlife found during patrols recorded as a specific category of individuals?  -->
+
+<!-- 14.a Please select one of the choices below to help us understand how injured wildlife are recorded during a patrol: -->
+
+<!-- 14.b Please indicate what type of data are recorded (check all that apply) -->
+
+
+<!-- 15. Are sick wildlife found during patrols recorded as a specific category of individuals?  -->
+
+<!-- 15.a Please select one of the choices below to help us understand how sick wildlife are recorded during a patrol: -->
+
+
+Under section 3, we asked managers to rank the importance of introduced domestic animals 
+for the conservation goals of the corresponding protected areas. Likert scales were used in sections 1 - 3.
+
+
+<!-- Introduced domestic animals (e.g., dogs, cats, cattle, pigs, cats) are a concern for the conservation goals of the protected areas where I work -->
+
+<!-- 16. Are domestic animals found in the protected area (free-ranging, captive, on a farm)? -->
+
+<!-- 17. If observed on a patrol, is the presence of domestic animals recorded? -->
+
+<!-- 18. Is the health status of the observed domestic animals (healthy, sick or injured, dead) recorded? -->
+
+
+Under section 4, we asked about data storage practices. 
+
+
+<!-- Are these data entered and stored in SMART Desktop? -->
+
+<!-- If none of the items are recorded in the corresponding SMART Conservation Area where are they recorded?  -->
+
+Under section 5, we asked about the current state of SMART and its components. 
+
+<!-- 21. What version of SMART Desktop is currently used in the protected area? -->
+<!-- 22. Is SMART Connect available to manage and transfer information between SMART Desktop and SMART Mobile?  -->
+
+<!-- 22.a Are there plans to set up SMART Connect instance and when? -->
+
+<!-- 23. Is SMART fully rolled-out in the protected area(s) you work in or is it being piloted? -->
+
+
+An introductory webpage explained that the survey was voluntary, anonymous, aimed at protected area managers administering SMART data. The webpage also clarified that clicking the "Start the survey" button constituted consent. The survey was built on Google Forms, which has a translation tool. We provided a tutorial on translating it into the preferred language (https://sites.google.com/wcs.org/smarttorecordwildlifehealth/home). The survey was exempt from IRB review (ref #22-53 Wildlife Conservation Society Internal Review Board).
+
+The survey was distributed globally to the SMART Community (SMART Community Forum users https://forum.smartconservationtools.org/) by the SMART Partnership via email in October 2022, and it remained open for three months. As the closing date approached, a reminder was sent to the SMART Community three weeks in advance.
+
+```{r methods}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+
+knitr::opts_chunk$set(fig.pos = "H", out.extra = "")
+
+source("R/load_packages.R")
+
+dat = read.csv("data/survey_responses.csv")
+
+#clean dataset names
+source("R/clean_names.R")
+
+#clean PA names
+source("R/clean_pa_names.R")
+
+#remove unknwon. PA and the example
+source("R/remove_unknown_example.R")
+
+```
+
+Responses could represent a single or multiple protected areas. However, our analysis focused on responses representing one or two individual terrestrial protected areas to gain insights into specific local realities. Therefore, responses representing more than two protected areas were filtered out. The resulting dataset could have a specific protected area represented by single responses, by responses that included two protected areas, or a combination of both. We duplicated the responses that were representing two protected areas but left a single protected area for each one, so each row in the dataset implied a unique protected area. One of the responses representing the same protected area after this step were filtered out to leave a unique representation completion and consistency of answers, and respondent's alignment with the intended target audience of the survey. 
+
+
+
+```{r remove reponses representing more than two protected areas}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| 
+source("R/remove_responses_more_two_protected_areas.R")
+
+```
+
+```{r remove other audience answering the survey}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+source("R/remove_other_audience.R")
+```
+
+
+
+The protected areas included in the responses were classified as marine or terrestrial based on the World Database on Protected Areas (https://www.protectedplanet.net/en/thematic-areas/wdpa?tab=WDPA). Marine protected areas were removed.
+
+
+```{r remove marine protected areas}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+
+#> the classification involves a slow process downloading pa data from wdpa. Go to the script if you want to reproduce. The output is "terrestrial_data.RDS"
+#source("classify_pa.R")
+
+dat_modified_filtered_expanded<-readRDS("data/dat_modified_filtered_expanded.RDS")
+
+terrestrial_data<-readRDS("data/terrestrial_data.RDS")
+
+number_pas_per_response<-
+terrestrial_data %>%
+  dplyr::count(survey, name = "number_pas") %>%
+  dplyr::count(number_pas, name = "responses")
+```
+
+
+
+The questionnaire, survey data, data cleaning and filtering, and descriptive analysis scripts can be found at https://github.com/dmontecino/SMART_survey.
+
+## Results
+
+### General results
+
+The total number of responses was `r nrow(dat_modified_filtered)`. 
+
+`r as.character(english::as.english(length(given_names))) |> stringr::str_to_title()` responses were removed because they included a given name instead of the protected area name and `r as.character(english::as.english(length(unknown_protected_areas)))` response was removed because it did not have a protected area name. `r as.character(english::as.english(nrow(dat_modified_filtered_1) - nrow(dat_modified_filtered_2))) |> stringr::str_to_sentence()` responses representing more than two protected areas were filtered out and other `r as.character(english::as.english(nrow(dat_modified_filtered_2) - nrow(dat_modified_filtered_3)))` were removed because they involved protected areas that were represented once already. `r as.character(english::as.english(nrow(dat_modified_filtered_3) - nrow(dat_modified_filtered_4))) |> stringr::str_to_sentence()` responses were removed because the respondent did not match the target audience. 
+
+
+The final dataset described below excluded `r as.character(english::as.english(nrow(dat_modified_filtered_expanded |> filter(terrestrial=="no"))))` marine protected areas leading to the removal of another `r as.character(english::as.english(length(unique(dat_modified_filtered_4$survey)) - length(unique(terrestrial_data$survey))))` responses, for a total of `r nrow(terrestrial_data)` protected areas represented by `r length(unique(terrestrial_data$survey))` answered surveys (`r number_pas_per_response |> filter(number_pas==1) |> pull(responses)` responses representing a single protected area and `r number_pas_per_response |> filter(number_pas==2) |> pull(responses)` representing two protected areas) from `r length(unique(terrestrial_data$country))` countries.
+
+### Section 1: Perceptions regarding wildlife health and potential consequences of pathogen transmission among wildlife, domestic animals and people
+
+<!-- Under section 1, we asked managers to rank their perceptions regarding wildlife health  -->
+<!-- and potential consequences of pathogen transmission among wildlife, domestic -->
+<!-- animals and people. -->
+
+<!-- Wildlife health, including infectious and non-infectious diseases, is important to achieve the conservation goals of the protected areas where I work -->
+
+<!-- Pathogens carried by wildlife inhabiting the protected area I work in can affect livestock health    -->
+
+<!-- Pathogens carried by wildlife inhabiting the protected area I work in can affect public health -->
+
+<!-- Human or livestock pathogens can affect wildlife populations inhabiting the protected area I work  -->
+
+The ranking distribution for the following affirmations: "Wildlife health, including infectious and non-infectious diseases, is important to achieve the conservation goals of the protected areas where I work", "Human or livestock pathogens can affect wildlife populations inhabiting the protected area I work", "Pathogens carried by wildlife inhabiting the protected area I work in can affect public health", and "Pathogens carried by wildlife inhabiting the protected area I work in can affect livestock health" is shown in Figure 1.  
+
+```{r section 1}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+#| fig-align: center
+#| fig-cap:
+#|   Distribution protected area managers responses regarding the importance
+#|   of wildlife health to achieve the conservation goals of protected area(s) where
+#|   they work in (row 1), human or livestock pathogens can affect wildlife populations
+#|  inhabiting the protected area(s) where they work in
+#|   (row 2), pathogens carried by wildlife inhabiting the protected area(s) where
+#|   they work in can affect public health (row 3), and pathogens carried by wildlife 
+#|   inhabiting the protected area(s) where they work in can affect livestock health (row 4).
+
+#source("plot_section_1.R")
+
+# plot_section_1
+knitr::include_graphics("plots/plot_section_1.png")
+
+```
+
+```{r distribution of perception combinations}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+
+affirmation_combinations_count<-
+  terrestrial_data %>%
+  distinct(survey,
+           wildlife_health_important,
+           hum_liv_path_affect_wildlife,
+           wildlife_path_affect_livestock,
+           wildlife_path_affect_phealth) %>% 
+  group_by(wildlife_health_important,
+           hum_liv_path_affect_wildlife,
+           wildlife_path_affect_livestock,
+           wildlife_path_affect_phealth) %>% 
+  count(name = "number_responses") %>% 
+  arrange(-number_responses)
+
+
+
+```
+
+The most common ranking combination was "`r affirmation_combinations_count |> filter(number_responses==max(affirmation_combinations_count$number_responses)) |> select(-number_responses) |> tibble::deframe()`" with the four affirmations (n=`r max(affirmation_combinations_count$number_responses)`; `r round(max(affirmation_combinations_count$number_responses)/sum(affirmation_combinations_count$number_responses)*100,1)`%), followed by "`r affirmation_combinations_count |> filter(number_responses==unique(sort(affirmation_combinations_count$number_responses, decreasing = TRUE))[2]) |> select(-number_responses) |> tibble::deframe()`" with the four affirmations (n=`r unique(sort(affirmation_combinations_count$number_responses, decreasing = TRUE))[2]`; `r round(unique(sort(affirmation_combinations_count$number_responses, decreasing = TRUE))[2]/sum(affirmation_combinations_count$number_responses)*100,1)`% of the responses). `r as.character(english::as.english(affirmation_combinations_count |> ungroup() |> filter(if_all(-number_responses, ~grepl("Strongly agree|Agree", . ))) |> pull(number_responses) |> sum())) |> stringr::str_to_sentence()` (`r round(affirmation_combinations_count |> ungroup() |> filter(if_all(-number_responses, ~grepl("Strongly agree|Agree", . ))) |> pull(number_responses) |> sum()/sum(affirmation_combinations_count$number_responses)*100,2)`%) of the respondents answered either "Strongly agree" or "Agree" to the four affirmations. The number of responses per rank combination are provided in Appendix 1.
+
+### Section 2: Overall frequency of encounters with dead, sick, or injured wildlife in the protected areas and their documentation when found during patrols.
+
+<!-- Are dead animals encountered in the protected area?  -->
+<!-- Are sick or injured animals encountered in the protected area?  -->
+
+<!-- Are healthy wildlife found during patrols (rangers or others) recorded as a specific category of individuals? -->
+  <!-- 12.a Please select one of the choices below to help us understand how healthy wildlife are recorded during a patrol: -->
+  <!-- 12.b Please indicate what type of data are recorded (check all that apply) -->
+
+<!-- 13. Are dead wildlife found during patrols recorded as a specific category of individuals?  -->
+  <!-- 13.a Please select one of the choices below to help us understand how dead wildlife are recorded during a patrol: -->
+  <!-- 13.b Please indicate what type of data are recorded (check all that apply) -->
+
+<!-- 14. Are injured wildlife found during patrols recorded as a specific category of individuals?  -->
+  <!-- 14.a Please select one of the choices below to help us understand how injured wildlife are recorded during a patrol: -->
+  <!-- 14.b Please indicate what type of data are recorded (check all that apply) -->
+
+<!-- 15. Are sick wildlife found during patrols recorded as a specific category of individuals?  -->
+<!-- 15.a Please select one of the choices below to help us understand how sick wildlife are recorded during a patrol: -->
+
+`r as.character(english::as.english(terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow())) |> stringr::str_to_sentence()` responses (`r round(terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()/terrestrial_data |> distinct(survey) |> nrow()*100,1)`%)  reported that either dead, sick, or injured wildlife found during patrols are recorded.
+`r as.character(english::as.english(terrestrial_data |> distinct(survey, dead_wl_recorded, dead_found) |> filter(dead_wl_recorded=="No")  |> nrow())) |> stringr::str_to_sentence()` out of the `r terrestrial_data |> distinct(survey) |> nrow()` respondents (`r round(terrestrial_data |> distinct(survey, dead_wl_recorded, dead_found) |> filter(dead_wl_recorded=="No")  |> nrow()/terrestrial_data |> distinct(survey) |> nrow()*100,1)`%) answered that dead wildlife found during patrols are not recorded as a specific category. Of this set, only `r as.character(english::as.english(terrestrial_data |> distinct(survey, dead_wl_recorded, dead_found) |> filter(dead_wl_recorded=="No" & dead_found=="Never")  |> nrow()))` responses (`r round(terrestrial_data |> distinct(survey, dead_wl_recorded, dead_found) |> filter(dead_wl_recorded=="No" & dead_found=="Never")  |> nrow()/terrestrial_data |> distinct(survey, dead_wl_recorded, dead_found) |> filter(dead_wl_recorded=="No")  |> nrow()*100,1)`%) claimed that dead wildlife are "Never" encountered in the protected area. The overall distribution of responses across ranking of dead wildlife encountering frequency in the protected area and their recording as a specific category of individuals when found during a patrol is shown in Figure 2.
+
+```{r section 2A}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+#| fig-align: center
+#| fig-cap:
+#|  Distribution of protected area managers responses regarding the recording 
+#|  of dead wildlife found during ranger patrols as a specific category of 
+#|  animals across the overall encountering frequency with dead wildlife
+#|  in the protected area(s) where they work in.
+#
+#source("plot_section_2.R")
+
+# plot_section_2
+knitr::include_graphics("plots/plot_section_2A.png")
+
+```
+
+`r as.character(english::as.english(terrestrial_data |> distinct(survey, sick_wl_recorded, sick_injured_found) |> filter(sick_wl_recorded=="No")  |> nrow())) |> stringr::str_to_sentence()` out of the `r terrestrial_data |> distinct(survey) |> nrow()` respondents (`r round(terrestrial_data |> distinct(survey, sick_wl_recorded, sick_injured_found) |> filter(sick_wl_recorded=="No")  |> nrow()/terrestrial_data |> distinct(survey) |> nrow()*100,1)`%) answered that sick wildlife found during patrols are not recorded as a specific category. Of this set, only `r as.character(english::as.english(terrestrial_data |> distinct(survey, sick_wl_recorded, sick_injured_found) |> filter(sick_wl_recorded=="No" & sick_injured_found=="Never")  |> nrow()))` responses (`r round(terrestrial_data |> distinct(survey, sick_wl_recorded, sick_injured_found) |> filter(sick_wl_recorded=="No" & sick_injured_found=="Never")  |> nrow()/terrestrial_data |> distinct(survey, sick_wl_recorded, sick_injured_found) |> filter(sick_wl_recorded=="No")  |> nrow()*100,1)`%) claimed that sick and injured wildlife are "Never" encountered in the protected area. The overall distribution of responses across ranking of sick or injured wildlife encountering frequency in the protected area and the recording of sick wildlife as a specific category of individuals when found during a patrol is shown in Figure 3.
+
+```{r section 2B}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+#| fig-align: center
+#| fig-cap:
+#|  Distribution of protected area managers responses regarding the recording 
+#|  of sick wildlife found during ranger patrols as a specific category of 
+#|  animals across the overall encountering frequency with sick or injured wildlife
+#|  in the protected area(s) where they work in.
+
+#source("plot_section_2.R")
+
+# plot_section_2
+knitr::include_graphics("plots/plot_section_2B.png")
+
+```
+
+`r as.character(english::as.english(terrestrial_data |> distinct(survey, injured_wl_recorded, sick_injured_found) |> filter(injured_wl_recorded=="No")  |> nrow())) |> stringr::str_to_sentence()` out of the `r terrestrial_data |> distinct(survey) |> nrow()` respondents (`r round(terrestrial_data |> distinct(survey, injured_wl_recorded, sick_injured_found) |> filter(injured_wl_recorded=="No")  |> nrow()/terrestrial_data |> distinct(survey) |> nrow()*100,1)`%) answered that injured wildlife found during patrols are not recorded as a specific category. Of this set, only `r as.character(english::as.english(terrestrial_data |> distinct(survey, injured_wl_recorded, sick_injured_found) |> filter(injured_wl_recorded=="No" & sick_injured_found=="Never")  |> nrow()))` responses (`r round(terrestrial_data |> distinct(survey, injured_wl_recorded, sick_injured_found) |> filter(injured_wl_recorded=="No" & sick_injured_found=="Never")  |> nrow()/terrestrial_data |> distinct(survey, injured_wl_recorded, sick_injured_found) |> filter(injured_wl_recorded=="No")  |> nrow()*100,1)`%) claimed that sick and injured wildlife are "Never" encountered in the protected area. The overall distribution of responses across ranking of sick or injured wildlife encountering frequency in the protected area and the recording of injured wildlife as a specific category of individuals when found during a patrol is shown in Figure 4.
+
+```{r section 2C}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+#| fig-align: center
+#| fig-cap:
+#|  Distribution of protected area managers responses regarding the recording 
+#|  of injured wildlife found during ranger patrols as a specific category of 
+#|  animals across the overall encountering frequency with sick or injured wildlife
+#|  in the protected area(s) where they work in.
+
+#source("plot_section_2.R")
+
+# plot_section_2
+knitr::include_graphics("plots/plot_section_2C.png")
+
+```
+
+```{r methods used to record wildlife}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+
+record_method_across_status<-
+  terrestrial_data %>%
+  distinct(survey,
+           # how_healthy_wl_recorded, 
+           # healthy_wl_recorded,
+           how_sick_wl_recorded,
+           sick_wl_recorded,
+           how_injured_wl_recorded,
+           injured_wl_recorded,
+           how_dead_wl_recorded,
+           dead_wl_recorded) %>% 
+  filter(#healthy_wl_recorded=="Yes" |
+           sick_wl_recorded =="Yes" |
+           injured_wl_recorded == "Yes" |
+           dead_wl_recorded == "Yes") %>% 
+  select(-survey,
+         -sick_wl_recorded, 
+         -injured_wl_recorded,
+         -dead_wl_recorded)
+ 
+
+
+record_method_across_status$how_sick_wl_recorded[
+  grepl("recorded as an individual observation",
+        record_method_across_status$how_sick_wl_recorded)]<-
+  "Each animal is an individual observation"
+
+
+record_method_across_status$how_sick_wl_recorded[
+  grepl("full count of individuals belonging to an observed species",
+        record_method_across_status$how_sick_wl_recorded)]<-
+  "Part of the full count of the species"
+
+
+record_method_across_status$how_sick_wl_recorded[
+  grepl("present/absent",
+        record_method_across_status$how_sick_wl_recorded)]<-
+  "Present/absent"
+
+record_method_across_status$how_sick_wl_recorded[
+  grepl("another way",
+        record_method_across_status$how_sick_wl_recorded)]<-
+  "Recorded in another way"
+
+#unique(how_combinations_count$how_sick_wl_recorded)
+
+
+
+
+
+record_method_across_status$how_injured_wl_recorded[
+  grepl("recorded as an individual observation",
+        record_method_across_status$how_injured_wl_recorded)]<-
+  "Each animal is an individual observation"
+
+
+record_method_across_status$how_injured_wl_recorded[
+  grepl("full count of individuals belonging to an observed species",
+        record_method_across_status$how_injured_wl_recorded)]<-
+  "Part of the full count of the species"
+
+
+record_method_across_status$how_injured_wl_recorded[
+  grepl("present/absent",
+        record_method_across_status$how_injured_wl_recorded)]<-
+  "Present/absent"
+
+record_method_across_status$how_injured_wl_recorded[
+  grepl("another way",
+        record_method_across_status$how_injured_wl_recorded)]<-
+  "Recorded in another way"
+
+# unique(how_combinations_count$how_injured_wl_recorded)
+
+
+
+
+
+record_method_across_status$how_dead_wl_recorded[
+  grepl("recorded as an individual observation",
+        record_method_across_status$how_dead_wl_recorded)]<-
+  "Each animal is an individual observation"
+
+
+record_method_across_status$how_dead_wl_recorded[
+  grepl("full count of individuals belonging to an observed species",
+        record_method_across_status$how_dead_wl_recorded)]<-
+  "Part of the full count of the species"
+
+
+record_method_across_status$how_dead_wl_recorded[
+  grepl("present/absent",
+        record_method_across_status$how_dead_wl_recorded)]<-
+  "Present/absent"
+
+record_method_across_status$how_dead_wl_recorded[
+  grepl("another way",
+        record_method_across_status$how_dead_wl_recorded)]<-
+  "Recorded in another way"
+
+
+
+# unique(how_combinations_count$how_dead_wl_recorded)
+
+record_method_across_status<-
+  record_method_across_status %>% 
+  pivot_longer(cols = 1:3) %>% 
+  filter(value!="") %>% 
+  count(value, name = "number_times_used")
+  
+
+
+
+```
+
+
+The methods to record either sick, injured, or dead wildlife found during a patrol (when registered) "`r record_method_across_status$value[2]`", "`r record_method_across_status$value[2]`" (stratification of the animals of a specific species per health status), "`r record_method_across_status$value[3]`", and "`r record_method_across_status$value[4]`" were reported in `r round(record_method_across_status$number_times_used[1]/terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()*100,1)`%, `r round(record_method_across_status$number_times_used[2]/terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()*100,1)`%, `r round(record_method_across_status$number_times_used[3]/terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()*100,1)`%, and `r round(record_method_across_status$number_times_used[4]/terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()*100,1)`% of the `r terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()` responses that reported the recording of either dead, sick, or injured wildlife found during patrols. The distribution of the methods reported to record healthy, sick, injured, or dead wildlife recording when they are found during a patrol is shown in Figure 5.
+
+```{r section 2D}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+#| fig-align: center
+#| fig-cap:
+#|  Distribution of protected area managers responses regarding how recorded healthy, 
+#|  sick, injured, and dead wildlife found during patrols are actually registered.
+
+#source("plot_section_2.R")
+
+# plot_section_2
+knitr::include_graphics("plots/plot_section_2D.png")
+
+```
+
+```{r combinations of answers for recording methods}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+
+how_combinations_count<-
+  terrestrial_data %>%
+  distinct(survey,
+           # how_healthy_wl_recorded, 
+           # healthy_wl_recorded,
+           how_sick_wl_recorded,
+           sick_wl_recorded,
+           how_injured_wl_recorded,
+           injured_wl_recorded,
+           how_dead_wl_recorded,
+           dead_wl_recorded) %>% 
+  filter(#healthy_wl_recorded=="Yes" |
+           sick_wl_recorded =="Yes" |
+           injured_wl_recorded == "Yes" |
+           dead_wl_recorded == "Yes") %>% 
+  group_by(#how_healthy_wl_recorded,
+           how_sick_wl_recorded,
+           how_injured_wl_recorded,
+           how_dead_wl_recorded) %>% 
+  count(name = "number_responses") %>% 
+  arrange(-number_responses) 
+
+# unique(how_combinations_count$how_sick_wl_recorded)
+
+
+how_combinations_count$how_sick_wl_recorded[
+  grepl("recorded as an individual observation",
+        how_combinations_count$how_sick_wl_recorded)]<-
+  "Each animal is an individual observation"
+
+
+how_combinations_count$how_sick_wl_recorded[
+  grepl("full count of individuals belonging to an observed species",
+        how_combinations_count$how_sick_wl_recorded)]<-
+  "Part of the full count of the species"
+
+
+how_combinations_count$how_sick_wl_recorded[
+  grepl("present/absent",
+         how_combinations_count$how_sick_wl_recorded)]<-
+  "Present/absent"
+
+how_combinations_count$how_sick_wl_recorded[
+  grepl("another way",
+        how_combinations_count$how_sick_wl_recorded)]<-
+  "Recorded in another way"
+
+#unique(how_combinations_count$how_sick_wl_recorded)
+
+
+
+
+
+how_combinations_count$how_injured_wl_recorded[
+  grepl("recorded as an individual observation",
+        how_combinations_count$how_injured_wl_recorded)]<-
+  "Each animal is an individual observation"
+
+
+how_combinations_count$how_injured_wl_recorded[
+  grepl("full count of individuals belonging to an observed species",
+        how_combinations_count$how_injured_wl_recorded)]<-
+  "Part of the full count of the species"
+
+
+how_combinations_count$how_injured_wl_recorded[
+  grepl("present/absent",
+        how_combinations_count$how_injured_wl_recorded)]<-
+  "Present/absent"
+
+how_combinations_count$how_injured_wl_recorded[
+  grepl("another way",
+        how_combinations_count$how_injured_wl_recorded)]<-
+  "Recorded in another way"
+
+#unique(how_combinations_count$how_injured_wl_recorded)
+
+
+
+
+
+how_combinations_count$how_dead_wl_recorded[
+  grepl("recorded as an individual observation",
+        how_combinations_count$how_dead_wl_recorded)]<-
+  "Each animal is an individual observation"
+
+
+how_combinations_count$how_dead_wl_recorded[
+  grepl("full count of individuals belonging to an observed species",
+        how_combinations_count$how_dead_wl_recorded)]<-
+  "Part of the full count of the species"
+
+
+how_combinations_count$how_dead_wl_recorded[
+  grepl("present/absent",
+        how_combinations_count$how_dead_wl_recorded)]<-
+  "Present/absent"
+
+how_combinations_count$how_dead_wl_recorded[
+  grepl("another way",
+        how_combinations_count$how_dead_wl_recorded)]<-
+  "Recorded in another way"
+
+#unique(how_combinations_count$how_dead_wl_recorded)
+
+
+
+```
+
+The most common combination of methods to register either sick, injured, or dead wildlife was the recording of dead wildlife only with each dead individual registered as a unique observation  (`r round(max(how_combinations_count$number_responses)/sum(how_combinations_count$number_responses)*100,1)`% of the responses), followed by "`r how_combinations_count |> filter(number_responses==unique(sort(how_combinations_count$number_responses, decreasing = TRUE))[2]) |> select(-number_responses) |> tibble::deframe()`" for the three health categories (`r round(unique(sort(how_combinations_count$number_responses, decreasing = TRUE))[2]/sum(how_combinations_count$number_responses)*100,1)`% of the responses). The number of responses per method used per health category are provided in Appendix 2. 
+
+
+```{r most collected data types}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+
+record_items_dead_sick_injured<-
+terrestrial_data %>%
+  distinct(survey, 
+           dead_wl_recorded,
+           dead_wl_data_recorded,
+           sick_wl_recorded, 
+           sick_wl_data_recorded, 
+           injured_wl_recorded,
+           injured_wl_data_recorded) %>% 
+  filter(dead_wl_recorded=="Yes" |
+         sick_wl_recorded=='Yes' |
+         injured_wl_recorded=="Yes") %>% 
+  select(-survey, -dead_wl_recorded, -sick_wl_recorded, -injured_wl_recorded ) %>% 
+  mutate(items = paste(dead_wl_data_recorded, sick_wl_data_recorded, injured_wl_data_recorded, sep = ","))  
+  
+
+record_items_dead_sick_injured$items<-gsub("Anomalies/signs if any", "Anomalies", record_items_dead_sick_injured$items)
+record_items_dead_sick_injured$items<-gsub("Carcass condition", "Condition", record_items_dead_sick_injured$items)
+record_items_dead_sick_injured$items<-gsub("if any", "", record_items_dead_sick_injured$items)
+record_items_dead_sick_injured$items<-gsub(" [(]", "", record_items_dead_sick_injured$items)
+record_items_dead_sick_injured$items<-gsub("[)]", "", record_items_dead_sick_injured$items)
+record_items_dead_sick_injured$items<-gsub("Anomalies in carcass", "Anomalies", record_items_dead_sick_injured$items)
+record_items_dead_sick_injured$items<-gsub("Suspect cause of death", "Suspect cause", record_items_dead_sick_injured$items)
+record_items_dead_sick_injured$items<-gsub("Body condition", "Condition", record_items_dead_sick_injured$items)
+record_items_dead_sick_injured$items<-gsub("Suspect cause of disease", "Suspect cause", record_items_dead_sick_injured$items)
+record_items_dead_sick_injured$items<-gsub("Suspect cause of injury", "Suspect cause", record_items_dead_sick_injured$items)
+
+items_mentioned<-
+strsplit(record_items_dead_sick_injured$items, ",") %>%
+  map(\(x) trimws(x, which = "both") %>% unique() %>%  sort()) %>% unlist() %>% 
+  table() %>% sort()
+
+
+```
+
+The number of responses including specific data types collected across sick, injured, or dead wildlife (for the set of `r terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()` responses reporting the recording of at least one of these categories) was `r rev(items_mentioned)` for the items `r rev(names(c(items_mentioned)))`. The distribution of the data items collected
+per each health status category is shown in Figure 6.
+
+```{r section 2E}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+#| fig-align: center
+#| fig-cap:
+#|  The percentage of protected area managers responses that reported
+#|  the recording of dead, sick, and injured wildlife that collected
+#|  different items of information (y-axis) across different
+#|  categories of wildlife health status (x-axis). The size of
+#|  the circles is proportional to the percentage observed.
+
+#source("plot_section_2.R")
+
+# plot_section_2
+knitr::include_graphics("plots/plot_section_2E.png")
+
+```
+
+### Section 3: Importance of introduced domestic animals for the conservation goals of the protected areas
+
+<!-- Introduced domestic animals (e.g., dogs, cats, cattle, pigs, cats) are a concern for the conservation goals of the protected areas where I work -->
+<!-- 16. Are domestic animals found in the protected area (free-ranging, captive, on a farm)? -->
+<!-- 17. If observed on a patrol, is the presence of domestic animals recorded? -->
+<!-- 18. Is the health status of the observed domestic animals (healthy, sick or injured, dead) recorded? -->
+
+```{r section 3A}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+
+# responsed where domestic animals are in the pa
+num_responses_dom_animals_in_pa<-
+terrestrial_data |> 
+  distinct(survey, 
+           dom_animals_in_pa, 
+           dom_animals_recorded) |>
+  filter(dom_animals_in_pa=="Yes") |> 
+  nrow()
+
+#responses where the dome animalas are observed and recorded
+num_responses_dom_animals_in_pa_are_recorded<-
+  terrestrial_data |> 
+  distinct(survey, 
+           dom_animals_in_pa, 
+           dom_animals_recorded) |>
+  filter(dom_animals_in_pa=="Yes") |>
+  count(dom_animals_in_pa, dom_animals_recorded) %>% 
+  filter(dom_animals_recorded=="Yes") |>
+  pull(n)
+  
+#responses where the dome animalas are observed, recorded, and the health status is registered.
+
+num_responses_dom_animals_in_pa_are_recorded_health_status<-
+terrestrial_data %>% 
+  distinct(survey, 
+           dom_animals_in_pa, 
+           dom_animals_recorded, 
+           dom_animal_health_status_recorded) |> 
+  select(-survey) |>
+  filter(dom_animals_in_pa=="Yes" &
+           dom_animals_recorded=="Yes") %>% 
+  count(dom_animal_health_status_recorded) %>% 
+  filter(dom_animal_health_status_recorded=="Yes") %>% 
+  pull(n)
+
+```
+
+`r as.character(english::as.english(num_responses_dom_animals_in_pa)) |> stringr::str_to_sentence()` managers responded that domestic animals are observed in the corresponding protected areas (`r round(num_responses_dom_animals_in_pa/terrestrial_data |> select(survey) |> distinct() |> nrow()*100,1) `%). `r as.character(english::as.english(num_responses_dom_animals_in_pa_are_recorded)) |> stringr::str_to_sentence()` managers of this subset claimed that domestic animals are documented if observed during patrols (`r round(num_responses_dom_animals_in_pa_are_recorded/num_responses_dom_animals_in_pa*100,1)`%), but only `r num_responses_dom_animals_in_pa_are_recorded_health_status` of these managers reported the recording of the health status of these animals. The distribution of manager responses across the overall ranking of domestic animals as a conservation concern, their documentation, and recording of their health status is shown in Figure 7.
+
+```{r section 3B}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+#| fig-align: center
+#| fig-cap:
+#|  Distribution of protected area manager responses where domestic animals are observed regarding the recording of domestic animals found during ranger patrols across their overall agreement with domestic animals as a concern for conservation goals in protected areas. The dashed area of the polygons represent the subset of responses without health status of domestic animals recording. The responses included in this figure are those of managers that reported the presence of domestic animals in the corresponding protected area.
+
+
+# plot_section_3
+knitr::include_graphics("plots/plot_section_3.png")
+
+
+
+```
+
+### Section 4: Data storage practices.
+
+
+<!-- Are these data entered and stored in SMART Desktop? -->
+
+<!-- If none of the items are recorded in the corresponding SMART Conservation Area where are they recorded?  -->
+
+
+```{r data stored in SMART}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+
+# data on dead animals observed in pa and recorded and stored in SMART
+
+data_smart_dead<-
+terrestrial_data |> 
+  distinct(survey, 
+           dead_wl_recorded,
+           dead_wl_data_in_smart) |>
+  select(-survey) |>
+  filter(dead_wl_recorded=="Yes") |>
+  count(dead_wl_recorded, dead_wl_data_in_smart, name = "count_for_dead_wl") |>
+  select(-dead_wl_recorded) %>% 
+  rename("data_in_smart"="dead_wl_data_in_smart")
+
+
+# data on domestic animals observed in pa and recorded are stored in SMART
+num_responses_dom_animals_in_pa_are_recorded_in_smart<-
+  terrestrial_data |> 
+  distinct(survey, 
+           dom_animals_in_pa, 
+           dom_animals_recorded, 
+           dom_animal_in_smart) |>
+  filter(dom_animals_in_pa=="Yes" & dom_animals_recorded=="Yes") |> 
+  count(dom_animals_recorded, 
+        dom_animal_in_smart) %>% 
+  filter(dom_animal_in_smart=="Yes") %>% 
+  pull(n)
+
+
+# data on domestic animals health status are stored in SMART (subset where domestic animals are observed, recorded, and health status recorded)
+dom_animal_health_status_in_smart<-
+terrestrial_data %>% 
+  distinct(survey, dom_animals_in_pa, 
+           dom_animals_recorded, 
+           dom_animal_health_status_recorded, 
+           dom_animal_health_status_smart) |> 
+  select(-survey) |>
+  filter(dom_animals_in_pa=="Yes" &
+           dom_animals_recorded=="Yes" & 
+           dom_animal_health_status_recorded=="Yes") %>% 
+  count(dom_animal_health_status_recorded, 
+        dom_animal_health_status_smart) %>% 
+  filter(dom_animal_health_status_smart=="Yes") %>% 
+  pull(n)
+
+
+```
+
+`r as.character(as.english(num_responses_dom_animals_in_pa_are_recorded_in_smart)) |> stringr::str_to_sentence()` of the `r num_responses_dom_animals_in_pa_are_recorded` managers (`r round(num_responses_dom_animals_in_pa_are_recorded_in_smart/num_responses_dom_animals_in_pa_are_recorded*100,1)`%) reporting the recording of domestic animal sighted during patrols responded that this information was stored in a SMART database. `r ifelse(dom_animal_health_status_in_smart/num_responses_dom_animals_in_pa_are_recorded_health_status==1,"All", stop("not all responses of health status of domestic animals\n equal the number of responses health status of domestic animals\nin SMART"))` managers reporting domestic animals health status recording responded that this information is stored in a SMART database. The distribution of health data storage in a SMART database per wildlife category for those responses reporting the recording of sick, injured, or dead wildlife is shown in Figure 8.
+
+
+
+```{r plot data stored in SMART by health status}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+#| fig-align: center
+#| fig-cap:
+#|  The percentage of protected area managers responses reporting
+#|  the recording of dead, sick, and injured wildlife (x-axis) that stored
+#|  this information in a SMART database (y-axis). The size of
+#|  the circles is proportional to the percentage observed.
+
+
+# plot_section_4
+knitr::include_graphics("plots/plot_section_4A.png")
+
+
+```
+
+```{r data not in SMART where are they stored}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+
+wildlife_data_not_in_smart<-
+terrestrial_data |>
+  distinct(survey, 
+           sick_wl_data_in_smart,
+           injured_wl_data_in_smart,
+           dead_wl_data_in_smart,
+           sick_wl_data_other,
+           injured_wl_data_other,
+           dead_wl_data_other) |>
+  filter(grepl(pattern = '""|None', sick_wl_data_in_smart) | 
+         grepl(pattern = '""|None', injured_wl_data_in_smart) |
+         grepl(pattern = '""|None', dead_wl_data_in_smart)) |> 
+  select(sick_wl_data_other, 
+         injured_wl_data_other,
+         dead_wl_data_other) |>
+  pivot_longer(cols = everything(), values_to = "not_in_smart") |> 
+  select(not_in_smart) |>
+  distinct()
+  
+# wildlife_data_not_in_smart
+
+```
+
+In those cases when sick, injured, or dead wildlife were recorded but their data was 
+not stored in SMART, a range of options were employed instead, including paper forms,
+reports, and spreadsheets.
+
+### Current state of SMART components. 
+
+<!-- 23. Is SMART fully rolled-out in the protected area(s) you work in or is it being piloted? -->
+
+<!-- 21. What version of SMART Desktop is currently used in the protected area? -->
+
+<!-- 22. Is SMART Connect available to manage and transfer information between SMART Desktop and SMART Mobile?  -->
+
+<!-- 22.a Are there plans to set up SMART Connect instance and when? -->
+
+## Appendices
+
+### Appendix 1. Frequency of response combinations to the four affirmations of Section 1. 
+
+```{r appendix 1}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+kableExtra::kable(data.frame(affirmation_combinations_count),
+                 
+col.names = c("Wildlife health is important", "Human and livestock pathogens can impact wildlife health","Wildlife pathogens can impact human health", "Wildlife pathogens can impact livestock health", "Number of responses")) |>
+  row_spec(row = 0, font_size = 7, bold=TRUE) |>
+  column_spec(column = 1:5, width="2.5cm") |>
+  kable_styling(font_size = 6) 
+
+```
+
+
+### Appendix 2. Frequency of response combinations to the recording methods for sick, injured, and dead wildlife of Section 2. Cells without information means that the corresponding health categories were not recorded.
+
+```{r appendix 2}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+kableExtra::kable(data.frame(how_combinations_count),
+                 
+col.names = c("How sick wildlife is recorded", "How injured wildlife is recorded","How dead wildlife is recorded", "Number of responses")) |>
+  row_spec(row = 0, font_size = 7, bold=TRUE) |>
+  column_spec(column = 1:4, width="2.5cm") |>
+  kable_styling(font_size = 6) 
+
+```
+
+
+
