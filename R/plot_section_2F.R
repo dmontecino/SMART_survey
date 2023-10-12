@@ -83,7 +83,7 @@ section_2F<-
 # )
 
 gg_resize_film(
-  height = 2.2*1.33,
+  height = 2.2*1.4,
   width = 6.4,
   units = "in",
   dpi = 300
