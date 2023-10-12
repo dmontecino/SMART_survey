@@ -124,7 +124,7 @@ plot_section_2F
 
 # if(!file.exists("../SMART_survey/plots/plot_section_2A.png")) {
   
-  ggsave("../SMART_survey/plots/plot_section_2F.png",
+  ggsave("plots/plot_section_2F.png",
          plot = plot_section_2F,
          height = 2.2*1.33,
          width = 6.4,
