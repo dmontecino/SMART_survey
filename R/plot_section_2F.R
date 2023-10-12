@@ -1,75 +1,75 @@
 library(ggplot2)
 library(camcorder)
 
-likert_theme <-
-  theme_gray() +
-  theme(text = element_text(size = 60),
-        plot.title = element_text(size = 60, face = "bold",
-                                  margin = margin(10, 0, 10, 0)),
-        plot.margin = unit(c(2.4,0,2.4,.4), "cm"),
-        plot.background = element_rect(linewidth = 5, color = "black"),
-        panel.grid = element_blank(),
-        axis.text.x = element_blank(),
-        axis.ticks = element_blank(),
-        axis.title = element_blank(),
-        panel.background = element_blank(),
-        strip.background  = element_blank(),
-        legend.position = "none")
 
-
-section_2F <-
+dead<- 
   terrestrial_data %>%
   distinct(survey,
            dead_found,
-           sick_injured_found,
+           #sick_injured_found,
            dead_wl_recorded,
-           sick_wl_recorded,
-           injured_wl_recorded, 
-           wildlife_health_important)
+           #sick_wl_recorded,
+           #injured_wl_recorded, 
+           wildlife_health_important) %>% 
+  dplyr::select(-survey) %>%
+  dplyr::filter(dead_found!="Never" & dead_wl_recorded=="No") %>% 
+  dplyr::count(wildlife_health_important)
 
+dead$health_status<-"dead"
+
+sick<-
+  terrestrial_data %>%
+  distinct(survey,
+           #dead_found,
+           sick_injured_found,
+           #dead_wl_recorded,
+           sick_wl_recorded,
+           #injured_wl_recorded, 
+           wildlife_health_important) %>% 
+  dplyr::select(-survey) %>%
+  dplyr::filter(sick_injured_found!="Never" & sick_wl_recorded=="No") %>% 
+  dplyr::count(wildlife_health_important)
+
+sick$health_status<-"sick"
+
+injured<-  
+  terrestrial_data %>%
+  distinct(survey,
+           #dead_found,
+           sick_injured_found,
+           #dead_wl_recorded,
+           #sick_wl_recorded,
+           injured_wl_recorded, 
+           wildlife_health_important) %>% 
+  dplyr::select(-survey) %>%
+  dplyr::filter(sick_injured_found!="Never" & injured_wl_recorded=="No") %>% 
+  dplyr::count(wildlife_health_important)
+
+injured$health_status<-"injured"
+
+
+section_2F<-bind_rows(dead,sick, injured)
 
 section_2F<-
-  section_2F %>%
-  dplyr::select(-survey) %>%
-  dplyr::filter(dead_found!="Never" | sick_injured_found!="Never") %>% 
-  dplyr::filter(dead_wl_recorded=="No" | sick_wl_recorded=="No" | injured_wl_recorded=="No") %>% 
-  tidyr::pivot_longer(cols = which(grepl("wl_recorded", colnames(.))), 
-                      names_to = "health_status", 
-                      values_to = "recorded") %>% 
-  tidyr::complete(wildlife_health_important, health_status, recorded) %>% 
-  select(-dead_found, -sick_injured_found) %>% 
-  # tidyr::complete(wildlife_health_important, health_status, recorded) %>% 
-  dplyr::group_by(wildlife_health_important, 
+  section_2F %>% 
+  rename("number_responses"=n) %>% 
+  tidyr::complete(terrestrial_data %>% distinct(wildlife_health_important), 
                   health_status,
-                  recorded) %>% 
-  dplyr::count(name = "number_responses") %>% 
-  dplyr::filter(recorded!="Yes") %>% 
-  dplyr::ungroup() %>% 
-  add_row(wildlife_health_important = c("Strongly disagree", "Somewhat disagree"),
-          health_status = rep("dead_wl_recorded",2),
-          recorded= rep("No", 2),
-          number_responses=rep(0,2)) %>% 
-  tidyr::complete(wildlife_health_important, health_status, recorded, fill = list(number_responses=0)) %>% 
+                  fill = list(number_responses=0)) %>% 
   mutate(wildlife_health_important=factor(wildlife_health_important,
-                     levels = rev(c("Strongly agree",
-                                "Agree",
-                                "Neutral",
-                                "Somewhat disagree",
-                                "Disagree",
-                                "Strongly disagree")),
-                     labels = rev(c(
-                                "Strongly\nagree",
-                                "Agree",
-                                "Neutral",
-                                "Somewhat\ndisagree",
-                                "Disagree",
-                                "Strongly\ndisagree")))) %>% 
- #   pivot_wider(names_from = "health_status", values_from = "number_responses") %>% 
-  select(-recorded)
-
-
-  
- 
+                                          levels = rev(c("Strongly agree",
+                                                         "Agree",
+                                                         "Neutral",
+                                                         "Somewhat disagree",
+                                                         "Disagree",
+                                                         "Strongly disagree")),
+                                          labels = rev(c(
+                                            "Strongly\nagree",
+                                            "Agree",
+                                            "Neutral",
+                                            "Somewhat\ndisagree",
+                                            "Disagree",
+                                            "Strongly\ndisagree"))))
 
 
 #strat recording plot development setting the reald width and height
@@ -98,7 +98,7 @@ plot_section_2F<-
            # pivot_longer(cols=c("Yes", "No")) %>% 
            arrange(wildlife_health_important) %>% 
            mutate(health_status=factor(health_status, 
-                              levels = c("dead_wl_recorded", "sick_wl_recorded", "injured_wl_recorded"),
+                              levels = c("dead", "sick", "injured"),
                               labels = c("Dead wildlife\nfound during\npatrols are\nnot documented",
                                          "Sick wildlife\nfound during\npatrols are\nnot documented",
                                          "Injured wildlife\nfound during\npatrols are\nnot documented")))) +
