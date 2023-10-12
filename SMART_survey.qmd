@@ -362,7 +362,7 @@ knitr::include_graphics("plots/plot_section_2C.png")
 
 ```
 
-The distribution of the rank given by protected area managers for "Wildlife health, including infectious and non-infectious diseases, is important to achieve the conservation goals of the protected areas where I work" for those responses reporting that sick, injured, or dead wildlife was observed in the protected area(s); however, these animals were not recorded if found during patrols.
+The agreement of protected area managers with the assertion "Wildlife health, including infectious and non-infectious diseases, is important to achieve the conservation goals of the protected areas where I work" in the subset reporting sick, injured, or dead wildlife sighting but no recording if found during patrols is shown in Figure X.
 
 ```{r section 2F }
 #| echo: false
@@ -371,12 +371,11 @@ The distribution of the rank given by protected area managers for "Wildlife heal
 #| eval: true
 #| fig-align: center
 #| fig-cap:
-#|   Distribution of the ranking regarding the importance of wildlife health
-#|   to achieve the conservation goals of protected area(s) provided by
-#|   protected area managers for the subsets that responded that sick,
-#|   injured, or dead wildlife was observed in the corresponding protected
-#|   area(s) with at least a minimal frequency but they were not recorded if
-#|   found during patrols. 
+#|   Distribution of the agreement regarding the importance of
+#|   wildlife health to achieve the conservation goals of protected
+#|   area(s) provided by managers of protected areas where sick,
+#|   injured, or dead wildlife is observed with at least a minimal
+#|   frequency but they are not recorded if found during patrols. 
 
 knitr::include_graphics("plots/plot_section_2F.png")
 ```
@@ -504,7 +503,7 @@ record_method_across_status<-
 ```
 
 
-The methods to record either sick, injured, or dead wildlife found during a patrol (when registered) "`r record_method_across_status$value[2]`", "`r record_method_across_status$value[2]`" (stratification of the animals of a specific species per health status), "`r record_method_across_status$value[3]`", and "`r record_method_across_status$value[4]`" were reported in `r round(record_method_across_status$number_times_used[1]/terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()*100,1)`%, `r round(record_method_across_status$number_times_used[2]/terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()*100,1)`%, `r round(record_method_across_status$number_times_used[3]/terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()*100,1)`%, and `r round(record_method_across_status$number_times_used[4]/terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()*100,1)`% of the `r terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()` responses that reported the recording of either dead, sick, or injured wildlife found during patrols. The distribution of the methods reported to record healthy, sick, injured, or dead wildlife recording when they are found during a patrol is shown in Figure 5.
+The methods to record either sick, injured, or dead wildlife found during a patrol (when registered): "`r record_method_across_status$value[1]`", "`r record_method_across_status$value[2]`" (stratification of the animals of a specific species per health status), "`r record_method_across_status$value[3]`", and "`r record_method_across_status$value[4]`" were reported in `r round(record_method_across_status$number_times_used[1]/terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()*100,1)`%, `r round(record_method_across_status$number_times_used[2]/terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()*100,1)`%, `r round(record_method_across_status$number_times_used[3]/terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()*100,1)`%, and `r round(record_method_across_status$number_times_used[4]/terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()*100,1)`% of the `r terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()` responses that reported the recording of any of these wildlife health status categories when found during patrols. The distribution of the recording methods across healthy, sick, injured, or dead wildlife is shown in Figure 6.
 
 ```{r section 2D}
 #| echo: false
@@ -513,8 +512,9 @@ The methods to record either sick, injured, or dead wildlife found during a patr
 #| eval: true
 #| fig-align: center
 #| fig-cap:
-#|  Distribution of protected area managers responses regarding how recorded healthy, 
-#|  sick, injured, and dead wildlife found during patrols are actually registered.
+#|  Distribution of protected area managers responses regarding how
+#|  healthy, sick, injured, and dead wildlife found during patrols
+#|  are recorded.
 
 #source("plot_section_2.R")
 
@@ -638,7 +638,7 @@ how_combinations_count$how_dead_wl_recorded[
 
 ```
 
-The most common combination of methods to register either sick, injured, or dead wildlife was the recording of dead wildlife only with each dead individual registered as a unique observation  (`r round(max(how_combinations_count$number_responses)/sum(how_combinations_count$number_responses)*100,1)`% of the responses), followed by "`r how_combinations_count |> filter(number_responses==unique(sort(how_combinations_count$number_responses, decreasing = TRUE))[2]) |> select(-number_responses) |> tibble::deframe()`" for the three health categories (`r round(unique(sort(how_combinations_count$number_responses, decreasing = TRUE))[2]/sum(how_combinations_count$number_responses)*100,1)`% of the responses). The number of responses per method used per health category are provided in Appendix 2. 
+The most common combination of methods to register either sick, injured, or dead wildlife was the recording of dead wildlife by itself with each dead individual as a unique observation  (`r round(max(how_combinations_count$number_responses)/sum(how_combinations_count$number_responses)*100,1)`% of the responses), followed by "`r how_combinations_count |> filter(number_responses==unique(sort(how_combinations_count$number_responses, decreasing = TRUE))[2]) |> select(-number_responses) |> tibble::deframe()`" for the three health categories (`r round(unique(sort(how_combinations_count$number_responses, decreasing = TRUE))[2]/sum(how_combinations_count$number_responses)*100,1)`% of the responses). The number of responses per method used per health category are provided in Appendix 2. 
 
 
 ```{r most collected data types}
@@ -682,8 +682,8 @@ strsplit(record_items_dead_sick_injured$items, ",") %>%
 
 ```
 
-The number of responses including specific data types collected across sick, injured, or dead wildlife (for the set of `r terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()` responses reporting the recording of at least one of these categories) was `r rev(items_mentioned)` for the items `r rev(names(c(items_mentioned)))`. The distribution of the data items collected
-per each health status category is shown in Figure 6.
+The number of responses including specific data types collected across sick, injured, or dead wildlife (for the set of `r terrestrial_data |> distinct(survey, dead_wl_recorded, sick_wl_recorded, injured_wl_recorded) |> filter(dead_wl_recorded=="Yes" | sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes") %>% nrow()` responses reporting the recording of at least one of these categories) was `r rev(items_mentioned[items_mentioned!=""])` for the items `r rev(names(items_mentioned)[names(items_mentioned)!=""])`. The distribution of the data items collected
+per each health status category is shown in Figure 7.
 
 ```{r section 2E}
 #| echo: false
@@ -692,10 +692,8 @@ per each health status category is shown in Figure 6.
 #| eval: true
 #| fig-align: center
 #| fig-cap:
-#|  The percentage of protected area managers responses that reported
-#|  the recording of dead, sick, and injured wildlife that collected
-#|  different items of information (y-axis) across different
-#|  categories of wildlife health status (x-axis). The size of
+#|  The recording of different data items across different
+#|  categories of wildlife based on their health status. The size of
 #|  the circles is proportional to the percentage observed.
 
 #source("plot_section_2.R")
@@ -903,15 +901,22 @@ reports, and spreadsheets.
 
 ## Discussion
 
-We developed a web-based questionnaire aimed at protected area managers around the globe to learn about their perceptions regarding wildlife health; the monitoring of dead, sick, and injured wildlife and domestic animals in protected areas; health monitoring data storage practices at these sites; and local status of SMART. We obtained 71 responses from protected area managers that involved 76 protected areas managed under a version of the SMART system distributed in 19 countries. Their answers suggest that: i) wildlife health tends to be considered relevant for the conservation goals of protected areas and there is a general understanding that pathogens can be transmitted among wildlife, humans, and livestock and affect any of these groups; ii) dead, sick, or injured wildlife might not be recorded if found during ranger patrols regardless of these animals being observed with certain frequency in protected areas; iii) registered dead, sick, and injured wildlife found in patrols are recorded following different methodologies within and among sites whilst the specific information collected is also variable; iv) domestic animals tend to be considered a concern for the conservation goals of protected areas, they are usually found at these sites and recorded but their health status is mostly not registered; v) health data collected in protected areas might not be properly managed as this information is either not stored or it is partially stored in a SMART database and the alternative choices employed are not adequate.
+We developed a web-based questionnaire aimed at protected area managers around the globe to learn about their perceptions regarding wildlife health; the monitoring of dead, sick, and injured wildlife and domestic animals in protected areas; health monitoring data storage practices at these sites; and local status of SMART. We obtained 71 responses from protected area managers that involved 76 protected areas administered with the support of a SMART system version distributed in 19 countries. Their answers suggest that: i) wildlife health tends to be considered relevant for the conservation goals of protected areas and there is a general understanding that pathogens can be transmitted among wildlife, humans, and livestock and affect any of these groups; ii) dead, sick, or injured wildlife might not be recorded if found during ranger patrols regardless of these animals being observed with certain frequency in protected areas; iii) registered dead, sick, and injured wildlife found in patrols are recorded following different methodologies within and among sites, whilst the specific information collected is also variable; iv) domestic animals tend to be considered a concern for the conservation goals of protected areas, they are usually found at these sites and recorded but their health status is mostly not registered; v) health data when collected in protected areas might not be properly managed as this information is either not stored in a SMART database or it is partially stored and the alternatives employed are not adequate.
 
-wildlife health tends to be considered relevant for the conservation goals of protected areas and there is a general understanding that pathogens can be transmitted among wildlife, humans, and livestock and affect any of these groups
+Wildlife health is usually be considered relevant for the conservation goals of protected areas represented in the responses and managers have a general understanding that pathogens can be transmitted among wildlife, humans, and livestock and affect any of these groups. It could be possible that recent and ongoing global pathogen-driven crises, such as SARS-CoV-2, H5N1 High Pathogenic Avian Influenza (HPAI), Ebola Fever virus, and African Swine Fever virus able to infect or indirectly impact wildlife, people, and domestic animals (citation), could have sensitize this stakeholder group (paulo's paper). We are not aware of previous assessments regarding wildlife health relevance for our targeted audience to compare against.
 
+We did not assess differences in factors that could impact dead, sick, or injured wildlife detection in the represented protected areas, such as habitat, wildlife densities, animal sizes, carcass removal rates, etc., but several protected area managers confirmed that these animals are observed at least "very rarely". Between 25% to over 50% of this set of responses, depending on the wildlife health status category, asserted that these animals were not registered when found during patrols. A handful of wildlife health monitoring efforts explicitly indicated the participation of rangers have shown their value to assess health-risks, establish trends, and trigger responses to outbreaks (montecino, kuisma, etc), including for diseases of global concern such as Ebola fever disease (kiusma). Consequently, these findings imply the loss of relevant and no-cost information for One Health surveillance. The willingness to correct this situation is likely present as most of the subgroup of managers responding that non-healthy wildlife is observed but not registered "agreed" or "strongly agreed" with the importance of wildlife health for the conservation goals of protected areas.  
 
-It seems contradictory that protected area managers tend to consider wildlife health as a relevant component for the conservation goals of protected areas; however, dead, sick, and injured wildlife might not be recorded if found during ranger patrols regardless of these animals being observed at least "occasionally" in protected areas. This is specially true for sick and injured wildlife. This situation reveals the lost of key information for One Health surveillance but also an optimistic scenario that could facilitate the leveraging of rangers as health sentinels in those protected areas where these data is not been opportunistically collected during patrols.
+The subgroup of managers responding that sick, injured, or dead wildlife observed during patrols are registered showed variability in the methodology to record these animals, including within responses (e.g., sick animals are recorded differently compared to dead animals). The specific items of information collected also varied across and within each wildlife group. Harmonization of information is a foundational pillar of wildlife health surveillance systems (Lawson et al. 2021; Sleeman et al. 2012; Stephen et al. 2018; Merianos 2007; Worsley-Tonks et al. 2022; World Bank and Food and Agriculture O...; Pruvot et al. 2023; Machalaba et al. 2021; World Organisation for Animal Health ...; World Organisation for Animal Health ...; World Organisation for Animal Health ...; World Organisation for Animal Health ...; Stephen and Berezowski 2022; Ryser-Degiorgis 2013; Hayman et al. 2023; World Organisation for Animal Health ...; Heiderich et al. 2023) but survey responses confirm the incompatibility of sick, injured, and dead wildlife data, complicating or preventing health assessments across different temporal and spatial scales.
 
-registered dead, sick, and injured wildlife found in patrols are recorded following different methodologies within and among sites whilst the specific information collected is also variable
+Domestic animals tend to be considered a concern for the conservation goals of protected areas, they are usually found at these sites and recorded but their health status is mostly not registered;
 
+Potnetial to be health sentinels...trainingm, no health background.
+Based on the responses to our survey, there are good conditions to leverage many rangers as health sentinels opportunistically recording wildlife health events found during patrols. Nevertheless, it is imperative to to standardize what is a wildlife health event for rangers already collecting data on dead, sick, or injured wildlife and for those rangers  leveraged this audience and the recording of these events.  and how the data is managed
+
+Need of harmonization -> definiton of a willife heath event in rangers at a global scale
+The WildlHealthNet initiative is an approach to establish wildlife health surveillance networks based on in-country resources and four pillars (policy development, capacity bridging, surveillance ) that has actively engaged rangers as scanning surveillance health sentinels fo
+Therefore, and potentially leverage hundreds of rangers in wildlife health surveillance at key human-wildlife-livestock interfaces globally.
 
 ## Appendices
 
