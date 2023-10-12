@@ -83,7 +83,7 @@ section_2F<-
 # )
 
 gg_resize_film(
-  height = 2.2*1.4,
+  height = 2.2*1.33,
   width = 6.4,
   units = "in",
   dpi = 300
@@ -118,7 +118,7 @@ plot_section_2F<-
   scale_fill_brewer(type = "div") +
   facet_wrap(.~wildlife_health_important, nrow = 1) +
   coord_flip() +
-  ggtitle("Wildlife health importance rank")
+  ggtitle("Wildlife health is important")
 
 plot_section_2F
 
@@ -126,7 +126,7 @@ plot_section_2F
   
   ggsave("../SMART_survey/plots/plot_section_2F.png",
          plot = plot_section_2F,
-         height = 2.2,
+         height = 2.2*1.33,
          width = 6.4,
          units = "in",
          dpi = 300)
