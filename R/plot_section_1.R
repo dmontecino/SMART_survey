@@ -97,7 +97,7 @@ plot_section_1<-
   scale_fill_brewer(type = "div") +
   facet_wrap(.~rank, nrow = 1) +
   coord_flip()+
-  ggtitle("Wildlife health is important")
+  ggtitle("Agreement ranking")
 
  # plot_section_1
 
