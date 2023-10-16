@@ -53,14 +53,14 @@ section_2<-
 
 
 #strat recording plot development setting the reald width and height
-gg_record(
-  dir = file.path(tempdir(), "recording100"), # where to save the recording
-  device = "png", # device to use to save images
-  width = 7,      # width of saved image
-  height = 3.5,     # height of saved image
-  units = "in",   # units for width and height
-  dpi = 300       # dpi to use when saving image
-)
+# gg_record(
+#   dir = file.path(tempdir(), "recording100"), # where to save the recording
+#   device = "png", # device to use to save images
+#   width = 7,      # width of saved image
+#   height = 3.5,     # height of saved image
+#   units = "in",   # units for width and height
+#   dpi = 300       # dpi to use when saving image
+# )
 
 gg_resize_film(
   height = 2.2,
