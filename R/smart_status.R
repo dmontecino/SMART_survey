@@ -9,11 +9,15 @@ smart_use<-
            # sick_wl_data_in_smart,
            # injured_wl_data_in_smart,
            # dead_wl_data_in_smart,
+           protected_area,
+           country,
            smart_fully_rolled_out,
            smart_version,
            smart_connect, 
            set_up_connect) |>
-  select(smart_fully_rolled_out,
+  select(protected_area,
+         country,
+         smart_fully_rolled_out,
          smart_version,
          smart_connect,
          set_up_connect)
@@ -41,6 +45,19 @@ smart_use$smart_version[six]<-6
 smart_use$smart_version[five]<-5
 smart_use$smart_version[four]<-4
 smart_use$smart_version[unknown]<-"unknown"
+
+
+# smart_use |>
+#   filter(smart_connect=="Yes") |>
+#   filter(smart_version%in%c(4, 5))
+
+# data.frame(
+# smart_use |>
+#   filter(country=="Peru") |>
+#   select(protected_area, smart_version) |>
+#   filter()
+  #   filter(smart_connect=="Yes") |>
+  #   filter(smart_version%in%c(4, 5))
 
 
 # status, version and connect
