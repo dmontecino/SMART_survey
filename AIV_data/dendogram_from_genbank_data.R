@@ -3,21 +3,8 @@
 library(tidygraph)
 library(ggraph)
 library(camcorder)
-#library(igraph)
-# library(scales)
-# library(dplyr)
-# library(lubridate)
-# library(circlize)
-# library(plotrix)
 library(ggforce)
 library(ggrepel)
-# library(svglite)
-# library(knitr)
-# library(kableExtra)
-# library(gridExtra)
-# library(tidyr)
-# library(purrr)
-# library(RColorBrewer)
 library(tidyverse)
 library(plotly)
 
@@ -498,6 +485,6 @@ dendrogram3 <- dendrogram2 +
 
 
 #ggsave(file="dendrogram_hosts_cov.tiff", plot=dendrogram, width=20, height=20, dpi = 1000, units = "cm")
-ggsave(file="dendrogram_hosts_cov.tiff", plot=dendrogram, width=10, height=10, dpi = 300, units = "cm")
+ggsave(file="figures/dendrogram_h5n1_hosts_cov.tiff", plot=dendrogram, width=10, height=10, dpi = 300, units = "cm")
 
 
