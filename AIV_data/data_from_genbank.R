@@ -6,7 +6,7 @@ library(lubridate)
 library(tidyverse)
 library(janitor)
 
-queries<-"(H5N1) AND Influenza A virus[porgn] AND 2020/10/01[PDAT]:2023/12/31[PDAT]"
+queries<-"(H5N1) AND Influenza A virus[porgn] AND 2020/10/01[PDAT]:2023/10/10[PDAT]"
 
 # Define query parameters
 db <- "nucleotide"
