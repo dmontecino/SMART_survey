@@ -396,6 +396,15 @@ for(i in 1:length(host.orders.per.cov.genus)){
 
 
 # Add the labels per family colored by order within each  CoV genus
+
+node_names <-
+  graph %>%
+  activate(nodes) %>%
+  data.frame() %>% pull(shortname)
+
+node_names[c(148:length(node_names))]<-NA
+
+
 dendrogram2 <- dendrogram + 
   
   geom_node_text(aes(x = x*1.05, y=y*1.05, filter = leaf, label=shortname, angle = angle, hjust=hjust),	
@@ -480,11 +489,16 @@ dendrogram3 <- dendrogram2 +
 #   dpi = 300
 # )
 
- dendrogram3
+ #dendrogram3
  
 
 
 #ggsave(file="dendrogram_hosts_cov.tiff", plot=dendrogram, width=20, height=20, dpi = 1000, units = "cm")
-ggsave(file="figures/dendrogram_h5n1_hosts_cov.tiff", plot=dendrogram, width=10, height=10, dpi = 300, units = "cm")
+ggsave(file="figures/dendrogram_h5n1_hosts_cov.tiff", 
+       plot=dendrogram3, 
+       width=15, 
+       height=15, 
+       dpi = 300, 
+       units = "cm")
 
 
