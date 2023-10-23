@@ -16,11 +16,12 @@ author:
       - name: Wildlife Conservation Society - Health Program
         city: Bronx
         state: New York
+prefer-html: true
 execute: 
   cache: false
-format:
-  html:
-    number-sections: true
+format: docx
+  # html:
+  #   number-sections: true
   # pdf:
   #   documentclass: scrartcl
   #   papersize: letter
@@ -33,28 +34,21 @@ format:
 #       in_header: my_header.tex
 ---
 
-## Introduction (under development)
+## Introduction
 
-There is a growing multi-sectoral recognition that the health of animals, people and  
-their shared environment are intrinsic and inseparably linked such that the United Nations
-Environment Programme has been integrated into the original partnership for One Health
-among the World Health Organization, the Food and Agriculture Organisation of the United Nations, and 
-the World Organisation for Animal Health in 2022. 
+Despite the growing recognition that the health of animals, people and their shared environment are intrinsic and inseparably linked, effective surveillance systems collecting, analyzing, and responding to wildlife health data remain uncommon or deficient. This deficit is especially relevant in biodiverse areas facing land use change and other anthropogenic pressures causing the degradation of landscape immunity (Plowright et al. 2021) and the creation of human-wildlife-livestock interfaces that facilitate pathogen transmission and disease emergence. 
 
-Indeed, high-risk areas of pathogen emergence  human-wildlife-livestock interfaces in disease emergence usually in rural areas , protected areas. Example : Ebola fever disease 
-Fodused in human and livestock health generating fundamental gaps in global health security leaving aside willdife health  surveillance
+Many protected areas overlap hotspots of infectious disease emergence and past emergence events have shown their impact for conservation efforts, ecosystems, and people living within, nearby, and well beyond their boundaries. The lack of wildlife health surveillance at these sites yields fundamental gaps in the conservation of biodiversity and global health security.
 
-Logistical challenges associated with surveillance in locations hard to access exacerbate the task's difficulty.
-effective surveillance systems involving wildlife are uncommon, 
+Leveraging stakeholders who are already present at key interfaces offers an sound strategy to establish baseline health surveillance at a minimal cost (IUCN and EcoHealth Alliance 2022). Rangers and other natural resource authorities (hereafter “rangers”), are responsible for field conservation and law enforcement in protected areas. On a global scale, they patrol vast territories that encompass critical wildlife-livestock-human interfaces where they can detect injured, sick, and dead animals. 
 
-limited by resources,  in low- to high-income countries. howver, fillfundamental gaps in global health security by improving disease surveillance in remote rural areas is extremely needed 
+While the concept of leveraging rangers for wildlife health surveillance is not new, there are few documented isolated initiatives that explicitly report the participation of rangers in scanning or syndromic surveillance. These initiatives have effectively demonstrated the potential of patrolling rangers to provide data to assess health risks, conduct trend assessments, and trigger outbreak responses Montecino-Latorre et al. (2020) including for dangerous zoonotic diseases of global concern such as Ebola fever disease (Kuisma et al. (2019).
 
+Technology can support the recruitment of rangers as health sentinels. The “Spatial Monitoring and Reporting Tool” (SMART) is a suite of technological tools designed to administer protected areas by supporting data management, the collection of digital data following user-built data models, and facilitate data communication among key stakeholders. SMART is currently used in over one thousand protected areas in more than one hundred countries under multiple languages (SMART Partnership n.d.) and its user base is continuously growing. Its field-targeted technology, SMART Mobile, is already in rangers' hands distributed globally supporting the standardized documentation of "incidents" they found during patrols ready to be transferred to decision makers. 
 
-Leveraging stakeholders who are already present at key interfaces offers an attractive strategy to establish baseline health surveillance at a minimal cost (IUCN and EcoHealth Alliance 2022). Rangers and other natural resource authorities (hereafter “rangers”), are responsible for field conservation and law enforcement in protected areas. On a global scale, rangers already patrol vast territories that encompass critical wildlife-livestock-human interfaces where they can detect injured, sick, and dead animals. While the concept of leveraging rangers for wildlife health surveillance is not new, there are relatively few documented independent initiatives that explicitly include rangers in scanning or syndromic surveillance. But these initiatives have effectively demonstrated their potential to provide data for trend assessments, initiate investigations, and trigger outbreak responses Montecino-Latorre et al. (2020) including for Ebola fever disease and Kuisma et al. (2019).
+This community of SMART-user rangers could be recruited under a common set of SMART-based standards to document "health incidents". These rangers represent a promising opportunity not only to empower them as planetary health workers but to generate a worldwide network of health sentinels at key interfaces under a common framework and fulfill fundamental gaps in global health security. 
 
-Technology can support the recruitment of rangers in syndromic health surveillance at protected areas. The “Spatial Monitoring and Reporting Tool” (SMART) is a suite of technological tools designed to manage protected areas supporting data management, the collection of digital data following user-built data models, and data communication among key stakeholders. SMART is currently used by over one thousand protected areas in more than one hundred countries under multiple languages (SMART Partnership n.d.). Its field-targeted technology, SMART Mobile, already supports rangers to seamlessly collect standardized data that can be timely transfer to out-of-the-field decision makers. SMART’s components, properties, and growing user base make it the best candidate to facilitate the proper engagement of rangers in health monitoring globally (Zimmerman et al. 2022; Worsley-Tonks et al. 2022) under a coomon set of standards but we are not aware this concept has been implemented with a global perspective or either locally (but see Discussion).
-
-SMART-based leveraging of rangers in health surveillance represents a promising opportunity to generate a global network of health sentinels at key interfaces, empower rangers as planetary health workers, and fulfill fundamental gaps in global health security. However, to date there is a lack of baseline information to understand potential obstacles and assess the feasibility os this vision. Here we present the results of a survey targeting protected area managers worldwide belonging to the SMART user community aimed to assess: i) if they consider wildlife health relevant from a One Health perspective, ii) if dead, sick, or injured wildlife and domestic animals are observed in protected areas and recorded by rangers, iii) if these data (when collected) is stored in SMART databases, and iv) the current status of SMART components in protected areas. 
+However, to date there is a lack of baseline information regarding current health monitoring practices in protected areas, the mandates that rangers have to document health-related events, and existing practical and technical obstacles to leveraging them as health sentinels. For this reason, we conducted a survey targeting protected area managers worldwide belonging to the SMART user community to assess: i) if they consider wildlife health relevant from a One Health perspective, ii) if dead, sick, or injured wildlife and domestic animals are observed in protected areas and recorded by rangers, iii) how are these animals currently documented (when recorded), iv) if these data (when collected) is stored in SMART databases, and v) the current status of SMART components in protected areas. 
 
 ## Methods
 
