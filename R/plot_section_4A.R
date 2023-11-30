@@ -10,7 +10,7 @@ data_smart_dead<-
   rename("data_in_smart"="dead_wl_data_in_smart") |>
   mutate(percentage=round(count_for_dead_wl/sum(count_for_dead_wl)*100,2)) |>
   mutate(class="dead") |>
-  select(-count_for_dead_wl)
+  mutate(count=count_for_dead_wl)
 
 
 data_smart_sick<-
@@ -25,7 +25,7 @@ data_smart_sick<-
   rename("data_in_smart"="sick_wl_data_in_smart") |>
   mutate(percentage=round(count_for_sick_wl/sum(count_for_sick_wl)*100,2))|>
   mutate(class="sick") |>
-  select(-count_for_sick_wl)
+  mutate(count=count_for_sick_wl)
 
 
 data_smart_injured<-
@@ -40,7 +40,8 @@ data_smart_injured<-
   rename("data_in_smart"="injured_wl_data_in_smart") |>
   mutate(percentage=round(count_for_injured_wl/sum(count_for_injured_wl)*100,2)) |>
   mutate(class="injured") |>
-  select(-count_for_injured_wl)
+  mutate(count=count_for_injured_wl)
+  # select(count_for_injured_wl)
 
 
 temp_long<-
@@ -52,9 +53,9 @@ bind_rows(data_smart_sick,
 
 # create plot
 wildlife_health_in_smart<-
-  ggplot(temp_long, aes(x = class, y = data_in_smart, size = percentage, fill = class)) +
-  geom_point(shape = 21, stroke=0.2) +
-  geom_label(aes(label = round(percentage,1)),             
+  ggplot(temp_long, aes(x = class, y = data_in_smart, size = c(count), fill = class)) +
+  geom_point(shape = 22, stroke=0.2) +
+  geom_label(aes(label = count),             
             size = 2.6, 
             fontface = "bold",
             vjust = 0.4, 
