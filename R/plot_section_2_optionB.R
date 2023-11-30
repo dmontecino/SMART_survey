@@ -137,7 +137,7 @@ plot_section_2A<-
                        fill = found), color="black", linewidth=0, 
                    pattern = dplyr::if_else(freq_found_recorded$recorded=="Yes", "crosshatch", "none"),
                    pattern_density = 0.01, 
-                   pattern_orientation = 'horizontal',
+                   pattern_angle = 90,
                    pattern_size=0.2, 
                    pattern_color="grey25") +
   
