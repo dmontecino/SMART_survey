@@ -77,8 +77,9 @@ what_is_recorded=
   geom_label(aes(label = round(percentage,1)), 
              size = 2.6, 
              fontface = "bold",
-             vjust = 0.4, 
-             fill="white") +
+             # vjust = 0.4, 
+             fill="white", 
+             label.padding = unit(0.1, "lines")) +
   scale_size(range = c(5, 28), name = "Response count") +
   scale_y_discrete(name = "") + #,
   #                  labels = c("Recorded in\nanother way",

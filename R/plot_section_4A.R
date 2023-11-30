@@ -58,8 +58,9 @@ wildlife_health_in_smart<-
   geom_label(aes(label = count),             
             size = 2.6, 
             fontface = "bold",
-            vjust = 0.4, 
-            fill="white") +
+            #vjust = 0.4, 
+            fill="white",
+            label.padding = unit(0.1, "lines")) +
   scale_size(range = c(6, 24), name = "Response count") +
   scale_y_discrete(name = "",
                    labels = c("All of these items are\nstored in a SMART\ndatabase",
@@ -78,7 +79,8 @@ wildlife_health_in_smart<-
   theme(
     panel.grid.minor = element_blank(),
     panel.grid.major = element_blank(),
-    # panel.background = element_rect(fill = "white"),
+    panel.background = element_blank(),
+    strip.background  = element_blank(), 
     axis.title.x = element_blank(),
     axis.title.y = element_blank(),
     axis.text.x = element_text(size=8, colour = "black"),
