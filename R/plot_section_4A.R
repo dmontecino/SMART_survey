@@ -54,7 +54,11 @@ bind_rows(data_smart_sick,
 wildlife_health_in_smart<-
   ggplot(temp_long, aes(x = class, y = data_in_smart, size = percentage, fill = class)) +
   geom_point(shape = 21, stroke=0.2) +
-  geom_text(aes(label = round(percentage,1)), size = 2.6, fontface = "bold", vjust = 0.4) +
+  geom_label(aes(label = round(percentage,1)),             
+            size = 2.6, 
+            fontface = "bold",
+            vjust = 0.4, 
+            fill="white") +
   scale_size(range = c(6, 24), name = "Response count") +
   scale_y_discrete(name = "",
                    labels = c("All of these items are\nstored in a SMART\ndatabase",
@@ -76,12 +80,13 @@ wildlife_health_in_smart<-
     # panel.background = element_rect(fill = "white"),
     axis.title.x = element_blank(),
     axis.title.y = element_blank(),
-    axis.text.x = element_text(size=8, face = "bold"),
-    axis.text.y = element_text(size =8, hjust = 0, face = "bold"),
+    axis.text.x = element_text(size=8, colour = "black"),
+    axis.text.y = element_text(size =8, colour = "black"),
     axis.ticks.x = element_blank(),
     axis.ticks.y = element_blank(),
     plot.background = element_rect(linewidth = 1, color = "black")
   ) +
+  scale_fill_manual(values = c("#D7191C", "#ABDDA4", "#3288BD")) +
   guides(size = "none", fill = "none")
 
 wildlife_health_in_smart
@@ -99,4 +104,4 @@ ggsave("plots/plot_section_4A.png",
        height = 3.6*2/8*4,
        width = 5/5*4/5*5,
        units = "in",
-       dpi = 300)
+       dpi = 600)
