@@ -24,11 +24,11 @@ smart_use<-
 
 # smart_use$smart_version
 
-seven<-c(1,3,5,8,10,11,12,15,18, 20, 22, 23, 24,35,38,42,44,45,59)
-six<-c(2,4,6,7,9,14,16,17,19,21,27,28,29,30,31,32,33,34,36,37,39,40,41,46,47,48,49,50,58,60,61,62,63,64,65,66,67,69,70)
-five<-c(26,68)
+seven<-c(1,3,5,8,10,11,12,13,15,18, 20, 22, 23, 24,35,38,42,44,45,59)
+six<-c(2,4,6,7,9,14,16,17,19,21,27,28,29,30,31,32,33,34,36,37,39,40,41,46,47,48,49,50,58,60,61,62,63,64,65,66,67,69,70, 71, 72, 74, 75)
+five<-c(26,68, 73)
 four<-c(51,52,53,54,55,56)
-unknown<-c(13, 25,43, 57,71)
+unknown<-c(25,43, 57,71, 76)
 
 
 # all(
@@ -47,58 +47,24 @@ smart_use$smart_version[four]<-4
 smart_use$smart_version[unknown]<-"unknown"
 
 
-# smart_use |>
-#   filter(smart_connect=="Yes") |>
-#   filter(smart_version%in%c(4, 5))
 
-# data.frame(
-# smart_use |>
-#   filter(country=="Peru") |>
-#   select(protected_area, smart_version) |>
-#   filter()
-  #   filter(smart_connect=="Yes") |>
-  #   filter(smart_version%in%c(4, 5))
+smart_use_for_text<-
+smart_use |>
+  count(smart_fully_rolled_out)
 
 
-# status, version and connect
-smart_use |> 
-  count(smart_fully_rolled_out, 
-        smart_version, 
-        smart_connect) |>
-  pivot_wider(names_from = smart_connect, values_from = n, values_fill = 0) |>
-  arrange(smart_fully_rolled_out, 
-          smart_version)
+smart_version_for_text<-
+  smart_use |>
+  count(smart_version)
 
 
-# subset no connect, future plans
+smart_connect_for_text<-
+  smart_use |>
+  count(smart_connect)
 
-connect_future_plans<-
-  data.frame(smart_use |> 
-               filter(smart_connect=="No") |>
-               distinct(smart_fully_rolled_out, 
-                        smart_version, 
-                        set_up_connect) |>
-               arrange(smart_fully_rolled_out, 
-                       smart_version)) |>
-  mutate(smart_connect_plan_bin=if_else(grepl(pattern="no", 
-                                              x=set_up_connect, 
-                                              ignore.case=T), "no", "yes")) |>
-  select(set_up_connect,
-         smart_connect_plan_bin)
-
-
-
-connect_future_plans$smart_connect_plan_bin[connect_future_plans$set_up_connect=="Si, pero aún no se tiene fecha" |
-                                              connect_future_plans$set_up_connect=="Si hay planes, pero primero tenemos que instalar internet en los PVC. Para ello se requiere presupuesto que el ANP no cuenta." | 
-                                              connect_future_plans$set_up_connect=="Si pero no se tiene fecha" |
-                                              connect_future_plans$set_up_connect=="When we have the appropriate equipment like good internet connection on smartphone in the forest." |
-                                              connect_future_plans$set_up_connect=="desconozco"]<-"unknown"
-
-connect_future_plans$smart_connect_plan_bin[connect_future_plans$set_up_connect=="Cuando se socialice dicha versión y sea compatible para iOS y Android." |
-                                              connect_future_plans$set_up_connect=="Would need assistance"]<- "no"
-
-
-
-
-
+smart_connect_set_up_for_text<-
+  smart_use |>
+  filter(smart_connect=="No" & grepl(pattern="Si |Si,|Yes|Yes.|Yes,  ", x= smart_use$set_up_connect, ignore.case=T)) |>
+  nrow()
+  
 
