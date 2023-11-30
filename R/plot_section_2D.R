@@ -44,7 +44,15 @@ temp_long <- pivot_longer(temp, cols = 2:5,
 how_wildlife_health_recorded=
   ggplot(temp_long, aes(x = variable, y = How_recorded, size = value, fill = variable)) +
   geom_point(shape = 22, stroke=0.2) +
-  geom_text(aes(label = value), size = 2.6, fontface = "bold", vjust = 0.4) +
+  geom_label(aes(
+    x = variable, 
+    y = How_recorded,
+    label = value), 
+             fill="white",
+             colour="black",
+             fontface = "bold",
+             size=2.6, 
+             label.padding = unit(0.1, "lines")) +
   scale_size(range = c(2, 30), name = "Response count") +
   scale_y_discrete(name = "",
                    labels = c("Recorded in\nanother way",
@@ -60,27 +68,29 @@ how_wildlife_health_recorded=
                               "Responses_dead"),
                    position = "top",
                    name = "",
-                   labels = c("Healthy",
-                              "Sick",
-                              "Injured",
-                              "Dead")) +
+                   labels = c("Healthy\nwildlife",
+                              "Sick\nwildlife",
+                              "Injured\nwildlife",
+                              "Dead\nwildlife")) +
   
   theme(
     plot.title = element_text(size = 10, hjust = 0.5, vjust = 2.5, face = "plain",
                               margin = margin(1, 2, 1, 1)),
     panel.grid.minor = element_blank(),
     panel.grid.major = element_blank(),
-    # panel.background = element_rect(fill = "white"),
+    panel.background = element_blank(),
+    strip.background  = element_blank(),
     axis.title.x = element_blank(),
     axis.title.y = element_blank(),
-    axis.text.x = element_text(size=8, face = "bold"),
-    axis.text.y = element_text(size =8, hjust = 0, face = "bold"),
+    axis.text.x = element_text(size=8, colour = "black"),
+    axis.text.y = element_text(size =8, hjust = 0, colour = "black"),
     axis.ticks.x = element_blank(),
     axis.ticks.y = element_blank(),
     plot.background = element_rect(linewidth = 1, color = "black")
   ) +
-  guides(size = "none", fill = "none")+
-  ggtitle("Type of wildlife")
+  scale_fill_brewer(type = "div", palette = "Spectral") +
+  guides(size = "none", fill = "none")#+
+  #ggtitle("Type of wildlife")
 
 
 
@@ -106,8 +116,8 @@ gg_resize_film(
 
 ggsave("plots/plot_section_2D.png",
        plot = how_wildlife_health_recorded,
-       height = 3.6,
+       height = 3.7,
        width = 5,
        units = "in",
-       dpi = 300)
+       dpi = 600)
 

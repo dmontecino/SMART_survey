@@ -10,6 +10,7 @@ likert_theme <-
         plot.background = element_rect(linewidth = 5, color = "black"),
         panel.grid = element_blank(),
         axis.text.x = element_blank(),
+        axis.text.y = element_text(colour = "black"),
         axis.ticks = element_blank(),
         axis.title = element_blank(),
         panel.background = element_blank(),
@@ -90,11 +91,16 @@ plot_section_1<-
         plot.margin = unit(c(0.3,0,0.1,.4), "cm"),
         plot.background = element_rect(linewidth = 1, color = "black")) +
   geom_col(aes(question, num_responses, fill = rank)) +
-  geom_text(aes(question, num_responses, label = num_responses), # add percentage
+  geom_label(aes(question, 
+                 num_responses, 
+                 label = replace(num_responses, list = c(num_responses==0), values = NA)),
             position = position_stack(vjust = .5),
             fontface = "bold",
-            size=2.6) + # ) + # center the label
-  scale_fill_brewer(type = "div") +
+            size = 2,
+            label.padding = unit(0.1, "lines")) +
+  
+  # scale_fill_brewer(type = "div") +
+  scale_fill_manual(values = brewer.pal(n = 9, name = "GnBu")[2:7]) +
   facet_wrap(.~rank, nrow = 1) +
   coord_flip()+
   ggtitle("Agreement ranking")
@@ -108,7 +114,7 @@ plot_section_1<-
          height = 3.6,
          width = 6.4,
          units = "in",
-         dpi = 300)
+         dpi = 600)
   # }
 
   
