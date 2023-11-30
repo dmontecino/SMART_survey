@@ -68,11 +68,17 @@ temp_long <- pivot_longer(what_is_collected, cols = 2:4, names_to = "class", val
 
 
 # create plot
+temp_long$class <- as.factor(temp_long$class)
+
 
 what_is_recorded=
   ggplot(temp_long, aes(x = class, y = items, size = percentage, fill = class)) +
   geom_point(shape = 21, stroke=0.2) +
-  geom_text(aes(label = round(percentage,1)), size = 2.6, fontface = "bold", vjust = 0.4) +
+  geom_label(aes(label = round(percentage,1)), 
+             size = 2.6, 
+             fontface = "bold",
+             vjust = 0.4, 
+             fill="white") +
   scale_size(range = c(5, 28), name = "Response count") +
   scale_y_discrete(name = "") + #,
   #                  labels = c("Recorded in\nanother way",
@@ -95,18 +101,22 @@ what_is_recorded=
   theme(
     panel.grid.minor = element_blank(),
     panel.grid.major = element_blank(),
-    # panel.background = element_rect(fill = "white"),
+    panel.background = element_blank(),
+    strip.background  = element_blank(),  
     axis.title.x = element_blank(),
     axis.title.y = element_blank(),
-    axis.text.x = element_text(size=8, face = "bold"),
-    axis.text.y = element_text(size =8, hjust = 0, face = "bold"),
+    axis.text.x = element_text(size=8, colour = "black"),
+    axis.text.y = element_text(size =8, colour = "black"),
     axis.ticks.x = element_blank(),
     axis.ticks.y = element_blank(),
     plot.background = element_rect(linewidth = 1, color = "black")
   ) +
+  scale_fill_manual(values = c("#D7191C", "#ABDDA4", "#3288BD")) +
   guides(size = "none", fill = "none")
 
 
+# library(scales)
+# show_col(brewer.pal(11,"Spectral"))
 
 gg_resize_film(
   height = 3.6*2,
@@ -122,5 +132,5 @@ ggsave("plots/plot_section_2E.png",
        height = 3.6*2,
        width = 5/5*4,
        units = "in",
-       dpi = 300)
+       dpi = 600)
 2
