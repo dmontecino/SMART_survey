@@ -813,7 +813,7 @@ num_responses_dom_animals_in_pa_are_recorded<-
   filter(dom_animals_recorded=="Yes") |>
   pull(n)
   
-#responses where the dome animalas are observed, recorded, and the health status is registered.
+#responses where the dome animals are observed, recorded, and the health status is registered.
 
 num_responses_dom_animals_in_pa_are_recorded_health_status<-
 terrestrial_data %>% 
@@ -828,11 +828,14 @@ terrestrial_data %>%
   filter(dom_animal_health_status_recorded=="Yes") %>% 
   pull(n)
 
+
+
+
 ```
 
 `r as.character(english::as.english(num_responses_dom_animals_in_pa)) |> stringr::str_to_sentence()` managers responded that domestic animals are observed in the corresponding protected area(s; `r round(num_responses_dom_animals_in_pa/terrestrial_data |> select(survey) |> distinct() |> nrow()*100,1) `%). `r as.character(english::as.english(num_responses_dom_animals_in_pa_are_recorded)) |> stringr::str_to_sentence()` managers of this subset claimed that domestic animals are documented if observed during patrols (`r round(num_responses_dom_animals_in_pa_are_recorded/num_responses_dom_animals_in_pa*100,1)`%).
 
-but only `r num_responses_dom_animals_in_pa_are_recorded_health_status` of these managers reported the recording of the health status of these animals. The distribution of manager responses across the overall ranking of domestic animals as a conservation concern, their documentation, and recording of their health status is shown in Figure 8.
+but only `r round(num_responses_dom_animals_in_pa_are_recorded_health_status/num_responses_dom_animals_in_pa_are_recorded*100,2)`% of these managers (`r num_responses_dom_animals_in_pa_are_recorded_health_status`) reported the recording of the health status of these animals. The distribution of manager responses across the overall ranking of domestic animals as a conservation concern, their documentation, and recording of their health status is shown in Figure 8.
 
 ```{r section 3B}
 #| echo: false
