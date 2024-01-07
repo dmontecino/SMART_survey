@@ -30,6 +30,7 @@ ids <- map(xml, function(xml) xml_text(xml_find_all(xml, "//IdList/Id")))
 ids<-unique(unlist(ids, use.names = F))
 
 # Construct URL for retrieving the records
+# ad00c6777dcbd34e47c9cceb00d0bf8eed09	
 urls <- paste0("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/",
                "efetch.fcgi?db=", db,
                # "&id=", paste(ids, collapse = ","),
