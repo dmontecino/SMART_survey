@@ -36,19 +36,16 @@ format: pdf
 
 ## Introduction
 
-Despite the growing recognition that the health of animals, people and their shared environment are intrinsic and inseparably linked, effective surveillance systems collecting, analyzing, and responding to wildlife health data remain uncommon or deficient. This deficit is especially relevant in biodiverse areas facing land use change and other anthropogenic pressures causing the degradation of landscape immunity (Plowright et al. 2021) and the creation of human-wildlife-livestock interfaces that facilitate pathogen transmission and disease emergence. 
+Despite the growing recognition that the health of animals, people, and their shared environment are inseparably linked, effective surveillance systems collecting, analyzing, and responding to wildlife health data remain uncommon or deficient (One Health High-Level Expert Panel (O...; Machalaba et al. 2021). This deficit is especially relevant in protected areas, Nature’s last strongholds (Mittermeier et al. 2011). Human encroachment around and within these areas and illegal activities can lead to contamination, poisoning events, wildlife extraction, the introduction of domestic animals, and the creation of human-wildlife-livestock interfaces (Meng et al. 2023; Dudley and Stolton 1999; Singh et al. 2021; Laurance et al. 2012; Vicente et al. 2021; Machalaba et al. 2020). These interfaces facilitate pathogen pollution and transmission, disease emergence, pathogen maintenance, and epidemics that can have catastrophic consequences for conservation efforts and planetary health.
 
-Many protected areas overlap hotspots of infectious disease emergence and past emergence events have shown their impact for conservation efforts, ecosystems, and people living within, nearby, and well beyond their boundaries. The lack of wildlife health surveillance at these sites yields fundamental gaps in the conservation of biodiversity and global health security.
+A known example is Ebola virus disease which has decimated populations of western gorilla (Gorilla gorilla) and specific sub-species of chimpanzee (Pan troglodytes) within and beyond protected areas (Whitfield 2003, Leroy et al. 2004, Bermejo et al. 2006). The index cases of several human outbreaks have systematically been identified in or near protected areas  (Judson et al. 2016), outbreaks in wildlife have preceded human outbreaks (Rouquet et al. 2005) and, in 2014, this disease reached urban areas of West Africa through human-to-human transmission resulting in over 20,000 excess deaths (Dudas et al. 2017, Jacob et al. 2020, Onyekuru et al. 2023). Furthermore, several protected areas overlap modeled potential hotspots of disease emergence (Jones et al. 2008; Allen et al. 2017). Therefore, the lack of wildlife health monitoring in protected areas leaves blatant gaps in biodiversity conservation and global health security. 
 
-Leveraging stakeholders who are already present at key interfaces offers an sound strategy to establish baseline health surveillance at a minimal cost (IUCN and EcoHealth Alliance 2022). Rangers and other natural resource authorities (hereafter “rangers”), are responsible for field conservation and law enforcement in protected areas. On a global scale, they patrol vast territories that encompass critical wildlife-livestock-human interfaces where they can detect injured, sick, and dead animals. 
+Leveraging the presence of field actors at key interfaces offers a sound strategy to establish baseline wildlife health monitoring at a minimal cost (IUCN and EcoHealth Alliance 2022; Tomaselli et al. 2018; Vila et al. 2019; Kuisma et al. 2019; Orozco et al. 2020; Machalaba et al. 2021; Worsley-Tonks et al. 2022; Aguilar-Vargas et al. 2022; World Health Organization et al. 2023; Zimmerman et al. 2022). Rangers, wildlife biologists, community members, and other field conservation actors conducting patrols in protected areas (hereafter “rangers”) are responsible for conservation and law enforcement. On a global scale, they patrol vast territories that encompass critical ecosystems and wildlife-livestock-human interfaces where they can detect injured, sick, and dead animals (Wolf et al. 2019; Vila et al. 2019; Kuisma et al. 2019; Montecino-Latorre et al. 2020; Orozco et al. 2020; Porco et al. 2023). The few documented isolated initiatives that explicitly report the participation of rangers in wildlife health monitoring have effectively demonstrated their potential to provide data to assess health risks, conduct trend assessments, or trigger outbreak responses including for dangerous diseases of global and conservation concern (Wolf et al. 2019; Vila et al. 2019; Kuisma et al. 2019; Montecino-Latorre et al. 2020; Orozco et al. 2020; Porco et al. 2023). Ranger-based wildlife health monitoring can strengthen One Health surveillance systems (Machalaba et al. 2021; Hayman et al. 2023; Worsley-Tonks et al. 2022; Pruvot et al. 2023; Zimmerman et al. 2022). 
 
-While the concept of leveraging rangers for wildlife health surveillance is not new, there are few documented isolated initiatives that explicitly report the participation of rangers in scanning or syndromic surveillance. These initiatives have effectively demonstrated the potential of patrolling rangers to provide data to assess health risks, conduct trend assessments, and trigger outbreak responses Montecino-Latorre et al. (2020) including for dangerous zoonotic diseases of global concern such as Ebola fever disease (Kuisma et al. (2019).
+Technology can boost the integration of rangers into health surveillance systems. The “Spatial Monitoring and Reporting Tool” (SMART) is a suite of technological tools designed to administer protected areas and is currently used in over one thousand sites in more than one hundred countries under multiple languages (Cronin et al. 2021; SMART Partnership ). Its field-ready technology, SMART Mobile, is already in the hands of thousands of rangers supporting the standardized digital documentation of user-determined “incidents” of conservation interest (e.g., fire, illegal hunting) and their instant reporting to decision-makers. The engagement of the large community of ranger SMART-users to document “health incidents” in protected areas represents a promising opportunity to generate a worldwide network of sentinels at critical ecosystems and wildlife-livestock-human interfaces.
 
-Technology can support the recruitment of rangers as health sentinels. The “Spatial Monitoring and Reporting Tool” (SMART) is a suite of technological tools designed to administer protected areas by supporting data management, the collection of digital data following user-built data models, and facilitate data communication among key stakeholders. SMART is currently used in over one thousand protected areas in more than one hundred countries under multiple languages (SMART Partnership n.d.) and its user base is continuously growing. Its field-targeted technology, SMART Mobile, is already in rangers' hands distributed globally supporting the standardized documentation of "incidents" they found during patrols ready to be transferred to decision makers. 
+However, to date there has been a lack of baseline information regarding current general wildlife health monitoring practices in protected areas worldwide, the current mandates of rangers to document patrol findings of health interest, and practical and technical obstacles to leveraging them in wildlife health monitoring. To address this gap, we conducted a survey targeting protected area data managers belonging to the global SMART user community to assess: i) their perceptions regarding wildlife health and One Health, ii) the detection of dead, sick, or injured wildlife, and domestic animals in protected areas and their documentation, iii) health data management in SMART databases, and iv) the current status of SMART deployment in protected areas.
 
-This community of SMART-user rangers could be recruited under a common set of SMART-based standards to document "health incidents". These rangers represent a promising opportunity not only to empower them as planetary health workers but to generate a worldwide network of health sentinels at key interfaces under a common framework and fulfill fundamental gaps in global health security. 
-
-However, to date there is a lack of baseline information regarding current health monitoring practices in protected areas, the mandates that rangers have to document health-related events, and existing practical and technical obstacles to leveraging them as health sentinels. For this reason, we conducted a survey targeting protected area managers worldwide belonging to the SMART user community to assess: i) if they consider wildlife health relevant from a One Health perspective, ii) if dead, sick, or injured wildlife and domestic animals are observed in protected areas and recorded by rangers, iii) how are these animals currently documented (when recorded), iv) if these data (when collected) is stored in SMART databases, and v) the current status of SMART components in protected areas. 
 
 ## Methods
 
@@ -145,9 +142,9 @@ knitr::opts_chunk$set(fig.pos = "H", out.extra = "")
 
 source("R/load_packages.R")
 
-dat = read.csv("data/survey_responses.csv")
+dat <- read.csv("data/survey_responses.csv")
 
-#clean dataset names
+#clean dataset column names
 source("R/clean_names.R")
 
 #clean PA names
@@ -160,27 +157,60 @@ source("R/remove_unknown_example.R")
 
 Responses could represent a single or multiple protected areas. However, our analysis focused on responses representing one or two individual terrestrial protected areas to gain insights into specific local realities. Therefore, responses representing more than two protected areas were filtered out. The resulting dataset could have a specific protected area represented by single responses, by responses that included two protected areas, or a combination of both. We duplicated the responses that were representing two protected areas but left a single protected area for each one, so each row in the dataset implied a unique protected area. One of the responses representing the same protected area after this step were filtered out to leave a unique representation completion and consistency of answers, and respondent's alignment with the intended target audience of the survey. 
 
+
 ```{r remove reponses representing more than two protected areas}
 #| echo: false
-#| eval: true
+#| eval: false
 #| message: false
 #| warning: false
-#| 
+#|
 source("R/remove_responses_more_two_protected_areas.R")
 
 ```
 
 ```{r remove other audience answering the survey}
 #| echo: false
-#| eval: true
+#| eval: false
 #| message: false
 #| warning: false
 source("R/remove_other_audience.R")
 ```
 
 
+```{r classify responses in local or global}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
 
-The protected areas included in the responses were classified as marine or terrestrial based on the World Database on Protected Areas (https://www.protectedplanet.net/en/thematic-areas/wdpa?tab=WDPA). Marine protected areas were removed.
+# All national systems are global
+
+#distribution number of protected areas per response
+
+#hist(map_vec(dat_modified$protected_area, \(x) nrow(x)), breaks = 60) 
+
+#based on the histogram a cut-off of two is selected
+
+#table(map_vec(dat_modified$protected_area, \(x) nrow(x)))
+
+num_protected_areas_per_response<-map_vec(dat_modified$protected_area, \(x) nrow(x))
+
+num_protected_areas_per_response<-unname(num_protected_areas_per_response)
+
+#dat_modified$protected_area[which(num_protected_areas_per_response>5)]
+
+# all responses more than 5 are considered global. 
+
+dat_modified$local<-NA
+dat_modified$local[which(num_protected_areas_per_response>5)]<-FALSE
+
+dat_modified$local[is.na(dat_modified$local)]<-TRUE
+
+#nrow(do.call(rbind, dat_modified$protected_area)) 446
+
+```
+
+Global responses (>6) do not include just marine protected areas. For the remaining responses, the protected areas are classified as marine or terrestrial based on the World Database on Protected Areas (https://www.protectedplanet.net/en/thematic-areas/wdpa?tab=WDPA). Marine protected areas were removed.
 
 
 ```{r remove marine protected areas}
@@ -189,17 +219,24 @@ The protected areas included in the responses were classified as marine or terre
 #| message: false
 #| warning: false
 
+
+
+#Answer 40 from the philippines are all marine protected areas
+# and it is removed
+# dat_modified$protected_area$'40'
+
+dat_modified<-dat_modified[-which(names(dat_modified$protected_area)=='40'),]
+
+#nrow(do.call(rbind, dat_modified$protected_area)) 440
+
+# For the remaining responses the classification is made
+
 #> the classification involves a slow process downloading pa data from wdpa. Go to the script if you want to reproduce. The output is "terrestrial_data.RDS"
 #source("classify_pa.R")
 
-dat_modified_filtered_expanded<-readRDS("data/dat_modified_filtered_expanded.RDS")
 
 terrestrial_data<-readRDS("data/terrestrial_data.RDS")
 
-number_pas_per_response<-
-terrestrial_data %>%
-  dplyr::count(survey, name = "number_pas") %>%
-  dplyr::count(number_pas, name = "responses")
 ```
 
 

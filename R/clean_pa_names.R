@@ -191,7 +191,7 @@ protected_areas[[26]]$protected_area<-"Chipanje Chetu Community Conservation - M
 protected_areas[[27]]<-protected_areas[[27]] %>% separate_longer_delim(protected_area, delim = "\n")
 protected_areas[[27]]$protected_area<-gsub('\"', replacement = "", protected_areas[[27]]$protected_area)
 protected_areas[[27]]$protected_area<-gsub('LPA', replacement = "Local Protected Area", protected_areas[[27]]$protected_area)
-protected_areas[[27]]$protected_area<-paste(protected_areas[[27]]$protected_area, "- Cambodia")
+protected_areas[[27]]$protected_area<-paste(protected_areas[[27]]$protected_area, "- Mongolia")
 
 
 #"Gunung Nyiut Nature Reserve\nGunung Naning Protected Forest\nKarimata Marine Reserve\nSeruat Pulau Tiga Protected Forest"
@@ -215,7 +215,9 @@ protected_areas[[32]]$protected_area<-paste(protected_areas[[32]]$protected_area
 
 #"Mt. Goplom Conservation Area, Kwiop village, Jimi District, Jiwaka Province, Papua New Guinea\nMt. Waugerema Conservation Area, Daulo District, Eastern Highlands Province\nYasina Nature Park, Ungai-Bena District, Eastern Highlands Province"
 protected_areas[[33]]<-protected_areas[[33]] %>% separate_longer_delim(protected_area, delim = "\n")
-protected_areas[[33]]$protected_area<-paste(protected_areas[[33]]$protected_area, "- Papua New Guinea")
+protected_areas[[33]]$protected_area[1]<-"Mount goplom conservation area - Papua New Guinea"
+protected_areas[[33]]$protected_area[2]<-"Mount Waugerema Conservation Area - Papua New Guinea"
+protected_areas[[33]]$protected_area[3]<-"Yasina Nature Parkk - Papua Nueva Guinea"
 
 #Jigme Singye Wangchuck National Park"
 protected_areas[[34]]$protected_area<-"Jigme Singye Wangchuck National Park - Bhutan"
@@ -465,10 +467,10 @@ protected_areas[[109]]$protected_area<-"Parque Nacional Llanganates - Ecuador"
 protected_areas[[110]]$protected_area<-"Parque Nacional Yacuri - Ecuador"
 
 #"Reserva Biológica Cerro Plateado"
-protected_areas[[110]]$protected_area<-"Reserva Biologica Cerro Plateado - Ecuador"
+protected_areas[[111]]$protected_area<-"Reserva Biologica Cerro Plateado - Ecuador"
 
 #"Parque Nacional Sangay Zona Alta"
-protected_areas[[111]]$protected_area<-"Parque Nacional Sangay Zona Alta - Ecuador"
+protected_areas[[112]]$protected_area<-"Parque Nacional Sangay Zona Alta - Ecuador"
 
 #Parque nacional Cotacachi-Cayapas
 protected_areas[[113]]$protected_area<-"Parque nacional Cotacachi-Cayapas - Ecuador"

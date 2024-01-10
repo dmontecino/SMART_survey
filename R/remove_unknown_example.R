@@ -7,3 +7,4 @@ dat_modified<-dat_modified[-which(map_vec(dat_modified$protected_area, \(x) all(
 
 dat_modified<-dat_modified[-which(map_vec(dat_modified$protected_area, \(x) all(x$protected_area==c("ejemplo")))),]
 
+dat_modified<-dat_modified[-which(names(dat_modified$protected_area)=='14'),]
