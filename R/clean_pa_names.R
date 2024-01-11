@@ -32,6 +32,7 @@ protected_areas[[5]]<-protected_areas[[5]] %>% separate_longer_delim(protected_a
 protected_areas[[5]]<-protected_areas[[5]] %>% separate_longer_delim(protected_area, delim = "& ")
 protected_areas[[5]]<-protected_areas[[5]] %>% separate_longer_delim(protected_area, delim = "and ")
 
+protected_areas[[5]]<-protected_areas[[5]][-11,]
 protected_areas[[5]]$protected_area<-c("Wangchuck Centennial National Park",
                                     "Jigme Dorji National Park", 
                                     "Jomotshangkha Wildlife Sanctuary", 
@@ -41,8 +42,7 @@ protected_areas[[5]]$protected_area<-c("Wangchuck Centennial National Park",
                                     "Jigme Singye Wangchuck National Park", 
                                     "Phrumsengla National Park", 
                                     "Sakteng Wildlife Sanctuary",
-                                    "Bumdeling Wildlife Sanctuary",
-                                    "14 Divisional Forests")
+                                    "Bumdeling Wildlife Sanctuary")
 
 protected_areas[[5]]$protected_area<-paste(protected_areas[[5]]$protected_area, "- Bhutan")
 
