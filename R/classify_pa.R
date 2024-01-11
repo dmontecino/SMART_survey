@@ -16,7 +16,7 @@ dat_modified$country<-map(dat_modified$protected_area, \(x) x$protected_area) %>
   map(\(x) strsplit(x=x, split = " - ")[[1]]) %>% 
   map_chr(\(x) tail(x, n = 1))
 
-countries<-sort(unique(dat_modified$country)) #29
+countries<-sort(unique(dat_modified$country)) #30
 
 ## Parallel code to get the data of the protected areas
 
@@ -149,8 +149,7 @@ PAs_detected_per_pa_survey_name<-PAs_detected_per_pa_survey_name[map_vec(PAs_det
 
 # Checking the  protected areas manually to find marine ones in local responses
 
-PAs_detected_per_pa_survey_name[193] 
-
+PAs_detected_per_pa_survey_name[199]
 
 keys_marine_pa<-c("laughing", "blue hole", "half moon", "corozal", 
                   "caulker", "gladden spit", "glover's", "hol chan",
@@ -158,7 +157,8 @@ keys_marine_pa<-c("laughing", "blue hole", "half moon", "corozal",
                   "marine reserve",
                   "karimata", "tiga", "espíritu", "contoy",
                   "arrecifal veracruzano", "cabo san lucas",
-                  "isla isabel", "islas del pacífico")
+                  "isla isabel", "islas del pacífico", "Maite", "Cabangcalan",
+                  "Olang", "Tulapos", "Cangbagsa", "Caticugan")
 
 
 # Create column to store if they are marine or not 
@@ -184,7 +184,7 @@ for(i in seq_along(keys_marine_pa)){
 }
 }
 
-# responses_with_marine_areas<-map_vec(dat_modified$protected_area, \(x) all(x$marine==TRUE)) # 119
+# responses_with_marine_areas<-map_vec(dat_modified$protected_area, \(x) all(x$marine==TRUE)) # 120
 # index_responses_with_marine_areas<-unname(which(responses_with_marine_areas))
 # dat_modified$protected_area[index_responses_with_marine_areas]
 
@@ -258,32 +258,5 @@ pas_no_match
 # [64] "muhesi game reserves - Tanzania"  
 
 
-
-
-## Removing the PAs classified as marine
-
-# temp<-do.call(rbind, dat_modified$protected_area)
-# nrow(temp)
-# nrow(temp[temp$marine==F,])
-
-dat_modified$protected_area<-map(dat_modified$protected_area, \(x) x %>% filter(marine==FALSE))
-
-# leaving responses that contain terrestrial answers
-#dat_modified[map_vec(dat_modified$protected_area, nrow)!=0,]
-
-dat_modified<-dat_modified[map_vec(dat_modified$protected_area, \(x) nrow(x))>0,]
-
-
-## Removing 
-#the mongolian ecological police department - Mongolia"
-#$`unite de surveillance et de lutte anti-braconnage - Republic of Congo`
-
-dat_modified$protected_area$'27'<-dat_modified$protected_area$'27'[-3,]
-dat_modified$protected_area$'17'<-dat_modified$protected_area$'17'[-8,]
-
-
-# finally the terrestrial data
-
-saveRDS(dat_modified, "data/terrestrial_data.RDS")
 
 
