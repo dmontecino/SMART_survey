@@ -132,7 +132,7 @@ An introductory webpage explained that the survey was voluntary, anonymous, aime
 
 The survey was distributed globally to the SMART Community (SMART Community Forum users https://forum.smartconservationtools.org/) by the SMART Partnership via email in October 2022, and it remained open for three months. As the closing date approached, a reminder was sent to the SMART Community three weeks in advance.
 
-```{r methods}
+```{r cleaning}
 #| echo: false
 #| eval: true
 #| message: false
@@ -149,32 +149,25 @@ source("R/clean_names.R")
 
 #clean PA names
 source("R/clean_pa_names.R")
+```
 
+Remove responses with unknown protected areas
+
+```{r methods}
+
+dat_modified<-dat_modified[-which(map_vec(dat_modified$protected_area, \(x) all(x$protected_area==c("ejemplo")))),]
+
+number_responses_before_unknown_pa_names_are_removed<-nrow(dat_modified)
+  
 #remove unknwon. PA and the example
 source("R/remove_unknown_example.R")
+
+number_responses_after_unknown_pa_names_are_removed<-nrow(dat_modified)
 
 ```
 
 Responses could represent a single or multiple protected areas. However, our analysis focused on responses representing one or two individual terrestrial protected areas to gain insights into specific local realities. Therefore, responses representing more than two protected areas were filtered out. The resulting dataset could have a specific protected area represented by single responses, by responses that included two protected areas, or a combination of both. We duplicated the responses that were representing two protected areas but left a single protected area for each one, so each row in the dataset implied a unique protected area. One of the responses representing the same protected area after this step were filtered out to leave a unique representation completion and consistency of answers, and respondent's alignment with the intended target audience of the survey. 
 
-
-```{r remove reponses representing more than two protected areas}
-#| echo: false
-#| eval: false
-#| message: false
-#| warning: false
-#|
-source("R/remove_responses_more_two_protected_areas.R")
-
-```
-
-```{r remove other audience answering the survey}
-#| echo: false
-#| eval: false
-#| message: false
-#| warning: false
-source("R/remove_other_audience.R")
-```
 
 
 ```{r classify responses in local or global}
@@ -199,19 +192,31 @@ num_protected_areas_per_response<-unname(num_protected_areas_per_response)
 
 #dat_modified$protected_area[which(num_protected_areas_per_response>5)]
 
-# all responses more than 5 are considered global. 
+#nrow(do.call(rbind, dat_modified$protected_area)) 446
 
 dat_modified$local<-NA
-dat_modified$local[which(num_protected_areas_per_response>5)]<-FALSE
+dat_modified$local[which(num_protected_areas_per_response>2)]<-FALSE
 
 dat_modified$local[is.na(dat_modified$local)]<-TRUE
 
-#nrow(do.call(rbind, dat_modified$protected_area)) 446
-
 ```
 
-Global responses (>6) do not include just marine protected areas. For the remaining responses, the protected areas are classified as marine or terrestrial based on the World Database on Protected Areas (https://www.protectedplanet.net/en/thematic-areas/wdpa?tab=WDPA). Marine protected areas were removed.
+The protected areas are classified as marine or terrestrial based on the World Database on Protected Areas (https://www.protectedplanet.net/en/thematic-areas/wdpa?tab=WDPA). Marine protected areas were removed.
 
+
+```{r classify marine or terrestrial protected areas}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+
+#nrow(do.call(rbind, dat_modified$protected_area)) 440
+
+# For the remaining responses the classification is made
+
+source("R/classify_pa.R")
+
+```
 
 ```{r remove marine protected areas}
 #| echo: false
@@ -219,27 +224,55 @@ Global responses (>6) do not include just marine protected areas. For the remain
 #| message: false
 #| warning: false
 
+number_responses_before_marine_remove<-nrow(dat_modified)
+
+## Removing the PAs classified as marine
+
+# temp<-do.call(rbind, dat_modified$protected_area)
+# nrow(temp)
+# nrow(temp[temp$marine==F,])
+
+dat_modified$protected_area<-map(dat_modified$protected_area, \(x) x %>% filter(marine==FALSE))
+
+# leaving responses that contain terrestrial answers
+#dat_modified[map_vec(dat_modified$protected_area, nrow)!=0,]
+
+dat_modified<-dat_modified[map_vec(dat_modified$protected_area, \(x) nrow(x))>0,]
+
+number_responses_after_marine_remove<-nrow(dat_modified)
 
 
-#Answer 40 from the philippines are all marine protected areas
-# and it is removed
-# dat_modified$protected_area$'40'
+## Removing 
+#the mongolian ecological police department - Mongolia"
+#$`unite de surveillance et de lutte anti-braconnage - Republic of Congo`
 
-dat_modified<-dat_modified[-which(names(dat_modified$protected_area)=='40'),]
-
-#nrow(do.call(rbind, dat_modified$protected_area)) 440
-
-# For the remaining responses the classification is made
-
-#> the classification involves a slow process downloading pa data from wdpa. Go to the script if you want to reproduce. The output is "terrestrial_data.RDS"
-#source("classify_pa.R")
+dat_modified$protected_area$'27'<-dat_modified$protected_area$'27'[-3,]
+dat_modified$protected_area$'17'<-dat_modified$protected_area$'17'[-8,]
 
 
-terrestrial_data<-readRDS("data/terrestrial_data.RDS")
+# finally the terrestrial data
+
+saveRDS(dat_modified, "data/terrestrial_data.RDS")
+
 
 ```
 
+```{r remove other audience answering the survey}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
 
+terrestrial_data<-readRDS("data/terrestrial_data.RDS")
+
+number_responses_before_audience_remove<-nrow(terrestrial_data)
+
+#source("R/remove_other_audience.R")
+terrestrial_data<-terrestrial_data %>% filter(position!="Other")
+
+number_responses_after_audience_remove<-nrow(terrestrial_data)
+
+```
 
 The questionnaire, survey data, data cleaning and filtering, and descriptive analysis scripts can be found at https://github.com/dmontecino/SMART_survey.
 
@@ -247,14 +280,11 @@ The questionnaire, survey data, data cleaning and filtering, and descriptive ana
 
 ### General results
 
-The total number of responses was `r nrow(dat_modified_filtered)`. 
+The total number of responses was `r number_responses_before_unknown_pa_names_are_removed`. 
 
-`r as.character(english::as.english(length(given_names))) |> stringr::str_to_title()` responses were removed because they included a given name instead of the protected area name and `r as.character(english::as.english(length(unknown_protected_areas)))` response was removed because it did not have a protected area name. `r as.character(english::as.english(nrow(dat_modified_filtered_1) - nrow(dat_modified_filtered_2))) |> stringr::str_to_sentence()` responses representing more than two protected areas were filtered out and other `r as.character(english::as.english(nrow(dat_modified_filtered_2) - nrow(dat_modified_filtered_3)))` were removed because they involved protected areas that were represented once already. `r as.character(english::as.english(nrow(dat_modified_filtered_3) - nrow(dat_modified_filtered_4))) |> stringr::str_to_sentence()` responses were removed because the respondent did not match the target audience. 
+`r as.character(english::as.english(number_responses_before_unknown_pa_names_are_removed-number_responses_after_audience_remove) |> stringr::str_to_title()` responses were removed because the protected area names were not provided, contained only marine protected areas, or the respondent did not match the target audience (`r number_responses_before_unknown_pa_names_are_removed-number_responses_after_unknown_pa_names_are_removed`, `r number_responses_before_marine_remove-number_responses_after_marine_remove`, and `r number_responses_before_audience_remove-number_responses_after_audience_remove` ), respectively. Therefore, the final dataset contained `r nrow(terrestrial_data)` answered surveys from `r length(unique(terrestrial_data$country))` countries. `as.character(english::as.english(terrestrial_data %>% filter(local==T) %>% count() %>% pull() |> stringr::str_to_title()` were local responses from `r length(unique(terrestrial_data[terrestrial_data$local==T,]$country))` countries and `r terrestrial_data %>% filter(local==F) %>% count() %>% pull()` were global responses from `r length(unique(terrestrial_data[terrestrial_data$local==F,]$country))` countries. Results from general responses are provided in the Appendix.
 
-
-The final dataset described below excluded `r as.character(english::as.english(nrow(dat_modified_filtered_expanded |> filter(terrestrial=="no"))))` marine protected areas leading to the removal of another `r as.character(english::as.english(length(unique(dat_modified_filtered_4$survey)) - length(unique(terrestrial_data$survey))))` responses, for a total of `r nrow(terrestrial_data)` protected areas represented by `r length(unique(terrestrial_data$survey))` answered surveys (`r number_pas_per_response |> filter(number_pas==1) |> pull(responses)` responses representing a single protected area and `r number_pas_per_response |> filter(number_pas==2) |> pull(responses)` representing two protected areas) from `r length(unique(terrestrial_data$country))` countries.
-
-### Section 1: Perceptions regarding wildlife health and potential consequences of pathogen transmission among wildlife, domestic animals and people
+### Section 1: Perceptions regarding wildlife health importance in conservation and potential consequences of pathogen transmission among wildlife, domestic animals, and people in local surveys.
 
 <!-- Under section 1, we asked managers to rank their perceptions regarding wildlife health  -->
 <!-- and potential consequences of pathogen transmission among wildlife, domestic -->
@@ -267,10 +297,76 @@ The final dataset described below excluded `r as.character(english::as.english(n
 <!-- Pathogens carried by wildlife inhabiting the protected area I work in can affect public health -->
 
 <!-- Human or livestock pathogens can affect wildlife populations inhabiting the protected area I work  -->
+```{r section 1 plot}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
 
-The ranking distribution with the overall agreement with the affirmations odf section is shown in Figure 1.  
+section_1 =
+  terrestrial_data %>% filter(local==T) %>% 
+  select(#survey,
+           wildlife_health_important,
+           hum_liv_path_affect_wildlife,
+           wildlife_path_affect_livestock,
+           wildlife_path_affect_phealth)
 
-```{r section 1}
+strongly_agree_or_agree_wh_important<-
+section_1 %>% 
+  count(wildlife_health_important) %>% 
+  filter(wildlife_health_important%in%c("Agree", "Strongly agree")) %>% 
+  pull(n) %>% 
+  sum()
+
+strongly_agree_or_agree_hum_liv_impact_wh<-
+section_1 %>% 
+  count(hum_liv_path_affect_wildlife) %>% 
+  filter(hum_liv_path_affect_wildlife%in%c("Agree", "Strongly agree")) %>% 
+  pull(n) %>% 
+  sum()
+
+strongly_agree_or_agree_wl_impact_hum<-
+section_1 %>% 
+  count(wildlife_path_affect_phealth) %>% 
+  filter(wildlife_path_affect_phealth%in%c("Agree", "Strongly agree")) %>% 
+  pull(n) %>% 
+  sum()
+
+neutral_wl_impact_hum<-
+section_1 %>% 
+  count(wildlife_path_affect_phealth) %>% 
+  filter(wildlife_path_affect_phealth%in%c("Neutral")) %>% 
+  pull(n) %>% 
+  sum()
+
+agree_wl_impact_hum<-
+section_1 %>% 
+  count(wildlife_path_affect_phealth) %>% 
+  filter(wildlife_path_affect_phealth%in%c("Agree")) %>% 
+  pull(n) %>% 
+  sum()
+
+
+strongly_agree_or_agree_wl_impact_liv<-
+section_1 %>% 
+  count(wildlife_path_affect_livestock) %>% 
+  filter(wildlife_path_affect_livestock%in%c("Agree", "Strongly agree")) %>% 
+  pull(n) %>% 
+  sum()
+
+neutral_wl_impact_liv<-
+section_1 %>% 
+  count(wildlife_path_affect_livestock) %>% 
+  filter(wildlife_path_affect_livestock%in%c("Neutral")) %>% 
+  pull(n) %>% 
+  sum()
+
+```
+
+`r as.character(english::as.english(strongly_agree_or_agree_wh_important) |> stringr::str_to_title()` (`r round(strongly_agree_or_agree_wh_important/nrow(terrestrial_data[terrestrial_data$local==T,])*100,1)`%) either strongly agreed or agreed with the affirmation “wildlife health is important to achieve the conservation goals of protected area(s) where I work in”. Most respondents also strongly agreed or agreed with the affirmation “human or livestock pathogens can affect wildlife populations inhabiting the protected area(s) where I work” (`r round(strongly_agree_or_agree_hum_liv_impact_wh/nrow(terrestrial_data[terrestrial_data$local==T,])*100,1)`%) and "pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect human health” (`r round(strongly_agree_or_agree_wl_impact_hum/nrow(terrestrial_data[terrestrial_data$local==T,])*100,1)`%). However, for the latter case `r round(neutral_wl_impact_hum/nrow(terrestrial_data[terrestrial_data$local==T,])*100,1)`% respondents remained neutral and “Agree” was the most common response (`r round(agree_wl_impact_hum/nrow(terrestrial_data[terrestrial_data$local==T,])*100,1)`%). Regarding the affirmation “pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect livestock health”, most respondents remained neutral (`r round(neutral_wl_impact_liv/nrow(terrestrial_data[terrestrial_data$local==T,])*100,1)`%) although the percentage of respondents that either strongly agreed or agreed was larger (`r round(strongly_agree_or_agree_wl_impact_liv/nrow(terrestrial_data[terrestrial_data$local==T,])*100,1)`%). The ranking distribution with the overall agreement with the affirmations is shown in Figure 1.  
+  
+
+```{r section 1 plot}
 #| echo: false
 #| message: false
 #| warning: false
@@ -296,7 +392,7 @@ knitr::include_graphics("plots/plot_section_1.png")
 #| echo: false
 #| message: false
 #| warning: false
-#| eval: true
+#| eval: false
 
 affirmation_combinations_count<-
   terrestrial_data %>%
@@ -316,7 +412,6 @@ affirmation_combinations_count<-
 
 ```
 
-The most common ranking combination for the four affirmations was "`r affirmation_combinations_count |> filter(number_responses==max(affirmation_combinations_count$number_responses)) |> select(-number_responses) |> tibble::deframe()`" with the four affirmations (n=`r max(affirmation_combinations_count$number_responses)`; `r round(max(affirmation_combinations_count$number_responses)/sum(affirmation_combinations_count$number_responses)*100,1)`%), followed by "`r affirmation_combinations_count |> filter(number_responses==unique(sort(affirmation_combinations_count$number_responses, decreasing = TRUE))[2]) |> select(-number_responses) |> tibble::deframe()`" (n=`r unique(sort(affirmation_combinations_count$number_responses, decreasing = TRUE))[2]`; `r round(unique(sort(affirmation_combinations_count$number_responses, decreasing = TRUE))[2]/sum(affirmation_combinations_count$number_responses)*100,1)`% of the responses). `r as.character(english::as.english(affirmation_combinations_count |> ungroup() |> filter(if_all(-number_responses, ~grepl("Strongly agree|Agree", . ))) |> pull(number_responses) |> sum())) |> stringr::str_to_sentence()` (`r round(affirmation_combinations_count |> ungroup() |> filter(if_all(-number_responses, ~grepl("Strongly agree|Agree", . ))) |> pull(number_responses) |> sum()/sum(affirmation_combinations_count$number_responses)*100,2)`%) of the respondents answered either "Strongly agree" or "Agree" to the four affirmations. The ranking combinations and number of responses are provided in Appendix 1.
 
 ### Section 2: Overall frequency of encounters with dead, sick, or injured wildlife in the protected areas and their documentation when found during patrols.
 

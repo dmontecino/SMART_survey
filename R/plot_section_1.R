@@ -1,5 +1,6 @@
 library(ggplot2)
 library(camcorder)
+library(RColorBrewer)
 
 likert_theme <-
   theme_gray() +
@@ -19,8 +20,8 @@ likert_theme <-
 
 
 section_1 =
-  terrestrial_data %>%
-  distinct(survey,
+  terrestrial_data %>% filter(local==T) %>% 
+  select(#survey,
            wildlife_health_important,
            hum_liv_path_affect_wildlife,
            wildlife_path_affect_livestock,
@@ -29,7 +30,7 @@ section_1 =
 
 section_1<-
   section_1 %>%
-  dplyr::select(-survey) %>%
+  #dplyr::select(-survey) %>%
   tidyr::pivot_longer(cols = everything()) %>%
   dplyr::group_by(name, value, .drop=FALSE) %>%
   dplyr::count(name,value) %>%
