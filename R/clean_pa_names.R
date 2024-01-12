@@ -445,6 +445,7 @@ protected_areas[[103]]$protected_area<-"Taman Negara Terengganu National Park - 
 protected_areas[[104]]<-protected_areas[[104]] %>% separate_longer_delim(protected_area, delim = "\n")
 protected_areas[[104]]$protected_area<-paste(protected_areas[[104]]$protected_area, "- Republic of Congo")
 protected_areas[[104]]<-protected_areas[[104]][c(1,3),]
+protected_areas[[104]]$protected_area[1]<-"Nouabale-Ndoki National Park - Republic of Congo"
 
 #""Parque Nacional y Área Natural de Manejo Integrado Madidi\nÁrea Natural de Manejo Integrado Nacional Apolobamba\nReseva de la Biosfera y Terriorio Comunitario de Origen Pilón Lajas\nReserva de la Biosfera Estación Biológica del Beni""
 protected_areas[[105]]<-protected_areas[[105]] %>% separate_longer_delim(protected_area, delim = "\n")
