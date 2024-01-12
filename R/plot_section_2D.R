@@ -1,23 +1,27 @@
-healthy= terrestrial_data %>%
-  distinct(survey, how_healthy_wl_recorded, healthy_wl_recorded) %>%
+healthy= 
+  terrestrial_data %>% filter(local==T) %>% 
+  select(how_healthy_wl_recorded, healthy_wl_recorded) %>%
   filter(healthy_wl_recorded=="Yes") %>%
   count(how_healthy_wl_recorded) %>%
   arrange(-n)
 
-injured= terrestrial_data %>%
-  distinct(survey, how_injured_wl_recorded, injured_wl_recorded) %>%
+injured= 
+  terrestrial_data %>% filter(local==T) %>% 
+  select(how_injured_wl_recorded, injured_wl_recorded) %>%
   filter(injured_wl_recorded=="Yes") %>%
   count(how_injured_wl_recorded) %>%
   arrange(-n)
 
-sick= terrestrial_data %>%
-  distinct(survey, how_sick_wl_recorded, sick_wl_recorded) %>%
+sick=
+  terrestrial_data %>% filter(local==T) %>% 
+  select(how_sick_wl_recorded, sick_wl_recorded) %>%
   filter(sick_wl_recorded=="Yes") %>%
   count(how_sick_wl_recorded) %>%
   arrange(-n)
 
-dead= terrestrial_data %>%
-  distinct(survey, how_dead_wl_recorded, dead_wl_recorded) %>%
+dead= 
+  terrestrial_data %>% filter(local==T) %>% 
+  select(how_dead_wl_recorded, dead_wl_recorded) %>%
   filter(dead_wl_recorded=="Yes") %>%
   count(how_dead_wl_recorded) %>%
   arrange(-n)

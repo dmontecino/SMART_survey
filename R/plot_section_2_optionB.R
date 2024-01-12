@@ -21,9 +21,8 @@ likert_theme <-
 
 
 section_2 <-
-  terrestrial_data %>%
-  distinct(survey,
-           dead_found,
+  terrestrial_data %>% filter(local==T) %>% 
+  select(dead_found,
            sick_injured_found,
            dead_wl_recorded,
            sick_wl_recorded,
@@ -33,21 +32,21 @@ section_2 <-
 
 dead_found_recorded<-
   section_2 %>%
-  dplyr::select(-survey) %>%
+  # dplyr::select(-survey) %>%
   dplyr::count(dead_found, dead_wl_recorded, name = "total_dead_found_recorded_group") %>% 
   tidyr::complete(dead_found, dead_wl_recorded ) %>% 
   tidyr::replace_na(replace = list(total_dead_found_recorded_group=0)) #%>% 
 
 sick_found_recorded<-
   section_2 %>%
-  dplyr::select(-survey) %>%
+  # dplyr::select(-survey) %>%
   dplyr::count(sick_injured_found, sick_wl_recorded, name = "total_sick_found_recorded_group") %>% 
   tidyr::complete(sick_injured_found, sick_wl_recorded ) %>% 
   tidyr::replace_na(replace = list(total_sick_found_recorded_group=0)) #%>% 
 
 injured_found_recorded<-
   section_2 %>%
-  dplyr::select(-survey) %>%
+  # dplyr::select(-survey) %>%
   dplyr::count(sick_injured_found, injured_wl_recorded, name = "total_injured_found_recorded_group") %>% 
   tidyr::complete(sick_injured_found, injured_wl_recorded ) %>% 
   tidyr::replace_na(replace = list(total_injured_found_recorded_group=0)) #%>% 
@@ -151,7 +150,7 @@ plot_section_2A<-
     label.padding = unit(0.1, "lines")) +
   
   geom_label(aes(x = c(rep(c(3,2,1), 10), 3,2.08,1,3,1.93,1, 3.08,2, 1.08, 2.93,2, 0.93),   
-                 y = c(1.5, 2.5, 2.5, 4.5, 6.5, 6.5,
+                 y = c(1, 2.5, 2.5, 4.5, 6.5, 6.5,
                        4, 7.5, 6.5, 11.5, 17, 16, 
                        1, 6, 3.5, 5, 12.5, 10.5,
                        2, 3, 2, 11, 9, 8,

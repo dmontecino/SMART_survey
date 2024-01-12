@@ -1,6 +1,7 @@
 data_from_dead_wl<-
 terrestrial_data %>%
-  distinct(survey, 
+  filter(local==T) %>% 
+  select(#survey, 
            dead_wl_recorded,
            dead_wl_data_recorded) %>% 
   filter(dead_wl_recorded=="Yes") %>% 
@@ -10,12 +11,13 @@ terrestrial_data %>%
 
 data_from_dead_wl$items[data_from_dead_wl$items=="Anomalies in carcass (if any)"]<-"Anomalies"
 data_from_dead_wl$items[data_from_dead_wl$items=="Carcass condition"]<-"Condition"
-data_from_dead_wl$items[data_from_dead_wl$items=="Suspect cause of death"]<-"Suspect cause"
+data_from_dead_wl$items[data_from_dead_wl$items=="Suspect cause of death"]<-"Suspect Cause"
 
 
 data_from_sick_wl<-
   terrestrial_data %>%
-  distinct(survey, 
+  filter(local==T) %>% 
+  select(#survey, 
            sick_wl_recorded,
            sick_wl_data_recorded) %>% 
   filter(sick_wl_recorded=="Yes") %>% 
@@ -25,14 +27,15 @@ data_from_sick_wl<-
 
 data_from_sick_wl$items[data_from_sick_wl$items=="Anomalies/signs if any"]<-"Anomalies"
 data_from_sick_wl$items[data_from_sick_wl$items=="Body condition"]<-"Condition"
-data_from_sick_wl$items[data_from_sick_wl$items=="Suspect cause of disease"]<-"Suspect cause"
+data_from_sick_wl$items[data_from_sick_wl$items=="Suspect cause of disease"]<-"Suspect Cause"
 
 
 
 
 data_from_inj_wl<-
   terrestrial_data %>%
-  distinct(survey, 
+  filter(local==T) %>% 
+  select(#survey, 
            injured_wl_recorded,
            injured_wl_data_recorded) %>% 
   filter(injured_wl_recorded=="Yes") %>% 
@@ -42,7 +45,7 @@ data_from_inj_wl<-
 
 data_from_inj_wl$items[data_from_inj_wl$items=="Anomalies/signs if any"]<-"Anomalies"
 data_from_inj_wl$items[data_from_inj_wl$items=="Body condition"]<-"Condition"
-data_from_inj_wl$items[data_from_inj_wl$items=="Suspect cause of injury"]<-"Suspect cause"
+data_from_inj_wl$items[data_from_inj_wl$items=="Suspect cause of injury"]<-"Suspect Cause"
 
 what_is_collected<-
 dplyr::full_join(data_from_dead_wl, 
@@ -50,16 +53,16 @@ dplyr::full_join(data_from_dead_wl,
                  dplyr::full_join(data_from_inj_wl) %>% 
   # tidyr::replace_na(list(sick = 0, injured = 0)) %>% 
   mutate(dead=dead/terrestrial_data %>%
-           distinct(survey, 
-                    dead_wl_recorded) %>% 
+           # distinct(survey, 
+           #          dead_wl_recorded) %>% 
            filter(dead_wl_recorded=="Yes") %>% nrow() *100) %>%
   mutate(sick=sick/terrestrial_data %>%
-           distinct(survey, 
-                    sick_wl_recorded) %>% 
+           # distinct(survey, 
+           #          sick_wl_recorded) %>% 
            filter(sick_wl_recorded=="Yes") %>% nrow *100) %>%
   mutate(injured=injured/terrestrial_data %>%
-           distinct(survey, 
-                    injured_wl_recorded) %>% 
+           # distinct(survey, 
+           #          injured_wl_recorded) %>% 
            filter(injured_wl_recorded=="Yes") %>% nrow *100)
 
 
@@ -126,7 +129,7 @@ gg_resize_film(
   dpi = 300
 )
 
-what_is_recorded
+#what_is_recorded
 
 ggsave("plots/plot_section_2E.png",
        plot = what_is_recorded,

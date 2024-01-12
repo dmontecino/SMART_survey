@@ -3,13 +3,14 @@ library(ggrepel)
 
 dom_animals<-
   terrestrial_data %>%
-  distinct(survey, 
+  filter(local==T) %>% 
+  select(
            dom_animals_concern,
            dom_animals_in_pa,
            dom_animals_recorded,
            dom_animal_health_status_recorded) %>% 
   filter(dom_animals_in_pa=="Yes") %>% 
-  select(-survey, -dom_animals_in_pa) %>% 
+  select(-dom_animals_in_pa) %>% 
   dplyr::count(dom_animals_concern, 
                dom_animals_recorded) %>% 
   # tidyr::pivot_wider(names_from = dom_animal_health_status_recorded, 
@@ -95,6 +96,8 @@ section_3<-dom_animals  %>%
 #            dom_animals_recorded_total) 
   
 
+position.y<-c(rbind(labels/2, rep(NA, 6)))
+position.y[11]<-NA
 
 #labels all dead per freq encountering 
 
@@ -134,7 +137,7 @@ plot_section_3<-
 
   geom_label(
     aes(x = rep(1, 12) -0.37, 
-        y = c(rbind(labels/2, rep(NA, 6))),
+        y = position.y,
         label = c(rbind(labels, rep(NA, 6))),
         colour="red"), # add percentage
     fontface = "bold",
@@ -143,7 +146,7 @@ plot_section_3<-
   
   
   geom_label(aes(x = c(rep(1, 2), 0.93, 1.08, rep(1,2), 0.93, 1.08, rep(1, 4)),    
-                 y = c(3.5, 12.5, 0.5, 1.5, 0, 2.5, 0.5, 2, 3, 14, 0,0),
+                 y = c(3.8, 12.5, 0.5, 1.5, 0, 2.5, 0.5, 2, 3, 14, 0,0),
                  label = replace(n, 
                                  list = c(n==0), 
                                  value = NA)),

@@ -1,9 +1,9 @@
 data_smart_dead<-
   terrestrial_data |> 
-  distinct(survey, 
-           dead_wl_recorded,
+  filter(local==T) %>% 
+  select(  dead_wl_recorded,
            dead_wl_data_in_smart) |>
-  select(-survey) |>
+  # select(-survey) |>
   filter(dead_wl_recorded=="Yes") |>
   count(dead_wl_recorded, dead_wl_data_in_smart, name = "count_for_dead_wl") |>
   select(-dead_wl_recorded) %>% 
@@ -15,10 +15,11 @@ data_smart_dead<-
 
 data_smart_sick<-
   terrestrial_data |> 
-  distinct(survey, 
+  filter(local==T) %>% 
+  select(#survey,
            sick_wl_recorded,
            sick_wl_data_in_smart) |>
-  select(-survey) |>
+  # select(-survey) |>
   filter(sick_wl_recorded=="Yes") |>
   count(sick_wl_recorded, sick_wl_data_in_smart, name = "count_for_sick_wl") |>
   select(-sick_wl_recorded)  |>
@@ -30,10 +31,11 @@ data_smart_sick<-
 
 data_smart_injured<-
   terrestrial_data |> 
-  distinct(survey, 
+  filter(local==T) %>% 
+  select(#survey, 
            injured_wl_recorded,
            injured_wl_data_in_smart) |>
-  select(-survey) |>
+  #select(-survey) |>
   filter(injured_wl_recorded=="Yes") |>
   count(injured_wl_recorded, injured_wl_data_in_smart, name = "count_for_injured_wl") |>
   select(-injured_wl_recorded) %>% 
@@ -49,7 +51,10 @@ bind_rows(data_smart_sick,
           data_smart_injured,
           data_smart_dead)
           
-
+temp_long$data_in_smart<-factor(temp_long$data_in_smart, 
+                                levels = c("All of these items are entered and stored in the corresponding SMART Conservation Area", 
+                                           "Some of these items are entered and stored in the corresponding SMART Conservation Area",
+                                           "None of these items are recorded in the corresponding SMART Conservation Area"))
 
 # create plot
 wildlife_health_in_smart<-
@@ -64,8 +69,8 @@ wildlife_health_in_smart<-
   scale_size(range = c(6, 24), name = "Response count") +
   scale_y_discrete(name = "",
                    labels = c("All of these items are\nstored in a SMART\ndatabase",
-                              "None of these items are\nentered in a SMART\ndatabase",
-                              "Some of these items are\nentered in a SMART\ndatabase")) +
+                              "Some of these items are\nentered in a SMART\ndatabase",
+                              "None of these items are\nentered in a SMART\ndatabase")) +
   
   scale_x_discrete(limits = c("sick",
                               "injured",
