@@ -131,10 +131,10 @@ gg_resize_film(
 
 #what_is_recorded
 
-ggsave("plots/plot_section_2E.png",
-       plot = what_is_recorded,
-       height = 3.6*2,
-       width = 5/5*4,
-       units = "in",
-       dpi = 600)
-2
+# ggsave("plots/plot_section_2E.png",
+#        plot = what_is_recorded,
+#        height = 3.6*2,
+#        width = 5/5*4,
+#        units = "in",
+#        dpi = 600)
+

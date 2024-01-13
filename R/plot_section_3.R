@@ -96,9 +96,6 @@ section_3<-dom_animals  %>%
 #            dom_animals_recorded_total) 
   
 
-position.y<-c(rbind(labels/2, rep(NA, 6)))
-position.y[11]<-NA
-
 #labels all dead per freq encountering 
 
 labels<-
@@ -109,7 +106,8 @@ labels<-
   ungroup() %>% 
   pull(num)
 
-
+position.y<-c(rbind(labels/2, rep(NA, 6)))
+position.y[11]<-NA
 
 plot_section_3<-
   ggplot(data = section_3) +

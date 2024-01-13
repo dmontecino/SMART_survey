@@ -3,55 +3,85 @@ healthy=
   select(how_healthy_wl_recorded, healthy_wl_recorded) %>%
   filter(healthy_wl_recorded=="Yes") %>%
   count(how_healthy_wl_recorded) %>%
-  arrange(-n)
+  arrange(-n) %>% 
+  rename("How_recorded"="how_healthy_wl_recorded")
+
+healthy$How_recorded<-c("Part of the full count",
+                                         "Individual observation",
+                                         "Present or absent",
+                                         "Another way")
+
+healthy$status<-"healthy"
 
 injured= 
   terrestrial_data %>% filter(local==T) %>% 
   select(how_injured_wl_recorded, injured_wl_recorded) %>%
   filter(injured_wl_recorded=="Yes") %>%
   count(how_injured_wl_recorded) %>%
-  arrange(-n)
+  arrange(-n) %>% 
+  rename("How_recorded"="how_injured_wl_recorded")
+
+injured$How_recorded<- c("Individual observation",
+                                         "Part of the full count",
+                                         "Present or absent",
+                                         "Another way")
+
+injured$status<-"injured"
 
 sick=
   terrestrial_data %>% filter(local==T) %>% 
   select(how_sick_wl_recorded, sick_wl_recorded) %>%
   filter(sick_wl_recorded=="Yes") %>%
   count(how_sick_wl_recorded) %>%
-  arrange(-n)
+  arrange(-n) %>% 
+  rename("How_recorded"="how_sick_wl_recorded")
+
+
+sick$How_recorded <- c("Individual observation",
+                                         "Part of the full count",
+                                         "Present or absent",
+                                         "Another way")
+
+sick$status<-"sick"
 
 dead= 
   terrestrial_data %>% filter(local==T) %>% 
   select(how_dead_wl_recorded, dead_wl_recorded) %>%
   filter(dead_wl_recorded=="Yes") %>%
   count(how_dead_wl_recorded) %>%
-  arrange(-n)
+  arrange(-n) %>% 
+  rename("How_recorded"="how_dead_wl_recorded")
 
-how = c("Individual observation",
-        "Part of the full count",
-        "Present or absent",
-        "Another way")
+dead$How_recorded <- c("Individual observation",
+                              "Part of the full count",
+                              "Present or absent",
+                              "Another way")
+
+dead$status<-"dead"
 
 # create data frame
-temp <- data.frame("How_recorded" = how,
-                   "Responses_healthy" = healthy$n,
-                   "Responses_sick" = sick$n,
-                   "Responses_injured" = injured$n,
-                   "Responses_dead" = dead$n)
+
+# temp <- data.frame("How_recorded" = how,
+#                    "Responses_healthy" = healthy$n,
+#                    "Responses_sick" = sick$n,
+#                    "Responses_injured" = injured$n,
+#                    "Responses_dead" = dead$n)
 
 # convert to long format
-temp_long <- pivot_longer(temp, cols = 2:5, 
-                          names_to = "variable", 
-                          values_to = "value")
+# temp_long <- pivot_longer(temp, cols = 2:5, 
+#                           names_to = "variable", 
+#                           values_to = "value")
+temp_long<-rbind(healthy, sick, injured, dead)
 
 
 # create plot
 how_wildlife_health_recorded=
-  ggplot(temp_long, aes(x = variable, y = How_recorded, size = value, fill = variable)) +
+  ggplot(temp_long, aes(x = status, y = How_recorded, size = n, fill = status)) +
   geom_point(shape = 22, stroke=0.2) +
   geom_label(aes(
-    x = variable, 
+    x = status, 
     y = How_recorded,
-    label = value), 
+    label = n), 
              fill="white",
              colour="black",
              fontface = "bold",
@@ -66,10 +96,10 @@ how_wildlife_health_recorded=
                               "Present/absent"
                    )) +
   
-  scale_x_discrete(limits = c("Responses_healthy",
-                              "Responses_sick",
-                              "Responses_injured",
-                              "Responses_dead"),
+  scale_x_discrete(limits = c("healthy",
+                              "sick",
+                              "injured",
+                              "dead"),
                    position = "top",
                    name = "",
                    labels = c("Healthy\nwildlife",
