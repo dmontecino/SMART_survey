@@ -191,6 +191,7 @@ protected_areas[[26]]$protected_area<-"Chipanje Chetu Community Conservation - M
 protected_areas[[27]]<-protected_areas[[27]] %>% separate_longer_delim(protected_area, delim = "\n")
 protected_areas[[27]]$protected_area<-gsub('\"', replacement = "", protected_areas[[27]]$protected_area)
 protected_areas[[27]]$protected_area<-gsub('LPA', replacement = "Local Protected Area", protected_areas[[27]]$protected_area)
+protected_areas[[27]]$protected_area<-gsub(' - ', replacement = " ", protected_areas[[27]]$protected_area)
 protected_areas[[27]]$protected_area<-paste(protected_areas[[27]]$protected_area, "- Mongolia")
 
 
@@ -217,7 +218,7 @@ protected_areas[[32]]$protected_area<-paste(protected_areas[[32]]$protected_area
 protected_areas[[33]]<-protected_areas[[33]] %>% separate_longer_delim(protected_area, delim = "\n")
 protected_areas[[33]]$protected_area[1]<-"Mount goplom conservation area - Papua New Guinea"
 protected_areas[[33]]$protected_area[2]<-"Mount Waugerema Conservation Area - Papua New Guinea"
-protected_areas[[33]]$protected_area[3]<-"Yasina Nature Parkk - Papua Nueva Guinea"
+protected_areas[[33]]$protected_area[3]<-"Yasina Nature Parkk - Papua New Guinea"
 
 #Jigme Singye Wangchuck National Park"
 protected_areas[[34]]$protected_area<-"Jigme Singye Wangchuck National Park - Bhutan"
@@ -264,6 +265,7 @@ protected_areas[[46]]$protected_area<-"Endau-Rompin National Park - Malaysia"
 
 #"Batang Ai National Park\nLanjak - Entimau Wildlife Sanctuary \nSedilu-Ulu Sebuyau-Lesong Landscape"
 protected_areas[[47]]<-protected_areas[[47]] %>% separate_longer_delim(protected_area, delim = "\n")
+protected_areas[[47]]$protected_area<-gsub('-', replacement = " ", protected_areas[[47]]$protected_area)
 protected_areas[[47]]$protected_area<-paste(protected_areas[[47]]$protected_area, "- Malaysia")
 
 #"Murchison Falls National Park"

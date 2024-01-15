@@ -121,20 +121,20 @@ what_is_recorded=
 
 # library(scales)
 # show_col(brewer.pal(11,"Spectral"))
+# 
+# gg_resize_film(
+#   height = 3.6*2,
+#   width = 5/5*4,
+#   units = "in",
+#   dpi = 300
+# )
 
-gg_resize_film(
-  height = 3.6*2,
-  width = 5/5*4,
-  units = "in",
-  dpi = 300
-)
+what_is_recorded
 
-#what_is_recorded
-
-# ggsave("plots/plot_section_2E.png",
-#        plot = what_is_recorded,
-#        height = 3.6*2,
-#        width = 5/5*4,
-#        units = "in",
-#        dpi = 600)
+ggsave("plots/plot_section_2E.png",
+       plot = what_is_recorded,
+       height = 3.6*2,
+       width = 5/5*4,
+       units = "in",
+       dpi = 600)
 

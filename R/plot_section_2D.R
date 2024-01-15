@@ -140,12 +140,12 @@ how_wildlife_health_recorded=
 
 how_wildlife_health_recorded
 
-gg_resize_film(
-  height = 3.7,
-  width = 5,
-  units = "in",
-  dpi = 300
-)
+# gg_resize_film(
+#   height = 3.7,
+#   width = 5,
+#   units = "in",
+#   dpi = 300
+# )
 
 
 ggsave("plots/plot_section_2D.png",

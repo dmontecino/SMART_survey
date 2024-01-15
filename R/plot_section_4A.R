@@ -68,7 +68,7 @@ wildlife_health_in_smart<-
             label.padding = unit(0.1, "lines")) +
   scale_size(range = c(6, 24), name = "Response count") +
   scale_y_discrete(name = "",
-                   labels = c("All of these items are\nstored in a SMART\ndatabase",
+                   labels = c("All of these items are\nentered in a SMART\ndatabase",
                               "Some of these items are\nentered in a SMART\ndatabase",
                               "None of these items are\nentered in a SMART\ndatabase")) +
   
@@ -99,12 +99,12 @@ wildlife_health_in_smart<-
 
 wildlife_health_in_smart
 
-gg_resize_film(
-  height = 3.6*2/8*4,
-  width = 5/5*4/5*5,
-  units = "in",
-  dpi = 300
-)
+# gg_resize_film(
+#   height = 3.6*2/8*4,
+#   width = 5/5*4/5*5,
+#   units = "in",
+#   dpi = 300
+# )
 
 
 ggsave("plots/plot_section_4A.png",

@@ -12,11 +12,25 @@
 
 # wdpa_fetch("Belize", wait = T, page_wait = 5)
 
-dat_modified$country<-map(dat_modified$protected_area, \(x) x$protected_area) %>% 
-  map(\(x) strsplit(x=x, split = " - ")[[1]]) %>% 
-  map_chr(\(x) tail(x, n = 1))
+#dat_modified$country<-
+# countries<-
+#   map(dat_modified$protected_area, \(x) x$protected_area) %>% 
+#   map(\(x) strsplit(x=x, split = " - ")) %>% 
+#   map(\(y) do.call(rbind, y)) %>% 
+#   map(\(x) x[,2])
 
-countries<-sort(unique(dat_modified$country)) #30
+dat_modified$protected_area<-
+  map(dat_modified$protected_area, \(x)
+      x %>% 
+        mutate(country= 
+                 strsplit(x$protected_area, " - ")  %>% 
+                 map_vec(\(y) y[2])))
+
+
+
+list_countries<-sort(unique(unlist(dat_modified$protected_area %>% map(\(x) x$country)))) #30
+
+
 
 ## Parallel code to get the data of the protected areas
 
@@ -34,13 +48,13 @@ library(wdpar)
 
 # pas_data <- foreach(i = seq_along(countries)) %dofuture% wdpa_fetch(countries[i], wait = T)
 
-pas_data <- vector(mode = "list", length = length(countries))
+pas_data <- vector(mode = "list", length = length(list_countries))
 
-for(i in seq_along(countries)){pas_data[[i]] <- wdpa_fetch(countries[i], wait = T)}
+for(i in seq_along(list_countries)){pas_data[[i]] <- wdpa_fetch(list_countries[i], wait = T)}
 
-for (i in seq_along(pas_data)){pas_data[[i]]$COUNTRY <- countries[i]}
+for (i in seq_along(pas_data)){pas_data[[i]]$COUNTRY <- list_countries[i]}
 
-names(pas_data) <- countries
+names(pas_data) <- list_countries
 
 
 # wdpa dataset with the NAME MARINE and COUNTRY columns
@@ -133,7 +147,7 @@ for(i in seq_along(dat_modified_local_expanded$protected_area)){
     
     PAs_detected_per_pa_survey_name[[i]]<-
     map(
-      map(temp.searching.terms[!(temp.searching.terms%in%terms.to.remove)], \(x)
+      map(temp.searching.terms[!(temp.searching.terms%in%terms_to_remove)], \(x)
           grepl(pattern = x, x = sub.data.temp$NAME,ignore.case = T)), \(y)
       sub.data.temp %>% filter(y)) %>% 
       bind_rows() %>% 
@@ -149,16 +163,16 @@ PAs_detected_per_pa_survey_name<-PAs_detected_per_pa_survey_name[map_vec(PAs_det
 
 # Checking the  protected areas manually to find marine ones in local responses
 
-PAs_detected_per_pa_survey_name[199]
+PAs_detected_per_pa_survey_name[1]
 
-keys_marine_pa<-c("laughing", "blue hole", "half moon", "corozal", 
+keys_marine_pa<-c("laughing", "halfmoon", "corozal", 
                   "caulker", "gladden spit", "glover's", "hol chan",
                   "port honduras", 'sapodilla', "south water", 
                   "marine reserve",
-                  "karimata", "tiga", "espíritu", "contoy",
+                  "karimata", "tiga", "espíritu santo", "contoy",
                   "arrecifal veracruzano", "cabo san lucas",
                   "isla isabel", "islas del pacífico", "Maite", "Cabangcalan",
-                  "Olang", "Tulapos", "Cangbagsa", "Caticugan")
+                  "Olang", "Tulapos", "Cangbagsa", "Caticugan" , "marine protected area")
 
 
 # Create column to store if they are marine or not 
@@ -184,59 +198,84 @@ for(i in seq_along(keys_marine_pa)){
 }
 }
 
-# responses_with_marine_areas<-map_vec(dat_modified$protected_area, \(x) all(x$marine==TRUE)) # 120
+ # responses_with_marine_areas<-map_vec(dat_modified$protected_area, \(x) all(x$marine==TRUE)) # 120
 # index_responses_with_marine_areas<-unname(which(responses_with_marine_areas))
 # dat_modified$protected_area[index_responses_with_marine_areas]
 
 
 
-#Pas WO Match in the wdpa database (all terrestrial checked one by one)
+#Pas WO Match in the wdpa database 
 pas_no_match
 
-# [1] "mann wildlife sanctuary - Myanmar"                      
-# [2] "mgeno conservancy - Kenya"                              
+# [1] "mann wildlife sanctuary - Myanmar"   
+
+# [2] "wangchuck centennial national park - Bhutan"                                            
+# [3] "tapir mountain nature reserve - Belize" 
+# [2] "mgeno conservancy - Kenya"     
+# [5] "taita hills sanctuary - Kenya"
+# [6] "taita wildlife conservancy - Kenya"
 # [3] "rombo district - Kenya"                                 
 # [4] "mwanga district - Kenya"                                
-# [5] "same district - Kenya"                                  
-# [6] "lushoto district - Kenya"                               
-# [7] "korogwe district - Kenya"                               
-# [8] "jomotshangkha wildlife sanctuary - Bhutan"              
-# [10] "chiquibul national park - Belize"                       
-# [11] "sarstoon-temash national park - Belize"                 
-# [12] "chiquibul forest reserve - Belize"                      
+# [5] "same district - Kenya"      
+# [10] "jigme dorji national park - Bhutan"                                                     
+# [8] "jomotshangkha wildlife sanctuary - Bhutan"     
+# [12] "phibsoo wildlife sanctuary - Bhutan"  
+# [13] "jigme singye wangchuck national park - Bhutan"
+# [14] "bacalar chico national park - Belize"  
+# [10] "chiquibul national park - Belize"           
+# [16] "monkey bay national park - Belize" 
+# [17] "payne's creek national park - Belize"     
+# [11] "sarstoon-temash national park - Belize"   
+# [19] "blue hole\tnatural monument - Belize"                                                   
+# [20] "bladen nature reserve - Belize"                                                         
+# [21] "caye caulker forest reserve - Belize"  
+# [12] "chiquibul forest reserve - Belize" 
+# [23] "monkey caye forest reserve - Belize"                                                    
+# [24] "maya mountain forest reserve - Belize"                                                  
+# [25] "bacalar chico marine reserve - Belize"                                                  
+# [26] "caye caulker marine reserve - Belize"                                                   
+# [27] "south water caye marine reserve - Belize" 
 # [13] "dinarides mountain range - Croatia"                     
-# [14] "tanjung anolengo wildlife reserve - Indonesia"          
+# [14] "tanjung anolengo wildlife reserve - Indonesia"  
+# [30] "conservation south luangwa - Zambia"                                                    
 # [15] "north luangwa conservation programme - Zambia"          
-# [16] "nouabale-ndoki national park - Republic of Congo"       
+# [16] "nouabale-ndoki national park - Republic of Congo"  
+# [33] "management of peripheral ecosystems in nouabale-ndoki national park - Republic of Congo"
+# [34] "management of peripheral ecosystems in odzala-kokoua national park - Republic of Congo" 
+# [35] "lake tele community reserve - Republic of Congo"   
 # [17] "espace tridom inter-zone - Republic of Congo"           
 # [18] "lesio-luna gorilla nature reserve - Republic of Congo"  
 # [19] "parc national d'azagny - Côte d'Ivoire"                 
 # [20] "reserve naturelle partielle d'aghien - Côte d'Ivoire"   
 # [21] "reserve naturelle de mabi-yaya - Côte d'Ivoire"         
 # [22] "reserve naturelle de bossomatie - Côte d'Ivoire"        
-# [23] "endau-rompin national park - Malaysia"                  
-# [24] "khoid mogoin gol - Mongolia"                            
+# [23] "endau-rompin national park - Malaysia"            
 # [25] "gunung naning protected forest - Indonesia"             
 # [26] "protected area - Madagascar"                            
 # [27] "rungwa game reserve - Tanzania"                         
 # [28] "kizigo game reserve - Tanzania"                         
 # [29] "muhesi game reserve - Tanzania"                         
-# [30] "lukwati-piti game reserve - Tanzania"                   
+# [30] "lukwati-piti game reserve - Tanzania"            
+# [49] "rukwa game reserve - Tanzania"                                                          
 # [31] "mount goplom conservation area - Papua New Guinea"      
 # [32] "mount waugerema conservation area - Papua New Guinea"   
 # [33] "yasina nature parkk - Papua New Guinea"                 
-# [34] "yasuni national park - Ecuador"                         
-# [35] "sedilu-ulu sebuyau-lesong landscape - Malaysia"         
+# [34] "yasuni national park - Ecuador"             
+# [54] "4.) tulapos marine protected area - Philippines"                                        
+# [55] "6.) caticugan marine protected area - Philippines"                                      
+# [56] "reserva de biosfera maya - Guatemala"                                                   
+# [57] "batang ai national park - Malaysia"                                                     
 # [36] "reserva comunal machiguengay - Peru"                    
-# [37] "protected area - Peru"                                  
+# [37] "protected area - Peru"       
+# [60] "parque nacional huascaran - Peru"                                                       
 # [38] "parque nacional del rio abiseo - Peru"                  
 # [39] "parque nacional rio abiseo - Peru"                      
 # [40] "santuario nacional de calipuy - Peru"                   
 # [41] "reserva nacional de calipuy - Peru"                     
 # [42] "srepok wildlife sanctuary - Cambodia"                   
 # [43] "lanjak-entimau wildlife sanctuary - Malaysia"           
-# [44] "sedilu-sebuyau-lesong- landscape  - Malaysia"           
-# [45] "nouabale-ndoki national park (nnnp) - Republic of Congo"
+# [44] "sedilu-sebuyau-lesong- landscape  - Malaysia"          
+# [68] "lake tele community reserve (lcr) - Republic of Congo"                                  
 # [46] "parque nacional cotacachi-cayapas - Ecuador"            
 # [47] "reserva de biosfera tawahka-asangni - Honduras"         
 # [48] "protected area - Colombia"                              
@@ -257,6 +296,21 @@ pas_no_match
 # [63] "kizigo - Tanzania"                                      
 # [64] "muhesi game reserves - Tanzania"  
 
+
+for(i in seq_along(c("bacalar", "blue hole", "marine reserve"))){
+  index_response_with_marine_pa<-
+    grep(keys_marine_pa[i], dat_modified$protected_area, ignore.case = T)
+  
+  for(j in seq_along(index_response_with_marine_pa)){
+    
+    index_of_marine_pa_within_response<- 
+      grep(pattern = keys_marine_pa[i], ignore.case = T,
+           x = dat_modified$protected_area[[index_response_with_marine_pa[j]]]$protected_area)
+    
+    
+    dat_modified$protected_area[[index_response_with_marine_pa[j]]]$marine[index_of_marine_pa_within_response]<-TRUE
+  }
+}
 
 
 
