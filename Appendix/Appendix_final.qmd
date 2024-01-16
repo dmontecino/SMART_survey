@@ -54,9 +54,9 @@ number_responses_after_audience_remove<-nrow(terrestrial_data)
 
 ```
 
-## Results of global responses
+## Results of non-local responses
 
-### Section 1: Perceptions regarding wildlife health importance in conservation and potential consequences of pathogen transmission among wildlife, domestic animals, and people in local surveys.
+### Section 1: Perceptions regarding wildlife health importance in conservation and potential consequences of pathogen transmission among wildlife, domestic animals, and people.
 
 <!-- Under section 1, we asked managers to rank their perceptions regarding wildlife health  -->
 <!-- and potential consequences of pathogen transmission among wildlife, domestic -->
@@ -143,7 +143,7 @@ section_1 %>%
 #| warning: false
 #| eval: true
 #| fig-align: center
-#| fig-cap: Distribution of the level of agreement among protected area data managers with statements wildlife health is important to achieve the conservation goals of protected area(s) where I work in (row 1), human or livestock pathogens can affect wildlife populations inhabiting the protected area(s) where I work in (row 2), pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect human health (row 3), and pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect livestock health (row 4).
+#| fig-cap: Distribution of the level of agreement among protected area data managers with statements 'wildlife health is important to achieve the conservation goals of protected area(s) where I work in' (row 1), 'human or livestock pathogens can affect wildlife populations inhabiting the protected area(s) where I work in' (row 2), 'pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect human health' (row 3), and 'pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect livestock health' (row 4).
 
 library(ggplot2)
 library(camcorder)
@@ -353,6 +353,7 @@ injured_recorded<-section_2 %>%
 #| warning: false
 #| eval: true
 #| fig-align: center
+#| fig-width: 6
 #| fig-cap: Distribution of protected area data manager responses regarding the encounter of dead and sick or injured wildlife in the protected area(s) where they work. Red numbers indicate the total number of responses per encountering frequency. The dashed area of the polygons represent the responses indicating that dead, sick, and injured wildlife found during ranger patrols are recorded (rows 1 – 3, respectively). Black numbers indicate the total number of responses reporting recording and non-recording of dead, sick, and injured wildlife found during patrols per encountering frequency.
 
 library(ggplot2)
@@ -961,7 +962,73 @@ what_is_recorded
 
 ```
 
-### Section 3: Presence of domestic animals in the protected area(s), the documentation of their health status, and the perceived threats of domestic animals to conservation goals
+### Section 3: Presence of domestic animals in protected areas, the documentation of their health status, and the perceived threats of domestic animals to conservation goals
+
+```{r domestic animals and recording}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+
+num_responses_dom_animals_in_pa<-
+terrestrial_data |> 
+  filter(local==F) |>
+  select(  dom_animals_in_pa, 
+           dom_animals_recorded) |>
+  filter(dom_animals_in_pa=="Yes") |> 
+  nrow()
+
+#responses where the dome animalas are observed and recorded
+num_responses_dom_animals_in_pa_are_recorded<-
+  terrestrial_data |> 
+  filter(local==F) |>
+  select(  dom_animals_in_pa, 
+           dom_animals_recorded) |>
+  filter(dom_animals_in_pa=="Yes") |>
+  count(dom_animals_in_pa, dom_animals_recorded) %>% 
+  filter(dom_animals_recorded=="Yes") |>
+  pull(n)
+  
+num_responses_dom_animals_in_pa_are_recorded_health_status<-
+terrestrial_data %>% 
+  filter(local==F) |>
+  select(  dom_animals_in_pa, 
+           dom_animals_recorded, 
+           dom_animal_health_status_recorded) |> 
+  filter(dom_animals_in_pa=="Yes" &
+           dom_animals_recorded=="Yes") %>% 
+  count(dom_animal_health_status_recorded) %>% 
+  filter(dom_animal_health_status_recorded=="Yes") %>% 
+  pull(n)
+
+#responses where the dome animals are observed, recorded, and the health status is registered.
+
+num_responses_dom_animals_in_pa_are_concern_strongly_agree_agree<-
+  terrestrial_data %>% 
+  filter(local==F) |>
+  select(dom_animals_concern,
+         dom_animals_in_pa, 
+         dom_animals_recorded, 
+         dom_animal_health_status_recorded) %>% 
+  filter(dom_animals_in_pa=="Yes") %>% 
+  filter(dom_animals_concern%in% c("Strongly agree", "Agree")) %>% 
+  nrow()
+
+
+
+num_responses_dom_animals_in_pa_are_concern_strongly_agree_agree_recorded<-
+  terrestrial_data %>% 
+  filter(local==F) |>
+  select(dom_animals_concern,
+         dom_animals_in_pa, 
+         dom_animals_recorded, 
+         dom_animal_health_status_recorded) %>% 
+  filter(dom_animals_in_pa=="Yes") %>% 
+  filter(dom_animals_concern%in% c("Strongly agree", "Agree")) %>% 
+  filter(dom_animals_recorded=="Yes") %>% 
+  nrow()
+
+```
 
 ```{r plot appendix section 3}
 #| echo: false
@@ -970,8 +1037,8 @@ what_is_recorded
 #| eval: true
 #| fig-align: center
 #| fig-height: 2
-#| fig-cap: 
-#|  Distribution of protected area manager responses where domestic animals are observed regarding the recording of domestic animals found during ranger patrols across their overall agreement with domestic animals as a concern for conservation goals in protected areas. The dashed area of the polygons represent the subset of responses without health status of domestic animals recording. The responses included in this figure are those of managers that reported the presence of domestic animals in the corresponding protected area.
+#| fig-cap:
+#|  Distribution of the level of agreement among protected area data managers with the statement 'introduced domestic animals (e.g., dogs, cats, cattle, pigs, cats) are a concern for the conservation goals of the protected areas where I work'. Red numbers indicate the total number of responses per agreement. The dashed area of the polygons represent the responses indicating that domestic animals found during ranger patrols are recorded. Black numbers indicate the total number of responses reporting documentation and non-documentation of domestic animals found during patrols.
 
 library(ggpattern)
 library(ggrepel)
@@ -1110,13 +1177,13 @@ plot_section_3<-
   scale_fill_manual(values = brewer.pal(n = 9, name = "GnBu")[2:8]) +
   facet_wrap(.~dom_animals_concern, nrow = 1) +
   coord_flip() +
-  ggtitle("Agreement ranking")
+  ggtitle("Overall agreement domestic animals are conservation concern")
 
 plot_section_3
 
 ```
 
-### Section 4: Health data storage practices
+### Section 4: Health data storage practices in protected areas
 
 ```{r plot health data storage practices}
 #| echo: false
@@ -1126,7 +1193,7 @@ plot_section_3
 #| fig-align: center
 #| fig-height: 3.6
 #| fig-width: 4.2
-#| fig-cap: 
+#| fig-cap:
 #|  Distribution of protected area data managers reporting the documentation of either sick, injured, or dead wildlife found during ranger patrols across data storage practices with respect to the use of SMART.
 
 data_smart_dead<-
@@ -1234,7 +1301,7 @@ wildlife_health_in_smart
 
 ```
 
-### Section 5: Current state of SMART deployment in protected areas 
+### Section 5: Current state of SMART deployment in protected areas
 
 ```{r section 5}
 #| echo: false
@@ -1312,9 +1379,9 @@ smart_connect_set_up_for_text<-
 
 {{< pagebreak >}}
 
-## Comparing the results of global and local responses from the same country
+## Comparing the results of non-local and local responses from the same country
 
-### Section 1: Perceptions regarding wildlife health importance in conservation and potential consequences of pathogen transmission among wildlife, domestic animals, and people in local surveys.
+### Section 1: Perceptions regarding wildlife health importance in conservation and potential consequences of pathogen transmission among wildlife, domestic animals, and people in local surveys and non-local surveys containing protected areas in local responses
 
 
 ```{r compare global local section 1}
@@ -1505,7 +1572,7 @@ get("section_1_table4")
 
 ```
 
-### Section 2: Overall frequency of encounters with dead, sick, or injured wildlife in protected areas and their documentation when found during patrols
+### Section 2: Overall frequency of encounters with dead, sick, or injured wildlife in protected areas and their documentation when found during patrols in local surveys and non-local surveys containing protected areas in local responses
 
 
 ```{r compare global local section 2}
@@ -1579,7 +1646,7 @@ get("section_2_table4")
 
 ```
 
-### Section 3: Presence of domestic animals in the protected area(s), the documentation of their health status, and the perceived threats of domestic animals to conservation goals
+### Section 3: Presence of domestic animals in protected areas, the documentation of their health status, and the perceived threats of domestic animals to conservation goals in local surveys and non-local surveys containing protected areas in local responses
 
 ```{r compare global local section 3}
 #| echo: false
@@ -1647,7 +1714,7 @@ get("section_3_table4")
 
 
 ```
-### Section 4: Health data storage practices
+### Section 4: Health data storage practices in local surveys and non-local surveys containing protected areas in local responses
 
 ```{r compare global local section 4}
 #| echo: false

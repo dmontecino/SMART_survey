@@ -1106,7 +1106,7 @@ num_responses_dom_animals_in_pa_are_concern_strongly_agree_agree_recorded<-
 #| eval: true
 #| fig-align: center
 #| fig-cap:
-#|  Distribution of protected area manager responses where domestic animals are observed regarding the recording of domestic animals found during ranger patrols across their overall agreement with domestic animals as a concern for conservation goals in protected areas. The dashed area of the polygons represent the subset of responses without health status of domestic animals recording. The responses included in this figure are those of managers that reported the presence of domestic animals in the corresponding protected area.
+#|  Distribution of protected area manager responses where domestic animals are observed regarding the recording of domestic animals found during ranger patrols across their overall agreement with domestic animals as a concern for conservation goals in protected areas. The dashed area of the polygons represent the subset of responses with domestic animals recording.
 
 
 # plot_section_3
@@ -1161,10 +1161,7 @@ For the subset of local protected area data managers reporting the documentation
 #| eval: true
 #| fig-align: center
 #| fig-cap:
-#|  Health data storage practices with respect to the use of SMART in the 
-#|  subgroup of responses reporting the recording of dead, sick, and i
-#|  injured wildlife across categories of wildlife health status. The size
-#|  the circles is proportional to the percentages observed.
+#|  Distribution of protected area data managers reporting the documentation of either sick, injured, or dead wildlife found during ranger patrols across data storage practices with respect to the use of SMART.
 
 
 # plot_section_4
