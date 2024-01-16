@@ -21,9 +21,9 @@ new.names<-c(
   "dom_animals_concern",            #8. Introduced domestic animals are a 
   #concern for conservation" 
   
-  "dead_found",                     #9. Are dead animals encountered
+  "dead_found",                     #9. Are dead wildlife encountered
   
-  "sick_injured_found",             #10. Are sick or injured animals encountered
+  "sick_injured_found",             #10. Are sick or injured wildlife encountered
   
   "livestock_found",                #11. Are livestock encountered
   
