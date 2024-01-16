@@ -11,13 +11,11 @@ smart_use<-
            # injured_wl_data_in_smart,
            # dead_wl_data_in_smart,
            protected_area,
-           country,
            smart_fully_rolled_out,
            smart_version,
            smart_connect, 
            set_up_connect) |>
   select(protected_area,
-         country,
          smart_fully_rolled_out,
          smart_version,
          smart_connect,
