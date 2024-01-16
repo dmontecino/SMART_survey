@@ -389,7 +389,7 @@ knitr::include_graphics("plots/plot_section_1.png")
 
 ```
 
-### Section 2: Overall frequency of encounters with dead, sick, or injured wildlife in protected areas and their documentation when found during patrols
+### Section 2: Overall frequency of encounters with dead, sick, or injured wildlife in protected areas and their documentation when found during patrols according to local surveys
 
 <!-- Are dead animals encountered in the protected area?  -->
 <!-- Are sick or injured animals encountered in the protected area?  -->
@@ -1014,7 +1014,8 @@ knitr::include_graphics("plots/plot_section_2E.png")
 
 ```
 
-### Section 3: Importance of introduced domestic animals for the conservation goals of the protected areas
+### Section 3: Presence of domestic animals in the protected area(s), the documentation of their health status, and the perceived threats of domestic animals to conservation goals according to local surveys
+
 
 <!-- Introduced domestic animals (e.g., dogs, cats, cattle, pigs, cats) are a concern for the conservation goals of the protected areas where I work -->
 <!-- 16. Are domestic animals found in the protected area (free-ranging, captive, on a farm)? -->
@@ -1115,7 +1116,7 @@ knitr::include_graphics("plots/plot_section_3.png")
 
 ```
 
-### Section 4: Health data storage practices
+### Section 4: Health data storage practices according to local surveys
 
 
 <!-- Are these data entered and stored in SMART Desktop? -->
@@ -1245,7 +1246,7 @@ terrestrial_data %>%
 `r if(dom_animal_health_status_in_smart/num_responses_dom_animals_in_pa_are_recorded_health_status==1){"All "}` data managers reporting the recording of health status in domestic animals responded that this information was stored in a SMART database.
 
 
-### Section 5: Current state of SMART deployment in protected areas 
+### Section 5: Current state of SMART deployment in protected areas according to local surveys 
 
 <!-- 23. Is SMART fully rolled-out in the protected area(s) you work in or is it being piloted? -->
 
