@@ -30,7 +30,7 @@ dom_animals<-
   
   tidyr::replace_na(list(n=0)) #%>% 
 
-#dom_animals
+# dom_animals
 
 # tidyr::replace_na(list(health_status_recorded_No=0,
   #                        health_status_recorded_Yes=0)) %>% 
@@ -157,9 +157,9 @@ plot_section_3<-
   scale_fill_manual(values = brewer.pal(n = 9, name = "GnBu")[2:8]) +
   facet_wrap(.~dom_animals_concern, nrow = 1) +
   coord_flip() +
-  ggtitle("Agreement ranking")
+  ggtitle("Overall agreement domestic animals are conservation concern")
 
-plot_section_3
+#plot_section_3
 
 
 # plot_section_3<-
