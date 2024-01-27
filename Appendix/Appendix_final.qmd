@@ -1,5 +1,5 @@
 ---
-title: "Appendix 'Wildlife health perceptions and monitoring in protected areas'"
+title: "Appendix 'Wildlife health perceptions and monitoring practices in globally distributed protected areas'"
 author:
   - name: Diego Montecino-Latorre
     affiliations:
@@ -16,13 +16,15 @@ author:
       - name: Wildlife Conservation Society - Health Program
         city: Bronx
         state: New York
-prefer-html: true
-execute: 
+number-sections: true
+editor: visual
+execute:
   cache: false
-format:
-  pdf:  
-    keep-tex: true
-    tbl-pos: "H"
+output: html_dcument
+# opts_chunk: 
+#     R.options: 
+#     knitr.table.html.attr: "quarto-disable-processing=true"
+# code-link: false
 
 ---
 
@@ -142,6 +144,7 @@ section_1 %>%
 #| message: false
 #| warning: false
 #| eval: true
+#| fig-height: 3.5
 #| fig-align: center
 #| fig-cap: Distribution of the level of agreement among protected area data managers with statements 'wildlife health is important to achieve the conservation goals of protected area(s) where I work in' (row 1), 'human or livestock pathogens can affect wildlife populations inhabiting the protected area(s) where I work in' (row 2), 'pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect human health' (row 3), and 'pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect livestock health' (row 4).
 
@@ -353,7 +356,7 @@ injured_recorded<-section_2 %>%
 #| warning: false
 #| eval: true
 #| fig-align: center
-#| fig-width: 6
+#| fig-height: 3
 #| fig-cap: Distribution of protected area data manager responses regarding the encounter of dead and sick or injured wildlife in the protected area(s) where they work. Red numbers indicate the total number of responses per encountering frequency. The dashed area of the polygons represent the responses indicating that dead, sick, and injured wildlife found during ranger patrols are recorded (rows 1 – 3, respectively). Black numbers indicate the total number of responses reporting recording and non-recording of dead, sick, and injured wildlife found during patrols per encountering frequency.
 
 library(ggplot2)
@@ -621,14 +624,14 @@ recording_of_sick_injured_or_dead_wildlife<-
          -dead_wl_recorded)
 ```
 
-<!-- The recording method reported to document either sick, injured, or dead wildlife when found during a patrol varied (considering the `r recording_of_sick_injured_or_dead_wildlife %>% nrow()` responses reporting the documentation of either dead, sick, or injured wildlife). Most often, each animal was documented individually across health status. Another frequent reporting method was via a full inventory of healthy, sick, injured, or dead animals for each species involved. Sometimes, sick, injured, or dead wildlife were recorded as present/absent or in some other fashion. The full distribution of the recording methods across healthy, sick, injured, or dead wildlife is shown in Fig 3. -->
+<!-- The recording method reported to document either sick, injured, or dead wildlife when found during a patrol varied (considering the `r recording_of_sick_injured_or_dead_wildlife |> nrow()` responses reporting the documentation of either dead, sick, or injured wildlife). Most often, each animal was documented individually across health status. Another frequent reporting method was via a full inventory of healthy, sick, injured, or dead animals for each species involved. Sometimes, sick, injured, or dead wildlife were recorded as present/absent or in some other fashion. The full distribution of the recording methods across healthy, sick, injured, or dead wildlife is shown in Fig 3. -->
 
 ```{r section 2D plot}
 #| echo: false
 #| message: false
 #| warning: false
 #| eval: true
-#| fig-align: center
+#| fig-height: 3
 #| fig-cap: Distribution of methods of documentation to register either sick, injured, or dead wildlife found during ranger patrols reported by protected area data managers.
 
 healthy<-
@@ -1035,8 +1038,7 @@ num_responses_dom_animals_in_pa_are_concern_strongly_agree_agree_recorded<-
 #| message: false
 #| warning: false
 #| eval: true
-#| fig-align: center
-#| fig-height: 2
+#| fig-height: 1.8
 #| fig-cap:
 #|  Distribution of the level of agreement among protected area data managers with the statement 'introduced domestic animals (e.g., dogs, cats, cattle, pigs, cats) are a concern for the conservation goals of the protected areas where I work'. Red numbers indicate the total number of responses per agreement. The dashed area of the polygons represent the responses indicating that domestic animals found during ranger patrols are recorded. Black numbers indicate the total number of responses reporting documentation and non-documentation of domestic animals found during patrols.
 
@@ -1375,9 +1377,9 @@ smart_connect_set_up_for_text<-
 
 ```
 
-`r as.character(english::as.english(smart_use_for_text %>% pull(n) %>% nth(1))) |> stringr::str_to_sentence()` protected area data managers reported that SMART was fully rolled-out, and `r smart_use_for_text %>% pull(n) %>% nth(2)` partially rolled-out. The most common SMART Desktop version by the time of the survey was SMART `r smart_version_for_text %>% arrange(-n) %>%  pull(smart_version) %>% nth(1)`, reported by `r smart_version_for_text %>% arrange(-n) %>%  pull(n) %>% nth(1)` data managers. SMART 7 was already available for `r smart_version_for_text %>% filter(smart_version%in% c("7")) %>% pull(n)` data managers by the time of the survey. Older SMART versions were reported once. Finally, `r smart_connect_for_text %>% filter(smart_connect=="Yes") %>% pull(n) %>% nth(1)` data managers reported SMART Connect availability and `r smart_connect_set_up_for_text` mentioned plans to set it up.
+`r as.character(english::as.english(smart_use_for_text |> pull(n) |> nth(1))) |> stringr::str_to_sentence()` protected area data managers reported that SMART was fully rolled-out, and `r smart_use_for_text |> pull(n) |> nth(2)` partially rolled-out. The most common SMART Desktop version by the time of the survey was SMART `r smart_version_for_text |> arrange(-n) |>  pull(smart_version) |> nth(1)`, reported by `r smart_version_for_text |> arrange(-n) |>  pull(n) |> nth(1)` data managers. SMART 7 was already available for `r smart_version_for_text |> filter(smart_version%in% c("7")) |> pull(n)` data managers by the time of the survey. Older SMART versions were reported once. Finally, `r smart_connect_for_text |> filter(smart_connect=="Yes") |> pull(n) |> nth(1)` data managers reported SMART Connect availability and `r smart_connect_set_up_for_text` mentioned plans to set it up.
 
-{{< pagebreak >}}
+
 
 ## Comparing the results of non-local and local responses from the same country
 
@@ -1389,7 +1391,11 @@ smart_connect_set_up_for_text<-
 #| message: false
 #| warning: false
 #| eval: true
+#| layout-ncol: 1
+#| layout-nrow: 4
+#| results: asis
 
+library(htmltools)
 
 # terrestrial_data<-readRDS("data/terrestrial_data.RDS")
 # 
@@ -1472,104 +1478,24 @@ smart_connect_set_up_for_text<-
 # madagascar
 # peru
 
-protected_area_data<-
-  terrestrial_data %>% 
-  select(protected_area) %>% 
-  unlist(recursive = F)
+source("section_2_1.R")
 
-local_and_global_indexes<-
-map_vec(protected_area_data, \(x) 
-    any(x$country%in%c("Bhutan", "Republic of Congo", "Madagascar", "Peru"))) 
-  
-  
-local_in_global<-terrestrial_data[local_and_global_indexes,] %>% filter(local==T)
+# for(i in seq_along(out)){
+#   for(y in seq_along(out[[i]])){
+#   return(out[[i]][[y]])  #response X
+#   }}
 
-local_in_global$country<-map_vec(local_in_global$protected_area, \(x) x$country[1])
-
-local_in_global<-local_in_global %>% nest(.by = country)
-
-local_in_global<-
-  local_in_global %>% 
-  rename("local_data"="data")
-
-
-
-
-global<- terrestrial_data[local_and_global_indexes,] %>% filter(local==F)
-
-global$country<-map_vec(global$protected_area, \(x) x$country[1])
-
-global<-global %>% nest(.by = country)
-
-global<-
-  global %>% 
-  rename("global_data"="data")
-
-
-
-
-compare_global_versus_local<-full_join(local_in_global, global, "country")
-
-##-- SECTION 1
-
-for(i in 1:nrow(compare_global_versus_local)){
-#  for(i in 1){
-
-section_1 =
-  compare_global_versus_local %>% 
-  slice(i) %>% 
-  unnest(global_data) %>% 
-  select(country, 
-         wildlife_health_important,
-         hum_liv_path_affect_wildlife,
-         wildlife_path_affect_livestock,
-         wildlife_path_affect_phealth) %>% 
-  mutate(global_local="Global") %>% 
-  bind_rows(
-  compare_global_versus_local %>% 
-  slice(i) %>% 
-  unnest(local_data) %>% 
-  select(country,
-         wildlife_health_important,
-         hum_liv_path_affect_wildlife,
-         wildlife_path_affect_livestock,
-         wildlife_path_affect_phealth) %>% 
-  mutate(global_local="Local")) 
-
-
-section_1$country<-paste0("country_",i) 
-
-section_1<-
-  section_1 %>% 
-  select(global_local, 
-         wildlife_health_important,
-         hum_liv_path_affect_wildlife,
-         wildlife_path_affect_livestock,
-         wildlife_path_affect_phealth)
-         
-out<-kableExtra::kable(section_1,  
-                       caption = paste0("Non-local and local responses for section 1 in country ", i),
-                    col.names = 
-                    c("Response\ncategory",
-                      "Wildlife health\nis important",
-                      "Human and livestock\npathogens can\nimpact wildlife\nhealth",
-                      "Wildlife pathogens can\nimpact human health",
-                      "Wildlife pathogens can\nimpact livestock health")) %>% column_spec(1:5, width = c("2cm", rep("3cm", 4))) %>% kable_styling(latex_options = "HOLD_position")  
-  #                 table.attr = "quarto-disable-processing=true") %>% 
-  # kable_styling(c("striped", "bordered"), full_width = FALSE)
-
-
-assign(x = paste0("section_1", "_table", i), value = out)
-
-}
-
-get("section_1_table1")
-get("section_1_table2")
-get("section_1_table3")
-get("section_1_table4")
-
-#mget(paste0("section_1", "_table", 1:nrow(compare_global_versus_local)))
-
+# tagList(out[[1]])
+out[[1]]
+out[[2]]
+out[[3]]
+out[[4]]
+#unlist(out, use.names = F)
+# knitr::knit(text = unlist(out, recursive = FALSE))
+# section_1_table1
+# section_1_table2
+# section_1_table3
+# section_1_table4
 ```
 
 ### Section 2: Overall frequency of encounters with dead, sick, or injured wildlife in protected areas and their documentation when found during patrols in local surveys and non-local surveys containing protected areas in local responses
@@ -1580,69 +1506,18 @@ get("section_1_table4")
 #| message: false
 #| warning: false
 #| eval: true
+#| layout-ncol: 1
+#| layout-nrow: 4
+#| results: asis
 
-##-- SECTION 2
+source("section_2_2.R")
 
-for(i in 1:nrow(compare_global_versus_local)){
-#  for(i in 1){
+out[[1]]
+out[[2]]
 
-section_2 =
-  compare_global_versus_local %>% 
-  slice(i) %>% 
-  unnest(global_data) %>% 
-  select(country, 
-         dead_found,
-           sick_injured_found,
-           dead_wl_recorded,
-           sick_wl_recorded,
-           injured_wl_recorded) %>% 
-  mutate(global_local="Global") %>% 
-  bind_rows(
-  compare_global_versus_local %>% 
-  slice(i) %>% 
-  unnest(local_data) %>% 
-  select(country,
-         dead_found,
-           sick_injured_found,
-           dead_wl_recorded,
-           sick_wl_recorded,
-           injured_wl_recorded) %>% 
-  mutate(global_local="Local")) 
-
-
-section_2$country<-paste0("country_",i) 
-
-section_2<-
-  section_2 %>% 
-  select(global_local, 
-         dead_found,
-         dead_wl_recorded,
-         sick_injured_found,
-         sick_wl_recorded,
-         injured_wl_recorded)
-         
-out<-kableExtra::kable(section_2,  
-                       caption = paste0("Non-local and local responses for section 2 in country ", i),
-                    col.names = 
-                    c("Response\ncategory",
-                      "Dead wildlife\nencounter frequency",
-                      "Dead wildlife\nfound in patrols\nis recorded",
-                      "Sick or injured wildlife\nencounter frequency",
-                      "Sick wildlife\nfound in patrols\nis recorded",
-                      "Injured wildlife\nfound in patrols\nis recorded")) %>% column_spec(1:6, width = c("2cm", "3cm", "2cm", "3cm", rep("2cm", 2))) %>%  kable_styling(latex_options = "HOLD_position")
-  #                 table.attr = "quarto-disable-processing=true") %>% 
-  # kable_styling(c("striped", "bordered"), full_width = FALSE)
-
-
-assign(x = paste0("section_2", "_table", i), value = out)
-
-}
-
-get("section_2_table1")
-get("section_2_table2")
-get("section_2_table3")
-get("section_2_table4")
-
+out2[[1]]
+out2[[2]]
+out2[[3]]
 
 ```
 
@@ -1653,65 +1528,16 @@ get("section_2_table4")
 #| message: false
 #| warning: false
 #| eval: true
+#| layout-ncol: 1
+#| layout-nrow: 4
+#| results: asis
 
-##-- SECTION 3
+source("section_2_3.R")
 
-for(i in 1:nrow(compare_global_versus_local)){
-#  for(i in 1){
-
-section_3 =
-  compare_global_versus_local %>% 
-  slice(i) %>% 
-  unnest(global_data) %>% 
-  select(country, 
-          dom_animals_concern,
-          dom_animals_in_pa,
-          dom_animals_recorded,
-          dom_animal_health_status_recorded) %>% 
-  mutate(global_local="Global") %>% 
-  bind_rows(
-  compare_global_versus_local %>% 
-  slice(i) %>% 
-  unnest(local_data) %>% 
-  select(country,
-         dom_animals_concern,
-           dom_animals_in_pa,
-           dom_animals_recorded,
-           dom_animal_health_status_recorded) %>% 
-  mutate(global_local="Local")) 
-
-
-section_3$country<-paste0("country_",i) 
-
-section_3<-
-  section_3 %>% 
-  select(global_local, 
-         dom_animals_concern,
-           dom_animals_in_pa,
-           dom_animals_recorded,
-           dom_animal_health_status_recorded)
-         
-out<-kableExtra::kable(section_3,  
-                       caption = paste0("Non-local and local responses for section 3 in country ", i),
-                    col.names = 
-                    c("Response\ncategory",
-                      "Introduced domestic\nanimals are\na conservation\nconcern",
-                      "Domestic animals\nfound in the\nprotected area",
-                      "Domestic animals\nare recorded",
-                      "Domestic animals\nhealth status\nis recorded")) %>% column_spec(1:5, width = c("2cm", "3cm", "2cm", rep("2cm", 2)))  %>% kable_styling(latex_options = "HOLD_position")
-  #                 table.attr = "quarto-disable-processing=true") %>% 
-  # kable_styling(c("striped", "bordered"), full_width = FALSE)
-
-
-assign(x = paste0("section_3", "_table", i), value = out)
-
-}
-
-get("section_3_table1")
-get("section_3_table2")
-get("section_3_table3")
-get("section_3_table4")
-
+out[[1]]
+out[[2]]
+out[[3]]
+out[[4]]
 
 ```
 ### Section 4: Health data storage practices in local surveys and non-local surveys containing protected areas in local responses
@@ -1722,83 +1548,27 @@ get("section_3_table4")
 #| warning: false
 #| eval: true
 #| tbl-pos: H
+#| layout-ncol: 1
+#| layout-nrow: 4
+#| results: asis
 
 ##-- SECTION 4
 
-for(i in 1:nrow(compare_global_versus_local)){
-#  for(i in 1){
+source("section_2_4.R")
 
-section_4 =
-  compare_global_versus_local %>% 
-  slice(i) %>% 
-  unnest(global_data) %>% 
-  select(country, 
-          dead_wl_recorded,
-          dead_wl_data_in_smart,
-          sick_wl_recorded,
-          sick_wl_data_in_smart,
-          injured_wl_recorded,
-          injured_wl_data_in_smart) %>% 
-  mutate(global_local="Global") %>% 
-  bind_rows(
-  compare_global_versus_local %>% 
-  slice(i) %>% 
-  unnest(local_data) %>% 
-  select(country,
-         dead_wl_recorded,
-          dead_wl_data_in_smart,
-          sick_wl_recorded,
-          sick_wl_data_in_smart,
-          injured_wl_recorded,
-          injured_wl_data_in_smart) %>% 
-  mutate(global_local="Local")) 
+dead_in_smart[[1]]
+dead_in_smart[[2]]
+dead_in_smart[[3]]
+dead_in_smart[[4]]
 
+sick_in_smart[[1]]
+sick_in_smart[[2]]
+sick_in_smart[[3]]
 
-section_4$country<-paste0("country_",i) 
+injured_in_smart[[1]]
+injured_in_smart[[2]]
+injured_in_smart[[3]]
 
-section_4<-
-  section_4 %>% 
-  select(global_local, 
-        dead_wl_recorded,
-          dead_wl_data_in_smart,
-          sick_wl_recorded,
-          sick_wl_data_in_smart,
-          injured_wl_recorded,
-          injured_wl_data_in_smart)
-         
-section_4$dead_wl_data_in_smart[grepl("Some", section_4$dead_wl_data_in_smart)]<-"Some"
-section_4$dead_wl_data_in_smart[grepl("All", section_4$dead_wl_data_in_smart)]<-"Some"
-section_4$dead_wl_data_in_smart[grepl("None", section_4$dead_wl_data_in_smart)]<-"None"
-section_4$sick_wl_data_in_smart[grepl("Some", section_4$sick_wl_data_in_smart)]<-"Some"
-section_4$sick_wl_data_in_smart[grepl("All", section_4$sick_wl_data_in_smart)]<-"Some"
-section_4$sick_wl_data_in_smart[grepl("None", section_4$sick_wl_data_in_smart)]<-"None"
-section_4$injured_wl_data_in_smart[grepl("Some", section_4$injured_wl_data_in_smart)]<-"Some"
-section_4$injured_wl_data_in_smart[grepl("All", section_4$injured_wl_data_in_smart)]<-"Some"
-section_4$injured_wl_data_in_smart[grepl("None", section_4$injured_wl_data_in_smart)]<-"None"
-
-
-out<-kableExtra::kable(section_4,  
-                       caption = paste0("Non-local and local responses for section 4 in country ", i),
-                    col.names = 
-                    c("Response\ncategory",
-                      "Dead wildlife\nfound in patrols\nare recorded",
-                      "Dead willdife\ndata in SMART",
-                      "Sick wildlife\nfound in patrols\nare recorded",
-                      "Sick willdife\ndata in SMART",
-                      "Injured wildlife\nfound in patrols\nis recorded",
-                      "Injured willdife\ndata in SMART")) %>% column_spec(1:7, width = c("2cm", "2cm", "2cm", "2cm", "2cm", "2cm", "2cm"))   %>% kable_styling(latex_options = "HOLD_position")
-  #                 table.attr = "quarto-disable-processing=true") %>% 
-  # kable_styling(c("striped", "bordered"), full_width = FALSE)
-
-
-assign(x = paste0("section_4", "_table", i), value = out)
-
-}
-
-get("section_4_table1")
-get("section_4_table2")
-get("section_4_table3")
-get("section_4_table4")
 
 
 ```
