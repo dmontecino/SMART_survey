@@ -97,8 +97,8 @@ freq_found_recorded<-
   arrange(found) %>% 
   mutate(name=factor(name, 
                      levels = c("injured", "sick", "dead"),
-                     labels = c("Sick or injured\nwildlife (b)",
-                                "Sick or injured\nwildlife (a)",
+                     labels = c("Injured wildlife*",
+                                "Sick wildlife*",
                                 "Dead wildlife")))
 
 

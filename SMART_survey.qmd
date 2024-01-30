@@ -429,15 +429,16 @@ dead_found$dead_found<-factor(dead_found$dead_found,
 
 dead_found<-dead_found[order(dead_found$dead_found),]
 
-dead_found_btn_v_rarely_v_frequently<-
+#dead_found_btn_v_rarely_v_frequently<-
+dead_found_btn_v_rarely_always<-
 dead_found %>% 
   arrange(-n) %>% 
-  slice(1:5) %>% pull(n) %>%  sum()
+  filter(dead_found!="Never") %>% 
+  pull(n) %>%  sum()
   
 
 dead_recorded<-section_2 %>% 
-  filter(dead_found%in%c("Very frequently", "Occasionally", "Sometimes",
-                           "Rarely", "Very rarely")) %>% 
+  filter(dead_found!=c("Never")) %>% 
   count(dead_wl_recorded) %>% 
   filter(dead_wl_recorded=="Yes") %>% 
   pull(n)
@@ -452,14 +453,15 @@ sick_injured_found$sick_injured_found<-factor(sick_injured_found$sick_injured_fo
 
 sick_injured_found<-sick_injured_found[order(sick_injured_found$sick_injured_found),]
 
-sick_injured_found_btn_v_rarely_ocassionally<-
+sick_injured_found_btn_v_rarely_always<-
 sick_injured_found %>% 
-  arrange(-n) %>% 
-  slice(1:4) %>% pull(n) %>%  sum()
+ arrange(-n) %>% 
+  filter(sick_injured_found!="Never") %>% 
+  pull(n) %>%  sum()
   
 
 sick_recorded<-section_2 %>% 
-  filter(sick_injured_found%in%c("Occasionally", "Sometimes", "Rarely", "Very rarely")) %>% 
+  filter(sick_injured_found!=c("Never")) %>% 
   count(sick_wl_recorded) %>% 
   filter(sick_wl_recorded=="Yes") %>% 
   pull(n)
@@ -468,7 +470,7 @@ sick_recorded<-section_2 %>%
 #Injured
 
 injured_recorded<-section_2 %>% 
-  filter(sick_injured_found%in%c("Occasionally", "Sometimes", "Rarely", "Very rarely")) %>% 
+  filter(sick_injured_found!=c("Never")) %>% 
   count(injured_wl_recorded) %>% 
   filter(injured_wl_recorded=="Yes") %>% 
   pull(n)
@@ -476,9 +478,9 @@ injured_recorded<-section_2 %>%
 
 ```
 
-`r as.character(english::as.english(dead_found_btn_v_rarely_v_frequently)) |> stringr::str_to_title()` (`r round(dead_found_btn_v_rarely_v_frequently/nrow(terrestrial_data[terrestrial_data$local==T,])*100,1)`%) ranked the encountering with dead animals in the protected area between "Very rarely" and "Very frequently", whilst `r round(dead_recorded/dead_found_btn_v_rarely_v_frequently*100,1)`% of these respondents answered that these animals are documented as a specific category if found during patrols.
+`r as.character(english::as.english(dead_found_btn_v_rarely_always)) |> stringr::str_to_title()` (`r round(dead_found_btn_v_rarely_always/nrow(terrestrial_data[terrestrial_data$local==T,])*100,1)`%) ranked the encountering with dead animals in the protected area between "Very rarely" and "Very frequently", whilst `r round(dead_recorded/dead_found_btn_v_rarely_always*100,1)`% of these respondents answered that these animals are documented as a specific category if found during patrols.
 
-`r as.character(english::as.english(sick_injured_found_btn_v_rarely_ocassionally)) |> stringr::str_to_title()` (`r round(sick_injured_found_btn_v_rarely_ocassionally/nrow(terrestrial_data[terrestrial_data$local==T,])*100,1)`%) ranked the encountering with sick or injured animals in the protected area between "Very rarely" and "Occasionally", whilst `r round(sick_recorded/sick_injured_found_btn_v_rarely_ocassionally*100,1)`% and `r round(injured_recorded/sick_injured_found_btn_v_rarely_ocassionally*100,1)` of these respondents answered that sick and injured animals are documented as specific categories if found during patrols (Fig 2).
+`r as.character(english::as.english(sick_injured_found_btn_v_rarely_always)) |> stringr::str_to_title()` (`r round(sick_injured_found_btn_v_rarely_always/nrow(terrestrial_data[terrestrial_data$local==T,])*100,1)`%) ranked the encountering with sick or injured animals in the protected area between "Very rarely" and "Occasionally", whilst `r round(sick_recorded/sick_injured_found_btn_v_rarely_always*100,1)`% and `r round(injured_recorded/sick_injured_found_btn_v_rarely_always*100,1)` of these respondents answered that sick and injured animals are documented as specific categories if found during patrols (Fig 2).
 
 ```{r section 2A plot }
 #| echo: false
@@ -508,10 +510,14 @@ knitr::include_graphics("plots/plot_section_2A_option2.png")
 #| eval: true
 
 dead_found_and_not_documented_versus_wh_importance<-
-terrestrial_data %>% filter(local==T) %>% 
+terrestrial_data %>% 
+  filter(local==T) %>% 
   select(dead_found, dead_wl_recorded, wildlife_health_important) %>% 
   filter(dead_wl_recorded=="No" & dead_found!="Never") %>% 
   count(wildlife_health_important)
+
+
+
 
 dead_found_and_not_documented_wh_important_agree_strongly_agree<-
 dead_found_and_not_documented_versus_wh_importance %>% 
