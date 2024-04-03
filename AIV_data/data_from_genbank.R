@@ -6,7 +6,9 @@ library(lubridate)
 library(tidyverse)
 library(janitor)
 
-queries<-"(H5N1) AND Influenza A virus[porgn] AND 2020/10/01[PDAT]:2023/10/10[PDAT]"
+# queries<-"(H5N1) AND Influenza A virus[porgn] AND 2020/10/01[PDAT]:2023/10/10[PDAT]"
+#updating dat up to april 2nd 2024
+queries<-"(H5N1) AND Influenza A virus[porgn] AND 2023/10/11[PDAT]:2024/04/02[PDAT]"
 
 # Define query parameters
 db <- "nucleotide"
@@ -41,12 +43,14 @@ urls <- paste0("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/",
 
 xmls<-vector(mode = "list", length = length(seq_along(urls)))
 
-for(i in seq_along(urls)){
+# for(i in seq_along(urls)){
+for(i in 794:length(urls)){
 xmls[[i]]<-urls[i] %>% read_xml() %>% xml_serialize(NULL)
 cat(i, sep = ", ")}
 
 
-saveRDS(xmls, file = "/Users/DMontecino/Downloads/genbank_aiv_hosts_h5n1.RDS")
+# saveRDS(xmls, file = "/Users/DMontecino/Downloads/genbank_aiv_hosts_h5n1.RDS")
+saveRDS(xmls, file = "/Users/DMontecino/Downloads/genbank_aiv_hosts_h5n1_2.RDS")
 # xmls6<-readRDS( file = "/Users/DMontecino/Downloads/genbank_aiv_hosts_6.RDS")
 
 xml<-lapply(xmls, xml_unserialize)
@@ -161,7 +165,8 @@ skim(dat)
 
 #save the data
 #saveRDS(dat, "/Users/DMontecino/Downloads/genbank_h5n1_aiv_hosts_data.RDS")
-dat<-readRDS("/Users/DMontecino/Downloads/genbank_h5n1_aiv_hosts_data.RDS")
+#saveRDS(dat, "/Users/DMontecino/Downloads/genbank_h5n1_aiv_hosts_data_2.RDS")
+dat<-readRDS("/Users/DMontecino/Downloads/genbank_h5n1_aiv_hosts_data_2.RDS")
 
 
 #auk_set_ebd_path("/Users/DMontecino/Downloads/")
@@ -193,6 +198,36 @@ dat$host[grepl(pattern = "bird", x = dat$host)]<-"aves"
 dat$host[grepl(pattern = "aix sponsa", x = dat$host)]<-"aix sponsa"
 dat$host<-trimws(dat$host, which = "both")
 
+dat$host<-tolower(dat$host)
+dat$host[grepl(pattern = "american_wigeon", x = dat$host)]<-"american wigeon"
+dat$host[grepl(pattern = "anas platyrhynchos domesticus", x = dat$host)]<-"anas platyrhynchos"
+dat$host[grepl(pattern = "black-headed gull", x = dat$host)]<-"chroicocephalus ridibundus"
+dat$host[grepl(pattern = "black-headed seagull", x = dat$host)]<-"chroicocephalus ridibundus"
+dat$host[grepl(pattern = "brant goose", x = dat$host)]<-"branta bernicla"
+dat$host[grepl(pattern = "cackling_goose", x = dat$host)]<-"branta hutchinsii"
+dat$host[grepl(pattern = "anas sp.", x = dat$host)]<-"anas"
+dat$host[grepl(pattern = "chicken", x = dat$host)]<-"gallus gallus"
+dat$host[grepl(pattern = "columba sp.", x = dat$host)]<-"columba"
+dat$host[grepl(pattern = "crow", x = dat$host)]<-"corvidae"
+dat$host[grepl(pattern = "duck", x = dat$host)]<-"anatidae"
+dat$host[grepl(pattern = "feline", x = dat$host)]<-"felidae"
+dat$host[grepl(pattern = "gallus gallus domesticus", x = dat$host)]<-"gallus gallus"
+dat$host[grepl(pattern = "mute swan", x = dat$host)]<-"cygnus olor"
+dat$host[grepl(pattern = "northern_pintail", x = dat$host)]<-"anas acuta"
+dat$host[grepl(pattern = "pelecanus sp.", x = dat$host)]<-"pelecanus"
+dat$host[grepl(pattern = "phalacrocorax sp.", x = dat$host)]<-"phalacrocorax"
+dat$host[grepl(pattern = "pygoscelis sp.", x = dat$host)]<-"pygoscelis"
+dat$host[grepl(pattern = "south american fur seal", x = dat$host)]<-"arctocephalus australis"
+dat$host[grepl(pattern = "south american sea lion", x = dat$host)]<-"otaria flavescens"
+dat$host[grepl(pattern = "south american tern", x = dat$host)]<-"sterna hirundinacea"
+dat$host[grepl(pattern = "tibetan black bear", x = dat$host)]<-"ursus thibetanus"
+dat$host[grepl(pattern = "turkey", x = dat$host)]<-"meleagris gallopavo"
+dat$host[grepl(pattern = "wild bird", x = dat$host)]<-"aves"
+dat$host[grepl(pattern = "thalasseus acuflavidus", x = dat$host)]<-"thalasseus acuflavidus"
+
+dat<-dat %>% filter(host!="env")
+
+
 sort(unique(dat$host))
 
 library(taxize)
@@ -219,7 +254,7 @@ library(myTAI)
 
 order=vector(mode = "list", length = nrow(host_dat))
 
-for(i in 162:nrow(host_dat)){
+for(i in 1:nrow(host_dat)){
 
   order[[i]]=
     
@@ -230,8 +265,9 @@ for(i in 162:nrow(host_dat)){
   cat(paste0(i, " "))}
 
 #saveRDS(order, file = "/Users/DMontecino/OneDrive - Wildlife Conservation Society/PAPERS/SMART_survey/AIV_data/my_TAI_genbak_hosts_data.RDS")
-order<-readRDS(file = "/Users/DMontecino/OneDrive - Wildlife Conservation Society/PAPERS/SMART_survey/AIV_data/my_TAI_genbak_hosts_data.RDS")
-
+#saveRDS(order, file = "/Users/DMontecino/OneDrive - Wildlife Conservation Society/PAPERS/SMART_survey/AIV_data/my_TAI_genbak_hosts_data_2.RDS")
+#order<-readRDS(file = "/Users/DMontecino/OneDrive - Wildlife Conservation Society/PAPERS/SMART_survey/AIV_data/my_TAI_genbak_hosts_data.RDS")
+order<-readRDS(file = "/Users/DMontecino/OneDrive - Wildlife Conservation Society/PAPERS/SMART_survey/AIV_data/my_TAI_genbak_hosts_data_2.RDS")
 
 order2<-map(order, \(x) if(length(x)==1){
   tibble(class=NA,
@@ -547,6 +583,15 @@ host_dat2[is.na(host_dat2$class_my_tai) &
 
 
 
+host_dat2[is.na(host_dat2$class_my_tai) & host_dat2$genbank_host=="thalasseus acuflavidus",
+          c("class_my_tai",
+            "order_my_tai",
+            "family_my_tai",
+            "genus_my_tai", 
+            "species_my_tai")]<-c("Aves", "Charadriiformes", "Laridae", "Thalasseus", "Thalasseus acuflavidus")
+
+
+
 # host_dat2 %>% filter(is.na(class_my_tai))
 # host_dat2 %>% filter(is.na(order_my_tai))
 # host_dat2 %>% filter(is.na(family_my_tai))
@@ -564,7 +609,9 @@ host_dat2[is.na(host_dat2$species_my_tai) & !is.na(host_dat2$ebird_to_sci_host),
 
 # host_dat2 %>% filter(is.na(species_my_tai))
 
-saveRDS(host_dat2, "/Users/DMontecino/Downloads/genbank_h5n1_aiv_hosts_data_cleaned_hosts.RDS")
+#saveRDS(host_dat2, "/Users/DMontecino/Downloads/genbank_h5n1_aiv_hosts_data_cleaned_hosts.RDS")
+saveRDS(host_dat2, "/Users/DMontecino/Downloads/genbank_h5n1_aiv_hosts_data_cleaned_hosts_2.RDS")
+
 
 cleaned_hosts<-
 host_dat2 %>% 
@@ -589,8 +636,8 @@ sort(unique(dat_full$genus_my_tai))
 sort(unique(dat_full$species_my_tai))
 dat_full$species_my_tai[dat_full$species_my_tai=="Anser sp."]<-NA
 
-saveRDS(dat_full, "/Users/DMontecino/Downloads/genbank_h5n1_aiv_hosts_data_cleaned_hosts_full.RDS")
-
+#saveRDS(dat_full, "/Users/DMontecino/Downloads/genbank_h5n1_aiv_hosts_data_cleaned_hosts_full.RDS")
+saveRDS(dat_full, "/Users/DMontecino/Downloads/genbank_h5n1_aiv_hosts_data_cleaned_hosts_full_2.RDS")
 
 
 
