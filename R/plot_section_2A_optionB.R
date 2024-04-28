@@ -168,7 +168,7 @@ plot_section_2A<-
   coord_flip() +
   ggtitle("Overall encountering frecuency in protected area(s)")
 
-  plot_section_2A 
+  # plot_section_2A 
  
  
 
