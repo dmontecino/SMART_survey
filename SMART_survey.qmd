@@ -45,6 +45,8 @@ format: pdf
 
 2 University of Calgary, Faculty of Veterinary Medicine, Calgary, Alberta, Canada
 
+Corresponding author Diego Montecino-Latorre, email dmontecino@wcs.org
+
 ## ABSTRACT
 Diseases are a threat to biodiversity conservation and global health, however, wildlife health (WH) surveillance systems remain uncommon. This deficit is especially relevant in protected areas (PAs) facing anthropogenic pressures. Integration of field conservation actors patrolling PAs can drastically strengthen WH surveillance. Nevertheless, baseline information regarding current WH monitoring mandates and practices at these sites is missing.  To address this gap, we surveyed globally distributed protected area data managers (PADMs). 
 PADMs considered WH as relevant to the conservation goals of PAs and >90% of them confirmed that non-healthy and dead wildlife are encountered. However, >50% and >20% of PADMs claimed that these animals were not recorded, respectively. When these animals were documented, the recording methods and information collected differed. Although domestic animal presence was common and considered a conservation concern, these animals and their health status were not always recorded. Health data were often stored in a database, but paper forms and spreadsheets were also used. 
