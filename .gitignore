@@ -6,3 +6,5 @@ SMART_survey_cache
 data/survey_responses.csv
 data/survey_responses.xlsx
 submissions
+R/clean_pa_names.R
+R/classify_pa.R
