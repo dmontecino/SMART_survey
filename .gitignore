@@ -2,7 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-*.html
 SMART_survey_cache
 data/survey_responses.csv
 data/survey_responses.xlsx
