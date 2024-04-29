@@ -64,7 +64,8 @@ smart_connect_for_text<-
 
 smart_connect_set_up_for_text<-
   smart_use |>
-  filter(smart_connect=="No" & grepl(pattern="Si |Si,|Yes|Yes.|Yes,  ", x= smart_use$set_up_connect, ignore.case=T)) |>
+  filter(smart_connect=="No" & grepl(pattern="Si |Si,|Yes|Yes.|Yes,  ", 
+                                     x= smart_use$set_up_connect, ignore.case=T)) |>
   nrow()
   
 

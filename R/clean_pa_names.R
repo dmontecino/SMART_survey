@@ -265,7 +265,8 @@ protected_areas[[46]]$protected_area<-"Endau-Rompin National Park - Malaysia"
 
 #"Batang Ai National Park\nLanjak - Entimau Wildlife Sanctuary \nSedilu-Ulu Sebuyau-Lesong Landscape"
 protected_areas[[47]]<-protected_areas[[47]] %>% separate_longer_delim(protected_area, delim = "\n")
-protected_areas[[47]]$protected_area<-gsub('-', replacement = " ", protected_areas[[47]]$protected_area)
+protected_areas[[47]]$protected_area[2]<-"Lanjak-Entimau Wildlife Sanctuary"
+protected_areas[[47]]$protected_area<-gsub('- ', replacement = " ", protected_areas[[47]]$protected_area)
 protected_areas[[47]]$protected_area<-paste(protected_areas[[47]]$protected_area, "- Malaysia")
 
 #"Murchison Falls National Park"
@@ -329,7 +330,7 @@ protected_areas[[66]]$protected_area<-"Reserva Nacional Pacaya Samiria - Peru"
 protected_areas[[67]]<-tibble(protected_area=rep("protected area - Peru", 76))
 
 #"PARQUE NACIONAL HUASCARAN"
-protected_areas[[68]]$protected_area<-"Parque Nacional Huascaran - Peru" 
+protected_areas[[68]]$protected_area<-"Parque Nacional Huascarán - Peru" 
 
 #Alder Feijoo
 protected_areas[[69]]$protected_area<-"Santuario Nacional Los Manglares de Tumbes - Peru" 
@@ -434,6 +435,7 @@ protected_areas[[100]]$protected_area<-"Endau-Rompin National Park - Malaysia"
 
 #Batang Ai National Park\nLanjak-Entimau Wildlife Sanctuary\nSedilu-Sebuyau-Lesong- landscape
 protected_areas[[101]]<-protected_areas[[101]] %>% separate_longer_delim(protected_area, delim = "\n")
+protected_areas[[101]]$protected_area[3] <- "Sedilu-Ulu Sebuyau-Lesong Landscape"
 protected_areas[[101]]$protected_area<-paste(protected_areas[[101]]$protected_area, "- Malaysia")
 
 #"Huai Kha Khaeng Wildlife Sanctuary\nThung Yai Naresuan Wildlife Sanctuary\nKaeng Krachan National Park\nThap Lan National Park"
@@ -445,6 +447,7 @@ protected_areas[[103]]$protected_area<-"Taman Negara Terengganu National Park - 
 
 #"Nouabale-Ndoki National Park (NNNP)\nPeripheral Ecosystem Management Project in Nouabale-Ndoki National Park (PROGEPP-Kabo)\nLake Tele Community Reserve (LCR)"
 protected_areas[[104]]<-protected_areas[[104]] %>% separate_longer_delim(protected_area, delim = "\n")
+protected_areas[[104]]$protected_area[2]<-"Lake Téle Community Reserve"
 protected_areas[[104]]$protected_area<-paste(protected_areas[[104]]$protected_area, "- Republic of Congo")
 protected_areas[[104]]<-protected_areas[[104]][c(1,3),]
 protected_areas[[104]]$protected_area[1]<-"Nouabale-Ndoki National Park - Republic of Congo"
@@ -526,12 +529,23 @@ protected_areas[[126]]$protected_area  <- "Endau-Rompin National Park - Malaysia
 protected_areas[[127]]<-protected_areas[[127]] %>% separate_longer_delim(protected_area, delim = "\n")
 protected_areas[[127]]<-protected_areas[[127]][-4, ]
 protected_areas[[127]]$protected_area<-paste(protected_areas[[127]]$protected_area, "- Tanzania")
+protected_areas[[127]]$protected_area[1] <- "Rukwa Game Reserve - Tanzania"
+protected_areas[[127]]$protected_area[2] <- "Rungwa Game Reserve - Tanzania"
+protected_areas[[127]]$protected_area[3] <- "Rukwati Piti Game Reserve - Tanzania"
+protected_areas[[127]] <- rbind(protected_areas[[127]],
+                                           data.frame(
+                                             protected_area=
+                                               c("Kizigo Game Reserve - Tanzania",
+                                                 "Muhezi Game Reserve - Tanzania")))
 
 #Tanintharyi Nature Reserve
 protected_areas[[128]]$protected_area  <- "Endau-Rompin National Park - Malaysia"
 
 #"Rungwa\nKizigo\nMuhesi Game Reserves"
 protected_areas[[129]]<-protected_areas[[129]] %>% separate_longer_delim(protected_area, delim = "\n")
+protected_areas[[129]]$protected_area[1]<-"Rungwa Game Reserve"
+protected_areas[[129]]$protected_area[2]<-"Kizigo Game Reserve"
+protected_areas[[129]]$protected_area[3]<-"Muhesi Game Reserve"
 protected_areas[[129]]$protected_area<-paste(protected_areas[[129]]$protected_area, "- Tanzania")
 
 
