@@ -2,17 +2,18 @@ library(ggplot2)
 library(camcorder)
 library(ggpattern)
 library(RColorBrewer)
+library(dplyr)
 
 likert_theme <-
   theme_gray() +
-  theme(text = element_text(size = 60),
+  theme(text = element_text(size = 20),
         plot.title = element_text(size = 60, face = "bold",
                                   margin = margin(10, 0, 10, 0)),
         plot.margin = unit(c(2.4,0,2.4,.4), "cm"),
         plot.background = element_rect(linewidth = 5, color = "black"),
         panel.grid = element_blank(),
         axis.text.x = element_blank(),
-        axis.text.y = element_text(colour = "black"),
+        #axis.text.y = element_text(colour = "black"),
         axis.ticks = element_blank(),
         axis.title = element_blank(),
         panel.background = element_blank(),
@@ -21,7 +22,7 @@ likert_theme <-
 
 
 section_2 <-
-  terrestrial_data %>% filter(local==T) %>% 
+  terrestrial_data |> filter(local==T) |> 
   select(dead_found,
            sick_injured_found,
            dead_wl_recorded,
@@ -31,25 +32,25 @@ section_2 <-
 
 
 dead_found_recorded<-
-  section_2 %>%
-  # dplyr::select(-survey) %>%
-  dplyr::count(dead_found, dead_wl_recorded, name = "total_dead_found_recorded_group") %>% 
-  tidyr::complete(dead_found, dead_wl_recorded ) %>% 
-  tidyr::replace_na(replace = list(total_dead_found_recorded_group=0)) #%>% 
+  section_2 |>
+  # dplyr::select(-survey) |>
+  dplyr::count(dead_found, dead_wl_recorded, name = "total_dead_found_recorded_group") |> 
+  tidyr::complete(dead_found, dead_wl_recorded ) |> 
+  tidyr::replace_na(replace = list(total_dead_found_recorded_group=0)) #|> 
 
 sick_found_recorded<-
-  section_2 %>%
-  # dplyr::select(-survey) %>%
-  dplyr::count(sick_injured_found, sick_wl_recorded, name = "total_sick_found_recorded_group") %>% 
-  tidyr::complete(sick_injured_found, sick_wl_recorded ) %>% 
-  tidyr::replace_na(replace = list(total_sick_found_recorded_group=0)) #%>% 
+  section_2 |>
+  # dplyr::select(-survey) |>
+  dplyr::count(sick_injured_found, sick_wl_recorded, name = "total_sick_found_recorded_group") |> 
+  tidyr::complete(sick_injured_found, sick_wl_recorded ) |> 
+  tidyr::replace_na(replace = list(total_sick_found_recorded_group=0)) #|> 
 
 injured_found_recorded<-
-  section_2 %>%
-  # dplyr::select(-survey) %>%
-  dplyr::count(sick_injured_found, injured_wl_recorded, name = "total_injured_found_recorded_group") %>% 
-  tidyr::complete(sick_injured_found, injured_wl_recorded ) %>% 
-  tidyr::replace_na(replace = list(total_injured_found_recorded_group=0)) #%>% 
+  section_2 |>
+  # dplyr::select(-survey) |>
+  dplyr::count(sick_injured_found, injured_wl_recorded, name = "total_injured_found_recorded_group") |> 
+  tidyr::complete(sick_injured_found, injured_wl_recorded ) |> 
+  tidyr::replace_na(replace = list(total_injured_found_recorded_group=0)) #|> 
 
 
 
@@ -68,12 +69,12 @@ freq_found_recorded<-
   freq_found_recorded, 
   injured_found_recorded, 
   by = c("dead_found" = "sick_injured_found",
-         "dead_wl_recorded" = "injured_wl_recorded")) %>% 
-  rename(found = dead_found) %>% 
-  rename(recorded=dead_wl_recorded) %>% 
-  rename(dead=total_dead_found_recorded_group) %>% 
-  rename(sick=total_sick_found_recorded_group) %>%
-  rename(injured=total_injured_found_recorded_group) %>% 
+         "dead_wl_recorded" = "injured_wl_recorded")) |> 
+  rename(found = dead_found) |> 
+  rename(recorded=dead_wl_recorded) |> 
+  rename(dead=total_dead_found_recorded_group) |> 
+  rename(sick=total_sick_found_recorded_group) |>
+  rename(injured=total_injured_found_recorded_group) |> 
   mutate(found=factor(found,
                            levels = rev(c("Always",
                                           "Very frequently",
@@ -92,14 +93,14 @@ freq_found_recorded<-
 
 
 freq_found_recorded<-
-  freq_found_recorded %>%  
-  pivot_longer(cols=c("dead", "sick", "injured")) %>% 
-  arrange(found) %>% 
+  freq_found_recorded |>  
+  tidyr::pivot_longer(cols=c("dead", "sick", "injured")) |> 
+  arrange(found) |> 
   mutate(name=factor(name, 
                      levels = c("injured", "sick", "dead"),
-                     labels = c("Injured wildlife*",
-                                "Sick wildlife*",
-                                "Dead wildlife")))
+                     labels = c("Injured\nwildlife*",
+                                "Sick\nwildlife*",
+                                "Dead\nwildlife")))
 
 
 
@@ -107,11 +108,11 @@ freq_found_recorded<-
 #labels all dead per freq encountering 
 
 labels<-
-freq_found_recorded %>% 
-  group_by(found, name) %>% 
-  mutate(label=sum(value)) %>% 
-  ungroup() %>%  
-  distinct(found, name, label) %>% 
+freq_found_recorded |> 
+  group_by(found, name) |> 
+  mutate(label=sum(value)) |> 
+  ungroup() |>  
+  distinct(found, name, label) |> 
   pull(label)
 
 
@@ -181,6 +182,8 @@ ggsave("plots/plot_section_2A_option2.png",
        units = "in",
        dpi = 600)
 #}
+
+
 
 
 

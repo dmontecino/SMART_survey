@@ -57,6 +57,7 @@ number_responses_after_audience_remove<-nrow(terrestrial_data)
 
 ```
 
+
 ## Results of non-local responses
 
 ### Perceptions regarding wildlife health importance in conservation and potential consequences of pathogen transmission among wildlife, domestic animals, and people.
@@ -567,7 +568,6 @@ plot_section_2A
 ```
 
 ```         
-
 ```
 
 ```{r documentation versus agreement with wildife health }
@@ -651,7 +651,6 @@ recording_of_sick_injured_or_dead_wildlife<-
 <!-- The recording method reported to document either sick, injured, or dead wildlife when found during a patrol varied (considering the `r recording_of_sick_injured_or_dead_wildlife |> nrow()` responses reporting the documentation of either dead, sick, or injured wildlife). Most often, each animal was documented individually across health status. Another frequent reporting method was via a full inventory of healthy, sick, injured, or dead animals for each species involved. Sometimes, sick, injured, or dead wildlife were recorded as present/absent or in some other fashion. The full distribution of the recording methods across healthy, sick, injured, or dead wildlife is shown in Fig 3. -->
 
 ```         
-
 ```
 
 ```{r section 2D plot}
@@ -826,7 +825,6 @@ how_wildlife_health_recorded
 <!-- The proportion of responses indicating the use of Photographs and the documentation of: Species, Photographs, Suspected Cause, Sex, Condition, Age, Anomalies, and Other in the subset of responses reporting the documentation of sick, injured, or dead wildlife if found during patrols is shown in Fig 4. None of the  items are collected consistently to document animals with a specific health status and the variability of item recording remained similar across health categories (e.g., photographs and species are the main items reported across health status). -->
 
 ```         
-
 ```
 
 ```{r data items collected}
@@ -1423,3 +1421,158 @@ smart_connect_set_up_for_text<-
 ```
 
 `r as.character(english::as.english(smart_use_for_text |> pull(n) |> nth(1))) |> stringr::str_to_sentence()` protected area data managers reported that SMART was fully rolled-out, and `r smart_use_for_text |> pull(n) |> nth(2)` partially rolled-out. The most common SMART Desktop version by the time of the survey was SMART `r smart_version_for_text |> arrange(-n) |>  pull(smart_version) |> nth(1)`, reported by `r smart_version_for_text |> arrange(-n) |>  pull(n) |> nth(1)` data managers. SMART 7 was already available for `r smart_version_for_text |> filter(smart_version%in% c("7")) |> pull(n)` data managers by the time of the survey. Older SMART versions were reported once. Finally, `r smart_connect_for_text |> filter(smart_connect=="Yes") |> pull(n) |> nth(1)` data managers reported SMART Connect availability and `r smart_connect_set_up_for_text` mentioned plans to set it up.
+
+## Distribution of responses across their overall agreement with 'human and livestock pathogens can impact wildlife health' and 'introduced domestic animals are a concern for the conservation goals of the protected area' 
+```{r section 0.1 plot}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+#| fig-height: 3.5
+#| fig-align: center
+#| fig-cap: Figure S7. Distribution of protected area data managers responses across their overall agreement with 'human and livestock pathogens can impact wildlife health' and 'introduced domestic animals are a concern for the conservation goals of the protected area' for those protected area managers that reported the absence of domestic animals in the protected area.
+
+dom_animals<-
+  terrestrial_data %>% 
+  filter(local==T) %>% 
+  select(
+    dom_animals_concern,
+    dom_animals_in_pa,
+    dom_animals_recorded,
+    dom_animal_health_status_recorded,
+    wildlife_path_affect_livestock,
+    hum_liv_path_affect_wildlife
+    ) #%>% 
+
+dom_animals<-
+  dom_animals %>% 
+  count(dom_animals_concern,
+        hum_liv_path_affect_wildlife,
+        dom_animals_in_pa, name = "value") %>% 
+        #dom_animals_recorded, #name = "value") %>% 
+        #dom_animal_health_status_recorded, name = "value") %>% 
+  complete(dom_animals_in_pa,
+           dom_animals_concern,
+           hum_liv_path_affect_wildlife,
+                   #dom_animals_recorded,
+                   #dom_animal_health_status_recorded),
+           fill = list(value = 0))
+
+
+dom_animals <- dom_animals  %>% 
+  mutate(dom_animals_concern=factor(dom_animals_concern,
+                                    levels = c("Strongly agree",
+                                                   "Agree",
+                                                   "Neutral",
+                                                   "Somewhat Disagree",
+                                                   "Disagree",
+                                                   "Strongly disagree"),
+                                    labels = c("Strongly\nagree",
+                                                   "Agree",
+                                                   "Neutral",
+                                                   "Somewhat\ndisagree",
+                                                   "Disagree",
+                                                   "Strongly\ndisagree"))) %>% 
+  mutate(hum_liv_path_affect_wildlife=factor(hum_liv_path_affect_wildlife,
+                                    levels = c("Strongly agree",
+                                               "Agree",
+                                               "Neutral",
+                                               "Somewhat Disagree",
+                                               "Disagree",
+                                               "Strongly disagree"),
+                                    labels = c("Strongly\nagree",
+                                               "Agree",
+                                               "Neutral",
+                                               "Somewhat\ndisagree",
+                                               "Disagree",
+                                               "Strongly\ndisagree"))) 
+
+
+dom_animals <- dom_animals %>% 
+  group_by(dom_animals_in_pa) %>% 
+  arrange(dom_animals_concern) %>% 
+  # print(n = 50) %>% 
+  group_split()
+
+
+
+likert_theme <-
+  theme_gray() +
+  theme(text = element_text(size = 12),
+        plot.title = element_text(size = 13, hjust = 0.5, 
+                                  margin = margin(0, 0, 0, 0)),
+        plot.margin = unit(c(0.5,0.5,0.2,0.5), "cm"),
+        plot.background = element_rect(linewidth = 1, color = "black"),
+        panel.grid = element_blank(),
+        axis.text = element_text(size = 8),
+        # axis.text.y = element_text(colour = rep(c("red", "blue"), times=3)),
+        # axis.ticks.x = element_blank(),
+        axis.title  = element_text(size = 10, hjust = 0.5),
+        panel.background = element_blank(),
+        strip.background  = element_blank(),
+        strip.text.y.left = element_text(angle = 0, hjust = 0),
+        legend.position = "None")
+
+
+z_limits <- range(c(dom_animals[[2]]$value, dom_animals[[2]]$value))
+
+
+new_plot_1<-
+ggplot(dom_animals[[1]], 
+       aes(dom_animals_concern, 
+           hum_liv_path_affect_wildlife, 
+           fill= value)) + 
+  likert_theme + 
+  geom_tile() +
+  scale_fill_gradient(low="white", high="blue") +
+  labs(y = "Overall agreement with 'human and\nlivestock pathogens can impact wildlife health'\n", 
+       x = "\nOverall agreement with 'Introduced domestic\nanimals are a concern'",
+       title = "Domestic animals are not found in the protected area\n")
+
+
+new_plot_1
+
+# ggsave("submissions/Conservation_letters/RESPONSES_REVIEW_MAY_2024/plot_appendix_1.png",
+#        plot = new_plot_1,
+#        height = 8,
+#        width = 13,
+#        units = "in",
+#        dpi = 600)  
+
+
+```       
+
+
+```{r section 0.2 plot}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+#| fig-height: 3.5
+#| fig-align: center
+#| fig-cap: Figure S8. Distribution of protected area data managers responses across their overall agreement with 'human and livestock pathogens can impact wildlife health' and 'introduced domestic animals are a concern for the conservation goals of the protected area' for those protected area data managers that reported the presence of domestic animals in the protected area.
+
+new_plot_2<-
+  ggplot(dom_animals[[2]], 
+         aes(dom_animals_concern, 
+             hum_liv_path_affect_wildlife, 
+             fill= value)) + 
+  likert_theme + 
+  geom_tile() +
+  scale_fill_gradient(low="white", high="blue") +
+  labs(y = "Overall agreement with 'human and\nlivestock pathogens can impact wildlife health'\n", 
+       x = "\nOverall agreement with 'Introduced domestic\nanimals are a concern'",
+       title = "Domestic animals are found in the protected area\n")
+
+new_plot_2
+
+# ggsave("submissions/Conservation_letters/RESPONSES_REVIEW_MAY_2024/plot_appendix_2.png",
+#        plot = new_plot_2,
+#        height = 8,
+#        width = 13,
+#        units = "in",
+#        dpi = 600) 
+
+
+```
+
