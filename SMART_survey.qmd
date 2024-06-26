@@ -49,7 +49,8 @@ Corresponding author Diego Montecino-Latorre, email dmontecino@wcs.org
 
 ## ABSTRACT
 Diseases are a threat to biodiversity conservation and global health, however, wildlife health (WH) surveillance systems remain uncommon. This deficit is especially relevant in protected areas (PAs) facing anthropogenic pressures. Integration of field conservation actors patrolling PAs can drastically strengthen WH surveillance. Nevertheless, baseline information regarding current WH monitoring mandates and practices at these sites is missing.  To address this gap, we surveyed globally distributed protected area data managers (PADMs). 
-PADMs considered WH as relevant to the conservation goals of PAs and >90% of them confirmed that non-healthy and dead wildlife are encountered. However, >50% and >20% of PADMs claimed that these animals were not recorded, respectively. When these animals were documented, the recording methods and information collected differed. Although domestic animal presence was common and considered a conservation concern, these animals and their health status were not always recorded. Health data were often stored in a database, but paper forms and spreadsheets were also used. 
+
+Eighty-six valid PADMs responses (from a total of 129 answered surveys) were considered for descriptive analysis. Trhese PADMs considered WH as relevant to the conservation goals of PAs and >90% of them confirmed that non-healthy and dead wildlife are encountered. However, >50% and >20% of PADMs claimed that these animals were not recorded, respectively. When these animals were documented, the recording methods and information collected differed. Although domestic animal presence was common and considered a conservation concern, these animals and their health status were not always recorded. Health data were often stored in a database, but paper forms and spreadsheets were also used. 
 Responses suggest that valuable syndromic WH surveillance data from PAs are being lost due to non-collection or inadequate management and their value could be limited by unstandardized documentation. Rangers could become a globally distributed “One Health workforce” but these flaws must be addressed first.
 
 ## INTRODUCTION
@@ -239,7 +240,7 @@ terrestrial_data<-readRDS("data/terrestrial_data.RDS")
 number_responses_before_audience_remove<-nrow(terrestrial_data)
 
 #source("R/remove_other_audience.R")
-terrestrial_data<-terrestrial_data |> filter(position!="Other")
+terrestrial_data<-terrestrial_data |> dplyr::filter(position!="Other")
 
 number_responses_after_audience_remove<-nrow(terrestrial_data)
 
@@ -803,19 +804,19 @@ Eight non-local PADMs (61.5%) responded that domestic animals were found in the 
 
 # data on dead animals observed in pa and recorded and stored in SMART
 
-data_smart_dead<-
+data_dead<-
 terrestrial_data |> 
   filter(local==T) |>
   filter(dead_wl_recorded=="Yes") |>
   nrow()
   
-data_smart_sick<-
+data_sick<-
 terrestrial_data |> 
   filter(local==T) |>
   filter(sick_wl_recorded=="Yes") |>
   nrow()
 
-data_smart_injured<-
+data_injured<-
 terrestrial_data |> 
   filter(local==T) |>
   filter(injured_wl_recorded=="Yes") |>
@@ -823,7 +824,7 @@ terrestrial_data |>
 
 ```
 
-For the subset of local protected area data managers reporting the documentation of either sick, injured, or dead wildlife (`r data_smart_sick`, `r data_smart_injured`, and `r data_smart_dead` responses, respectively), their data was often stored in a SMART database (Fig 6). 
+For the subset of local protected area data managers reporting the documentation of either sick, injured, or dead wildlife (`r data_sick`, `r data_injured`, and `r data_dead` responses, respectively), their data was often stored in a SMART database (Fig 6). 
 
 ```{r figure 6, out.width = "400px"}
 #| echo: false
@@ -917,7 +918,7 @@ terrestrial_data |>
 `r as.character(english::as.english(num_responses_dom_animals_in_pa_are_recorded_in_smart)) |> stringr::str_to_sentence()` of the `r num_responses_dom_animals_in_pa_are_recorded` local respondents (`r round(num_responses_dom_animals_in_pa_are_recorded_in_smart/num_responses_dom_animals_in_pa_are_recorded*100,1)`%) recording domestic animals during patrols indicated that this information was stored in a SMART database. All PADMs reporting the recording of health status in domestic animals responded that this information was stored in a SMART database.
 
 
-### Current state of SMART deployment in protected areas according to local surveys 
+### Current state of SMART deployment in protected areas 
 
 <!-- 23. Is SMART fully rolled-out in the protected area(s) you work in or is it being piloted? -->
 
