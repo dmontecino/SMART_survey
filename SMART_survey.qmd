@@ -208,6 +208,59 @@ dat_modified$protected_area$'27'<-dat_modified$protected_area$'27'[-3,]
 dat_modified$protected_area$'17'<-dat_modified$protected_area$'17'[-8,]
 ```
 
+```{r learn about the countries before creating the available dataset}
+#| echo: false
+#| eval: false
+#| message: false
+#| warning: false
+
+library(countrycode)
+
+country_data<-
+tibble(
+  country=dat_modified |> 
+    dplyr::filter(position!="Other") |> 
+    select(protected_area) |> 
+    pull(protected_area)|> 
+    map_vec(\(x) x$country[1]),
+  local= dat_modified |>  
+    dplyr::filter(position!="Other") |> 
+    pull(local))
+  
+
+country_data$continent <- 
+  countrycode(sourcevar = country_data |>  pull(country),
+              origin = "country.name",
+              destination = "continent")
+  
+
+country_data<-  
+country_data |> 
+  select(continent, country, local) |> 
+  group_by(local) |> 
+  count(continent, country, .drop = FALSE) |> 
+  pivot_wider(values_from = n, names_from = "local") |> 
+  rename("non_local" = 'FALSE', 'local' = 'TRUE') |> 
+  arrange(country) |> 
+  print(n =40)
+  
+
+country_data |> 
+  filter(!is.na(local)) |> 
+  nrow()
+
+country_data |> 
+  filter(!is.na(local)) |> 
+  group_by(continent) |> 
+  summarise(n_pa_per_continent = sum(local))
+
+country_data |> 
+  filter(!is.na(non_local)) |> 
+  group_by(continent) |> 
+  summarise(n_pa_per_continent = sum(non_local))
+
+```
+
 
 ```{r remove country and protected area name}
 #| echo: false

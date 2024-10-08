@@ -1,5 +1,6 @@
 library(ggpattern)
 library(ggrepel)
+library(RColorBrewer)
 
 dom_animals<-
   terrestrial_data %>%
