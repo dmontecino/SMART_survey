@@ -1,21 +1,21 @@
 ---
 title: "Supporting Information 'Wildlife health perceptions and monitoring practices in globally distributed protected areas'"
-author:
-  - name: Diego Montecino-Latorre
-    affiliations:
-      - name: Wildlife Conservation Society - Health Program
-        city: Bronx
-        state: New York
-  - name: Mathieu Pruvot
-    affiliations:
-      - name: Wildlife Conservation Society - Health Program
-        city: Bronx
-        state: New York
-  - name: Sarah H Olson
-    affiliations:
-      - name: Wildlife Conservation Society - Health Program
-        city: Bronx
-        state: New York
+# author:
+#   - name: Diego Montecino-Latorre
+#     affiliations:
+#       - name: Wildlife Conservation Society - Health Program
+#         city: Bronx
+#         state: New York
+#   - name: Mathieu Pruvot
+#     affiliations:
+#       - name: Wildlife Conservation Society - Health Program
+#         city: Bronx
+#         state: New York
+#   - name: Sarah H Olson
+#     affiliations:
+#       - name: Wildlife Conservation Society - Health Program
+#         city: Bronx
+#         state: New York
 number-sections: true
 editor: visual
 execute:
