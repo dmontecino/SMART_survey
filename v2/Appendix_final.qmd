@@ -461,7 +461,7 @@ p<-
   scale_color_manual(values = custom_colors) +
   scale_y_continuous(position = "right") +
   scale_alpha_continuous(range = c(0.3, 1)) +  # Set min and max alpha values
-  ggtitle("Overall encounter frecuency in protected area(s)") +
+  ggtitle("Overall encounter frequency in protected area(s)") +
   labs(x = "\nRecording", y = "Number of responses\n")
 
 
@@ -1077,8 +1077,6 @@ mix3 <- mix + theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))
 
 ```
 
-<div style="margin-top:0px;">
-
 ```{r plot section 3}
 #| echo: false
 #| message: false
@@ -1087,7 +1085,7 @@ mix3 <- mix + theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))
 #| fig-height: 6
 #| fig-width: 12.85714
 #| fig-align: center
-#| fig-cap: Figure S3. Distribution of the level of agreement among non-local protected area data managers with the statement 'Introduced domestic animals (e.g., dogs, cats, cattle, pigs, cows) are a concern for the conservation goals of the protected areas where I work' for the groups that reported the absence (red) and presence (blue) of domestic animals in the protected area(s) and their recording in the latter. Darker segments in the bars at the “Yes recording of domestic animals” category (x-axis) represent the number of responses that documented domestic animal health status.
+#| fig-cap: Figure S3. Distribution of the level of agreement among non-local protected area data managers with the statement ‘Introduced domestic animals (e.g., dogs, cats, cattle, pigs, cows) are a concern for the conservation goals of the protected areas where I work’ for the groups that reported the absence (red) and presence (blue) of domestic animals in the protected area(s) and their recording of the latter. Darker segments in the bars within the “Domestic animal in protected area > Yes response” category (x-axis) represent the number of responses that documented health status as part recording the presence of domestic animals.
 
 mix3
 

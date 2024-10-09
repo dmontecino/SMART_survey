@@ -180,7 +180,7 @@ ggplot(freq_found_recorded,
      scale_color_manual(values = custom_colors) +
      scale_y_continuous(position = "right") +
      scale_alpha_continuous(range = c(0.3, 0.9)) +  # Set min and max alpha values
-     ggtitle("Overall encounter frecuency in protected area(s)") +
+     ggtitle("Overall encounter frequency in protected area(s)") +
      labs(x = "\nRecording", y = "Number of responses\n")
 
 
