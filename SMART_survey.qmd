@@ -26,14 +26,12 @@ author:
 prefer-html: true
 execute: 
   cache: false
-format: pdf
-  # html:
-  #   number-sections: true
-  # pdf:
-  #   documentclass: scrartcl
-  #   papersize: letter
-  #   fig-pos: "h"
-
+format:
+  pdf:
+    include-in-header: 
+      text: |
+        \usepackage{pdfpages}
+        
 # output:
 #   rmarkdown::pdf_document:
 #     fig_caption: yes        
@@ -1366,7 +1364,20 @@ World Organization for Animal Health. 2023. In-country wildlife disease surveill
 
 Wyatt A, Singh R, Read C. 2023. Assessing the adaptative management process in SMART sites: Lessons learned. Parks 29.
 
-# Appendix
+
+```{=latex}
+\newpage
+```
+
+# Supporting Information ‘Wildlife health perceptions and monitoring practices in globally distributed protected areas’
+
+# Methods 
+
+### Appendix S1. Survey
+
+```{=latex}
+\includepdf[pages=-]{survey_google_form/survey_google_forms.pdf}
+```
 
 ```{r child="Appendix_final.qmd"}
 

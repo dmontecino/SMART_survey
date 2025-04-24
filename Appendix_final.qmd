@@ -24,20 +24,24 @@ format: pdf
 ---
 
 <!-- ```{r load packages} -->
+
 <!-- #| echo: false -->
+
 <!-- #| eval: true -->
+
 <!-- #| message: false -->
+
 <!-- #| warning: false -->
 
 <!-- knitr::opts_chunk$set(fig.pos = "H", out.extra = "") -->
 
 <!-- source("R/load_packages.R") -->
+
 <!-- ``` -->
 
 ```{r global options, warning=FALSE, echo=FALSE, message=FALSE}
 knitr::opts_chunk$set(fig.pos = "H")
 ```
-
 
 # Results
 
@@ -248,6 +252,8 @@ ggsave(plot = mix, filename = "plots/appedix_plot_1.png", width = 12.85714, heig
 
 ```
 
+#### Appendix S2. Level of agreement (grey scale) among non-local protected area data managers with the statements “Pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect livestock health.” (brown), “Pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect human health.” (red), “Human or livestock pathogens can affect wildlife populations inhabiting the protected area(s) where I work in.” (blue), and “Wildlife health is important to achieve the conservation goals of the protected area(s) where I work,” (green). Overall frequency of encounters with sick and injured wildlife was requested in a unique question; therefore, rows one and two show the same total number of responses per encounter category.
+
 ```{r plot 1, out.width = "600px", fig.pos = "H"}
 #| echo: false
 #| message: false
@@ -255,7 +261,6 @@ ggsave(plot = mix, filename = "plots/appedix_plot_1.png", width = 12.85714, heig
 #| eval: true
 #| out-extra: 'style="margin-top:0px;"'
 #| fig-align: center
-#| fig-cap: Level of agreement (grey scale) among non-local protected area data managers with the statements “Pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect livestock health.” (brown), “Pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect human health.” (red), “Human or livestock pathogens can affect wildlife populations inhabiting the protected area(s) where I work in.” (blue), and “Wildlife health is important to achieve the conservation goals of the protected area(s) where I work,” (green). Overall frequency of encounters with sick and injured wildlife was requested in a unique question; therefore, rows one and two show the same total number of responses per encounter category.
 
 knitr::include_graphics("plots/appedix_plot_1.png")
 ```
@@ -575,16 +580,21 @@ ggsave(plot = full, filename = "plots/appedix_plot_2.png", width = 16, height = 
 
 ```
 
+#### Appendix S3. Number of non-local protected area data managers who reported that the health status of and frequency of encounters with wildlife are recorded or not recorded in the protected area they worked in. Green bars represent the proportion of respondents that reported recording of wildlife in each category.
+
 ```{r plot 2, out.width = "600px"}
 #| echo: false
 #| message: false
 #| warning: false
 #| eval: true
 #| fig-align: center
-#| fig-cap:  Number of non-local protected area data managers who reported that the health status of and frequency of encounters with wildlife are recorded or not recorded in the protected area they worked in. Green bars represent the proportion of respondents that reported recording of wildlife in each category.
 
 knitr::include_graphics("plots/appedix_plot_2.png")
 
+```
+
+```{=latex}
+\newpage
 ```
 
 ### Documentation methods
@@ -887,18 +897,22 @@ webshot2::webshot("plots/my_table_appendix.html",
 
 ```
 
+#### Appendix S4. Distribution of the methods of documentation (second column) of healthy, sick, injured, or dead wildlife found during ranger patrols as reported by non-local protected area data managers and the recording of specific types of data for each wildlife health status across documentation methods (black line, 50%).
+
 ```{r plot 3, out.width = "600px"}
 #| echo: false
 #| message: false
 #| warning: false
 #| eval: true
 #| fig-align: center
-#| fig-cap:  Distribution of the methods of documentation (second column) of healthy, sick, injured, or dead wildlife found during ranger patrols as reported by non-local protected area data managers and the recording of specific types of data for each wildlife health status across documentation methods (black line, 50%).
 
 knitr::include_graphics("plots/appedix_plot_3.png")
 
 ```
 
+```{=latex}
+\newpage
+```
 ### Domestic animals in protected areas
 
 ```{r domestic animals in protected areas appendix}
@@ -1108,20 +1122,24 @@ ggsave(plot = g, filename = "plots/appedix_plot_4.png", width = 12, height = 5)
 
 ```
 
+#### Appendix S5. Responses of non-local protected area data manager to statements that the presence and health of domestic animals in protected areas is a conservation concern (red, no recording of domestic animals; light blue, recording of domestic animals but not their health status; dark blue, recording of domestic animals and their health status). Data are from the group of non-local protected area data managers who reported the presence of domestic animals in the protected area.
+
 ```{r plot 4, out.width = "600px"}
 #| echo: false
 #| message: false
 #| warning: false
 #| eval: true
 #| fig-align: center
-#| fig-cap: Responses of non-local protected area data manager to statements that the presence and health of domestic animals in protected areas is a conservation concern (red, no recording of domestic animals; light blue, recording of domestic animals but not their health status; dark blue, recording of domestic animals and their health status). Data are from the group of non-local protected area data managers who reported the presence of domestic animals in the protected area.
 
 knitr::include_graphics("plots/appedix_plot_4.png")
 
 ```
 
+```{=latex}
+\newpage
+```
 
-#  Discussion
+# Discussion
 
 ```{r discussion appendix plot 1}
 #| echo: false
@@ -1240,19 +1258,18 @@ ggsave("plots/appedix_plot_5.png",
 
 ```
 
+#### Appendix S6. Distribution of protected area data managers responses (local and non-local) across their overall agreement with the statements "Human and livestock pathogens can impact wildlife health" and "Introduced domestic animals are a concern for the conservation goals of the protected area" for those protected area managers (local and non-local) that reported the absence of domestic animals in the protected area.
 ```{r plot 5, out.width = "500px"}
 #| echo: false
 #| message: false
 #| warning: false
 #| eval: true
 #| fig-align: center
-#| fig-cap: Distribution of protected area data managers responses (local and non-local) across their overall agreement with the statements "Human and livestock pathogens can impact wildlife health" and "Introduced domestic animals are a concern for the conservation goals of the protected area" for those protected area managers (local and non-local) that reported the absence of domestic animals in the protected area.
 
 knitr::include_graphics("plots/appedix_plot_5.png")
 
 
 ```
-
 
 ```{r discussion appendix plot 2}
 #| echo: false
@@ -1283,16 +1300,19 @@ ggsave("plots/appedix_plot_6.png",
 
 ```
 
+```{=latex}
+\newpage
+```
+
+#### Appendix S7. Distribution of protected area data managers responses (local and non-local) across their overall agreement with "Human and livestock pathogens can impact wildlife health" and "Introduced domestic animals are a concern for the conservation goals of the protected area" for those protected area data managers that reported the presence of domestic animals in the protected area.
+
 ```{r plot 6, out.width = "500px"}
 #| echo: false
 #| message: false
 #| warning: false
 #| eval: true
 #| fig-align: center
-#| fig-cap: Distribution of protected area data managers responses (local and non-local) across their overall agreement with "Human and livestock pathogens can impact wildlife health" and "Introduced domestic animals are a concern for the conservation goals of the protected area" for those protected area data managers that reported the presence of domestic animals in the protected area.
 
 knitr::include_graphics("plots/appedix_plot_6.png")
 
 ```
- 
- 
