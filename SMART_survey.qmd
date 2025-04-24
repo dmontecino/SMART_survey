@@ -48,11 +48,9 @@ format:
 
 **Keywords**: conservation, protected areas, wildlife disease, wildlife health, wildlife health monitoring, wildlife health surveillance 
 
-
-
 # Abstract
 
-The status of health monitoring practices in protected areas (PAs) is largely unknown but potential gaps could undermine biodiversity conservation at these key sites. There is also a lack of baseline information regarding local perceptions of wildlife, human, and livestock health relevance that could affect health monitoring implementation at these sites. To solve these deficiencies, we delivered a web-based survey to data managers of PAs worldwide through a specialized online forum. Specifically, we assessed perceptions regarding wildlife health (WH) and pathogen transmission between wildlife, humans, and livestock; the detection and documentation of unhealthy wildlife (injured, sick, and dead) and domestic animals in PAs; and health data management. Eighty-six out of 128 responses received were analyzed. Respondents considered WH  relevant to the conservation goals of PAs, and >90% of them confirmed that unhealthy wildlife are encountered. However, >50% and >20% of respondents claimed that injured or sick and dead animals were not recorded, respectively. When these animals were documented, the recording methods and information collected differed. Although respondents considered domestic animal presence common and a conservation concern, these animals and their health status were not always recorded. Health data were often stored in a database, but paper forms and spreadsheets were also used. Responses suggested that valuable syndromic WH surveillance data from PAs are not collected or lost due to inadequate management and their value could be limited by a lack of standardized recording protocols. 
+The status of health monitoring practices in protected areas (PAs) is largely unknown but potential gaps could undermine biodiversity conservation at these key sites. There is also a lack of baseline information regarding local perceptions of wildlife, human, and livestock health relevance that could affect health monitoring implementation in PAs. To address these deficiencies, we conducted a web-based survey of data managers from PAs worldwide through a specialized online forum. Specifically, we assessed perceptions regarding wildlife health (WH) and pathogen transmission between wildlife, humans, and livestock; the detection and documentation of unhealthy wildlife (injured, sick, and dead) and domestic animals in PAs; and health data management. Eighty-six out of 128 responses were analyzed. Respondents considered WH relevant to the conservation goals of PAs (97%), and 98% of them confirmed that unhealthy wildlife are encountered. However, >50% and >20% of respondents claimed that injured or sick and dead animals were not recorded, respectively. When these animals were documented, the recording methods and information collected differed. Although respondents considered domestic animal presence common and a conservation concern, these animals or their health status may not be recorded (30% and 74%, respectively) . Health data were often stored in a database, but paper forms and spreadsheets were also used. Responses suggested that valuable syndromic WH surveillance data from PAs are not collected or lost due to inadequate management and their value could be limited by a lack of standardized recording protocols.  
 
 
 # Introduction
@@ -405,7 +403,7 @@ Most respondents either strongly agreed or agreed with the statements “Wildlif
 #| warning: false
 #| eval: true
 #| fig-align: center
-#| fig-cap: Level of agreement (grey scale) among local protected area data managers with the statements “Pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect livestock health.” (brown), “Pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect human health.” (red), “Human or livestock pathogens can affect wildlife populations inhabiting the protected area(s) where I work in.” (blue), and “Wildlife health is important to achieve the conservation goals of the protected area(s) where I work,” (green). Overall frequency of encounters with sick and injured wildlife was requested in a unique question; therefore, rows one and two show the same total number of responses per encounter category.
+#| fig-cap: Level of agreement (grey scale) among local protected area data managers with the statements “Pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect livestock health.” (brown), “Pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect human health.” (red), “Human or livestock pathogens can affect wildlife populations inhabiting the protected area(s) where I work in.” (blue), and “Wildlife health is important to achieve the conservation goals of the protected area(s) where I work,” (green).
 
 
 # source("plots/plot_1.R")
@@ -615,7 +613,7 @@ Most local overall frequency-of-encounter responses concentrated between “very
 #| warning: false
 #| eval: true
 #| fig-align: center
-#| fig-cap:  Number of local protected area data managers who reported that the health status of and frequency of encounters with wildlife are recorded or not recorded in the protected area they worked in. Green bars represent the proportion of respondents that reported recording of wildlife in each category.
+#| fig-cap:  Number of local protected area data managers who reported that the health status of and frequency of encounters with wildlife are recorded or not recorded in the protected area they worked in. Green bars represent the proportion of respondents that reported recording of wildlife in each category. Overall frequency of encounters with sick and injured wildlife was requested in a unique question; therefore, rows one and two show the same total number of responses per encounter category.
 
 
 
@@ -1242,6 +1240,105 @@ source("R/smart_status.R")
 
 ```
 
+```{r for abstract}
+#| echo: false
+#| eval: false
+#| message: false
+#| warning: false
+
+responses<-
+terrestrial_data |> 
+  # filter(local==T) |>
+  nrow()
+
+wildlife_health_important<-
+terrestrial_data |> 
+  # filter(local==T) |>
+  filter(!wildlife_health_important %in% c("Disagree", "Strongly disagree")) |> 
+  nrow()
+
+wildlife_health_important_perc<-round(wildlife_health_important/responses*100,0)
+
+
+sick_injured_wildlife_found<-
+terrestrial_data |> 
+  # filter(local==T) |>
+  filter(sick_injured_found!="Never") |> 
+  nrow()
+
+sick_injured_wildlife_found_perc<-round(sick_injured_wildlife_found/responses*100,0)
+
+
+dead_wildlife_found<-
+  terrestrial_data |> 
+  # filter(local==T) |>
+  filter(dead_found!="Never") |> 
+  nrow()
+
+dead_wildlife_found_perc<-round(dead_wildlife_found/responses*100,0)
+
+
+
+sick_injured_wildlife_recorded<-
+  terrestrial_data |> 
+  # filter(local==T) |>
+  filter(sick_wl_recorded=="Yes") |> 
+  nrow()
+
+sick_injured_wildlife_recorded_perc<-round(sick_injured_wildlife_recorded/sick_injured_wildlife_found*100,0)
+
+
+dead_wildlife_recorded<-
+  terrestrial_data |> 
+  # filter(local==T) |>
+  filter(dead_wl_recorded=="Yes") |> 
+  nrow()
+
+dead_wildlife_recorded_perc<-round(dead_wildlife_recorded/dead_wildlife_found*100,0)
+
+
+
+num_responses_dom_animals_in_pa<-
+  terrestrial_data |> 
+  # filter(local==T) |>
+  select(  dom_animals_in_pa, 
+           dom_animals_recorded) |>
+  filter(dom_animals_in_pa=="Yes") |> 
+  nrow()
+
+
+num_responses_dom_animals_in_pa_are_recorded<-
+  terrestrial_data |> 
+  # filter(local==T) |>
+  select(  dom_animals_in_pa, 
+           dom_animals_recorded) |>
+  filter(dom_animals_in_pa=="Yes") |>
+  count(dom_animals_in_pa, dom_animals_recorded) |> 
+  filter(dom_animals_recorded=="Yes") |>
+  pull(n)
+
+100-round(num_responses_dom_animals_in_pa_are_recorded/num_responses_dom_animals_in_pa*100,0)
+
+
+num_responses_dom_animals_in_pa_are_recorded_health_status<-
+  terrestrial_data |> 
+  # filter(local==T) |>
+  select(  dom_animals_in_pa, 
+           dom_animals_recorded, 
+           dom_animal_health_status_recorded) |> 
+  filter(dom_animals_in_pa=="Yes" &
+           dom_animals_recorded=="Yes") |> 
+  count(dom_animal_health_status_recorded) |> 
+  filter(dom_animal_health_status_recorded=="Yes") |> 
+  pull(n)
+
+100-round(num_responses_dom_animals_in_pa_are_recorded_health_status/
+        num_responses_dom_animals_in_pa_are_recorded*100,0)
+
+
+```
+
+
 # Discussion
 
 Our findings suggest that syndromic WH surveillance data are not collected or lost due to inadequate management. Even when WH data are collected and properly managed, the usefulness for surveillance is likely limited by the diversity of methods employed to record them. By the time of the survey, an initiative to foster the harmonized recording of WH data in PAs (Montecino-Latorre et al. 2024 [preprint]) had been implemented in a couple of sites only in a single country, and it did not affect overall results involving multiple PAs and countries.
@@ -1369,15 +1466,6 @@ Wyatt A, Singh R, Read C. 2023. Assessing the adaptative management process in S
 \newpage
 ```
 
-# Supporting Information ‘Wildlife health perceptions and monitoring practices in globally distributed protected areas’
-
-# Methods 
-
-### Appendix S1. Survey
-
-```{=latex}
-\includepdf[pages=-]{survey_google_form/survey_google_forms.pdf}
-```
 
 ```{r child="Appendix_final.qmd"}
 
