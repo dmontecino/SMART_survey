@@ -45,37 +45,41 @@ format: pdf
 
 2 University of Calgary, Faculty of Veterinary Medicine, Calgary, Alberta, Canada
 
-Corresponding author Diego Montecino-Latorre, email dmontecino@wcs.org
+**Corresponding author**: Diego Montecino-Latorre 
+**email**: dmontecino@wcs.org
 
-## ABSTRACT
-Diseases are a threat to biodiversity conservation and global health, however, wildlife health (WH) surveillance systems remain uncommon. This deficit is especially relevant in protected areas (PAs) facing anthropogenic pressures. Integration of field conservation actors patrolling PAs can drastically strengthen WH surveillance. Nevertheless, baseline information regarding current WH monitoring mandates and practices at these sites is missing.  To address this gap, we surveyed globally distributed protected area data managers (PADMs) through an web-based questionnaire. 
-
-Eighty-six valid PADMs responses (from a total of 129 answered surveys) were considered for descriptive analysis. These PADMs considered WH as relevant to the conservation goals of PAs and >90% of them confirmed that non-healthy and dead wildlife are encountered; however, >50% and >20% of PADMs claimed that these animals were not recorded, respectively. When these animals were documented, the recording methods and attributes collected differed. Domestic animal presence was reported by 70% PADMs. Among them, 81% considered these animals a conservation concern but only 67.3% reported their documentation. Only 25.7% of PADMs reporting domestic animal presence answered that their health status was recorded. Health data were often stored in a database, but paper forms and spreadsheets were also used. 
-
-Responses suggest that valuable syndromic WH surveillance data from PAs are being lost due to non-collection or inadequate management and their value could be limited by unstandardized documentation. Rangers could become a globally distributed “One Health workforce” but these flaws must be addressed first.
+**Keywords**: conservation, protected areas, wildlife disease, wildlife health, wildlife health monitoring, wildlife health surveillance 
 
 
-## INTRODUCTION
 
-Despite the growing recognition that the health of animals, people, and their shared environment are inseparably linked, effective surveillance systems collecting, analyzing, and responding to wildlife health (WH) data remain uncommon or deficient (Machalaba et al. 2021; One Health High-Level Expert Panel et al. 2022; World Organization for Animal Health [WOAH] 2023; Delgado et al. 2023). Human encroachment and land-use change (Laurance et al. 2012; Vicente et al. 2021; Meng et al. 2023) are associated with extraction, pollution, the creation of human-wildlife-livestock interfaces, and ecosystem degradation (Plowright et al. 2021; Vicente et al. 2021; Reaser et al. 2023). These processes expose wildlife and people to physical (e.g., snaring), chemical (e.g., poisoning events), and biological hazards (e.g., pathogens) with the capacity to impact biodiversity conservation and global health (De Vos et al. 2016; Vila et al. 2019; Wolf et al. 2019; Hacon et al. 2020; Machalaba et al. 2020; Becker et al. 2023; Groenenberg et al. 2023; Porco et al. 2023). 
-
-Wildlife health monitoring deficit is especially relevant in protected areas (PAs), Nature’s last strongholds and key interfaces for disease prevention and emergence (Mittermeier et al. 2011; Machalaba et al. 2021; IUCN & EcoHealth Alliance 2022; WOAH 2023; Hayman et al. 2023; Hopkins et al. 2024). The integration of actors present at PAs offers a sound and cost-effective strategy to establish baseline WH monitoring. Rangers can detect injured, sick, and dead animals in PAs and the few documented initiatives that explicitly report ranger participation in WH monitoring have demonstrated their potential to provide data to assess health risks and trends or trigger responses to disease outbreaks of global and conservation concern (Kuisma et al. 2019; Vila et al. 2019; Wolf et al. 2019; Montecino-Latorre et al. 2020; Orozco et al. 2020; Porco et al. 2023).
-
-Technology can enhance ranger integration into WH surveillance systems. The “Spatial Monitoring and Reporting Tool” (SMART) is a technology platform designed to administer PAs (Cronin et al. 2021). Its field-ready technology, SMART Mobile, is in the hands of thousands of rangers supporting the digital documentation of user-determined “incidents” of conservation interest (e.g., fire, illegal hunting). The engagement of a large community of SMART-using rangers to document “health incidents” in PAs represents a promising opportunity to create a technology-supported worldwide network of WH sentinels (Worsley-Tonks et al. 2022).
-
-However, there is a lack of baseline information regarding the perceived relevance of wildlife, human, and livestock health for biodiversity conservation in PAs. Mandates of rangers to document findings of health interest, current WH monitoring practices in PAs worldwide, and technical status of SMART to support WH data collection and management at these sites are also unknown. To address these gaps, we conducted a survey targeting protected area data managers (PADMs) to assess: i) their perceptions regarding WH and pathogen transmission between wildlife, humans, and livestock, ii) the detection of dead, sick, or injured wildlife, and domestic animals in PAs and their documentation, iii) health data management, and iv) the status of SMART deployment in PAs.
+## Abstract
+The status of health monitoring practices in protected areas (PAs) is largely unknown but potential gaps could undermine biodiversity conservation at these key sites. There is also a lack of baseline information regarding local perceptions of wildlife, human, and livestock health relevance that could affect health monitoring implementation at these sites. To solve these deficiencies, we delivered a web-based survey to data managers of PAs worldwide through a specialized online forum. Specifically, we assessed perceptions regarding wildlife health (WH) and pathogen transmission between wildlife, humans, and livestock; the detection and documentation of unhealthy wildlife (injured, sick, and dead) and domestic animals in PAs; and health data management. Eighty-six out of 128 responses received were analyzed. Respondents considered WH  relevant to the conservation goals of PAs, and >90% of them confirmed that unhealthy wildlife are encountered. However, >50% and >20% of respondents claimed that injured or sick and dead animals were not recorded, respectively. When these animals were documented, the recording methods and information collected differed. Although respondents considered domestic animal presence common and a conservation concern, these animals and their health status were not always recorded. Health data were often stored in a database, but paper forms and spreadsheets were also used. Responses suggested that valuable syndromic WH surveillance data from PAs are not collected or lost due to inadequate management and their value could be limited by a lack of standardized recording protocols. 
 
 
-## METHODS
+## Introduction
 
-We developed a web-based questionnaire aimed at PADMs defined as a person directly responsible for managing SMART data in one or more PAs or a general manager or administrator of one or more PAs that uses SMART data. Respondents were asked if their job roles and responsibilities matched this definition.
+Introduction
+Protected areas (PAs) safeguard intact landscapes, conserving diverse wildlife and flora, and preserve essential ecosystem services while supporting local communities. However, they are increasingly threatened by anthropogenic pressures. Human encroachment and land-use change (Laurance et al. 2012; Vicente et al. 2021; Meng et al. 2023) drive resource extraction, pollution, creation of human-wildlife-livestock interfaces, and ecosystem degradation (Plowright et al. 2021; Vicente et al. 2021; Reaser et al. 2023). These processes expose wildlife to physical (e.g., snaring), chemical (e.g., toxins), and biological (e.g., pathogens) hazards and can negatively affect biodiversity conservation and global health (De Vos et al. 2016; Wolf et al. 2019; Machalaba et al. 2020; Hacon et al. 2020; Porco et al. 2023; Groenenberg et al. 2023).
 
-The survey had five sections. Section 1 assessed the perception of PADMs on the importance of WH in achieving conservation goals, the role of human and livestock pathogens in affecting WH, and the role of wildlife pathogens in affecting public and livestock health. Section 2 requested PADMs to rank the overall frequency of encounters with dead, sick, or injured wildlife in PAs and their documentation when found during patrols. Section 3, asked about the presence of domestic animals in the PA(s), the documentation of their health status, and the perceived threats of domestic animals to conservation goals. Likert scales were used to answer questions in Sections 1-3. Section 4 addressed health data storage practices and Section 5 assessed the current state of SMART deployment in PAs.
+Wildlife health (WH) monitoring, which involves tracking diseases, pathogens, and toxic agents in wild animal  populations (World Organisation for Animal Health & International Union Conservation of Nature 2024) facilitates early detection of exposure and disease, enables rapid response to mitigate risks and adverse outcomes, and supports the evaluation of health management strategies (Woods et al. 2019; Machalaba et al. 2021; One Health High-Level Expert Panel [OHHLEP] et al. 2022; Porco et al. 2023; Elnaiem et al. 2023; Vora et al. 2023; Thompson et al. 2024). The One Health  approach recognizes that the health of animals and humans and the functioning of their shared environment are deeply interconnected (Machalaba et al. 2021; OHHLEP et al. 2022; World Organization for Animal Health 2023). As a result, WH monitoring is essential for biodiversity conservation and for safeguarding human and animal health.
 
-An introductory web page explained that the survey was voluntary, anonymous, aimed at PADMs, and that clicking the “Start the survey” button constituted consent. A tutorial was provided for the language-translation tool of this survey built on Google Forms (https://sites.google.com/wcs.org/smarttorecordwildlifehealth/home). 
-The survey was distributed globally to the SMART Community Forum users (https://forum.smartconservationtools.org/) by the SMART Partnership (https://smartconservationtools.org) via email in October 2022 and remained open for three months. A reminder was sent to the SMART Community three weeks before the closing date. The survey did not request any personal information or demographic characteristics and, consequently, it was exempt from full ethics review (ref #22-53 Wildlife Conservation Society Institutional Review Board).
+Ebola virus disease is an illustrative example. Outbreaks in wildlife have decimated populations of western gorillas and chimpanzees (Whitfield 2003; Leroy et al. 2004; Bermejo et al. 2006). Index cases of outbreaks of this disease in humans have involved hunters who extracted animals from the wild, including in PAs (Judson et al. 2016). Virus spread into urban areas of West Africa through human-to-human transmission in 2014 resulted in over 20,000 excess human deaths (Dudas et al. 2017; Jacob et al. 2020).
 
-Responses by PADMs could represent single or multiple PAs. For our analysis, we focused on what we considered to be “local” responses which represented one or two PAs, and assumed they provided insights into specific local realities. “Non-local” responses represented more than two PAs, which were assumed to help understand perceptions at the decision-making level and were analyzed separately (see Supporting Information). Respondents who did not identify as a PADM (as defined above) were considered outside our target population and excluded.  
+Despite its importance, WH monitoring systems remain uncommon or deficient (Machalaba et al. 2021; OHHLEP et al. 2022; World Organization for Animal Health 2023). To our knowledge, the status of WH monitoring practices in PAs is largely unknown. A lack of such monitoring or gaps could undermine biodiversity conservation and compromise One Health, highlighting the need for urgent attention. Additionally, baseline information regarding the perception of wildlife, human, and livestock health relevance for biodiversity conservation by PA personnel is also unknown. Their perceptions could impact affect WH monitoring practices and their implementation.
+
+To address knowledge gaps associated with current WH monitoring practices in PAs and associated perceptions by personnel, we surveyed protected area data managers (PADMs) to assess their perceptions regarding WH and pathogen transmission between wildlife, humans, and livestock; the detection and documentation of injured, sick, or dead wildlife and domestic animals in PAs; and health data management in PAs.
+
+## Methods
+
+We developed a web-based questionnaire aimed at PADMs users of the Spatial Monitoring and Reporting Tool (SMART). SMART is a suite of technology tools an online that support the administration of PAs (Cronin et al. 2021) and is used in more than 1,000 conservation sites worldwide. Thus, its user community offers the opportunity to engage a large number of PADMs. The survey was distributed to the SMART Community Forum users by the SMART Partnership (https://smartconservationtools.org) via email in October 2022. The survey remained open for three months. A reminder was sent three weeks before the closing date.
+
+Survey questions are in Appendix S1. Because the SMART Community Forum includes many conservation actors, respondents were asked first if their job roles and responsibilities matched our definition of PADM: “a person directly responsible for managing SMART data in one or more PAs or a general manager or administrator of one or more PAs that uses SMART data.” Respondents who did not identify as a PADM were excluded. The survey had five sections. Section 1 assessed the perception of PADMs on the importance of WH in achieving conservation goals, the role of human and livestock pathogens in affecting WH, and the role of wildlife pathogens in affecting public and livestock health. Section 2 asked respondents to rank the overall frequency of encounters with injured, sick, or dead wildlife in PAs and to indicate whether animals in each of these classes, along with healthy wildlife, are recorded as a specific type of individual when found during patrols. Section 3, asked about the presence of domestic animals in the PAs , the documentation of their health status, and the perceived threats of domestic animals to conservation goals. In sections 1-3 Likert scales were used for responses. Section 4 addressed health data storage practices when collected, and section 5 assessed the current state of SMART deployment in PAs.
+
+An introductory web page explained that the survey was voluntary, anonymous, and aimed at PADMs and that clicking the “start the survey” button constituted consent. A tutorial was provided for the language-translation tool of this survey built on Google Forms (Appendix S1). No personal information was collected, so the survey was exempt  from full  ethics review by the Wildlife Conservation Society’s IRB (REF# 22-53).
+
+Responses by PADMs could represent either a single or multiple PAs. For our analysis, we focused on what we defined as  local” responses, which included one or two PAs. “Non-local responses”, which covered more than two PAs, were analyzed separately. We assumed that PADM s responsible for more than two PAs would conduct occasional site visits and that it was unlikely they would have insights into specific PA realities (e.g., patrol findings, non-recorded data, data management, etc). However, they likely  had an understanding of perceptions at central offices at the decision-making level. In contrast, we assumed “local” PADMs would work on-site and understand PA realities. The two-PA cutoff was chosen to balance maximization  of the local respondent sample size with accurate classification of them. We discarded responses that pertained only to marine PAs (determined based on the World Database on Protected Areas; https://www.protectedplanet.net/en/thematic-areas/wdpa?tab=WDPA) because marine PA management,  species, and patrol logistics are markedly different from those in terrestrial PAs. The descriptive analysis of survey responses was conducted in R 4.3.1. The responses dataset is available from https://figshare.com/s/36513db82ac5dfa8e71d?file=49682265. Descriptive analyses can be found at https://github.com/dmontecino/SMART_survey.
+
+## Results
 
 ```{r load packages}
 #| echo: false
@@ -90,7 +94,7 @@ source("R/load_packages.R")
 
 ```{r open and cleaning survey responses}
 #| echo: false
-#| eval: false
+#| eval: true
 #| message: false
 #| warning: false
 
@@ -106,7 +110,7 @@ source("R/clean_pa_names.R")
 
 ```{r remove responses with unknown protected areas}
 #| echo: false
-#| eval: false
+#| eval: true
 #| message: false
 #| warning: false
 
@@ -125,17 +129,16 @@ number_responses_after_unknown_pa_names_are_removed<-nrow(dat_modified)
 
 ```{r classify responses in local or global}
 #| echo: false
-#| eval: false
+#| eval: true
 #| message: false
 #| warning: false
 
-# All national systems are global
 
-#distribution number of protected areas per response
+# Distribution number of protected areas per response
 
 #hist(map_vec(dat_modified$protected_area, \(x) nrow(x)), breaks = 60) 
 
-#based on the histogram a cut-off of two is selected
+# cut-off of two 
 
 #table(map_vec(dat_modified$protected_area, \(x) nrow(x)))
 
@@ -156,11 +159,9 @@ dat_modified$local[is.na(dat_modified$local)]<-TRUE
 ```
 
 
-We also discarded responses that only included marine PAs based on the World Database on Protected Areas (https://www.protectedplanet.net/en/thematic-areas/wdpa?tab=WDPA) as marine PA management,  species, and patrol logistics are markedly different. 
-
 ```{r classify marine or terrestrial protected areas}
 #| echo: false
-#| eval: false
+#| eval: true
 #| message: false
 #| warning: false
 
@@ -175,7 +176,7 @@ source("R/classify_pa.R")
 
 ```{r remove marine protected areas}
 #| echo: false
-#| eval: false
+#| eval: true
 #| message: false
 #| warning: false
 
@@ -208,78 +209,87 @@ dat_modified$protected_area$'27'<-dat_modified$protected_area$'27'[-3,]
 dat_modified$protected_area$'17'<-dat_modified$protected_area$'17'[-8,]
 ```
 
+
 ```{r learn about the countries before creating the available dataset}
 #| echo: false
-#| eval: false
+#| eval: true
 #| message: false
 #| warning: false
+
 
 library(countrycode)
 
 country_data<-
-tibble(
-  country=dat_modified |> 
-    dplyr::filter(position!="Other") |> 
-    select(protected_area) |> 
-    pull(protected_area)|> 
-    map_vec(\(x) x$country[1]),
-  local= dat_modified |>  
-    dplyr::filter(position!="Other") |> 
-    pull(local))
-  
+  tibble(
+    country=dat_modified |> 
+      dplyr::filter(position!="Other") |> 
+      select(protected_area) |> 
+      pull(protected_area)|> 
+      map_vec(\(x) x$country[1]),
+    local= dat_modified |>  
+      dplyr::filter(position!="Other") |> 
+      pull(local))
+
 
 country_data$continent <- 
   countrycode(sourcevar = country_data |>  pull(country),
-              origin = "country.name",
-              destination = "continent")
-  
+              origin = "country.name.en",
+              destination = "region23")
+
 
 country_data<-  
-country_data |> 
+  country_data |> 
   select(continent, country, local) |> 
   group_by(local) |> 
   count(continent, country, .drop = FALSE) |> 
   pivot_wider(values_from = n, names_from = "local") |> 
   rename("non_local" = 'FALSE', 'local' = 'TRUE') |> 
-  arrange(country) |> 
-  print(n =40)
-  
+  arrange(continent, country) 
 
+
+number_countries_local_data<- # 19
 country_data |> 
   filter(!is.na(local)) |> 
   nrow()
 
+countries_per_zone_local_data<-
 country_data |> 
   filter(!is.na(local)) |> 
-  group_by(continent) |> 
-  summarise(n_pa_per_continent = sum(local))
+  count(continent)
 
+number_countries_non_local_data<- # 10
 country_data |> 
   filter(!is.na(non_local)) |> 
-  group_by(continent) |> 
-  summarise(n_pa_per_continent = sum(non_local))
+  nrow()
+
+countries_per_zone_non_local_data<-
+country_data |> 
+  filter(!is.na(non_local)) |> 
+  count(continent)
 
 ```
 
 
 ```{r remove country and protected area name}
 #| echo: false
-#| eval: false
+#| eval: true
 #| message: false
 #| warning: false
 
 dat_modified <- dat_modified |> unnest(protected_area)
+
 dat_modified$protected_area <- as.character(as.numeric(factor(dat_modified$protected_area)))
-dat_modified$country <- as.character(as.numeric(factor(dat_modified$country)))
+
+#dat_modified$country <- as.character(as.numeric(factor(dat_modified$country)))
 
 dat_modified<-dat_modified |> nest(.by =!c("protected_area",  "country", "marine"), 
                                    .key = "protected_area")
 
-dat_modified<-dat_modified |> relocate(protected_area, .after = time)
+terrestrial_data<-dat_modified |> relocate(protected_area, .after = time)
 
 
 # finally the terrestrial data
-saveRDS(dat_modified, "data/terrestrial_data.RDS")
+# saveRDS(dat_modified, "data/terrestrial_data.RDS")
 ```
 
 
@@ -289,40 +299,23 @@ saveRDS(dat_modified, "data/terrestrial_data.RDS")
 #| message: false
 #| warning: false
 
-terrestrial_data<-readRDS("data/terrestrial_data.RDS")
+# terrestrial_data<-readRDS("data/terrestrial_data.RDS")
 
 number_responses_before_audience_remove<-nrow(terrestrial_data)
 
 #source("R/remove_other_audience.R")
-terrestrial_data<-terrestrial_data |> dplyr::filter(position!="Other")
+terrestrial_data<-terrestrial_data |>
+  dplyr::filter(position!="Other")
 
 number_responses_after_audience_remove<-nrow(terrestrial_data)
 
 ```
 
-The descriptive analysis of survey responses was conducted in R v4.3.1. The questionnaire, survey data, and descriptive analysis can be found at https://github.com/dmontecino/SMART_survey.
-
-## RESULTS
-
 <!-- ### General results -->
 
 
-```{r thext  before removing country and protected area name}
-#| echo: false
-#| eval: false
-#| message: false
-#| warning: false
+We received `r number_responses_before_unknown_pa_names_are_removed` responses. `r as.character(english::as.english(number_responses_before_unknown_pa_names_are_removed-number_responses_after_audience_remove)) |> stringr::str_to_sentence()` were removed because either the PA name or names were not provided, the PAs were marine, or respondents did not match the target audience (`r number_responses_before_unknown_pa_names_are_removed-number_responses_after_unknown_pa_names_are_removed`, `r number_responses_after_unknown_pa_names_are_removed-number_responses_before_audience_remove`, and `r number_responses_after_marine_remove-number_responses_after_audience_remove`, respectively). The final dataset contained `r number_responses_after_audience_remove` respondents from  from `r length(sort(unique(unlist(map(terrestrial_data$protected_area, \(x) x$country)))))` countries. `r as.character(english::as.english(terrestrial_data |> filter(local==T) |> count() |> pull())) |> stringr::str_to_sentence()` were local responses, `r pas_included<-map_int(terrestrial_data$protected_area, nrow); length(pas_included[pas_included==1])` surveys pertained to a single PA, and `r length(pas_included[pas_included==2])` pertained to 2 PAs. Local responses came from `r number_countries_local_data` countries. There were `r terrestrial_data |> filter(local==F) |> count() |> pull()` non-local responses from `r number_countries_non_local_data` countries. The names of the countries are not provided to protect the identity of the respondents, but local responses were from North, Central, and South America (n=45); West, Central, East, and Southern Africa (n=16); Southeast and Southern Asia (n=11); and Europe (n=1). Most responses came from South America. Non-local responses were from West, Central, and East Africa (n=6), Central and South America (n=3), and Southeast and Southern Asia (n=4).
 
-#> I had to make it this way because the r lines in plain tet within quarto are
-#> still read even when commented out.
-
-"We received `r number_responses_before_unknown_pa_names_are_removed` responses. `r as.character(english::as.english(number_responses_before_unknown_pa_names_are_removed-number_responses_after_audience_remove)) |> stringr::str_to_sentence()` were removed because either the PA name(s) were not provided, only marine PAs were listed, or the respondents did not match the target audience (`r number_responses_before_unknown_pa_names_are_removed-number_responses_after_unknown_pa_names_are_removed`, `r number_responses_before_marine_remove-number_responses_after_marine_remove`, and `r number_responses_before_audience_remove-number_responses_after_audience_remove`, respectively). The final dataset contained `r number_responses_after_audience_remove` respondents from  from `r length(sort(unique(unlist(map(terrestrial_data$protected_area, \(x) x$country)))))` countries. `r as.character(english::as.english(terrestrial_data |> filter(local==T) |> count() |> pull())) |> stringr::str_to_sentence()` were local responses from `r length(unique(unlist(map(terrestrial_data[terrestrial_data$local==T,]$protected_area, \(x) x$country))))` countries and `r terrestrial_data |> filter(local==F) |> count() |> pull()` were non-local responses from `r length(unique(unlist(map(terrestrial_data[terrestrial_data$local==F,]$protected_area, \(x) x$country))))` countries (Supporting Information)."
-
-```
-
-We received `r 128` responses. `r as.character(english::as.english(128-86)) |> stringr::str_to_sentence()` were removed because either the PA name(s) were not provided, only marine PAs were listed, or the respondents did not match the target audience (`r 128-120`, `r 120-number_responses_before_audience_remove`, and `r 113-number_responses_after_audience_remove`, respectively). The final dataset contained `r number_responses_after_audience_remove` respondents from  from `r length(sort(unique(unlist(map(terrestrial_data$protected_area, \(x) x$country)))))` countries. `r as.character(english::as.english(terrestrial_data |> filter(local==T) |> count() |> pull())) |> stringr::str_to_sentence()` were local responses from `r length(unique(unlist(map(terrestrial_data[terrestrial_data$local==T,]$protected_area, \(x) x$country))))` countries and `r terrestrial_data |> filter(local==F) |> count() |> pull()` were non-local responses from `r length(unique(unlist(map(terrestrial_data[terrestrial_data$local==F,]$protected_area, \(x) x$country))))` countries (the descriptive analysis of non-local responses is provided in the Supporting Information). The specific countries are not provided to protect the identity of the respondents.
-
-### Perceptions regarding wildlife health importance in conservation and potential consequences of pathogen transmission among wildlife, domestic animals, and people
 
 <!-- Under section 1, we asked managers to rank their perceptions regarding wildlife health  -->
 <!-- and potential consequences of pathogen transmission among wildlife, domestic -->
@@ -335,6 +328,9 @@ We received `r 128` responses. `r as.character(english::as.english(128-86)) |> s
 <!-- Pathogens carried by wildlife inhabiting the protected area I work in can affect public health -->
 
 <!-- Human or livestock pathogens can affect wildlife populations inhabiting the protected area I work  -->
+
+### Perceptions of wildlife health importance
+
 
 ```{r section 1}
 #| echo: false
@@ -402,7 +398,7 @@ section_1 |>
 
 ```
 
-`r as.character(english::as.english(strongly_agree_or_agree_wh_important)) |> stringr::str_to_sentence()` local respondents (`r round(strongly_agree_or_agree_wh_important/nrow(terrestrial_data[terrestrial_data$local==T,])*100,2)`%) either strongly agreed or agreed with the affirmation “Wildlife health, including infectious and non-infectious diseases, is important to achieve the conservation goals of the protected areas where I work”. Most respondents (`r round(strongly_agree_or_agree_hum_liv_impact_wh/nrow(terrestrial_data[terrestrial_data$local==T,])*100,2)`% strongly agreed or agreed with the affirmation “human or livestock pathogens can affect wildlife populations inhabiting the protected area(s) I work in”. In comparison, `r round(strongly_agree_or_agree_wl_impact_hum/nrow(terrestrial_data[terrestrial_data$local==T,])*100,2)`%) strongly agreed or agreed that “pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect human health” with `r round(neutral_wl_impact_hum/nrow(terrestrial_data[terrestrial_data$local==T,])*100,2)`% remaining neutral. Regarding the affirmation “pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect livestock health”, most respondents strongly agreed or agreed (`r round(strongly_agree_or_agree_wl_impact_liv/nrow(terrestrial_data[terrestrial_data$local==T,])*100,2)`%) although the proportion of neutral respondents was more prominent (`r round(neutral_wl_impact_liv/nrow(terrestrial_data[terrestrial_data$local==T,])*100,2)`%).Detailed response distributions are shown in Fig 1. Non-local responses followed similar trends (Supporting Information, section 1.1).  
+Most respondents either strongly agreed or agreed with the statements “Wildlife health, including infectious and non-infectious diseases, is important to achieve the conservation goals of the protected areas where I work.” and “Human or livestock pathogens can affect wildlife populations inhabiting the protected area(s) I work in.” (`r round(strongly_agree_or_agree_wh_important/nrow(terrestrial_data[terrestrial_data$local==T,])*100,0)`% and `r round(strongly_agree_or_agree_hum_liv_impact_wh/nrow(terrestrial_data[terrestrial_data$local==T,])*100,0)`%, respectively). Regarding the affirmation “Pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect livestock health.”, `r round(strongly_agree_or_agree_wl_impact_liv/nrow(terrestrial_data[terrestrial_data$local==T,])*100,0)`% of respondents strongly agreed or agreed and `r round(neutral_wl_impact_liv/nrow(terrestrial_data[terrestrial_data$local==T,])*100,0)`% neither agreed nor disagreed (e.g., were neutral). Across respondents, `r round(strongly_agree_or_agree_wl_impact_hum/nrow(terrestrial_data[terrestrial_data$local==T,])*100,0)`% strongly agreed or agreed that “Pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect human health.” Neutral responses were `r round(neutral_wl_impact_hum/nrow(terrestrial_data[terrestrial_data$local==T,])*100,0)`%. Detailed distributions are shown in Figure 1. Non-local responses followed similar trends; neutral responses were proportionally fewer (Appendix S2).
   
 ```{r figure 1, out.width = "600px"}
 #| echo: false
@@ -410,17 +406,16 @@ section_1 |>
 #| warning: false
 #| eval: true
 #| fig-align: center
-#| fig-cap: Distribution of the level of agreement among protected area data managers with statements ‘Wildlife health is important to achieve the conservation goals of the protected area(s) where I work’ (row 1), ‘human or livestock pathogens can affect wildlife populations inhabiting the protected area(s) where I work in’ (row 2), ‘pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect human health’ (row 3), and ‘pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect livestock health’ (row 4).
+#| fig-cap: Level of agreement (grey scale) among local protected area data managers with the statements “Pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect livestock health.” (brown), “Pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect human health.” (red), “Human or livestock pathogens can affect wildlife populations inhabiting the protected area(s) where I work in.” (blue), and “Wildlife health is important to achieve the conservation goals of the protected area(s) where I work,” (green). Overall frequency of encounters with sick and injured wildlife was requested in a unique question; therefore, rows one and two show the same total number of responses per encounter category.
 
 
-#source("plot_section_1.R")
+# source("plots/plot_1.R")
+knitr::include_graphics("plots/plot_1.png")
 
-# plot_section_1
-knitr::include_graphics("plots/plot_section_1.png")
 
 ```
 
-### Overall frequency of encounters with dead, sick, or injured wildlife in protected areas and their documentation when found during patrols
+### Encounters with injured, sick, or dead wildlife and documentation
 
 <!-- Are dead animals encountered in the protected area?  -->
 <!-- Are sick or injured animals encountered in the protected area?  -->
@@ -440,13 +435,15 @@ knitr::include_graphics("plots/plot_section_1.png")
 <!-- 15. Are sick wildlife found during patrols recorded as a specific category of individuals?  -->
 <!-- 15.a Please select one of the choices below to help us understand how sick wildlife are recorded during a patrol: -->
 
-```{r section 2A}
+```{r section 2}
 #| echo: false
 #| message: false
 #| warning: false
 #| eval: true
 
-section_2 <-
+# LOCAL 
+
+section_2_local <-
   terrestrial_data |> filter(local==T) |> 
   select(dead_found,
            sick_injured_found,
@@ -455,11 +452,17 @@ section_2 <-
            injured_wl_recorded)
 
 # Dead
-dead_found<-section_2 |> count(dead_found)
+dead_found<-section_2_local |> 
+  count(dead_found)
+
 dead_found$dead_found<-factor(dead_found$dead_found, 
-                              levels = c("Always", "Very frequently", 
-                                         "Occasionally", "Sometimes",
-                                         "Rarely", "Very rarely", "Never"))
+                              levels = c("Always", 
+                                         "Very frequently", 
+                                         "Occasionally",
+                                         "Sometimes",
+                                         "Rarely",
+                                         "Very rarely",
+                                         "Never"))
 
 dead_found<-dead_found[order(dead_found$dead_found),]
 
@@ -468,10 +471,11 @@ dead_found_btn_v_rarely_always<-
 dead_found |> 
   arrange(-n) |> 
   filter(dead_found!="Never") |> 
-  pull(n) |>  sum()
+  pull(n) |>  
+  sum()
   
 
-dead_recorded<-section_2 |> 
+dead_recorded<-section_2_local |> 
   filter(dead_found!=c("Never")) |> 
   count(dead_wl_recorded) |> 
   filter(dead_wl_recorded=="Yes") |> 
@@ -479,12 +483,16 @@ dead_recorded<-section_2 |>
 
 
 #Sick
-sick_injured_found<-section_2 |> count(sick_injured_found)
+sick_injured_found<-section_2_local |> count(sick_injured_found)
 sick_injured_found$sick_injured_found<-
   factor(sick_injured_found$sick_injured_found, 
-                              levels = c("Always", "Very frequently", 
-                                         "Occasionally", "Sometimes",
-                                         "Rarely", "Very rarely", "Never"))
+                              levels = c("Always", 
+                                         "Very frequently", 
+                                         "Occasionally",
+                                         "Sometimes",
+                                         "Rarely", 
+                                         "Very rarely", 
+                                         "Never"))
 
 sick_injured_found<-
   sick_injured_found[order(sick_injured_found$sick_injured_found),]
@@ -496,7 +504,7 @@ sick_injured_found |>
   pull(n) |>  sum()
   
 
-sick_recorded<-section_2 |> 
+sick_recorded<-section_2_local |> 
   filter(sick_injured_found!=c("Never")) |> 
   count(sick_wl_recorded) |> 
   filter(sick_wl_recorded=="Yes") |> 
@@ -505,16 +513,102 @@ sick_recorded<-section_2 |>
 
 #Injured
 
-injured_recorded<-section_2 |> 
+injured_recorded<-section_2_local |> 
   filter(sick_injured_found!=c("Never")) |> 
   count(injured_wl_recorded) |> 
   filter(injured_wl_recorded=="Yes") |> 
   pull(n)
 
 
+# NON LOCAL 
+
+section_2_non_local <-
+  terrestrial_data |> filter(local==F) |> 
+  select(dead_found,
+           sick_injured_found,
+           dead_wl_recorded,
+           sick_wl_recorded,
+           injured_wl_recorded)
+
+# Dead
+dead_found_non_local<-section_2_non_local |> 
+  count(dead_found)
+
+dead_found_non_local$dead_found<-factor(dead_found_non_local$dead_found, 
+                              levels = c("Always", 
+                                         "Very frequently", 
+                                         "Occasionally",
+                                         "Sometimes",
+                                         "Rarely",
+                                         "Very rarely",
+                                         "Never"))
+
+dead_found_non_local<-dead_found_non_local[order(dead_found_non_local$dead_found),]
+
+#dead_found_btn_v_rarely_v_frequently<-
+dead_found_btn_v_rarely_always_non_local<-
+dead_found_non_local |> 
+  arrange(-n) |> 
+  filter(dead_found!="Never") |> 
+  pull(n) |>  
+  sum()
+  
+
+dead_recorded_non_local<-section_2_non_local |> 
+  filter(dead_found!=c("Never")) |> 
+  count(dead_wl_recorded) |> 
+  filter(dead_wl_recorded=="Yes") |> 
+  pull(n)
+
+
+#Sick
+sick_injured_found_non_local<-section_2_non_local |> 
+  count(sick_injured_found)
+
+sick_injured_found_non_local$sick_injured_found<-
+  factor(sick_injured_found_non_local$sick_injured_found, 
+                              levels = c("Always", 
+                                         "Very frequently", 
+                                         "Occasionally",
+                                         "Sometimes",
+                                         "Rarely", 
+                                         "Very rarely", 
+                                         "Never"))
+
+sick_injured_found_non_local<-
+  sick_injured_found_non_local[order(sick_injured_found_non_local$sick_injured_found),]
+
+sick_injured_found_btn_v_rarely_always_non_local<-
+sick_injured_found_non_local |> 
+ arrange(-n) |> 
+  filter(sick_injured_found!="Never") |> 
+  pull(n) |>  sum()
+  
+
+sick_recorded_non_local<-
+  section_2_non_local |> 
+  filter(sick_injured_found!=c("Never")) |> 
+  count(sick_wl_recorded) |> 
+  filter(sick_wl_recorded=="Yes") |> 
+  pull(n)
+
+
+#Injured
+
+injured_recorded_non_local<-
+  section_2_non_local |> 
+  filter(sick_injured_found!=c("Never")) |> 
+  count(injured_wl_recorded) |> 
+  filter(injured_wl_recorded=="Yes") |> 
+  pull(n)
+
+
+
+
 ```
 
-`r as.character(english::as.english(dead_found_btn_v_rarely_always)) |> stringr::str_to_sentence()` (`r round(dead_found_btn_v_rarely_always/nrow(terrestrial_data[terrestrial_data$local==T,])*100,2)`%) ranked encountering dead animals in the PA at least "Very rarely" whilst `r round(dead_recorded/dead_found_btn_v_rarely_always*100,2)`% of these respondents answered that these animals are documented if found during patrols. `r as.character(english::as.english(sick_injured_found_btn_v_rarely_always)) |> stringr::str_to_sentence()` local respondents (`r round(sick_injured_found_btn_v_rarely_always/nrow(terrestrial_data[terrestrial_data$local==T,])*100,2)`%) ranked encountering sick or injured animals in the PA at least "Very rarely", whilst `r round(sick_recorded/sick_injured_found_btn_v_rarely_always*100,2)`% and `r round(injured_recorded/sick_injured_found_btn_v_rarely_always*100,2)`% of these respondents answered that sick and injured animals are documented if found during patrols (Fig 2).
+Most local overall frequency-of-encounter responses concentrated between “very rarely” and “occasionally” (Figure 2). `r as.character(english::as.english(round(dead_recorded/dead_found_btn_v_rarely_always*100,0))) |> stringr::str_to_sentence()` percent of local PADMs reporting the encounter of dead animals in the PAs (e.g., responded “very rarely” or more frequently) indicated that these encounters were documented. `r as.character(english::as.english(round(injured_recorded/sick_injured_found_btn_v_rarely_always*100,0))) |> stringr::str_to_sentence()` percent of local PADMs reporting encounters with injured or sick animals and `r round(sick_recorded/sick_injured_found_btn_v_rarely_always*100,0)`% reporting encounters with sick animals in the PAs confirmed their documentation. In general, the documentation of injured, sick, or dead animals tended to be higher as the encounter frequency increased from “very rarely” to “very frequently”. For example, the percentage of local responses reporting the documentation of sick animals as “very rarely” was <20% versus >50% for the encounter frequency “very frequently” (Figure 2). All non-local PADMs reported the encounter with injured or sick wildlife and dead wildlife. The percentages of non-local PADMs reporting the documentation of these animals were larger compared with local responses (`r round(injured_recorded_non_local/sick_injured_found_btn_v_rarely_always_non_local*100,0)`%, `r round(sick_recorded_non_local/sick_injured_found_btn_v_rarely_always_non_local*100,0)`%, and `r round(dead_recorded_non_local/dead_found_btn_v_rarely_always_non_local*100,0)`% for injured, sick, and dead wildlife respectively; Appendix S3).
+
 
 ```{r figure 2, out.width = "600px"}
 #| echo: false
@@ -522,13 +616,13 @@ injured_recorded<-section_2 |>
 #| warning: false
 #| eval: true
 #| fig-align: center
-#| fig-cap: Distribution of protected area data manager responses regarding the encounter of dead and sick or injured wildlife in the protected area(s) where they work and their recording or not when encountered. Blue contour polygons and numbers indicate the total number of responses reporting recording of dead, sick, and injured wildlife found during patrols within each encountering frequency category. Red contour polygons and numbers indicate the total number of responses reporting the non-recording of dead, sick, and injured wildlife found during patrols within each encountering frequency category.
+#| fig-cap:  Number of local protected area data managers who reported that the health status of and frequency of encounters with wildlife are recorded or not recorded in the protected area they worked in. Green bars represent the proportion of respondents that reported recording of wildlife in each category.
 
-#source("plot_section_2A_optionB")
+
 
 # plot_section_2
-knitr::include_graphics("plots/plot_section_2A_option2.png")
-
+# source("plots/plot_2.R")
+knitr::include_graphics("plots/plot_2.png")
 ```
 
 ```{r documentation versus agreement with wildife health }
@@ -537,12 +631,16 @@ knitr::include_graphics("plots/plot_section_2A_option2.png")
 #| message: false
 #| warning: false
 
+# LOCAL 
 
 dead_found_and_not_documented_versus_wh_importance<-
 terrestrial_data |> 
   filter(local==T) |> 
-  select(dead_found, dead_wl_recorded, wildlife_health_important) |> 
-  filter(dead_wl_recorded=="No" & dead_found!="Never") |> 
+  select(dead_found, 
+         dead_wl_recorded, 
+         wildlife_health_important) |> 
+  filter(dead_wl_recorded=="No" &
+           dead_found!="Never") |> 
   count(wildlife_health_important)
 
 
@@ -555,39 +653,138 @@ dead_found_and_not_documented_versus_wh_importance |>
 
 
 number_responses_sick_injured_found_and_sick_not_documented_and_wh_importance_agree_strongly_agree<-
-terrestrial_data |> filter(local==T) |> 
-  select(sick_injured_found, sick_wl_recorded, wildlife_health_important) |> 
-  filter(sick_wl_recorded=="No" & sick_injured_found!="Never") |> 
+terrestrial_data |> 
+  filter(local==T) |> 
+  select(sick_injured_found, 
+         sick_wl_recorded, 
+         wildlife_health_important) |> 
+  filter(sick_wl_recorded=="No" & 
+           sick_injured_found!="Never") |> 
   count(wildlife_health_important) |> 
-  filter(wildlife_health_important%in%c("Strongly agree", "Agree")) |> 
-  pull(n) |> sum()
+  filter(wildlife_health_important%in%c("Strongly agree",
+                                        "Agree")) |> 
+  pull(n) |> 
+  sum()
 
 
 number_responses_sick_injured_found_and_injured_not_documented_and_wh_importance_agree_strongly_agree<-
-terrestrial_data |> filter(local==T) |> 
-  select(sick_injured_found, injured_wl_recorded, wildlife_health_important) |> 
-  filter(injured_wl_recorded=="No" & sick_injured_found!="Never") |> 
+terrestrial_data |> 
+  filter(local==T) |> 
+  select(sick_injured_found, 
+         injured_wl_recorded, 
+         wildlife_health_important) |> 
+  filter(injured_wl_recorded=="No" & 
+           sick_injured_found!="Never") |> 
   count(wildlife_health_important) |> 
-  filter(wildlife_health_important%in%c("Strongly agree", "Agree")) |> 
-  pull(n) |> sum()
+  filter(wildlife_health_important%in%c("Strongly agree", 
+                                        "Agree")) |> 
+  pull(n) |> 
+  sum()
 
 sick_injured_found_and_sick_not_documented<-
-terrestrial_data |> filter(local==T) |> 
-  select(sick_injured_found, sick_wl_recorded, wildlife_health_important) |> 
-  filter(sick_wl_recorded=="No" & sick_injured_found!="Never") |> 
+terrestrial_data |> 
+  filter(local==T) |> 
+  select(sick_injured_found, 
+         sick_wl_recorded, 
+         wildlife_health_important) |> 
+  filter(sick_wl_recorded=="No" & 
+         sick_injured_found!="Never") |> 
   nrow()
 
 sick_injured_found_and_injured_not_documented<-
-terrestrial_data |> filter(local==T) |> 
-  select(sick_injured_found, injured_wl_recorded, wildlife_health_important) |> 
-  filter(injured_wl_recorded=="No" & sick_injured_found!="Never") |> 
+terrestrial_data |> 
+  filter(local==T) |> 
+  select(sick_injured_found, 
+         injured_wl_recorded, 
+         wildlife_health_important) |> 
+  filter(injured_wl_recorded=="No" & 
+         sick_injured_found!="Never") |> 
   nrow()
+
+
+# NON LOCAL
+
+
+dead_found_and_not_documented_versus_wh_importance_non_local<-
+  terrestrial_data |> 
+  filter(local==F) |> 
+  select(dead_found, 
+         dead_wl_recorded, 
+         wildlife_health_important) |> 
+  filter(dead_wl_recorded=="No" &
+           dead_found!="Never") |> nrow()
+
+
+
+dead_found_and_not_documented_wh_important_agree_strongly_agree_non_local<-
+  terrestrial_data |> 
+  filter(local==F) |> 
+  select(dead_found, 
+         dead_wl_recorded, 
+         wildlife_health_important) |> 
+  filter(dead_wl_recorded=="No" &
+         dead_found!="Never") |> 
+  filter(wildlife_health_important%in%c("Agree", "Strongly agree")) |> 
+  nrow()
+
+
+number_responses_sick_injured_found_and_sick_not_documented_and_wh_importance_agree_strongly_agree_non_local<-
+terrestrial_data |> 
+  filter(local==F) |> 
+  select(sick_injured_found, 
+         sick_wl_recorded, 
+         wildlife_health_important) |> 
+  filter(sick_wl_recorded=="No" & 
+           sick_injured_found!="Never") |> 
+  count(wildlife_health_important) |> 
+  filter(wildlife_health_important%in%c("Strongly agree",
+                                        "Agree")) |> 
+  pull(n) |> 
+  sum()
+
+
+number_responses_sick_injured_found_and_injured_not_documented_and_wh_importance_agree_strongly_agree_non_local<-
+terrestrial_data |> 
+  filter(local==F) |> 
+  select(sick_injured_found, 
+         injured_wl_recorded, 
+         wildlife_health_important) |> 
+  filter(injured_wl_recorded=="No" & 
+           sick_injured_found!="Never") |> 
+  count(wildlife_health_important) |> 
+  filter(wildlife_health_important%in%c("Strongly agree", 
+                                        "Agree")) |> 
+  pull(n) |> 
+  sum()
+
+sick_injured_found_and_sick_not_documented_non_local<-
+terrestrial_data |> 
+  filter(local==F) |> 
+  select(sick_injured_found, 
+         sick_wl_recorded, 
+         wildlife_health_important) |> 
+  filter(sick_wl_recorded=="No" & 
+         sick_injured_found!="Never") |> 
+  nrow()
+
+sick_injured_found_and_injured_not_documented_non_local<-
+terrestrial_data |> 
+  filter(local==F) |> 
+  select(sick_injured_found, 
+         injured_wl_recorded, 
+         wildlife_health_important) |> 
+  filter(injured_wl_recorded=="No" & 
+         sick_injured_found!="Never") |> 
+  nrow()
+
+
 
 ```
 
-All `r dead_found_and_not_documented_wh_important_agree_strongly_agree` local PADMs who ranked encountering dead wildlife at least "Very rarely" but answered that these animals were not documented, either agreed or strongly agreed with the importance of WH to achieve conservation goals. Similarly, `r round(number_responses_sick_injured_found_and_sick_not_documented_and_wh_importance_agree_strongly_agree/sick_injured_found_and_sick_not_documented*100,2)`% and `r round(number_responses_sick_injured_found_and_injured_not_documented_and_wh_importance_agree_strongly_agree/sick_injured_found_and_injured_not_documented*100,2)`% of respondents who ranked encountering sick or injured wildlife at least "Very rarely" but answered that these animals were not documented either agreed or strongly agreed with this statement.
 
-Most non-local respondents ranked the overall encounter with non-healthy wildlife between “Very rarely” and “Occasionally”. A larger proportion of non-local PADMs reported the documentation of these animals when found during patrols compared to local responses (92.3%, 61.5%, and 84.6%, for dead, sick, and injured wildlife respectively, Supporting Information, section 1.2).
+All `r dead_found_and_not_documented_wh_important_agree_strongly_agree` local PADMs who indicated encountering dead wildlife “very rarely” or more frequently but answered that these animals were not documented, either agreed or strongly agreed with the importance of WH to achieve conservation goals. Similarly, `r round(number_responses_sick_injured_found_and_injured_not_documented_and_wh_importance_agree_strongly_agree/sick_injured_found_and_injured_not_documented*100,0)`% of local PADMs who indicated encountering injured wildlife "very rarely" or more frequently but answered that these animals were not documented, either agreed or strongly agreed with this statement. For sick wildlife, the percentage was `r round(number_responses_sick_injured_found_and_sick_not_documented_and_wh_importance_agree_strongly_agree/sick_injured_found_and_sick_not_documented*100,0)`%. The corresponding percentages for non-local PADMs were `r round(number_responses_sick_injured_found_and_injured_not_documented_and_wh_importance_agree_strongly_agree_non_local/sick_injured_found_and_injured_not_documented_non_local*100,0)`%, `r round(number_responses_sick_injured_found_and_sick_not_documented_and_wh_importance_agree_strongly_agree_non_local/sick_injured_found_and_sick_not_documented_non_local*100,0)`%, and `r round(dead_found_and_not_documented_wh_important_agree_strongly_agree_non_local/dead_found_and_not_documented_versus_wh_importance_non_local*100,0)`% for injured, sick, and dead wildlife, respectively.
+
+### Documentation methods 
 
 ```{r methods used to record wildlife}
 #| echo: false
@@ -706,7 +903,11 @@ record_method_across_status<-
 
 ```
 
-For the `r recording_of_sick_injured_or_dead_wildlife |> nrow()` local PADMs reporting the documentation of either dead, sick, or injured wildlife, the recording method reported varied. Most often, each individual animal was documented according to health status (healthy, sick, injured, dead). The second most common method involved a complete inventory of healthy, sick, injured, or dead animals for each species. The distribution of the recording methods across healthy, sick, injured, or dead wildlife is shown in Fig 3. For non-local responses, the predominant method was “each animal is an individual observation” across health categories (Supporting Information, section 1.2).
+The documentation method of injured, sick, or dead wildlife varied among the `r recording_of_sick_injured_or_dead_wildlife |> nrow()` local PADMs that reported the recording of one or more of these groups. Most often, each animal was documented individually (“individual observation”). The second most common method was a complete inventory of healthy, injured, sick, or dead animals for each species. Reporting their presence or absence was the third most common method (Figure 3). For non-local responses, the predominant method was “each animal is an individual observation” across health categories (Appendix S4).
+
+The items recorded from each observation were not consistent across responses (Figure 3). Photographs and the species were the main items collected across documentation methods and health categories. Anomalies observed in unhealthy wildlife (e.g., sick or dead) and the condition of carcasses were not always recorded (Figure 3). In non-local responses the trend was relatively similar; however, items were reported as being recorded more consistently (e.g., age, anomalies, and condition in the three health categories; Appendix S4).
+
+
 
 ```{r figure 3, , out.width = "600px"}
 #| echo: false
@@ -714,46 +915,29 @@ For the `r recording_of_sick_injured_or_dead_wildlife |> nrow()` local PADMs rep
 #| warning: false
 #| eval: true
 #| fig-align: center
-#| fig-cap: Distribution of protected area data manager responses regarding the encounter of dead and sick or injured wildlife in the protected area(s) where they work. Red numbers indicate the total number of responses per encountering frequency. The dashed area of the polygons represent the responses indicating that dead, sick, and injured wildlife found during ranger patrols are recorded (rows 1 – 3, respectively). Black numbers indicate the total number of responses reporting recording and non-recording of dead, sick, and injured wildlife found during patrols within each frequency category. 
+#| fig-cap: Distribution of the methods of documentation (second column) of healthy, sick, injured, or dead wildlife found during ranger patrols as reported by local protected area data managers and the recording of specific types of data for each wildlife health status across documentation methods (black line, 50%).
 
-#source("plot_section_2D.R")
+# source("R/plot_3.R")
 
 # plot_section_2D
-knitr::include_graphics("plots/plot_section_2D.png")
+knitr::include_graphics("plots/plot_3.png")
 
 ```
 
-
-The data types and attributes used by local respondents to document sick, injured, or dead wildlife are shown in Fig 4. None of them were collected consistently. Across health categories, photographs and species were the main data types and attributes collected. In non-local responses the trend was relatively similar, however, items were reported to be recorded more consistently (e.g., age, anomalies, and condition in the three health categories; Supporting Information, section 1.2).
-
-```{r figure 4}
-#| echo: false
-#| message: false
-#| warning: false
-#| eval: true
-#| fig-align: center
-#| fig-cap: The percentage of protected area data manager responses indicating the documentation of sick, injured, and dead wildlife found during patrols that record specific data items for each wildlife health status. The size of the circles is proportional to the percentages observed.
-
-#source("plot_section_2E.R")
-
-# plot_section_2
-knitr::include_graphics("plots/plot_section_2E.png")
-
-```
-
-### Presence of domestic animals in protected area(s), the documentation of their health status, and the perceived threats of domestic animals to conservation goals according to local surveys
-
+### Domestic animals in protected areas
 
 <!-- Introduced domestic animals (e.g., dogs, cats, cattle, pigs, cats) are a concern for the conservation goals of the protected areas where I work -->
 <!-- 16. Are domestic animals found in the protected area (free-ranging, captive, on a farm)? -->
 <!-- 17. If observed on a patrol, is the presence of domestic animals recorded? -->
 <!-- 18. Is the health status of the observed domestic animals (healthy, sick or injured, dead) recorded? -->
 
-```{r section 3A}
+```{r Presence of domestic animal}
 #| echo: false
 #| eval: true
 #| message: false
 #| warning: false
+
+##LOCAL 
 
 # responsed where domestic animals are in the pa
 num_responses_dom_animals_in_pa<-
@@ -817,34 +1001,153 @@ num_responses_dom_animals_in_pa_are_concern_strongly_agree_agree_recorded<-
   filter(dom_animals_recorded=="Yes") |> 
   nrow()
 
+
+
+
+# responsed where domestic animals are not in the pa
+num_responses_dom_animals_not_in_pa<-
+terrestrial_data |> 
+  filter(local==T) |>
+  select(  dom_animals_in_pa, 
+           dom_animals_recorded) |>
+  filter(dom_animals_in_pa=="No") |> 
+  nrow()
+
+
+
+
+num_responses_dom_animals_not_in_pa_are_concern_strongly_agree_agree<-
+  terrestrial_data |> 
+  filter(local==T) |>
+  select(dom_animals_concern,
+         dom_animals_in_pa, 
+         dom_animals_recorded, 
+         dom_animal_health_status_recorded) |> 
+  filter(dom_animals_in_pa=="No") |> 
+  filter(dom_animals_concern%in% c("Strongly agree", "Agree")) |> 
+  nrow()
+
+
+
+## NON LOCAL
+
+
+# responsed where domestic animals are in the pa
+num_responses_dom_animals_in_pa_non_local<-
+terrestrial_data |> 
+  filter(local==F) |>
+  select(  dom_animals_in_pa, 
+           dom_animals_recorded) |>
+  filter(dom_animals_in_pa=="Yes") |> 
+  nrow()
+
+#responses where the dome animalas are observed and recorded
+num_responses_dom_animals_in_pa_are_recorded_non_local<-
+  terrestrial_data |> 
+  filter(local==F) |>
+  select(  dom_animals_in_pa, 
+           dom_animals_recorded) |>
+  filter(dom_animals_in_pa=="Yes") |>
+  count(dom_animals_in_pa, dom_animals_recorded) |> 
+  filter(dom_animals_recorded=="Yes") |>
+  pull(n)
+  
+#responses where the dome animals are observed, recorded, and the health status is registered.
+
+num_responses_dom_animals_in_pa_are_recorded_health_status_non_local<-
+terrestrial_data |> 
+  filter(local==F) |>
+  select(  dom_animals_in_pa, 
+           dom_animals_recorded, 
+           dom_animal_health_status_recorded) |> 
+  filter(dom_animals_in_pa=="Yes" &
+           dom_animals_recorded=="Yes") |> 
+  count(dom_animal_health_status_recorded) |> 
+  filter(dom_animal_health_status_recorded=="Yes") |> 
+  pull(n)
+
+
+
+
+num_responses_dom_animals_in_pa_are_concern_strongly_agree_agree_non_local<-
+  terrestrial_data |> 
+  filter(local==F) |>
+  select(dom_animals_concern,
+         dom_animals_in_pa, 
+         dom_animals_recorded, 
+         dom_animal_health_status_recorded) |> 
+  filter(dom_animals_in_pa=="Yes") |> 
+  filter(dom_animals_concern%in% c("Strongly agree", "Agree")) |> 
+  nrow()
+
+
+
+num_responses_dom_animals_in_pa_are_concern_strongly_agree_agree_recorded_non_local<-
+  terrestrial_data |> 
+  filter(local==F) |>
+  select(dom_animals_concern,
+         dom_animals_in_pa, 
+         dom_animals_recorded, 
+         dom_animal_health_status_recorded) |> 
+  filter(dom_animals_in_pa=="Yes") |> 
+  filter(dom_animals_concern%in% c("Strongly agree", "Agree")) |> 
+  filter(dom_animals_recorded=="Yes") |> 
+  nrow()
+
+
+
+
+# responsed where domestic animals are not in the pa no local
+num_responses_dom_animals_not_in_pa<-
+terrestrial_data |> 
+  filter(local==T) |>
+  select(  dom_animals_in_pa, 
+           dom_animals_recorded) |>
+  filter(dom_animals_in_pa=="No") |> 
+  nrow()
+
+
+
+
+num_responses_dom_animals_not_in_pa_are_concern_strongly_agree_agree<-
+  terrestrial_data |> 
+  filter(local==T) |>
+  select(dom_animals_concern,
+         dom_animals_in_pa, 
+         dom_animals_recorded, 
+         dom_animal_health_status_recorded) |> 
+  filter(dom_animals_in_pa=="No") |> 
+  filter(dom_animals_concern%in% c("Strongly agree", "Agree")) |> 
+  nrow()
+
 ```
 
-`r as.character(english::as.english(num_responses_dom_animals_in_pa)) |> stringr::str_to_sentence()` PADMs responded that domestic animals were found in the corresponding PAs (`r round(num_responses_dom_animals_in_pa/nrow(terrestrial_data[terrestrial_data$local==T,])*100,2)`%). Among them, `r round(num_responses_dom_animals_in_pa_are_recorded/num_responses_dom_animals_in_pa*100,2)`% reported that domestic animals were documented if observed during patrols, of which only `r round(num_responses_dom_animals_in_pa_are_recorded_health_status/num_responses_dom_animals_in_pa_are_recorded*100,2)`% reported recording their health status (Fig 5). `r as.character(english::as.english(num_responses_dom_animals_in_pa_are_concern_strongly_agree_agree)) |> stringr::str_to_sentence()` (`r round(num_responses_dom_animals_in_pa_are_concern_strongly_agree_agree/num_responses_dom_animals_in_pa*100,2)`%) local respondents reporting domestic animals in the PAs either agreed or strongly agreed that domestic animals are a conservation concern (Fig 5). `r as.character(english::as.english(num_responses_dom_animals_in_pa_are_concern_strongly_agree_agree_recorded)) |> stringr::str_to_sentence()` of them (`r round(num_responses_dom_animals_in_pa_are_concern_strongly_agree_agree_recorded/num_responses_dom_animals_in_pa_are_concern_strongly_agree_agree*100,2)`%) answered that these animals were documented. Most respondents claiming that domestic animals are not found in the corresponding PAs also either agreed or strongly agreed that they are a conservation concern.
+`r as.character(english::as.english(num_responses_dom_animals_in_pa)) |> stringr::str_to_sentence()` local PADMs (`r round(num_responses_dom_animals_in_pa/nrow(terrestrial_data[terrestrial_data$local==T,])*100,0)`%) responded that domestic animals were found in their PAs. Among them, `r round(num_responses_dom_animals_in_pa_are_recorded/num_responses_dom_animals_in_pa*100,0)`% reported that domestic animals were documented if observed during patrols, and `r round(num_responses_dom_animals_in_pa_are_recorded_health_status/num_responses_dom_animals_in_pa_are_recorded*100,0)`% reported recording of their health status (Figure 4). `r as.character(english::as.english(num_responses_dom_animals_in_pa_are_concern_strongly_agree_agree)) |> stringr::str_to_sentence()` local respondents reporting domestic animals in the PAs  (`r round(num_responses_dom_animals_in_pa_are_concern_strongly_agree_agree/num_responses_dom_animals_in_pa*100,0)`%) either agreed or strongly agreed that domestic animals are a conservation concern (Figure 4). `r as.character(english::as.english(num_responses_dom_animals_in_pa_are_concern_strongly_agree_agree_recorded)) |> stringr::str_to_sentence()` of them (`r round(num_responses_dom_animals_in_pa_are_concern_strongly_agree_agree_recorded/num_responses_dom_animals_in_pa_are_concern_strongly_agree_agree*100,0)`%) answered that these animals were documented. `r as.character(english::as.english(num_responses_dom_animals_not_in_pa_are_concern_strongly_agree_agree)) |> stringr::str_to_sentence()` out of `r num_responses_dom_animals_not_in_pa` respondents claimed that domestic animals are not found in the corresponding PAs and either agreed or strongly agreed that they are a conservation concern (`r round(num_responses_dom_animals_not_in_pa_are_concern_strongly_agree_agree/num_responses_dom_animals_not_in_pa*100,0)`%).
 
-```{r figure 5, out.width = "600px"}
+
+`r as.character(english::as.english(num_responses_dom_animals_in_pa_non_local)) |> stringr::str_to_sentence()` non-local PADMs (`r round(num_responses_dom_animals_in_pa_non_local/nrow(terrestrial_data[terrestrial_data$local==F,])*100,0)`%) responded that domestic animals were found in the PAs. Among them, `r as.character(english::as.english(num_responses_dom_animals_in_pa_are_recorded_non_local))` (`r round(num_responses_dom_animals_in_pa_are_recorded_non_local/num_responses_dom_animals_in_pa_non_local*100,0)`%) reported that domestic animals were documented if observed during patrols, of which only `r as.character(english::as.english(num_responses_dom_animals_in_pa_are_recorded_health_status_non_local))` (`r round(num_responses_dom_animals_in_pa_are_recorded_health_status_non_local/num_responses_dom_animals_in_pa_are_recorded_non_local*100,0)`%) reported recording their health status (Appendix S5).
+
+```{r figure 4, , out.width = "600px"}
 #| echo: false
 #| message: false
 #| warning: false
 #| eval: true
 #| fig-align: center
-#| fig-cap: Distribution of the level of agreement among protected area data managers with the statement ‘Introduced domestic animals (e.g., dogs, cats, cattle, pigs, cats) are a concern for the conservation goals of the protected areas where I work’ for the groups that reported the absence and presence of domestic animals in the protected area(s) and their recording in the latter. Black numbers indicate the total number of responses per agreement category for the group reporting the absence of domestic animals in protected areas. Blue numbers indicate the total number of responses per agreement category for the subgroup reporting the presence and recording of domestic animals. Lighter polygons in this subgroup represent the number of responses that reported the presence and recording of domestic animal health status but not their documentation. Red numbers indicate the total number of responses per agreement category for the subgroup reporting the presence of domestic animals but not their recording
+#| fig-cap: Responses of local protected area data manager to statements that the presence and health of domestic animals in protected areas is a conservation concern (red, no recording of domestic animals; light blue, recording of domestic animals but not their health status; dark blue, recording of domestic animals and their health status). Data are from the group of protected area data managers who reported the presence of domestic animals in the protected area.
 
+# source("R/plot_4.R")
 
-#source("plot_section_3.R")
-
-knitr::include_graphics("plots/plot_section_3.png")
+# plot_section_2D
+knitr::include_graphics("plots/plot_4.png")
 
 ```
 
-Eight non-local PADMs (61.5%) responded that domestic animals were found in the PAs. Among them, seven (87.5%) reported that domestic animals were documented if observed during patrols, of which only two (28.6%) reported recording their health status (Supporting Information, section 1.3). 
 
-### Health data storage practices in protected areas
+### Health data storage practices
 
 <!-- Are these data entered and stored in SMART Desktop? -->
 
 <!-- If none of the items are recorded in the corresponding SMART Conservation Area where are they recorded?  -->
-
-
 
 
 ```{r wildlife health data stored in SMART}
@@ -860,11 +1163,27 @@ terrestrial_data |>
   filter(local==T) |>
   filter(dead_wl_recorded=="Yes") |>
   nrow()
-  
+
+data_dead_smart<-
+terrestrial_data |> 
+  filter(local==T) |>
+  filter(dead_wl_recorded=="Yes") |>
+  filter(str_detect(dead_wl_data_in_smart, "All")) |>
+  nrow()
+
+# data_dead_smart/data_dead 
+
 data_sick<-
 terrestrial_data |> 
   filter(local==T) |>
   filter(sick_wl_recorded=="Yes") |>
+  nrow()
+
+data_sick_smart<-
+terrestrial_data |> 
+  filter(local==T) |>
+  filter(sick_wl_recorded=="Yes") |>
+  filter(str_detect(sick_wl_data_in_smart, "All")) |>
   nrow()
 
 data_injured<-
@@ -873,114 +1192,40 @@ terrestrial_data |>
   filter(injured_wl_recorded=="Yes") |>
   nrow()
 
-```
 
-For the subset of local protected area data managers reporting the documentation of either sick, injured, or dead wildlife (`r data_sick`, `r data_injured`, and `r data_dead` responses, respectively), their data was often stored in a SMART database (Fig 6). 
-
-```{r figure 6, out.width = "400px"}
-#| echo: false
-#| message: false
-#| warning: false
-#| eval: true
-#| fig-align: center
-#| fig-cap: Distribution of protected area data managers reporting the documentation of either sick, injured, or dead wildlife found during ranger patrols across data storage practices with respect to the use of SMART.
-
-#source("plot_section_4A.R")
-
-# plot_section_4
-knitr::include_graphics("plots/plot_section_4A.png")
-```
-
-
-```{r paper forms}
-#| echo: false
-#| message: false
-#| warning: false
-#| eval: false
-
-source("R/health_data_across_different_smart_implementation.R")
-
-```
-
-Paper forms, reports, and spreadsheets were employed when either sick, injured, or dead wildlife were documented but their data was not stored in a SMART database (n=8). This situation was most common when SMART partially implemented (n=5) but also SMART was fully rolled-out (n=3). Most non-local PADMs responded that health data were stored in a SMART database (Supporting Information, section 1.4).
-
-```{r wildlife health data not in SMART}
-#| echo: false
-#| message: false
-#| warning: false
-#| eval: true
-
-wildlife_data_not_in_smart<-
-terrestrial_data |>
-  filter(local==T) |>
-  select(sick_wl_data_in_smart,
-           injured_wl_data_in_smart,
-           dead_wl_data_in_smart,
-           sick_wl_data_other,
-           injured_wl_data_other,
-           dead_wl_data_other) |>
-  filter(grepl(pattern = '""|None', sick_wl_data_in_smart) | 
-         grepl(pattern = '""|None', injured_wl_data_in_smart) |
-         grepl(pattern = '""|None', dead_wl_data_in_smart)) |> 
-  select(sick_wl_data_other, 
-         injured_wl_data_other,
-         dead_wl_data_other) |>
-  pivot_longer(cols = everything(), values_to = "not_in_smart") |> 
-  select(not_in_smart) |>
-  distinct()
-  
-# wildlife_data_not_in_smart
-
-```
-
-
-
-```{r domestic animal health data in SMART}
-#| echo: false
-#| message: false
-#| warning: false
-#| eval: true
-
-# data on domestic animals observed in pa and recorded are stored in SMART
-num_responses_dom_animals_in_pa_are_recorded_in_smart<-
-  terrestrial_data |> 
-  filter(local==T) |>
-  select(#survey, 
-           dom_animals_in_pa, 
-           dom_animals_recorded, 
-           dom_animal_in_smart) |>
-  filter(dom_animals_in_pa=="Yes" & 
-           dom_animals_recorded=="Yes") |> 
-  count(dom_animals_recorded, 
-        dom_animal_in_smart) |> 
-  filter(dom_animal_in_smart=="Yes") |> 
-  pull(n)
-
-
-# data on domestic animals health status are stored in SMART (subset where domestic animals are observed, recorded, and health status recorded)
-dom_animal_health_status_in_smart<-
+data_injured_smart<-
 terrestrial_data |> 
   filter(local==T) |>
-  select(#survey,
-         dom_animals_in_pa, 
-           dom_animals_recorded, 
-           dom_animal_health_status_recorded, 
-           dom_animal_health_status_smart) |> 
-  # select(-survey) |>
-  filter(dom_animals_in_pa=="Yes" &
-           dom_animals_recorded=="Yes" & 
-           dom_animal_health_status_recorded=="Yes") |> 
-  count(dom_animal_health_status_recorded, 
-        dom_animal_health_status_smart) |> 
-  filter(dom_animal_health_status_smart=="Yes") |> 
-  pull(n)
+  filter(injured_wl_recorded=="Yes") |>
+  filter(str_detect(injured_wl_data_in_smart, "All")) |>
+  nrow()
+
+
+domestic_animals_recorded<-
+terrestrial_data |> 
+  filter(local==T) |>
+  filter(dom_animals_recorded=="Yes") |> 
+  nrow()
+
+domestic_animals_recorded_smart<-
+terrestrial_data |> 
+  filter(local==T) |>
+  filter(dom_animals_recorded=="Yes") |> 
+  filter(dom_animal_in_smart=="Yes") |>
+  nrow()
+
+
+
+
+
 ```
 
 
-`r as.character(english::as.english(num_responses_dom_animals_in_pa_are_recorded_in_smart)) |> stringr::str_to_sentence()` of the `r num_responses_dom_animals_in_pa_are_recorded` local respondents (`r round(num_responses_dom_animals_in_pa_are_recorded_in_smart/num_responses_dom_animals_in_pa_are_recorded*100,2)`%) recording domestic animals during patrols indicated that this information was stored in a SMART database. All PADMs reporting the recording of health status in domestic animals responded that this information was stored in a SMART database.
+`r as.character(english::as.english(round(data_injured_smart/data_injured*100,2))) |> stringr::str_to_sentence()` percent, `r round(data_sick_smart/data_sick*100,0)`%, and `r round(data_dead_smart/data_dead*100,0)`% of local PADMs reported the documentation of injured, sick, or dead wildlife being stored in a SMART database. Paper forms, reports, and spreadsheets were employed when unhealthy wildlife were documented, but their data were not stored in a SMART database.
+
+`r as.character(english::as.english(domestic_animals_recorded_smart)) |> stringr::str_to_sentence()` of the `r domestic_animals_recorded`  local respondents (`r round(domestic_animals_recorded_smart/domestic_animals_recorded_smart*100,0)`%) recording domestic animals during patrols indicated that this information was stored in a SMART database. The health status of domestic animals, when documented, was also stored in a SMART database.
 
 
-### Current state of SMART deployment in protected areas 
 
 <!-- 23. Is SMART fully rolled-out in the protected area(s) you work in or is it being piloted? -->
 
@@ -992,7 +1237,7 @@ terrestrial_data |>
 
 ```{r smart components}
 #| echo: false
-#| eval: true
+#| eval: false
 #| message: false
 #| warning: false
 
@@ -1000,132 +1245,124 @@ source("R/smart_status.R")
 
 ```
 
-`r as.character(english::as.english(smart_use_for_text |> pull(n) |> nth(1))) |> stringr::str_to_sentence()` local PADMs reported that SMART was fully rolled out, `r smart_use_for_text |> pull(n) |> nth(2)` partially rolled-out, and `r smart_use_for_text |> pull(n) |> nth(3)` under pilot. The most common version was SMART `r smart_version_for_text |> arrange(-n) |>  pull(smart_version) |> nth(1)`, reported by `r smart_version_for_text |> arrange(-n) |>  pull(n) |> nth(1)` PADMs. SMART 7 was already available for  `r smart_version_for_text |> filter(smart_version%in% c("7")) |> pull(n)` PADMs at the time of the survey. Older SMART versions were less used. Non-local responses were similar (Supporting Information; section 1.5).
+## Discussion
 
-## DISCUSSION
+Our findings suggest that syndromic WH surveillance data are not collected or lost due to inadequate management. Even when WH data are collected and properly managed, the usefulness for surveillance is likely limited by the diversity of methods employed to record them. By the time of the survey, an initiative to foster the harmonized recording of WH data in PAs (Montecino-Latorre et al. 2024 [preprint]) had been implemented in a couple of sites only in a single country, and it did not affect overall results involving multiple PAs and countries.
 
-We developed a web-based questionnaire aimed at globally distributed PADMs to learn about their perceptions regarding WH; the monitoring of dead, sick, and injured wildlife and domestic animals at these sites; health data storage practices; and local status of the SMART information technology system. Responses suggest that valuable syndromic WH and, consequently, One Health surveillance data are being lost due to non-collection or inadequate management. The usefulness of wildlife health data actually collected could be limited by unstandardized documentation. 
+The PADMs largely considered WH relevant to conservation goals of PAs. However, several local PADMs expressed neutral views on the potential impact of wildlife pathogens on human and livestock health. Local PADMs and field staff  could be exposed to zoonotic pathogens (Adjemian et al. 2012). It is essential to provide rangers with training in biosecurity measures to mitigate these risks.
 
-PADMs largely considered WH as relevant to the conservation goals of PAs and most of them confirmed that dead, sick, or injured wildlife were encountered at least “Very rarely”. However, the documentation of these animals was not necessarily conducted and it was less common in responses from local data managers. This contradiction could be explained by recent global pathogen-driven crises such as SARS-CoV-2 and H5N1 Highly Pathogenic Avian Influenza virus (Nicola et al. 2020; Leguia et al, 2023) that might have sensitized our audience by the time the survey was distributed but before health-associated monitoring objectives could be planned and rolled out. These findings could also suggest a lack of knowledge or resources to act on their understanding of the importance of WH for conservation goals. Although only 13 non-local responses were included in the final dataset, the observed larger proportion of non-local responses reporting the documentation of non-healthy and dead wildlife could suggest differences between the expectations of managers in an administrative role and field realities at PAs. Agencies and other PA funders can take a more active local role to identify and correct weaknesses in WH data collection.  
+Most PADMs confirmed that unhealthy wildlife were encountered. However, the percentage of local PADMs who agreed or strongly agreed that WH is relevant for the conservation goals of PAs was higher than the percentage of those reporting the recording of unhealthy wildlife. In other words, the perceived importance of WH did not translate into reporting. This contradiction was also observed in the responses specifically reporting the encounter of unhealthy animals but not their documentation. This discrepancy could be explained by recent global pathogen-driven crises, such as SARS-CoV-2 and H5N1 highly pathogenic avian influenza virus (Nicola et al. 2020; Leguia et al, 2023). It might also be explained by other morbidity or mortality events of different etiology that our audience was sensitized to at the time of the survey but before health-associated monitoring objectives could be planned and implemented. These findings could also suggest a lack of knowledge or resources to act on their understanding of the importance of WH for conservation goals.
 
-We noted a general agreement among PADMs regarding the conservation threat that domestic animals (e.g., dogs, cats, cattle) present. Although we did not explicitly ask why domestic animals are a conservation concern, most PADMs also agreed with the statement “human and wildlife pathogens can impact wildlife health” either when these animals were found in the PAs or not (Supporting Information; section 2). This finding might imply that pathogens are part of the reason why domestic animals are considered a conservation concern. Pathogen transmission from domestic animals to wildlife can seriously harm biodiversity conservation efforts including in PAs (e.g., del Valle Ferreyra et al. [2022]) and they add to the direct and indirect pressures on wildlife from domestic animals, such as predation, competition, disturbance, and land-use change in- and out-side of PAs (du Toit 2011; Gompper 2013). While most PADMs reported the presence of domestic animals in PAs, their documentation was not consistent and only a minority responded that their health status was recorded. The contradiction between perceived conservation risk of domestic animals and documentation of their presence and health status could be explained by similar drivers mentioned above. 
+More non-local respondents reported the documentation of non-healthy wildlife than local respondents. This difference could be explained by non-local and local responses coming from different PAs or it could represent differences between the expectations of managers in an administrative role (non-local PADMs) and field realities in PAs (local PADMs). For example, the mandate to record non-healthy animals may exist, but it is not pursued in practice because of limitations regarding WH training, the use of a recording tool, comprehension of the methodology to record these data, or willingness to record these data (Wilfred et al. 2019; Kavhu & Mpakairi 2021). If any of these cases exist, PA management agencies should take a more active local role in identifying and correcting weaknesses in WH data collection. 
 
-Adequate management of data and harmonization are foundational pillars for WH monitoring (WOAH 2010, 2015, 2018; Sleeman et al. 2012; Ryser-Degiorgis 2013; Stephen 2018; Lawson et al. 2021; Machalaba et al. 2021; Giacinti et al. 2022; Stephen & Berezowski 2022; Hayman et al. 2023; Heiderich et al. 2023). However, the use of paper forms and Excel sheets to store data from sick, injured, or dead wildlife despite the fact that SMART was fully or partially implemented. When non-healthy and dead wildlife were indeed recorded, a variety of methodologies were used and different information was collected. The lack of harmonization across PAs within and beyond country boundaries can limit the value of collected health data as regional, national, or across border health assessments could be unfeasible. Similarly, the longitudinal assessment of wildlife health trends in a single PA is not possible when data is recorded differently over time. These findings are aligned with historical pitfalls in WH surveillance’s data governance (e.g., Avery-Gomm et al. 2016; Lawson et al. 2021; Heiderich et al. 2023; WOAH 2023).
+We noted a general agreement among PADMs regarding the conservation threat domestic animals (e.g., dogs, cats, cattle) present. Although we did not explicitly ask why domestic animals are a conservation concern, most PADMs also agreed with the statement “Human and wildlife pathogens can impact wildlife health.” whether these animals were found in the PAs or not (Appendices S6 and S7). Pathogen transmission from domestic animals to wild animals can seriously harmimpede biodiversity conservation, including in PAs (Porco et al. 2023), and they add to the pressures on wildlife from domestic animals in- and outside PAs (e.g., predation, competition [du Toit 2011; Gompper 2013]). The observed contradiction between perceived conservation risk of domestic animals and documentation of their presence and health status could be explained by the same drivers mentioned above.
 
-## RECOMMENDATIONS
+Effective management of data and harmonization are foundational pillars for WH monitoring (World Organisation for Animal Health 2010, 2015, 2018; Sleeman et al. 2012; Ryser-Degiorgis 2013; Stephen 2018; Machalaba et al. 2021; Stephen & Berezowski 2022; Giacinti et al. 2022; Hayman et al. 2023; Heiderich et al. 2023). However, we identified challenges in WH data harmonization and governance that align with historical pitfalls in WH surveillance (Carmichael 2012; Cardoso et al. 2021; World Organization for Animal Health 2023; Heiderich et al. 2023; Suwanpakdee et al. 2024). When healthy and unhealthy wildlife were have been documented, inconsistencies in data structure and attributes were present. The lack of harmonization across PAs, within and beyond country borders, diminishes the value of collected health data, making transboundary health assessments challenging. Similarly, tracking WH trends over time becomes infeasible. Additionally, records of unhealthy wildlife could be stored in paper forms or Excel sheets rather than a SMART database. Data in paper forms or Excel sheets can be uploaded to a SMART database manually by filling specific fields or through a mobile application (SMART Mobile) designed to capture data as determined in the corresponding SMART database (Cronin et al. 2021). Consequently, WH data in paper forms and spreadsheets reflect that they were not considered in the PAs’ SMART databases. We did not ask about the use of SMART Mobile, but challenges in its adoption have been described (Wilfred et al. 2019; Kavhu & Mpakairi 2021; Wyatt et al. 2023).
 
-Leveraging existing PA human resources that can detect morbidity and mortality in animals is a cost-effective strategy to establish a minimal baseline of WH monitoring. Currently, there are approximately 280,000 rangers worldwide and it is estimated that 1.5 million will be needed by 2030 to adequately protect 30% of the planet (Appleton et al. 2022). The present and projected number of rangers and their local contributions to a healthier planet (Kuisma et al. 2019; Vila et al. 2019; Wolf et al. 2019; Montecino-Latorre et al. 2020; Orozco et al. 2020; Singh et al. 2021; Porco et al. 2023; Stolton et al. 2023) reveal their unique potential as a worldwide distributed “One Health workforce”. This workforce could drastically improve the general global absence of WH and One Health surveillance  (Machalaba et al. 2021; Worsley-Tonks et al. 2022; Delgado et al. 2023; Hopkins et al. 2024).
+This is the first account of WH perceptions and monitoring practices in PAs. Because survey respondents were contacted through the SMART Partnership, survey respondents may not fully represent the broader population of local and non-local PADMs. Ideally, a follow-up longitudinal study and respondents selected through random sampling from a sampling frame, including local and non-local PADMs of the same PAs, could further refine and enhance our initial insights. This approach could also identify geographic differences and associations between distance patrolled per time unit, landscape type, and fauna size in the overall encounter rates with health and unhealthy wildlife and domestic animals. Potential differences in reporting as a consequence of experience with the recording tool used (SMART Mobile or other) should also be assessed.
 
-Our recommendations to include WH activities within the remit of PAs has relevance to recent initiatives. The global integration of this workforce into WH monitoring could be supported by the World Commission of Protected Areas (WCPA) of the International Union for Conservation of Nature, which supports best practice management of PAs, SMART, or EarthRanger. Indeed, the WCPA has established a two-year Task Force to integrate One Health in PAs and vice versa which includes WH surveillance activities in PAs (Hopkins et al., 2024). This Task Force makes explicit the contemporaneous relevance to develop WH surveillance policy at prpotected areas to support the conservation of biodiversity and global health. Also, an Integrated Wildlife Monitoring (IWM) initiative combining wildlife health an population monitoring was piloted in Spain (Barroso et al. 2023; Barroso et al. 2024). The goal of this initiative was to “detect emergent pathogens and changes in pathogen dynamics, to critically assess wildlife disease hazards and the impact of interventions, and to better understand complex multi-host and multi-pathogen networks” (Barroso et al. 2023). Rangers could be included in similar activities conducted at PAs.
+Leveraging existing PA human resources who can detect morbidity and mortality in animals offers a cost-effective strategy to establish minimal WH monitoring. Rangers can detect non-healthy animals in PAs, and they have provided data to assess health risks and trends or trigger responses to disease outbreaks (Wolf et al. 2019; Vila et al. 2019; Kuisma et al. 2019; Orozco et al. 2020; Montecino-Latorre et al. 2020; Porco et al. 2023). 
 
-However, there are key issues that must be addressed before. First, a definition of a health event optimized for rangers must be established. The minimal set of variables to be recorded from each health event and their documentation method must be harmonized across jurisdictions. Specific variables and options can then be tailored to individual PA realities. Second, rangers need to be trained to recognize and document health events encountered during their patrols. Third, a database to guarantee the governance of ranger-documented health events must be available. Contemporaneous SMART technology is ready to support the management of harmonized syndromic health data, provided that adequate resources for planning, training, and expert support are available. PADMs working with fully implemented SMART should have the capacity to properly manage and query health data and coordinate their distribution with other relevant parties, such as environmental agencies and organizations, veterinary services, and public health managers. 
+Our recommendation is to include standardized WH monitoring in the remit of rangers following a unified methodology and standards. Currently, there are approximately 280,000 rangers worldwide, and 1.5 million will be needed to protect 30% of the planet by 2030 (Appleton et al. 2022). The present and projected number of rangers reveal their unique potential as a worldwide One Health workforce that could drastically improve WH and One Health surveillance (Machalaba et al. 2021; Hopkins et al. 2024; Montecino-Latorre et al. 2024 [preprint]; World Organisation for Animal Health & International Union Conservation of Nature 2024). However, our findings suggest that several problems must be addressed first.
 
-Efforts to address the issues mentioned above and build this workforce have already started. WildHealthNet, a Wildlife Conservation Society (WCS) initiative, focuses on creating national surveillance networks and codifying their Standard Operating Procedures (Denstedt et al. 2021; Porco et al. 2023; Pruvot et al. 2023). Currently, WCS is supporting the integration of rangers into WH monitoring using the same standards in Lao, Peru, Cambodia, Guatemala, and Madagascar. Additional efforts are underway through the Wildlife Health Intelligence Network (https://snappartnership.net/teams/whin/) whose objectives include building a larger community of practice that supports the scaling of local WH surveillance globally, and the establishment of WH data collection and management standards. We strongly recommend taking steps towards the global adoption of ranger-based WH monitoring in PAs, utilizing a unified methodology and standards to improve the health of all.
-   
+## Acknowledgments
 
-## ACKNOWLEDGEMENTS AND DATA
-
-Thanks to all responders to our survey and the SMART Partnership (https://smartconservationtools.org) for distributing the survey across the community of SMART users, especially to Mōnica Barcellos. Special thanks to Jonathan Palmer, Executive Director of the Wildlife Conservation Society’s Conservation Technology Department. 
-
-The questionnaire, survey data, and descriptive analysis can be found at  https://github.com/dmontecino/SMART_survey. 
-
-The authors have no conflicts of interest to declare. 
+Thanks to all responders to our survey and the SMART Partnership We thank responders and the SMART Partnership, especially to M. Barcellos, and J. Palmer, Executive Director of the Wildlife Conservation Society’s Conservation Technology Department. 
 
 
-## REFERENCES
+## References
 
-Appleton, M.R., Courtiol, A., Emerton, L., Slade, J.L., Tilker, A., Warr, L.C., Malvido, M.Á., Barborak, J.R., de Bruin, L., Chapple, R., Daltry, J.C., Hadley, N.P., Jordan, C.A., Rousset, F., Singh, R., Sterling, E.J., Wessling, E.G. & Long, B. (2022). Protected area personnel and ranger numbers are insufficient to deliver global expectations. Nature Sustainability, 5, 1100–1110.
+Adjemian J et al. 2012. Zoonotic infections among employees from Great Smoky Mountains and Rocky Mountain National Parks, 2008-2009. Vector Borne and Zoonotic Diseases 12:922–931. 
 
-Avery-Gomm, S., Valliant, M., Schacter, C.R., Robbins, K.F., Liboiron, M., Daoust, P.-Y., Rios, L.M. & Jones, I.L. (2016). A study of wrecked Dovekies (Alle alle) in the western North Atlantic highlights the importance of using standardized methods to quantify plastic ingestion. Mar. Pollut. Bull., 113, 75–80.
+Appleton MR et al. 2022. Protected area personnel and ranger numbers are insufficient to deliver global expectations. Nature Sustainability 5:1100–1110. 
 
-Barroso, P., Relimpio, D., Zearra, J.A., Cerón, J.J., Palencia, P., Cardoso, B., Ferreras, E., Escobar, M., Cáceres, G., López-Olvera, J.R. & Gortázar, C. (2023). Using integrated wildlife monitoring to prevent future pandemics through one health approach. One Health, 16, 100479.2023.
+Cardoso B, García-Bocanegra I, Acevedo P, Cáceres G, Alves PC, Gortázar C. 2021. Stepping up from wildlife disease surveillance to integrated wildlife monitoring in Europe. Research in Veterinary Science 144:149-156.
 
-Barroso P., López-Olvera J.R., wa Kiluba T.K. & Gortázar, C. (2024). Overcoming the limitations of wildlife disease monitoring. Research Directions: One Health, 2, doi:10.1017/one.2023.16.
+Carmichael C. 2012. Coordinating an effective response to wildlife diseases. Wildlife Society Bulletin 36:204–206.
 
-Becker, D.J., Eby, P., Madden, W., Peel, A.J. & Plowright, R.K. (2023). Ecological conditions predict the intensity of Hendra virus excretion over space and time from bat reservoir hosts. Ecol. Lett., 26, 23–36.
+Cronin DT, Dancer A, Long B, Lynam AJ, Muntifering J, Palmer J, Bergl RA, Wich SA, Piel AK. 2021. Application of SMART software for conservation area management. Pages 201–224 Conservation Technology. Oxford University Press Oxford, UK.
 
-Cronin, D.T., Dancer, A., Long, B., Lynam, A.J., Muntifering, J., Palmer, J., Bergl, R.A., Wich, S.A. & Piel, A.K. (2021). Application of SMART software for conservation area management. In: Conservation Technology. Oxford University Press Oxford, UK, pp. 201–224.
+De Vos A, Cumming G, Cumming D, Ament J, Baum J, Clements H, Grewar J, Maciejewski K, Moore C. 2016. Pathogens, disease, and the social-ecological resilience of protected areas. Ecology and Society 21. 
 
-Delgado, M., Ferrari, N., Fanelli, A., Muset, Thompson L., Sleeman, J. M., White, C. L., Walsh, D., Wannous, C. & Tizzani, P. (2023). Wildlife health surveillance: Gaps, needs and opportunities. Rev. Sci. Tech., 42, 161-172. 
+Dudas G et al. 2017. Virus genomes reveal factors that spread and sustained the Ebola epidemic. Nature 544:309–315.
 
-Denstedt, E., Porco, A., Hwang, J., Nga, N.T.T., Ngoc, P.T.B., Chea, S., Khammavong, K., Milavong, P., Sours, S., Osbjer, K., Tum, S., Douangngeun, B., Theppanya, W., Van Long, N., Thanh Phuong, N., Tin Vinh Quang, L., Van Hung, V., Hoa, N.T., Le Anh, D., Fine, A. & Pruvot, M. (2021). Detection of African swine fever virus in free-ranging wild boar in Southeast Asia. Transbound. Emerg. Dis., 68, 2669–2675.
+du Toit JT. 2011. Coexisting with cattle. Science 333:1710–1711.
+Elnaiem A et al. 2023. Global and regional governance of One Health and implications for global health security. The Lancet 401:688–704.
 
-De Vos, A., Cumming, G., Cumming, D., Ament, J., Baum, J., Clements, H., Grewar, J., Maciejewski, K. & Moore, C. (2016). Pathogens, disease, and the social-ecological resilience of protected areas. Ecol. Soc., 21.
+Giacinti JA, Jane Parmley E, Reist M, Bayley D, Pearl DL, Jardine CM. 2022. Canadian wildlife health surveillance—patterns, challenges and opportunities identified by a scoping review. Facets 7:25–44. 
 
-del Valle Ferreyra, H., Rudd, J., Foley, J., Vanstreels, R. E. T., Martín, A. M., Donadio, E., & Uhart, M. M. (2022). Sarcoptic mange outbreak decimates South American wild camelid populations in San Guillermo National Park, Argentina. Plos One, 17, e0256616.  
+Gompper ME. 2013. Free-Ranging Dogs and Wildlife Conservation. Oxford Univ. Press. UK.
 
-Giacinti, J.A., Jane Parmley, E., Reist, M., Bayley, D., Pearl, D.L. & Jardine, C.M. (2022). Canadian wildlife health surveillance—patterns, challenges and opportunities identified by a scoping review. Facets (Ott), 7, 25–44.
+Groenenberg M et al. 2023. Snaring devastates terrestrial ungulates whilst sparing arboreal primates in Cambodia’s Eastern Plains Landscape. Biological Conservation 284:110195.
 
-Gompper, M.E. (2013). Free-Ranging Dogs and Wildlife Conservation. OUP Oxford.
-Groenenberg, M., Crouthers, R., Yoganand, K., Banet-Eugene, S., Bun, S., Muth, S., Kim, M., Mang, T., Panha, M., Pheaktra, P., Pin, T., Sopheak, K., Sovanna, P., Vibolratanak, P., Wyatt, A.G. & Gray, T.N.E. (2023). Snaring devastates terrestrial ungulates whilst sparing arboreal primates in Cambodia’s Eastern Plains Landscape. Biol. Conserv., 284, 110195.
+Hacon S de S, Oliveira-da-Costa M, Gama C de S, Ferreira R, Basta PC, Schramm A, Yokota D. 2020. Mercury exposure through fish consumption in traditional communities in the Brazilian northern Amazon. International Journal of Environmental Research and Public Health 17: 5269.
 
-Hacon, S. de S., Oliveira-da-Costa, M., Gama, C. de S., Ferreira, R., Basta, P.C., Schramm, A. & Yokota, D. (2020). Mercury Exposure through Fish Consumption in Traditional Communities in the Brazilian Northern Amazon. Int. J. Environ. Res. Public Health, 17.
+Hayman DTS et al. 2023. Developing One Health surveillance systems. One Health:100617.
 
-Hayman, D.T.S., Adisasmito, W.B., Almuhairi, S., Behravesh, C.B., Bilivogui, P., Bukachi, S.A., Casas, N., Becerra, N.C., Charron, D.F., Chaudhary, A., Ciacci Zanella, J.R., Cunningham, A.A., Dar, O., Debnath, N., Dungu, B., Farag, E., Gao, G.F., Khaitsa, M., Machalaba, C., Mackenzie, J.S., Markotter, W., Mettenleiter, T.C., Morand, S., Smolenskiy, V., Zhou, L. & Koopmans, M. (2023). Developing One Health surveillance systems. One Health, 100617.
+Heiderich E et al. 2023, July 13. Analysis of a European general wildlife health surveillance program: chances, challenges and recommendations. Plos One 19: e0301438.
 
-Heiderich, E., Keller, S., Pewsner, M., Origgi, F.C., Zürcher-Giovannini, S., Borel, S., Marti, I., Scherrer, P., Pisano, S.R.R., Friker, B., Adrian-Kalchhauser, I. & Ryser-Degiorgis, M.-P. (2023). Analysis of a European general wildlife health surveillance program: chances, challenges and recommendations. bioRxiv.
+Hopkins SR et al. 2024. Protected areas and One Health. Parks 30:6–13.
 
-Hopkins, S. R., Olson, S.H., Fairban, H. T., Redford, K. H., Adams, J., Mitchell, B. A., Nova, N., Muylaert, R. L., Morand, S., Miller, A. & Rao M. (2024). Protected areas and One Health. Parks, 30, 6 – 13.
+Jacob ST et al. 2020. Ebola virus disease. Nature Reviews Disease Primers 6:13.
 
-IUCN & EcoHealth Alliance. (2022). Healthy people and wildlife through nature protection: Guidelines for prevention, detection, response, and recovery from disease risks in and around protected and conserved areas.
+Kavhu B, Mpakairi KS. 2021. Spatial Monitoring and Reporting Tool (SMART) in Mid‐Zambezi Valley, Zimbabwe: Implementation challenges and practices. Conservation Science and Practice 3: e492.
 
-Kuisma, E., Olson, S.H., Cameron, K.N., Reed, P.E., Karesh, W.B., Ondzie, A.I., Akongo, M.-J., Kaba, S.D., Fischer, R.J., Seifert, S.N., Muñoz-Fontela, C., Becker-Ziaja, B., Escudero-Pérez, B., Goma-Nkoua, C., Munster, V.J. & Mombouli, J.-V. (2019). Long-term wildlife mortality surveillance in northern Congo: a model for the detection of Ebola virus disease epizootics. Philos. Trans. R. Soc. Lond. B Biol. Sci., 374, 20180339.
+Kuisma E et al. 2019. Long-term wildlife mortality surveillance in northern Congo: a model for the detection of Ebola virus disease epizootics. Philosophical transactions of the Royal Society of London. Series B, Biological sciences 374:20180339.
 
-Laurance, W.F., Useche, D.C., Rendeiro, J., Kalka, M., Bradshaw, C.J.A., Sloan, S.P., Laurance, S.G., Campbell, M., Abernethy, K., Alvarez, P., Arroyo-Rodriguez, V., Ashton, P., Benítez-Malvido, J., Blom, A., Bobo, K.S., Cannon, C.H., Cao, M., Carroll, R., Chapman, C., Coates, R., Cords, M., Danielsen, F., De Dijn, B., Dinerstein, E., Donnelly, M.A., Edwards, D., Edwards, F., Farwig, N., Fashing, P., Forget, P.-M., Foster, M., Gale, G., Harris, D., Harrison, R., Hart, J., Karpanty, S., Kress, W.J., Krishnaswamy, J., Logsdon, W., Lovett, J., Magnusson, W., Maisels, F., Marshall, A.R., McClearn, D., Mudappa, D., Nielsen, M.R., Pearson, R., Pitman, N., van der Ploeg, J., Plumptre, A., Poulsen, J., Quesada, M., Rainey, H., Robinson, D., Roetgers, C., Rovero, F., Scatena, F., Schulze, C., Sheil, D., Struhsaker, T., Terborgh, J., Thomas, D., Timm, R., Urbina-Cardona, J.N., Vasudevan, K., Wright, S.J., Arias-G, J.C., Arroyo, L., Ashton, M., Auzel, P., Babaasa, D., Babweteera, F., Baker, P., Banki, O., Bass, M., Bila-Isia, I., Blake, S., Brockelman, W., Brokaw, N., Brühl, C.A., Bunyavejchewin, S., Chao, J.-T., Chave, J., Chellam, R., Clark, C.J., Clavijo, J., Congdon, R., Corlett, R., Dattaraja, H.S., Dave, C., Davies, G., Beisiegel, B. de M., da Silva, R. de N.P., Di Fiore, A., Diesmos, A., Dirzo, R., Doran-Sheehy, D., Eaton, M., Emmons, L., Estrada, A., Ewango, C., Fedigan, L., Feer, F., Fruth, B., Willis, J.G., Goodale, U., Goodman, S., Guix, J.C., Guthiga, P., Haber, W., Hamer, K., Herbinger, I., Hill, J., Huang, Z., Sun, I.F., Ickes, K., Itoh, A., Ivanauskas, N., Jackes, B., Janovec, J., Janzen, D., Jiangming, M., Jin, C., Jones, T., Justiniano, H., Kalko, E., Kasangaki, A., Killeen, T., King, H.-B., Klop, E., Knott, C., Koné, I., Kudavidanage, E., Ribeiro, J.L. da S., Lattke, J., Laval, R., Lawton, R., Leal, M., Leighton, M., Lentino, M., Leonel, C., Lindsell, J., Ling-Ling, L., Linsenmair, K.E., Losos, E., Lugo, A., Lwanga, J., Mack, A.L., Martins, M., McGraw, W.S., McNab, R., Montag, L., Thompson, J.M., Nabe-Nielsen, J., Nakagawa, M., Nepal, S., Norconk, M., Novotny, V., O’Donnell, S., Opiang, M., Ouboter, P., Parker, K., Parthasarathy, N., Pisciotta, K., Prawiradilaga, D., Pringle, C., Rajathurai, S., Reichard, U., Reinartz, G., Renton, K., Reynolds, G., Reynolds, V., Riley, E., Rödel, M.-O., Rothman, J., Round, P., Sakai, S., Sanaiotti, T., Savini, T., Schaab, G., Seidensticker, J., Siaka, A., Silman, M.R., Smith, T.B., de Almeida, S.S., Sodhi, N., Stanford, C., Stewart, K., Stokes, E., Stoner, K.E., Sukumar, R., Surbeck, M., Tobler, M., Tscharntke, T., Turkalo, A., Umapathy, G., van Weerd, M., Rivera, J.V., Venkataraman, M., Venn, L., Verea, C., de Castilho, C.V., Waltert, M., Wang, B., Watts, D., Weber, W., West, P., Whitacre, D., Whitney, K., Wilkie, D., Williams, S., Wright, D.D., Wright, P., Xiankai, L., Yonzon, P. & Zamzani, F. (2012). Averting biodiversity collapse in tropical forest protected areas. Nature, 489, 290–294.
+Laurance WF et al. 2012. Averting biodiversity collapse in tropical forest protected areas. Nature 489:290–294. 
 
-Lawson, B., Neimanis, A., Lavazza, A., López-Olvera, J.R., Tavernier, P., Billinis, C., Duff, J.P., Mladenov, D.T., Rijks, J.M., Savić, S., Wibbelt, G., Ryser-Degiorgis, M.-P. & Kuiken, T. (2021). How to Start Up a National Wildlife Health Surveillance Programme. Animals (Basel), 11.
+Machalaba C, Feferholtz Y, Uhart M, Karesh WB. 2020. Wildlife conservation status and disease trends: ten years of reports to the Worldwide Monitoring System for Wild Animal Diseases. Revue Scientifique et Technique 39:991–1001.
 
-Leguia, M., Garcia-Glaessner, A., Muñoz-Saavedra, B., Juarez, D., Barrera, P., Calvo-Mac, C., Jara, J., Silva, W., Ploog, K., Amaro, L. & Colchao-Claux, P. (2023). Highly pathogenic avian influenza A (H5N1) in marine mammals and seabirds in Peru. Nat. Comm., 14, p.5489.
+Machalaba C, Uhart M, Ryser-Degiorgis M-P, Karesh WB. 2021. Gaps in health security related to wildlife and environment affecting pandemic prevention and preparedness, 2007-2020. Bulletin of the World Health Organization 99.
 
-Machalaba, C., Feferholtz, Y., Uhart, M. & Karesh, W.B. (2020). Wildlife conservation status and disease trends: ten years of reports to the Worldwide Monitoring System for Wild Animal Diseases. Rev. Sci. Tech., 39, 991–1001.
+Meng Z, Dong J, Ellis EC, Metternicht G, Qin Y, Song X-P, Löfqvist S, Garrett RD, Jia X, Xiao X. 2023. Post-2020 biodiversity framework challenged by cropland expansion in protected areas. Nature Sustainability 6: 758-768.
 
-Machalaba, C., Uhart, M., Ryser-Degiorgis, M.-P. & Karesh, W.B. (2021). Gaps in health security related to wildlife and environment affecting pandemic prevention and preparedness, 2007-2020. Bull. World Health Organ., 99, 342–350B.
+Montecino-Latorre D et al. 2024. Rangers as an essential One Health workforce: Strengthening the preservation of biodiversity and global health in practice. Preprint. SSRN. http://dx.doi.org/10.2139/ssrn.4997409.
 
-Meng, Z., Dong, J., Ellis, E.C., Metternicht, G., Qin, Y., Song, X.-P., Löfqvist, S., Garrett, R.D., Jia, X. & Xiao, X. (2023). Post-2020 biodiversity framework challenged by cropland expansion in protected areas. Nature Sustainability, 1–11.
+Montecino-Latorre D, Napolitano C, Briceño C, Uhart MM. 2020. Sarcoptic mange: An emerging threat to Chilean wild mammals? Perspectives in Ecology and Conservation 18:267–276.
 
-Mittermeier, R.A., Turner, W.R., Larsen, F.W., Brooks, T.M. & Gascon, C. (2011). Global Biodiversity Conservation: The Critical Role of Hotspots. In: Biodiversity Hotspots: Distribution and Protection of Conservation Priority Areas (eds. Zachos, F.E. & Habel, J.C.). Springer Berlin Heidelberg, Berlin, Heidelberg, pp. 3–22.
+One Health High-Level Expert Panel et al. 2022. One Health: A new definition for a sustainable and healthy future. PLoS Pathogens 18:e1010537. 
 
-Montecino-Latorre, D., Napolitano, C., Briceño, C. & Uhart, M.M. (2020). Sarcoptic mange: An emerging threat to Chilean wild mammals? Perspect Ecol. Conserv, 18, 267–276.
+Orozco MM et al. 2020. A participatory surveillance of marsh deer (Blastocerus dichotomus) morbidity and mortality in Argentina: first results. BMC Veterinary Research 16:321.
 
-Nicola, M., Alsafi, Z., Sohrabi, C., Kerwan, A., Al-Jabir, A., Iosifidis, C., Agha, M. & Agha, R. (2020). The socio-economic implications of the coronavirus pandemic (COVID-19): A review. International Journal of Surgery, 78, 185-193.
+Plowright RK, Reaser JK, Locke H, Woodley SJ, Patz JA, Becker DJ, Oppler G, Hudson PJ, Tabor GM. 2021. Land use-induced spillover: a call to action to safeguard environmental, animal, and human health. The Lancet Planetary Health 5:e237–e245.
 
-One Health High-Level Expert Panel (OHHLEP), Adisasmito, W.B., Almuhairi, S., Behravesh, C.B., Bilivogui, P., Bukachi, S.A., Casas, N., Cediel Becerra, N., Charron, D.F., Chaudhary, A., Ciacci Zanella, J.R., Cunningham, A.A., Dar, O., Debnath, N., Dungu, B., Farag, E., Gao, G.F., Hayman, D.T.S., Khaitsa, M., Koopmans, M.P.G., Machalaba, C., Mackenzie, J.S., Markotter, W., Mettenleiter, T.C., Morand, S., Smolenskiy, V. & Zhou, L. (2022). One Health: A new definition for a sustainable and healthy future. PLoS Pathog., 18, e1010537.
+Porco A et al. 2023. Case Report: Lumpy skin disease in an endangered wild banteng (Bos javanicus) and initiation of a vaccination campaign in domestic livestock in Cambodia. Frontiers in Veterinary Science 10. 
 
-Orozco, M.M., Argibay, H.D., Minatel, L., Guillemi, E.C., Berra, Y., Schapira, A., Di Nucci, D., Marcos, A., Lois, F., Falzone, M. & Farber, M.D. (2020). A participatory surveillance of marsh deer (Blastocerus dichotomus) morbidity and mortality in Argentina: first results. BMC Vet. Res., 16, 321.
+Reaser JK, Chitale RA, Tabor GM, Hudson PJ, Plowright RK. 2023. Looking left: ecologically based biosecurity to prevent pandemics. Health security 22: 74-81.
 
-Plowright, R.K., Reaser, J.K., Locke, H., Woodley, S.J., Patz, J.A., Becker, D.J., Oppler, G., Hudson, P.J. & Tabor, G.M. (2021). Land use-induced spillover: a call to action to safeguard environmental, animal, and human health. Lancet Planet Health, 5, e237–e245.
+Ryser-Degiorgis M-P. 2013. Wildlife health investigations: needs, challenges and recommendations. BMC Veterinary Research 9:1-17.
 
-Porco, A., Chea, S., Sours, S., Nou, V., Groenenberg, M., Agger, C., Tum, S., Chhuon, V., Sorn, S., Hong, C., Davis, B., Davis, S., Ken, S., Olson, S. & Fine, A. (2023). Case Report: Lumpy skin disease in an endangered wild banteng (Bos javanicus) and initiation of a vaccination campaign in domestic livestock in Cambodia. Frontiers in Veterinary Science, 10.
+Sleeman JM, Brand CJ, Wright SD. 2012. Strategies for wildlife disease surveillance. In: A.A. Aguirre, R.S. Ostfeld, P. Daszak (Eds.), New Directions in Conservation Medicine: Applied Cases in Ecological Health. Oxford University Press. New York. 539-551.
 
-Pruvot, M., Denstedt, E., Latinne, A., Porco, A., Montecino-Latorre, D., Khammavong, K., Milavong, P., Phouangsouvanh, S., Sisavanh, M., Nga, N.T.T., Ngoc, P.T.B., Thanh, V.D., Chea, S., Sours, S., Phommachanh, P., Theppangna, W., Phiphakhavong, S., Vanna, C., Masphal, K., Sothyra, T., San, S., Chamnan, H., Long, P.T., Diep, N.T., Duoc, V.T., Zimmer, P., Brown, K., Olson, S.H. & Fine, A.E. (2023). WildHealthNet: Supporting the development of sustainable wildlife health surveillance networks in Southeast Asia. Sci. Total Environ., 863, 160748.
+Stephen C. 2018. Evolving urban wildlife health surveillance to intelligence for pest mitigation and monitoring. Frontiers in Ecology and Evolution 6. https://doi.org/10.3389/fevo.2018.00127
 
-Reaser, J.K., Chitale, R.A., Tabor, G.M., Hudson, P.J. & Plowright, R.K. (2023). Looking Left: Ecologically Based Biosecurity to Prevent Pandemics. Health Secur.
-Ryser-Degiorgis, M.-P. (2013). Wildlife health investigations: needs, challenges and recommendations. BMC Vet. Res., 9, 223.
+Stephen C, Berezowski J. 2022. Wildlife Health Surveillance and Intelligence. Challenges and Opportunities. Pages 99–111 in Stephen C, editor. Wildlife Population Health. Springer.
 
-Singh, R., Galliers, C., Moreto, W., Slade, J., Long, B., Aisha, H., Wright, A., Cartwright, F., Deokar, A., Wyatt, A., Deokar, D., Phoonjampa, R., Smallwood, E., Aziz, R., Koutoua Benoit, A., Cao, R., Willmore, S., Jayantha, D. & Gosh, S. (2021). Impact of the COVID-19 pandemic on rangers and the role of rangers as a planetary health service. Parks & Recreation, 119–134.
+Suwanpakdee S et al. 2024. Wildlife health capacity enhancement in Thailand through the World Organisation for Animal Health Twinning Program. Frontiers in Veterinary Science 11:1462280. 
 
-Sleeman, J.M., Brand, C.J. & Wright, S.D. (2012). Strategies for Wildlife Disease Surveillance. USGS Staff -- Published Research.
+Thompson L, Cayol C, Awada L, Muset S, Shetty D, Wang J, Tizzani P. 2024. Role of the World Organisation for Animal Health in global wildlife disease surveillance. Frontiers in Veterinary Science 11.
 
-Stephen, C. (2018). Evolving Urban Wildlife Health Surveillance to Intelligence for Pest Mitigation and Monitoring. Frontiers in Ecology and Evolution, 6.
+Vicente J, Vercauteren KC, Gortázar C. 2021. Diseases at the Wildlife - Livestock Interface: Research and Perspectives in a Changing World. Springer Nature.
 
-Stephen, C. & Berezowski, J. (2022). Wildlife Health Surveillance and Intelligence. Challenges and Opportunities. In: Wildlife Population Health (ed. Stephen, C.). Springer International Publishing, Cham, pp. 99–111.
+Vila AR et al. 2019. Putative parapoxvirus-associated foot disease in the endangered huemul deer (Hippocamelus bisulcus) in Bernardo O’Higgins National Park, Chile. PloS One 14:e0213667. 
 
-Stolton, S., Timmins, H.L., Dudley, N., Biegus, O., Galliers, C., Jackson, W., Kettunen, M., Long, B., Rao, M., Rodriguez, C.M., Romanelli, C., Schneider, T., Seidl, A., Singh, R. & Sykes, M. (2023). Essential planetary health workers: Positioning rangers within global policy. Conserv. Lett.
-du Toit, J.T. (2011). Ecology. Coexisting with cattle. Science.
+Vora NM et al. 2023. Interventions to reduce risk for pathogen spillover and early disease spread to prevent outbreaks, epidemics, and pandemics. Emerging Infectious Diseases 29:1–9.
 
-Vicente, J., Vercauteren, K.C. & Gortázar, C. (2021). Diseases at the Wildlife - Livestock Interface: Research and Perspectives in a Changing World. Springer Nature.
+Wilfred P, Kayeye H, Magige FJ, Kisingo A, Nahonyo CL. 2019. Challenges facing the introduction of SMART patrols in a game reserve, western Tanzania. African Journal of Ecology 57:523–530.
 
-Vila, A.R., Briceño, C., McAloose, D., Seimon, T.A., Armién, A.G., Mauldin, E.A., Be, N.A., Thissen, J.B., Hinojosa, A., Quezada, M., Paredes, J., Avendaño, I., Silva, A. & Uhart, M.M. (2019). Putative parapoxvirus-associated foot disease in the endangered huemul deer (Hippocamelus bisulcus) in Bernardo O’Higgins National Park, Chile. PLoS One, 14, e0213667.
+Wolf TM, Annie Wang W, Lonsdorf EV, Gillespie TR, Pusey A, Gilby IC, Travis DA, Singer RS. 2019. Optimizing syndromic health surveillance in free ranging great apes: the case of Gombe National Park. The Journal of Applied Ecology 56:509–518.
 
-Wolf, T.M., Annie Wang, W., Lonsdorf, E.V., Gillespie, T.R., Pusey, A., Gilby, I.C., Travis, D.A. & Singer, R.S. (2019). Optimizing syndromic health surveillance in free ranging great apes: the case of Gombe National Park. J. Appl. Ecol., 56, 509–518.
+Woods R, Reiss A, Cox-Witton K, Grillo T, Peters A. 2019. The Importance of wildlife disease monitoring as part of global surveillance for zoonotic diseases: The role of Australia. Tropical Medicine and Infectious Disease 4. https://doi.org/10.3390/tropicalmed4010029
 
-World Health Organization, Food and Agriculture Organization of the United Nations, United Nations Environment Programme & World Organisation for Animal Health. (2023). A guide to implementing the One Health Joint Plan of Action at national level.
+World Organisation for Animal Health. 2010. Training manual on wildlife diseases and surveillance. Paris, World Organisation for Animal Health. 
 
-World Organisation for Animal Health. (2010). Training Manual on Wildlife Diseases and Surveillance. World Organisation for Animal Health.
+World Organisation for Animal Health. 2015. Training manual on surveillance and international reporting of diseases in wild animals. Paris, World Organisation for Animal Health. 
 
-World Organisation for Animal Health. (2015). Training Manual on Surveillance and International Reporting of Diseases in Wild Animals. World Organisation for Animal Health.
+World Organisation for Animal Health. 2018. Training manual on wildlife health information management. Paris, World Organisation for Animal Health. 
 
-World Organisation for Animal Health. (2018). Training Manual on Wildlife Health Information Management - Fifth Cycle. World Organisation for Animal Health.
-World Organization for Animal Health. (2023). In-country Wildlife Disease Surveillance Survey Report.
+World Organisation for Animal Health, International Union Conservation of Nature (IUCN). 2024. General guidelines for surveillance of diseases, pathogens and toxic agents in free-ranging wildlife: An overview for wildlife authorities and others working with wildlife. Paris, World Organisation for Animal Health and Gland, Switzerland, IUCN.
 
-Worsley-Tonks, K.E.L., Bender, J.B., Deem, S.L., Ferguson, A.W., Fèvre, E.M., Martins, D.J., Muloi, D.M., Murray, S., Mutinda, M., Ogada, D., Omondi, G.P., Prasad, S., Wild, H., Zimmerman, D.M. & Hassell, J.M. (2022). Strengthening global health security by improving disease surveillance in remote rural areas of low-income and middle-income countries. Lancet Glob Health, 10, e579–e584.
+World Organization for Animal Health. 2023. In-country wildlife disease surveillance survey report. Paris, World Organisation for Animal Health. 
+
+Wyatt A, Singh R, Read C. 2023. Assessing the adaptative management process in SMART sites: Lessons learned. Parks 29.
