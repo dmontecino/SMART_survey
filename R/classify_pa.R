@@ -1,4 +1,3 @@
-#test
 
 wdpa1<-read.csv("data/WDPA_Apr2025_Public_csv/WDPA_Apr2025_Public_part1.csv")
 wdpa2<-read.csv("data/WDPA_Apr2025_Public_csv/WDPA_Apr2025_Public_part2.csv")
