@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>body{background-color:white;}</style>
+
+
+</head>
+<body>
+<div id="rgrrktnomr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+  <style>#rgrrktnomr table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#rgrrktnomr thead, #rgrrktnomr tbody, #rgrrktnomr tfoot, #rgrrktnomr tr, #rgrrktnomr td, #rgrrktnomr th {
+  border-style: none;
+}
+
+#rgrrktnomr p {
+  margin: 0;
+  padding: 0;
+}
+
+#rgrrktnomr .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#rgrrktnomr .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#rgrrktnomr .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#rgrrktnomr .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#rgrrktnomr .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rgrrktnomr .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rgrrktnomr .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#rgrrktnomr .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#rgrrktnomr .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#rgrrktnomr .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#rgrrktnomr .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#rgrrktnomr .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#rgrrktnomr .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#rgrrktnomr .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#rgrrktnomr .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#rgrrktnomr .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#rgrrktnomr .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#rgrrktnomr .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#rgrrktnomr .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rgrrktnomr .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#rgrrktnomr .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#rgrrktnomr .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#rgrrktnomr .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rgrrktnomr .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#rgrrktnomr .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#rgrrktnomr .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rgrrktnomr .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rgrrktnomr .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#rgrrktnomr .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rgrrktnomr .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#rgrrktnomr .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#rgrrktnomr .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rgrrktnomr .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rgrrktnomr .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#rgrrktnomr .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#rgrrktnomr .gt_left {
+  text-align: left;
+}
+
+#rgrrktnomr .gt_center {
+  text-align: center;
+}
+
+#rgrrktnomr .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#rgrrktnomr .gt_font_normal {
+  font-weight: normal;
+}
+
+#rgrrktnomr .gt_font_bold {
+  font-weight: bold;
+}
+
+#rgrrktnomr .gt_font_italic {
+  font-style: italic;
+}
+
+#rgrrktnomr .gt_super {
+  font-size: 65%;
+}
+
+#rgrrktnomr .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#rgrrktnomr .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#rgrrktnomr .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#rgrrktnomr .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#rgrrktnomr .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#rgrrktnomr .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#rgrrktnomr .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#rgrrktnomr .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#rgrrktnomr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+  <table class="gt_table" style="table-layout: fixed;; width: 0px" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <colgroup>
+    <col style="width:140px;"/>
+    <col style="width:140px;"/>
+    <col style="width:140px;"/>
+    <col style="width:140px;"/>
+    <col style="width:140px;"/>
+    <col style="width:140px;"/>
+    <col style="width:140px;"/>
+    <col style="width:140px;"/>
+    <col style="width:140px;"/>
+    <col style="width:140px;"/>
+  </colgroup>
+  <thead>
+    <tr class="gt_col_headings gt_spanner_row">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;Wildlife&lt;br&gt;status&lt;/span&gt;"><span class='gt_from_md'>Wildlife<br>status</span></th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Documentation method used (%)&lt;/strong&gt;&lt;/span&gt;">
+        <span class="gt_column_spanner"><span class='gt_from_md'><strong>Documentation method used (%)</strong></span></span>
+      </th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="7" scope="colgroup" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Data recorded (%)&lt;/strong&gt;&lt;/span&gt;">
+        <span class="gt_column_spanner"><span class='gt_from_md'><strong>Data recorded (%)</strong></span></span>
+      </th>
+    </tr>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=""></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=""></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;Species&lt;/span&gt;"><span class='gt_from_md'>Species</span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;Age&lt;/span&gt;"><span class='gt_from_md'>Age</span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;Sex&lt;/span&gt;"><span class='gt_from_md'>Sex</span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;Condition&lt;/span&gt;"><span class='gt_from_md'>Condition</span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;Anomalies&lt;/span&gt;"><span class='gt_from_md'>Anomalies</span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;Photographs&lt;/span&gt;"><span class='gt_from_md'>Photographs</span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;Other&lt;/span&gt;"><span class='gt_from_md'>Other</span></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="status" class="gt_row gt_left">Healthy (n = 10)</td>
+<td headers="how_wl_recorded" class="gt_row gt_left">Individual observation</td>
+<td headers="prop_how_recorded" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#06402B;width:30.6122448979592%;height:30px;'></div></div></div></td>
+<td headers="species" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:86.6666666666667%;height:30px;'></div></div></div></td>
+<td headers="age" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:33.3333333333333%;height:30px;'></div></div></div></td>
+<td headers="sex" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:53.3333333333333%;height:30px;'></div></div></div></td>
+<td headers="condition" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:40%;height:30px;'></div></div></div></td>
+<td headers="anomalies" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:white;'><div style='position:absolute;width:0;height:30px;border-left:2px solid white;left:50%;top:0;'></div><div style='background:white;width:NA%;height:30px;'></div></div></div></td>
+<td headers="photographs" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:73.3333333333333%;height:30px;'></div></div></div></td>
+<td headers="other" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:66.6666666666667%;height:30px;'></div></div></div></td></tr>
+    <tr><td headers="status" class="gt_row gt_left" style="visibility:hidden;border-top:0px;">Healthy (n = 10)</td>
+<td headers="how_wl_recorded" class="gt_row gt_left">Part of the full count</td>
+<td headers="prop_how_recorded" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#06402B;width:34.6938775510204%;height:30px;'></div></div></div></td>
+<td headers="species" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:100%;height:30px;'></div></div></div></td>
+<td headers="age" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:58.8235294117647%;height:30px;'></div></div></div></td>
+<td headers="sex" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:82.3529411764706%;height:30px;'></div></div></div></td>
+<td headers="condition" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:23.5294117647059%;height:30px;'></div></div></div></td>
+<td headers="anomalies" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:white;'><div style='position:absolute;width:0;height:30px;border-left:2px solid white;left:50%;top:0;'></div><div style='background:white;width:NA%;height:30px;'></div></div></div></td>
+<td headers="photographs" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:82.3529411764706%;height:30px;'></div></div></div></td>
+<td headers="other" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:47.0588235294118%;height:30px;'></div></div></div></td></tr>
+    <tr><td headers="status" class="gt_row gt_left" style="visibility:hidden;border-top:0px;">Healthy (n = 10)</td>
+<td headers="how_wl_recorded" class="gt_row gt_left">Present or absent</td>
+<td headers="prop_how_recorded" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#06402B;width:18.3673469387755%;height:30px;'></div></div></div></td>
+<td headers="species" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:100%;height:30px;'></div></div></div></td>
+<td headers="age" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:22.2222222222222%;height:30px;'></div></div></div></td>
+<td headers="sex" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:44.4444444444444%;height:30px;'></div></div></div></td>
+<td headers="condition" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:33.3333333333333%;height:30px;'></div></div></div></td>
+<td headers="anomalies" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:white;'><div style='position:absolute;width:0;height:30px;border-left:2px solid white;left:50%;top:0;'></div><div style='background:white;width:NA%;height:30px;'></div></div></div></td>
+<td headers="photographs" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:66.6666666666667%;height:30px;'></div></div></div></td>
+<td headers="other" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:44.4444444444444%;height:30px;'></div></div></div></td></tr>
+    <tr><td headers="status" class="gt_row gt_left" style="visibility:hidden;border-top:0px;">Healthy (n = 10)</td>
+<td headers="how_wl_recorded" class="gt_row gt_left">Another way</td>
+<td headers="prop_how_recorded" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#06402B;width:16.3265306122449%;height:30px;'></div></div></div></td>
+<td headers="species" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:100%;height:30px;'></div></div></div></td>
+<td headers="age" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:37.5%;height:30px;'></div></div></div></td>
+<td headers="sex" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:50%;height:30px;'></div></div></div></td>
+<td headers="condition" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:62.5%;height:30px;'></div></div></div></td>
+<td headers="anomalies" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:white;'><div style='position:absolute;width:0;height:30px;border-left:2px solid white;left:50%;top:0;'></div><div style='background:white;width:NA%;height:30px;'></div></div></div></td>
+<td headers="photographs" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:75%;height:30px;'></div></div></div></td>
+<td headers="other" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#ABDDA4;width:50%;height:30px;'></div></div></div></td></tr>
+    <tr><td headers="status" class="gt_row gt_left">Injured (n = 11)</td>
+<td headers="how_wl_recorded" class="gt_row gt_left">Individual observation</td>
+<td headers="prop_how_recorded" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#C76E00;width:48.4848484848485%;height:30px;'></div></div></div></td>
+<td headers="species" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:93.75%;height:30px;'></div></div></div></td>
+<td headers="age" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:37.5%;height:30px;'></div></div></div></td>
+<td headers="sex" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:50%;height:30px;'></div></div></div></td>
+<td headers="condition" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:37.5%;height:30px;'></div></div></div></td>
+<td headers="anomalies" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:37.5%;height:30px;'></div></div></div></td>
+<td headers="photographs" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:93.75%;height:30px;'></div></div></div></td>
+<td headers="other" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:18.75%;height:30px;'></div></div></div></td></tr>
+    <tr><td headers="status" class="gt_row gt_left" style="visibility:hidden;border-top:0px;">Injured (n = 11)</td>
+<td headers="how_wl_recorded" class="gt_row gt_left">Part of the full count</td>
+<td headers="prop_how_recorded" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#C76E00;width:27.2727272727273%;height:30px;'></div></div></div></td>
+<td headers="species" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:100%;height:30px;'></div></div></div></td>
+<td headers="age" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:88.8888888888889%;height:30px;'></div></div></div></td>
+<td headers="sex" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:88.8888888888889%;height:30px;'></div></div></div></td>
+<td headers="condition" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:55.5555555555556%;height:30px;'></div></div></div></td>
+<td headers="anomalies" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:44.4444444444444%;height:30px;'></div></div></div></td>
+<td headers="photographs" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:88.8888888888889%;height:30px;'></div></div></div></td>
+<td headers="other" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:22.2222222222222%;height:30px;'></div></div></div></td></tr>
+    <tr><td headers="status" class="gt_row gt_left" style="visibility:hidden;border-top:0px;">Injured (n = 11)</td>
+<td headers="how_wl_recorded" class="gt_row gt_left">Present or absent</td>
+<td headers="prop_how_recorded" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#C76E00;width:21.2121212121212%;height:30px;'></div></div></div></td>
+<td headers="species" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:100%;height:30px;'></div></div></div></td>
+<td headers="age" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:42.8571428571429%;height:30px;'></div></div></div></td>
+<td headers="sex" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:28.5714285714286%;height:30px;'></div></div></div></td>
+<td headers="condition" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:57.1428571428571%;height:30px;'></div></div></div></td>
+<td headers="anomalies" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:42.8571428571429%;height:30px;'></div></div></div></td>
+<td headers="photographs" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:85.7142857142857%;height:30px;'></div></div></div></td>
+<td headers="other" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:57.1428571428571%;height:30px;'></div></div></div></td></tr>
+    <tr><td headers="status" class="gt_row gt_left" style="visibility:hidden;border-top:0px;">Injured (n = 11)</td>
+<td headers="how_wl_recorded" class="gt_row gt_left">Another way</td>
+<td headers="prop_how_recorded" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#C76E00;width:3.03030303030303%;height:30px;'></div></div></div></td>
+<td headers="species" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:100%;height:30px;'></div></div></div></td>
+<td headers="age" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:0%;height:30px;'></div></div></div></td>
+<td headers="sex" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:0%;height:30px;'></div></div></div></td>
+<td headers="condition" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:0%;height:30px;'></div></div></div></td>
+<td headers="anomalies" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:0%;height:30px;'></div></div></div></td>
+<td headers="photographs" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:100%;height:30px;'></div></div></div></td>
+<td headers="other" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:orange;width:0%;height:30px;'></div></div></div></td></tr>
+    <tr><td headers="status" class="gt_row gt_left">Sick (n = 8)</td>
+<td headers="how_wl_recorded" class="gt_row gt_left">Individual observation</td>
+<td headers="prop_how_recorded" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#d62728;width:41.6666666666667%;height:30px;'></div></div></div></td>
+<td headers="species" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:100%;height:30px;'></div></div></div></td>
+<td headers="age" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:40%;height:30px;'></div></div></div></td>
+<td headers="sex" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:40%;height:30px;'></div></div></div></td>
+<td headers="condition" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:30%;height:30px;'></div></div></div></td>
+<td headers="anomalies" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:50%;height:30px;'></div></div></div></td>
+<td headers="photographs" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:100%;height:30px;'></div></div></div></td>
+<td headers="other" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:10%;height:30px;'></div></div></div></td></tr>
+    <tr><td headers="status" class="gt_row gt_left" style="visibility:hidden;border-top:0px;">Sick (n = 8)</td>
+<td headers="how_wl_recorded" class="gt_row gt_left">Part of the full count</td>
+<td headers="prop_how_recorded" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#d62728;width:37.5%;height:30px;'></div></div></div></td>
+<td headers="species" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:100%;height:30px;'></div></div></div></td>
+<td headers="age" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:66.6666666666667%;height:30px;'></div></div></div></td>
+<td headers="sex" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:88.8888888888889%;height:30px;'></div></div></div></td>
+<td headers="condition" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:66.6666666666667%;height:30px;'></div></div></div></td>
+<td headers="anomalies" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:55.5555555555556%;height:30px;'></div></div></div></td>
+<td headers="photographs" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:88.8888888888889%;height:30px;'></div></div></div></td>
+<td headers="other" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:11.1111111111111%;height:30px;'></div></div></div></td></tr>
+    <tr><td headers="status" class="gt_row gt_left" style="visibility:hidden;border-top:0px;">Sick (n = 8)</td>
+<td headers="how_wl_recorded" class="gt_row gt_left">Present or absent</td>
+<td headers="prop_how_recorded" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#d62728;width:12.5%;height:30px;'></div></div></div></td>
+<td headers="species" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:100%;height:30px;'></div></div></div></td>
+<td headers="age" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:100%;height:30px;'></div></div></div></td>
+<td headers="sex" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:100%;height:30px;'></div></div></div></td>
+<td headers="condition" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:66.6666666666667%;height:30px;'></div></div></div></td>
+<td headers="anomalies" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:66.6666666666667%;height:30px;'></div></div></div></td>
+<td headers="photographs" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:100%;height:30px;'></div></div></div></td>
+<td headers="other" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:66.6666666666667%;height:30px;'></div></div></div></td></tr>
+    <tr><td headers="status" class="gt_row gt_left" style="visibility:hidden;border-top:0px;">Sick (n = 8)</td>
+<td headers="how_wl_recorded" class="gt_row gt_left">Another way</td>
+<td headers="prop_how_recorded" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#d62728;width:8.33333333333333%;height:30px;'></div></div></div></td>
+<td headers="species" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:100%;height:30px;'></div></div></div></td>
+<td headers="age" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:50%;height:30px;'></div></div></div></td>
+<td headers="sex" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:50%;height:30px;'></div></div></div></td>
+<td headers="condition" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:100%;height:30px;'></div></div></div></td>
+<td headers="anomalies" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:0%;height:30px;'></div></div></div></td>
+<td headers="photographs" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:50%;height:30px;'></div></div></div></td>
+<td headers="other" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:pink;width:50%;height:30px;'></div></div></div></td></tr>
+    <tr><td headers="status" class="gt_row gt_left">Dead (n = 12)</td>
+<td headers="how_wl_recorded" class="gt_row gt_left">Individual observation</td>
+<td headers="prop_how_recorded" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#000080;width:53.7037037037037%;height:30px;'></div></div></div></td>
+<td headers="species" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:93.1034482758621%;height:30px;'></div></div></div></td>
+<td headers="age" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:44.8275862068966%;height:30px;'></div></div></div></td>
+<td headers="sex" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:58.6206896551724%;height:30px;'></div></div></div></td>
+<td headers="condition" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:62.0689655172414%;height:30px;'></div></div></div></td>
+<td headers="anomalies" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:24.1379310344828%;height:30px;'></div></div></div></td>
+<td headers="photographs" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:100%;height:30px;'></div></div></div></td>
+<td headers="other" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:24.1379310344828%;height:30px;'></div></div></div></td></tr>
+    <tr><td headers="status" class="gt_row gt_left" style="visibility:hidden;border-top:0px;">Dead (n = 12)</td>
+<td headers="how_wl_recorded" class="gt_row gt_left">Part of the full count</td>
+<td headers="prop_how_recorded" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#000080;width:20.3703703703704%;height:30px;'></div></div></div></td>
+<td headers="species" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:100%;height:30px;'></div></div></div></td>
+<td headers="age" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:45.4545454545455%;height:30px;'></div></div></div></td>
+<td headers="sex" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:72.7272727272727%;height:30px;'></div></div></div></td>
+<td headers="condition" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:45.4545454545455%;height:30px;'></div></div></div></td>
+<td headers="anomalies" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:36.3636363636364%;height:30px;'></div></div></div></td>
+<td headers="photographs" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:90.9090909090909%;height:30px;'></div></div></div></td>
+<td headers="other" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:36.3636363636364%;height:30px;'></div></div></div></td></tr>
+    <tr><td headers="status" class="gt_row gt_left" style="visibility:hidden;border-top:0px;">Dead (n = 12)</td>
+<td headers="how_wl_recorded" class="gt_row gt_left">Present or absent</td>
+<td headers="prop_how_recorded" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#000080;width:14.8148148148148%;height:30px;'></div></div></div></td>
+<td headers="species" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:100%;height:30px;'></div></div></div></td>
+<td headers="age" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:50%;height:30px;'></div></div></div></td>
+<td headers="sex" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:50%;height:30px;'></div></div></div></td>
+<td headers="condition" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:37.5%;height:30px;'></div></div></div></td>
+<td headers="anomalies" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:37.5%;height:30px;'></div></div></div></td>
+<td headers="photographs" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:75%;height:30px;'></div></div></div></td>
+<td headers="other" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:37.5%;height:30px;'></div></div></div></td></tr>
+    <tr><td headers="status" class="gt_row gt_left" style="visibility:hidden;border-top:0px;">Dead (n = 12)</td>
+<td headers="how_wl_recorded" class="gt_row gt_left">Another way</td>
+<td headers="prop_how_recorded" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#000080;width:11.1111111111111%;height:30px;'></div></div></div></td>
+<td headers="species" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:100%;height:30px;'></div></div></div></td>
+<td headers="age" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:50%;height:30px;'></div></div></div></td>
+<td headers="sex" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:50%;height:30px;'></div></div></div></td>
+<td headers="condition" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:33.3333333333333%;height:30px;'></div></div></div></td>
+<td headers="anomalies" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:16.6666666666667%;height:30px;'></div></div></div></td>
+<td headers="photographs" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:50%;height:30px;'></div></div></div></td>
+<td headers="other" class="gt_row gt_left"><div style='display:flex;align-items:left;'><div style='position:relative;flex-grow:1;margin-left:8px;background:#d2d2d2;'><div style='position:absolute;width:0;height:30px;border-left:2px solid black;left:50%;top:0;'></div><div style='background:#1f77b4;width:33.3333333333333%;height:30px;'></div></div></div></td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</body>
+</html>

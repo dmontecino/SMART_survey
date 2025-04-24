@@ -1,5 +1,5 @@
 ---
-title: "Supporting Information 'Wildlife health perceptions and monitoring practices in globally distributed protected areas'"
+title: ""
 # author:
 #   - name: Diego Montecino-Latorre
 #     affiliations:
@@ -16,79 +16,39 @@ title: "Supporting Information 'Wildlife health perceptions and monitoring pract
 #       - name: Wildlife Conservation Society - Health Program
 #         city: Bronx
 #         state: New York
-number-sections: true
+number-sections: false
 editor: visual
 execute:
   cache: false
-format: 
-  html:
-    self-contained: true
-out-extra: 'style="margin-top:-20px;"'
-opts_chunk:
-    R.options:
-    knitr.table.html.attr: "quarto-disable-processing=true"
-code-link: false
+format: pdf
 ---
 
-```{r load packages}
-#| echo: false
-#| eval: true
-#| message: false
-#| warning: false
+<!-- ```{r load packages} -->
+<!-- #| echo: false -->
+<!-- #| eval: true -->
+<!-- #| message: false -->
+<!-- #| warning: false -->
 
-knitr::opts_chunk$set(fig.pos = "H", out.extra = "")
+<!-- knitr::opts_chunk$set(fig.pos = "H", out.extra = "") -->
 
-source("../R/load_packages.R")
+<!-- source("R/load_packages.R") -->
+<!-- ``` -->
+
+```{r global options, warning=FALSE, echo=FALSE, message=FALSE}
+knitr::opts_chunk$set(fig.pos = "H")
 ```
 
-```{r remove other audience answering the survey}
-#| echo: false
-#| eval: true
-#| message: false
-#| warning: false
 
-terrestrial_data<-readRDS("../data/terrestrial_data.RDS")
+# Results
 
-# number_responses_before_audience_remove<-nrow(terrestrial_data)
+### Perceptions of wildlife health importance
 
-#source("R/remove_other_audience.R")
-terrestrial_data<-terrestrial_data |> dplyr::filter(position!="Other")
-
-# number_responses_after_audience_remove<-nrow(terrestrial_data)
-
-```
-
-## Distribution of PAs represented in valid respon
-
-```{r distribution PAs in responses}
-
-# table(terrestrial_data$or_number_pas)
-
-dist_PAs<-
-ggplot(terrestrial_data)+
-  geom_histogram(aes(x = or_number_pas), fill="cornflowerblue", boundary = 0) +
-  labs(x="\nNumber Protected Areas Included", 
-       y ="Number Responses\n") +
-  theme_classic()
-
-ggsave(plot = dist_PAs, 
-       filename = "Conservation_biology/Second_round/appendix/plot_0.png", 
-       width = 5, 
-       height = 5)
-
-```
-
-## Results of non-local responses
-
-### Perceptions regarding wildlife health importance in conservation and potential consequences of pathogen transmission among wildlife, domestic animals, and people.
-
-```{r perceptions regarding wildlife health importance in conservation and potential consequences of pathogen transmission among wildlife, domestic animals, and people}
+```{r perceptions regarding wildlife health importance appendix}
 #| echo: false
 #| message: false
 #| warning: false
-#| eval: true
-#| fig-width: 0.1
-#| fig-height: 0.1
+#| eval: false
+
 
 library(ggthemes)
 library(grid)
@@ -281,49 +241,40 @@ mix <- y_title + g + plot_layout(widths = c(1, 15))  # Adjust widths as needed
 mix <- mix + theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))
 
 
-
+#mix
 # if(!file.exists("../SMART_survey/plots/plot_section_1.png")) {
 
-# ggsave(plot = mix, filename = "v2/plot_1.png", width = 12.85714, height = 9, dpi=300)
+ggsave(plot = mix, filename = "plots/appedix_plot_1.png", width = 12.85714, height = 9, dpi=300)
 
 ```
 
-```{r section 1 plot}
+```{r plot 1, out.width = "600px", fig.pos = "H"}
 #| echo: false
 #| message: false
 #| warning: false
 #| eval: true
 #| out-extra: 'style="margin-top:0px;"'
-#| fig-width: 12.85714
-#| fig-height: 9
 #| fig-align: center
-#| fig-cap: Figure S1. Distribution of the level of agreement (grey scale) among non-local protected area data managers with statements 'Pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect livestock health’ (brown), ‘Pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect human health' (red), ‘Human or livestock pathogens can affect wildlife populations inhabiting the protected area(s) where I work in’ (blue), and ‘Wildlife health is important to achieve the conservation goals of the protected area(s) where I work’ (green).
+#| fig-cap: Level of agreement (grey scale) among non-local protected area data managers with the statements “Pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect livestock health.” (brown), “Pathogens carried by wildlife inhabiting the protected area(s) where I work in can affect human health.” (red), “Human or livestock pathogens can affect wildlife populations inhabiting the protected area(s) where I work in.” (blue), and “Wildlife health is important to achieve the conservation goals of the protected area(s) where I work,” (green). Overall frequency of encounters with sick and injured wildlife was requested in a unique question; therefore, rows one and two show the same total number of responses per encounter category.
 
-
-mix
+knitr::include_graphics("plots/appedix_plot_1.png")
 ```
 
-### Overall frequency of encounters with dead, sick, or injured wildlife in protected areas and their documentation when found during patrols
+### Encounters with injured, sick, or dead wildlife and documentation
 
-```{r Overall frequency of encounters with dead, sick, or injured wildlife in protected areas and their documentation when found during patrols}
+```{r encounters with injured, sick, or dead wildlife and documentation appendix}
 #| echo: false
 #| message: false
 #| warning: false
-#| eval: true
-#| fig-width: 0.1
-#| fig-height: 0.1
+#| eval: false
 
 
 
-source("../R/load_packages.R")
+source("R/load_packages.R")
 library(ggthemes)
 library(grid)
 library(patchwork)
-
-terrestrial_data<-readRDS("../data/terrestrial_data.RDS")
-
-terrestrial_data<-terrestrial_data |> dplyr::filter(position!="Other")
-
+library(cowplot)
 
 section_2 <-
   terrestrial_data |> filter(local==F) |> 
@@ -564,8 +515,13 @@ base<-
            stat="identity", 
            width = 0.2) +
   facet_grid(name ~ found, scales = "free_x", space = "free_x", switch = "y") +
-  scale_y_continuous(position = "right", labels = c(seq(0, 1, length.out=5))) +
-  ggtitle("Overall") +
+  scale_y_continuous(
+    position = "right",
+    trans = "reverse", 
+    breaks = seq(0, 20, length.out = 5),  # These match your data (0 to 20)
+    labels = function(x) sprintf("%.2f", 1 - x / 20)  # Convert to proportion, reversed
+) +
+  ggtitle("Overall encouner frequency in protected area") +
   labs(x = "\n ", y = "Proportion\n")
 
  # base
@@ -610,7 +566,7 @@ ggdraw() +
 full<-full +  annotate("text", x = 0.012, y = 0.5, label = "Wildlife category", angle = 90, size = 7, family = "arial")
 
 
-ggsave(plot = full, filename = "v2/Conservation_biology/Second_round/appendix/plot_2_v2.png", width = 16, height = 9)
+ggsave(plot = full, filename = "plots/appedix_plot_2.png", width = 16, height = 9)
 
 # same plot but now with the proporcion label
 
@@ -619,98 +575,28 @@ ggsave(plot = full, filename = "v2/Conservation_biology/Second_round/appendix/pl
 
 ```
 
-```{r section 2 plot}
+```{r plot 2, out.width = "600px"}
 #| echo: false
 #| message: false
 #| warning: false
 #| eval: true
 #| fig-align: center
-#| fig-height: 9
-#| fig-width: 15
-#| fig-cap: Figure S2. Distribution of non-local protected area data manager responses regarding the encounter of or injured (brown), sick (red), dead (blue) wildlife in the protected area(s) where they work and the recording (bright color) or non-recoding (pale color) of these animals when encountered. Green bars represent the proportion of responses that reported the recording of wildlife per wildlife category and encounter frequency.  
+#| fig-cap:  Number of non-local protected area data managers who reported that the health status of and frequency of encounters with wildlife are recorded or not recorded in the protected area they worked in. Green bars represent the proportion of respondents that reported recording of wildlife in each category.
 
-mix2
+knitr::include_graphics("plots/appedix_plot_2.png")
 
 ```
 
+### Documentation methods
 
-```{r documentation versus agreement with wildife health }
-#| echo: false
-#| eval: true
-#| message: false
-#| warning: false
-
-
-number_responses_dead_found_and_sick_not_documented_and_wh_importance_agree_strongly_agree<-
-terrestrial_data |> 
-  filter(local==F) |> 
-  select(dead_found, dead_wl_recorded, wildlife_health_important) |> 
-  filter(dead_wl_recorded=="No" & dead_found!="Never") |> 
-  count(wildlife_health_important) |> 
-  filter(wildlife_health_important%in%c("Strongly agree", "Agree")) |> 
-  pull(n) |> sum()
-
-
-number_responses_sick_injured_found_and_sick_not_documented_and_wh_importance_agree_strongly_agree<-
-terrestrial_data |> filter(local==F) |> 
-  select(sick_injured_found, sick_wl_recorded, wildlife_health_important) |> 
-  filter(sick_wl_recorded=="No" & sick_injured_found!="Never") |> 
-  count(wildlife_health_important) |> 
-  filter(wildlife_health_important%in%c("Strongly agree", "Agree")) |> 
-  pull(n) |> sum()
-
-
-number_responses_sick_injured_found_and_injured_not_documented_and_wh_importance_agree_strongly_agree<-
-terrestrial_data |> filter(local==F) |> 
-  select(sick_injured_found, injured_wl_recorded, wildlife_health_important) |> 
-  filter(injured_wl_recorded=="No" & sick_injured_found!="Never") |> 
-  count(wildlife_health_important) |> 
-  filter(wildlife_health_important%in%c("Strongly agree", "Agree")) |> 
-  pull(n) |> sum()
-
-
-dead_found_and_not_documented<-
-terrestrial_data |> filter(local==F) |> 
-  select(dead_found, dead_wl_recorded, wildlife_health_important) |> 
-  filter(dead_wl_recorded=="No" & dead_found!="Never") |> 
-  nrow()
-
-sick_injured_found_and_sick_not_documented<-
-terrestrial_data |> filter(local==F) |> 
-  select(sick_injured_found, sick_wl_recorded, wildlife_health_important) |> 
-  filter(sick_wl_recorded=="No" & sick_injured_found!="Never") |> 
-  nrow()
-
-sick_injured_found_and_injured_not_documented<-
-terrestrial_data |> filter(local==F) |> 
-  select(sick_injured_found, injured_wl_recorded, wildlife_health_important) |> 
-  filter(injured_wl_recorded=="No" & sick_injured_found!="Never") |> 
-  nrow()
-
-round(number_responses_sick_injured_found_and_injured_not_documented_and_wh_importance_agree_strongly_agree/sick_injured_found_and_injured_not_documented*100,2)
-
-
-round(number_responses_sick_injured_found_and_sick_not_documented_and_wh_importance_agree_strongly_agree/sick_injured_found_and_sick_not_documented*100,2)
-
-round(number_responses_dead_found_and_sick_not_documented_and_wh_importance_agree_strongly_agree/dead_found_and_not_documented*100,2)
-
-```
-
-
-
-```{r section 2 table}
+```{r documentation methods appendix}
 #| echo: false
 #| message: false
 #| warning: false
-#| eval: true
-#| fig-align: center
-#| fig-height: 3.2
-#| fig-cap: Table S1. Distribution of the method of documentation to register either healthy, sick, injured, or dead wildlife found during ranger patrols reported by non-local protected area data managers ('Individual observation', 'Part of the full count', 'Present or absent', 'Another way') and the recording of specific data items for each wildlife health status across documentation methods. 
+#| eval: false
 
 
-# Create dataset for the table
-
-source("bar_chart_in_gt.R")
+source("R/bar_chart_in_gt.R")
 library(ggthemes)
 library(grid)
 library(paletteer)
@@ -721,7 +607,7 @@ collapse_rows_gt<-source("https://gist.githubusercontent.com/jmclawson/6852c1402
 
 collapse_rows_gt<-collapse_rows_gt$value
 
-source("create_datasets_for_table_1.R")
+source("R/create_datasets_for_table_1.R")
 
 
 #healthy dataset
@@ -928,7 +814,7 @@ full_table<-
   gt() |> 
   cols_align(align = "left") |> 
   cols_label(
-    status = "Wildlife<br>category",
+    status = "Wildlife<br>status",
     species = "Species",
     age = "Age",
     sex = "Sex", 
@@ -940,7 +826,7 @@ full_table<-
   tab_spanner(label = md("**Documentation method used (%)**"),
               columns = c(how_wl_recorded,
                           prop_how_recorded)) |> 
-  tab_spanner(label = md("**Data items recorded (%)**"),
+  tab_spanner(label = md("**Data recorded (%)**"),
               columns = c(species,
                           age,
                           sex,
@@ -974,33 +860,58 @@ full_table$`_data`$anomalies[[4]]<-fix_anomalies_for_healthy
 # gtsave(full_table, "v2/table1.rtf")
 # png("v2/table1.png", width = 10, height = 7, units = 'in', res = 300)
 
-full_table
+str(full_table)
+
+# install.packages("chromote")
+# library(chromote)
+# gtsave(full_table, filename = "plots/my_table.png")
 
 
+# Convert to PNG using 'pdftools' and 'magick'
+# library(pdftools)
+# library(magick)
+# 
+# gtsave(full_table, filename = "my_table.pdf")
+# img <- image_read_pdf("my_table.pdf", density = 300)
+# image_write(img, path = "my_table.png", format = "png")
+
+library(webshot2)
+gtsave(full_table, "plots/my_table_appendix.html")
+
+# Then manually take a larger screenshot (height set manually)
+webshot2::webshot("plots/my_table_appendix.html", 
+                  file = "plots/appedix_plot_3.png", 
+                  vwidth = 1400, 
+                  vheight = 3000, 
+                  zoom = 4)
 
 ```
 
-### Presence of domestic animals in protected areas, the documentation of their health status, and the perceived threats of domestic animals to conservation goals
-
-```{r Presence of domestic animals in protected areas, the documentation of their health status, and the perceived threats of domestic animals to conservation goals}
+```{r plot 3, out.width = "600px"}
 #| echo: false
 #| message: false
 #| warning: false
 #| eval: true
-#| fig-width: 0.1
-#| fig-height: 0.1
+#| fig-align: center
+#| fig-cap:  Distribution of the methods of documentation (second column) of healthy, sick, injured, or dead wildlife found during ranger patrols as reported by non-local protected area data managers and the recording of specific types of data for each wildlife health status across documentation methods (black line, 50%).
+
+knitr::include_graphics("plots/appedix_plot_3.png")
+
+```
+
+### Domestic animals in protected areas
+
+```{r domestic animals in protected areas appendix}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: false
 
 source("R/load_packages.R")
 library(ggthemes)
 library(grid)
 library(patchwork)
 
-
-terrestrial_data<-readRDS("data/terrestrial_data.RDS")
-
-terrestrial_data<-terrestrial_data |> dplyr::filter(position!="Other")
-
-# terrestrial_data |>  filter(dom_animals_concern=="Somewhat Disagree")
 
 
 section_3 <-
@@ -1125,10 +1036,10 @@ p<-
   likert_theme +
   theme(plot.margin=grid::unit(c(0.5,0.5,0.5,0.5), "mm")) +
   scale_alpha_continuous(range = c(0.3, 0.9)) +  # Set min and max alpha values
-  ggtitle("Overall agreement domestic animals are a conservation concern") +
+  # ggtitle("Overall agreement domestic animals are a conservation concern") +
   labs(x = "\nRecording", y = "Number of responses\n")
 
-p
+# p
 
 
 # Generate the ggplot2 plot grob
@@ -1191,36 +1102,33 @@ for (i in 1:6){
 
 g<-ggpubr::as_ggplot(g)
 
-g
 
-ggsave(plot = g, filename = "v2/Conservation_biology/Second_round/appendix/plot_3_v2.png", width = 12, height = 5)
+ggsave(plot = g, filename = "plots/appedix_plot_4.png", width = 12, height = 5)
+
 
 ```
 
-```{r plot section 3}
+```{r plot 4, out.width = "600px"}
 #| echo: false
 #| message: false
 #| warning: false
 #| eval: true
-#| fig-height: 6
-#| fig-width: 12.85714
 #| fig-align: center
-#| fig-cap: Figure S3. Distribution of the level of agreement among non-local protected area data managers with the statement ‘Introduced domestic animals (e.g., dogs, cats, cattle, pigs, cows) are a concern for the conservation goals of the protected areas where I work’ for the groups that reported the absence (red) and presence (blue) of domestic animals in the protected area(s) and their recording of the latter. Darker segments in the bars within the “Domestic animal in protected area > Yes response” category (x-axis) represent the number of responses that documented health status as part recording the presence of domestic animals.
+#| fig-cap: Responses of non-local protected area data manager to statements that the presence and health of domestic animals in protected areas is a conservation concern (red, no recording of domestic animals; light blue, recording of domestic animals but not their health status; dark blue, recording of domestic animals and their health status). Data are from the group of non-local protected area data managers who reported the presence of domestic animals in the protected area.
 
-mix3
+knitr::include_graphics("plots/appedix_plot_4.png")
 
 ```
 
-## Distribution of responses across their overall agreement with 'human and livestock pathogens can impact wildlife health' and 'introduced domestic animals are a concern for the conservation goals of the protected area'
 
-```{r section 0.1 plot}
+#  Discussion
+
+```{r discussion appendix plot 1}
 #| echo: false
 #| message: false
 #| warning: false
-#| eval: true
-#| fig-height: 3.5
-#| fig-align: center
-#| fig-cap: Figure S4. Distribution of protected area data managers responses across their overall agreement with 'human and livestock pathogens can impact wildlife health' and 'introduced domestic animals are a concern for the conservation goals of the protected area' for those protected area managers that reported the absence of domestic animals in the protected area.
+#| eval: false
+
 
 dom_animals<-
   terrestrial_data %>% 
@@ -1320,26 +1228,37 @@ ggplot(dom_animals[[1]],
        title = "Domestic animals are not found in the protected area\n")
 
 
-new_plot_1
+# new_plot_1
 
-# ggsave("submissions/Conservation_letters/RESPONSES_REVIEW_MAY_2024/plot_appendix_1.png",
-#        plot = new_plot_1,
-#        height = 8,
-#        width = 13,
-#        units = "in",
-#        dpi = 600)  
+ggsave("plots/appedix_plot_5.png",
+       plot = new_plot_1,
+       # height = 8,
+       # width = 13,
+       # units = "in",
+       dpi = 600)
 
 
 ```
 
-```{r section 0.2 plot}
+```{r plot 5, out.width = "500px"}
 #| echo: false
 #| message: false
 #| warning: false
 #| eval: true
-#| fig-height: 3.5
 #| fig-align: center
-#| fig-cap: Figure S5. Distribution of protected area data managers responses across their overall agreement with 'human and livestock pathogens can impact wildlife health' and 'introduced domestic animals are a concern for the conservation goals of the protected area' for those protected area data managers that reported the presence of domestic animals in the protected area.
+#| fig-cap: Distribution of protected area data managers responses (local and non-local) across their overall agreement with the statements "Human and livestock pathogens can impact wildlife health" and "Introduced domestic animals are a concern for the conservation goals of the protected area" for those protected area managers (local and non-local) that reported the absence of domestic animals in the protected area.
+
+knitr::include_graphics("plots/appedix_plot_5.png")
+
+
+```
+
+
+```{r discussion appendix plot 2}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: false
 
 new_plot_2<-
   ggplot(dom_animals[[2]], 
@@ -1353,14 +1272,27 @@ new_plot_2<-
        x = "\nOverall agreement with 'Introduced domestic\nanimals are a concern'",
        title = "Domestic animals are found in the protected area\n")
 
-new_plot_2
+# new_plot_2
 
-# ggsave("submissions/Conservation_letters/RESPONSES_REVIEW_MAY_2024/plot_appendix_2.png",
-#        plot = new_plot_2,
-#        height = 8,
-#        width = 13,
-#        units = "in",
-#        dpi = 600) 
-
+ggsave("plots/appedix_plot_6.png",
+       plot = new_plot_2,
+       # height = 8,
+       # width = 13,
+       # units = "in",
+       dpi = 600)
 
 ```
+
+```{r plot 6, out.width = "500px"}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: true
+#| fig-align: center
+#| fig-cap: Distribution of protected area data managers responses (local and non-local) across their overall agreement with "Human and livestock pathogens can impact wildlife health" and "Introduced domestic animals are a concern for the conservation goals of the protected area" for those protected area data managers that reported the presence of domestic animals in the protected area.
+
+knitr::include_graphics("plots/appedix_plot_6.png")
+
+```
+ 
+ 
