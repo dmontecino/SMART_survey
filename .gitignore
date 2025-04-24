@@ -8,3 +8,5 @@ data/survey_responses.xlsx
 R/country_data.R
 .RDataTmp
 .DS_Store
+IRB_exemption_approval
+Conservation_biology
