@@ -83,14 +83,14 @@ full_data<-
 
 number_recording_healthy<-
   terrestrial_data |> 
-  filter(local == FALSE) |> 
+  filter(local == TRUE) |> 
   count(healthy_wl_recorded) |> 
   filter(healthy_wl_recorded=="Yes") |> 
   pull(n)
 
 number_recording_injured<-
   terrestrial_data |> 
-  filter(local == FALSE) |> 
+  filter(local == TRUE) |> 
   count(injured_wl_recorded) |> 
   filter(injured_wl_recorded=="Yes") |> 
   pull(n)
@@ -98,7 +98,7 @@ number_recording_injured<-
 
 number_recording_sick<-
   terrestrial_data |> 
-  filter(local == FALSE) |> 
+  filter(local == TRUE) |> 
   count(sick_wl_recorded) |> 
   filter(sick_wl_recorded=="Yes") |> 
   pull(n)
@@ -106,7 +106,7 @@ number_recording_sick<-
 
 number_recording_dead<-
   terrestrial_data |> 
-  filter(local == FALSE) |> 
+  filter(local == TRUE) |> 
   count(dead_wl_recorded) |> 
   filter(dead_wl_recorded=="Yes") |> 
   pull(n)
@@ -114,7 +114,7 @@ number_recording_dead<-
 
 number_recording_at_least_one_non_healthly_cat<-
   terrestrial_data |> 
-  filter(local == FALSE) |> 
+  filter(local == TRUE) |> 
   filter(sick_wl_recorded=="Yes" | injured_wl_recorded=="Yes" | dead_wl_recorded=="Yes") |> 
   select(sick_wl_recorded, 
          injured_wl_recorded,

@@ -254,7 +254,7 @@ scale_y_continuous(
   breaks = seq(0, 20, length.out = 5),  # These match your data (0 to 20)
   labels = function(x) sprintf("%.2f", 1 - x / 20)  # Convert to proportion, reversed
 ) +
-  ggtitle("Overall") +
+  ggtitle("Overall encounter frequency in protected area") +
   labs(x = "\n ", y = "Proportion\n")
 
 base

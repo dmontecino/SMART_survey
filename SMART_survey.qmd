@@ -52,11 +52,12 @@ format: pdf
 
 
 
-## Abstract
+# Abstract
+
 The status of health monitoring practices in protected areas (PAs) is largely unknown but potential gaps could undermine biodiversity conservation at these key sites. There is also a lack of baseline information regarding local perceptions of wildlife, human, and livestock health relevance that could affect health monitoring implementation at these sites. To solve these deficiencies, we delivered a web-based survey to data managers of PAs worldwide through a specialized online forum. Specifically, we assessed perceptions regarding wildlife health (WH) and pathogen transmission between wildlife, humans, and livestock; the detection and documentation of unhealthy wildlife (injured, sick, and dead) and domestic animals in PAs; and health data management. Eighty-six out of 128 responses received were analyzed. Respondents considered WH  relevant to the conservation goals of PAs, and >90% of them confirmed that unhealthy wildlife are encountered. However, >50% and >20% of respondents claimed that injured or sick and dead animals were not recorded, respectively. When these animals were documented, the recording methods and information collected differed. Although respondents considered domestic animal presence common and a conservation concern, these animals and their health status were not always recorded. Health data were often stored in a database, but paper forms and spreadsheets were also used. Responses suggested that valuable syndromic WH surveillance data from PAs are not collected or lost due to inadequate management and their value could be limited by a lack of standardized recording protocols. 
 
 
-## Introduction
+# Introduction
 
 Introduction
 Protected areas (PAs) safeguard intact landscapes, conserving diverse wildlife and flora, and preserve essential ecosystem services while supporting local communities. However, they are increasingly threatened by anthropogenic pressures. Human encroachment and land-use change (Laurance et al. 2012; Vicente et al. 2021; Meng et al. 2023) drive resource extraction, pollution, creation of human-wildlife-livestock interfaces, and ecosystem degradation (Plowright et al. 2021; Vicente et al. 2021; Reaser et al. 2023). These processes expose wildlife to physical (e.g., snaring), chemical (e.g., toxins), and biological (e.g., pathogens) hazards and can negatively affect biodiversity conservation and global health (De Vos et al. 2016; Wolf et al. 2019; Machalaba et al. 2020; Hacon et al. 2020; Porco et al. 2023; Groenenberg et al. 2023).
@@ -69,7 +70,7 @@ Despite its importance, WH monitoring systems remain uncommon or deficient (Mach
 
 To address knowledge gaps associated with current WH monitoring practices in PAs and associated perceptions by personnel, we surveyed protected area data managers (PADMs) to assess their perceptions regarding WH and pathogen transmission between wildlife, humans, and livestock; the detection and documentation of injured, sick, or dead wildlife and domestic animals in PAs; and health data management in PAs.
 
-## Methods
+# Methods
 
 We developed a web-based questionnaire aimed at PADMs users of the Spatial Monitoring and Reporting Tool (SMART). SMART is a suite of technology tools an online that support the administration of PAs (Cronin et al. 2021) and is used in more than 1,000 conservation sites worldwide. Thus, its user community offers the opportunity to engage a large number of PADMs. The survey was distributed to the SMART Community Forum users by the SMART Partnership (https://smartconservationtools.org) via email in October 2022. The survey remained open for three months. A reminder was sent three weeks before the closing date.
 
@@ -79,7 +80,7 @@ An introductory web page explained that the survey was voluntary, anonymous, and
 
 Responses by PADMs could represent either a single or multiple PAs. For our analysis, we focused on what we defined as  local” responses, which included one or two PAs. “Non-local responses”, which covered more than two PAs, were analyzed separately. We assumed that PADM s responsible for more than two PAs would conduct occasional site visits and that it was unlikely they would have insights into specific PA realities (e.g., patrol findings, non-recorded data, data management, etc). However, they likely  had an understanding of perceptions at central offices at the decision-making level. In contrast, we assumed “local” PADMs would work on-site and understand PA realities. The two-PA cutoff was chosen to balance maximization  of the local respondent sample size with accurate classification of them. We discarded responses that pertained only to marine PAs (determined based on the World Database on Protected Areas; https://www.protectedplanet.net/en/thematic-areas/wdpa?tab=WDPA) because marine PA management,  species, and patrol logistics are markedly different from those in terrestrial PAs. The descriptive analysis of survey responses was conducted in R 4.3.1. The responses dataset is available from https://figshare.com/s/36513db82ac5dfa8e71d?file=49682265. Descriptive analyses can be found at https://github.com/dmontecino/SMART_survey.
 
-## Results
+# Results
 
 ```{r load packages}
 #| echo: false
@@ -329,7 +330,7 @@ We received `r number_responses_before_unknown_pa_names_are_removed` responses. 
 
 <!-- Human or livestock pathogens can affect wildlife populations inhabiting the protected area I work  -->
 
-### Perceptions of wildlife health importance
+## Perceptions of wildlife health importance
 
 
 ```{r section 1}
@@ -415,7 +416,7 @@ knitr::include_graphics("plots/plot_1.png")
 
 ```
 
-### Encounters with injured, sick, or dead wildlife and documentation
+## Encounters with injured, sick, or dead wildlife and documentation
 
 <!-- Are dead animals encountered in the protected area?  -->
 <!-- Are sick or injured animals encountered in the protected area?  -->
@@ -784,7 +785,7 @@ terrestrial_data |>
 
 All `r dead_found_and_not_documented_wh_important_agree_strongly_agree` local PADMs who indicated encountering dead wildlife “very rarely” or more frequently but answered that these animals were not documented, either agreed or strongly agreed with the importance of WH to achieve conservation goals. Similarly, `r round(number_responses_sick_injured_found_and_injured_not_documented_and_wh_importance_agree_strongly_agree/sick_injured_found_and_injured_not_documented*100,0)`% of local PADMs who indicated encountering injured wildlife "very rarely" or more frequently but answered that these animals were not documented, either agreed or strongly agreed with this statement. For sick wildlife, the percentage was `r round(number_responses_sick_injured_found_and_sick_not_documented_and_wh_importance_agree_strongly_agree/sick_injured_found_and_sick_not_documented*100,0)`%. The corresponding percentages for non-local PADMs were `r round(number_responses_sick_injured_found_and_injured_not_documented_and_wh_importance_agree_strongly_agree_non_local/sick_injured_found_and_injured_not_documented_non_local*100,0)`%, `r round(number_responses_sick_injured_found_and_sick_not_documented_and_wh_importance_agree_strongly_agree_non_local/sick_injured_found_and_sick_not_documented_non_local*100,0)`%, and `r round(dead_found_and_not_documented_wh_important_agree_strongly_agree_non_local/dead_found_and_not_documented_versus_wh_importance_non_local*100,0)`% for injured, sick, and dead wildlife, respectively.
 
-### Documentation methods 
+## Documentation methods 
 
 ```{r methods used to record wildlife}
 #| echo: false
@@ -924,7 +925,7 @@ knitr::include_graphics("plots/plot_3.png")
 
 ```
 
-### Domestic animals in protected areas
+## Domestic animals in protected areas
 
 <!-- Introduced domestic animals (e.g., dogs, cats, cattle, pigs, cats) are a concern for the conservation goals of the protected areas where I work -->
 <!-- 16. Are domestic animals found in the protected area (free-ranging, captive, on a farm)? -->
@@ -1136,14 +1137,12 @@ num_responses_dom_animals_not_in_pa_are_concern_strongly_agree_agree<-
 #| fig-cap: Responses of local protected area data manager to statements that the presence and health of domestic animals in protected areas is a conservation concern (red, no recording of domestic animals; light blue, recording of domestic animals but not their health status; dark blue, recording of domestic animals and their health status). Data are from the group of protected area data managers who reported the presence of domestic animals in the protected area.
 
 # source("R/plot_4.R")
-
-# plot_section_2D
 knitr::include_graphics("plots/plot_4.png")
 
 ```
 
 
-### Health data storage practices
+## Health data storage practices
 
 <!-- Are these data entered and stored in SMART Desktop? -->
 
@@ -1245,7 +1244,7 @@ source("R/smart_status.R")
 
 ```
 
-## Discussion
+# Discussion
 
 Our findings suggest that syndromic WH surveillance data are not collected or lost due to inadequate management. Even when WH data are collected and properly managed, the usefulness for surveillance is likely limited by the diversity of methods employed to record them. By the time of the survey, an initiative to foster the harmonized recording of WH data in PAs (Montecino-Latorre et al. 2024 [preprint]) had been implemented in a couple of sites only in a single country, and it did not affect overall results involving multiple PAs and countries.
 
@@ -1265,12 +1264,12 @@ Leveraging existing PA human resources who can detect morbidity and mortality in
 
 Our recommendation is to include standardized WH monitoring in the remit of rangers following a unified methodology and standards. Currently, there are approximately 280,000 rangers worldwide, and 1.5 million will be needed to protect 30% of the planet by 2030 (Appleton et al. 2022). The present and projected number of rangers reveal their unique potential as a worldwide One Health workforce that could drastically improve WH and One Health surveillance (Machalaba et al. 2021; Hopkins et al. 2024; Montecino-Latorre et al. 2024 [preprint]; World Organisation for Animal Health & International Union Conservation of Nature 2024). However, our findings suggest that several problems must be addressed first.
 
-## Acknowledgments
+# Acknowledgments
 
 Thanks to all responders to our survey and the SMART Partnership We thank responders and the SMART Partnership, especially to M. Barcellos, and J. Palmer, Executive Director of the Wildlife Conservation Society’s Conservation Technology Department. 
 
 
-## References
+# References
 
 Adjemian J et al. 2012. Zoonotic infections among employees from Great Smoky Mountains and Rocky Mountain National Parks, 2008-2009. Vector Borne and Zoonotic Diseases 12:922–931. 
 
@@ -1366,3 +1365,10 @@ World Organisation for Animal Health, International Union Conservation of Nature
 World Organization for Animal Health. 2023. In-country wildlife disease surveillance survey report. Paris, World Organisation for Animal Health. 
 
 Wyatt A, Singh R, Read C. 2023. Assessing the adaptative management process in SMART sites: Lessons learned. Parks 29.
+
+# Appendix
+
+```{r child="Appendix_final.qmd"}
+
+```
+
