@@ -95,13 +95,51 @@ source("R/load_packages.R")
 #| message: false
 #| warning: false
 
-dat <- read.csv("data/survey_responses.csv")
 
-#clean dataset column names
-source("R/clean_names.R")
+# dat <- read.csv("data/survey_responses.csv")
+# 
+# #> clean dataset column names
+# source("R/clean_names.R")
+# 
+# #> clean PA names
+# source("R/clean_pa_names.R")
 
-#clean PA names
-source("R/clean_pa_names.R")
+
+
+#> encrypt the protected area names
+
+library(sodium)
+# #
+# # # Generate a key
+# key <- sodium::keygen(seed = random(32))
+# saveRDS(key, "data/key.RDS")
+# 
+# 
+# # Encrypt and convert to hex
+# encrypted <- purrr::map(dat_modified$protected_area, \(x) 
+#                        data_encrypt(serialize(x, NULL), key))
+# 
+# saveRDS(encrypted, "data/encrypted_pa_names.RDS")
+# 
+# dat_modified$protected_area<-NA
+# 
+# write.csv(dat_modified, "data/survey_responses_encrypted.csv")
+
+
+
+#> open dataset and  decrypt protected area names
+
+key <- readRDS("data/key.RDS")
+encrypted <- readRDS("data/encrypted_pa_names.RDS")
+dat_modified <- read.csv("data/survey_responses_encrypted.csv")
+
+# Decrypt 
+dat_modified$protected_area <- map(encrypted, \(x) 
+                                   unserialize(data_decrypt(x, key)))
+
+
+
+
 ```
 
 

@@ -5,6 +5,9 @@
 SMART_survey_cache
 data/survey_responses.csv
 data/survey_responses.xlsx
+R/clean_pa_names.R
+data/key.RDS
+data/encrypted_pa_names.RDS
 .RDataTmp
 .DS_Store
 IRB_exemption_approval/
