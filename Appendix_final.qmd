@@ -72,7 +72,7 @@ library(grid)
 library(patchwork)
 
 section_1 =
-  terrestrial_data %>% filter(local==F) %>% 
+  terrestrial_data  |>  filter(local==F) |> 
   select(#survey,
     wildlife_health_important,
     hum_liv_path_affect_wildlife,
@@ -81,14 +81,14 @@ section_1 =
 
 
 section_1<-
-  section_1 %>%
-  #dplyr::select(-survey) %>%
-  tidyr::pivot_longer(cols = everything()) %>%
-  dplyr::group_by(name, value, .drop=FALSE) %>%
-  dplyr::count(name,value) %>%
-  dplyr::rename(c("question"="name", "rank"="value", "num_responses"="n")) %>%
-  ungroup() %>%
-  complete(question,rank,fill=list(num_responses=0)) %>%
+  section_1 |>
+  #dplyr::select(-survey) |>
+  tidyr::pivot_longer(cols = everything()) |>
+  dplyr::group_by(name, value, .drop=FALSE) |>
+  dplyr::count(name,value) |>
+  dplyr::rename(c("question"="name", "rank"="value", "num_responses"="n")) |>
+  ungroup() |>
+  complete(question,rank,fill=list(num_responses=0)) |>
   mutate(rank=factor(rank,
                      levels = rev(c("Strongly agree",
                                     "Agree",
@@ -101,7 +101,7 @@ section_1<-
                                     "Neutral",
                                     "Somewhat\ndisagree",
                                     "Disagree",
-                                    "Strongly\ndisagree")))) %>%
+                                    "Strongly\ndisagree")))) |>
   mutate(question=factor(question,
                          levels = rev(c("wildlife_health_important",
                                         "hum_liv_path_affect_wildlife",
@@ -826,7 +826,7 @@ full_table<-
                               ~bar_chart(label = .x, 
                                          fill = .y, 
                                          background = "#d2d2d2")) |> 
-      purrr::map(gt::html)) %>% 
+      purrr::map(gt::html)) |> 
   dplyr::select(
     status,
     how_wl_recorded,
@@ -837,7 +837,7 @@ full_table<-
     condition,
     anomalies,
     photographs,
-    other) %>%
+    other) |>
   gt() |> 
   cols_align(align = "left") |> 
   cols_label(
@@ -953,7 +953,7 @@ section_3 <-
          dom_animals_recorded,
          dom_animal_health_status_recorded)
 
-section_3<-section_3  %>% 
+section_3<-section_3  |> 
   mutate(dom_animals_concern=factor(dom_animals_concern,
                                     levels = rev(c("Strongly agree",
                                                    "Agree",
@@ -1007,7 +1007,7 @@ dom_found[dom_found$dom_animal_health_status_recorded=="Yes",]$dom_animal_health
 dom_found[dom_found$dom_animal_health_status_recorded=="No",]$dom_animal_health_status_recorded<-"Presence only"
 dom_found[dom_found$dom_animal_health_status_recorded=="",]$dom_animal_health_status_recorded<-"No recording"
 
-dom_found<-dom_found  %>% 
+dom_found<-dom_found  |> 
   mutate(dom_animal_health_status_recorded=factor(dom_animal_health_status_recorded,
                                                   levels = c("No recording",
                                                              "Presence only",
@@ -1163,12 +1163,12 @@ knitr::include_graphics("plots/appedix_plot_4.png")
 #| echo: false
 #| message: false
 #| warning: false
-#| eval: false
+#| eval: true
 
 
 dom_animals<-
-  terrestrial_data %>% 
-  # filter(local==T) %>% 
+  terrestrial_data |> 
+  # filter(local==T) |> 
   select(
     dom_animals_concern,
     dom_animals_in_pa,
@@ -1176,15 +1176,15 @@ dom_animals<-
     dom_animal_health_status_recorded,
     wildlife_path_affect_livestock,
     hum_liv_path_affect_wildlife
-    ) #%>% 
+    ) #|> 
 
 dom_animals<-
-  dom_animals %>% 
+  dom_animals |> 
   count(dom_animals_concern,
         hum_liv_path_affect_wildlife,
-        dom_animals_in_pa, name = "value") %>% 
-        #dom_animals_recorded, #name = "value") %>% 
-        #dom_animal_health_status_recorded, name = "value") %>% 
+        dom_animals_in_pa, name = "value") |> 
+        #dom_animals_recorded, #name = "value") |> 
+        #dom_animal_health_status_recorded, name = "value") |> 
   complete(dom_animals_in_pa,
            dom_animals_concern,
            hum_liv_path_affect_wildlife,
@@ -1193,7 +1193,7 @@ dom_animals<-
            fill = list(value = 0))
 
 
-dom_animals <- dom_animals  %>% 
+dom_animals <- dom_animals  |> 
   mutate(dom_animals_concern=factor(dom_animals_concern,
                                     levels = c("Strongly agree",
                                                    "Agree",
@@ -1206,7 +1206,7 @@ dom_animals <- dom_animals  %>%
                                                    "Neutral",
                                                    "Somewhat\ndisagree",
                                                    "Disagree",
-                                                   "Strongly\ndisagree"))) %>% 
+                                                   "Strongly\ndisagree"))) |> 
   mutate(hum_liv_path_affect_wildlife=factor(hum_liv_path_affect_wildlife,
                                     levels = c("Strongly agree",
                                                "Agree",
@@ -1222,10 +1222,10 @@ dom_animals <- dom_animals  %>%
                                                "Strongly\ndisagree"))) 
 
 
-dom_animals <- dom_animals %>% 
-  group_by(dom_animals_in_pa) %>% 
-  arrange(dom_animals_concern) %>% 
-  # print(n = 50) %>% 
+dom_animals <- dom_animals |> 
+  group_by(dom_animals_in_pa) |> 
+  arrange(dom_animals_concern) |> 
+  # print(n = 50) |> 
   group_split()
 
 
@@ -1259,7 +1259,7 @@ ggplot(dom_animals[[1]],
   likert_theme + 
   geom_tile() +
   scale_fill_gradient(low="white", high="blue") +
-  labs(y = "Overall agreement with 'human and\nlivestock pathogens can impact wildlife health'\n", 
+  labs(y = "Overall agreement with 'human and\nlivestock pathogens can affect wildlife populations'\n", 
        x = "\nOverall agreement with 'Introduced domestic\nanimals are a concern'",
        title = "Domestic animals are not found in the protected area\n")
 
@@ -1276,7 +1276,7 @@ ggsave("plots/appedix_plot_5.png",
 
 ```
 
-#### Appendix S6. Distribution of protected area data managers responses (local and non-local) across their overall agreement with the statements "Human and livestock pathogens can impact wildlife health" and "Introduced domestic animals are a concern for the conservation goals of the protected area" for those protected area managers (local and non-local) that reported the absence of domestic animals in the protected area.
+#### Appendix S6. Distribution of protected area data managers responses (local and non-local) across their overall agreement with the statements "Human or livestock pathogens can affect wildlife populations inhabiting the protected area I work in" and "Introduced domestic animals are a concern for the conservation goals of the protected area" for those protected area managers (local and non-local) that reported the absence of domestic animals in the protected area.
 ```{r plot 5, out.width = "500px"}
 #| echo: false
 #| message: false
@@ -1293,7 +1293,7 @@ knitr::include_graphics("plots/appedix_plot_5.png")
 #| echo: false
 #| message: false
 #| warning: false
-#| eval: false
+#| eval: true
 
 new_plot_2<-
   ggplot(dom_animals[[2]], 
@@ -1303,7 +1303,7 @@ new_plot_2<-
   likert_theme + 
   geom_tile() +
   scale_fill_gradient(low="white", high="blue") +
-  labs(y = "Overall agreement with 'human and\nlivestock pathogens can impact wildlife health'\n", 
+  labs(y = "Overall agreement with 'human and\nlivestock pathogens can affect wildlife populations'\n", 
        x = "\nOverall agreement with 'Introduced domestic\nanimals are a concern'",
        title = "Domestic animals are found in the protected area\n")
 
@@ -1322,7 +1322,7 @@ ggsave("plots/appedix_plot_6.png",
 \newpage
 ```
 
-#### Appendix S7. Distribution of protected area data managers responses (local and non-local) across their overall agreement with "Human and livestock pathogens can impact wildlife health" and "Introduced domestic animals are a concern for the conservation goals of the protected area" for those protected area data managers that reported the presence of domestic animals in the protected area.
+#### Appendix S7. Distribution of protected area data managers responses (local and non-local) across their overall agreement with "Human or livestock pathogens can affect wildlife populations inhabiting the protected area I work in" and "Introduced domestic animals are a concern for the conservation goals of the protected area" for those protected area data managers that reported the presence of domestic animals in the protected area.
 
 ```{r plot 6, out.width = "500px"}
 #| echo: false
